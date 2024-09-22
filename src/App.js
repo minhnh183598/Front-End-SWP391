@@ -2,10 +2,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes, privateRoutes } from './routes/routes';
 import { DefaultLayout } from './components/Layout';
 import { Fragment} from 'react';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
+import ScrollToTopBtn from './components/ScrollToTopBtn/ScrollToTopBtn';
 
 function App() {
     return (
         <Router>
+            <ScrollToTop/>
             <div>
                 <Routes>
                     {publicRoutes.map((route, index) => {
@@ -20,6 +23,7 @@ function App() {
                                     // Layout = default layout -> page là children (content)
                                     <Layout>
                                         <Page />
+                                        <ScrollToTopBtn/>
                                     </Layout>
                                 }
                             />

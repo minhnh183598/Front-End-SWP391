@@ -1,0 +1,22 @@
+.content{
+    width: 130px;
+    border-radius: 8px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; 
+    overflow: hidden;
+    margin-right: 5px;
+}
+
+.item{
+    background-color: white;
+    font-weight: 500;
+    border-radius: 0;
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+
+    &:hover{
+        background-color: rgb(233, 233, 233);
+        
+    }
+}
