@@ -1,0 +1,26 @@
+@import 'normalize.css';
+
+
+/* The following line can be included in a src/App.scss */
+
+:root {
+    --primary-color: #7aa366;
+    --background-color-grey: #F9F8F8;
+    --background-hover-outline: #f4fbf3;
+    --background-hover-primary: #61854f;
+    --disable-btn: rgb(196, 196, 196);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
