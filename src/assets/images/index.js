@@ -7,6 +7,7 @@ const IMAGES = {
     event1: require('./event1.png'),
     event2: require('./event2.png'),
     event3: require('./event3.png'),
+    aboutUs: require('./aboutus.webp'),
 };
 
 export default IMAGES;

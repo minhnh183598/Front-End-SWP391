@@ -8,6 +8,7 @@ import Donate from '~/pages/Donate/Donate';
 import Admin from '~/pages/Admin/Admin';
 import Login from '~/pages/Login';
 import Register from '~/pages/Register/Register';
+import Event from '~/pages/Event';
 
 const publicRoutes = [
     {
@@ -29,6 +30,10 @@ const publicRoutes = [
     {
         path: '/blog',
         component: Blog,
+    },
+    {
+        path: '/events',
+        component: Event,
     },
     {
         path: '/contact',

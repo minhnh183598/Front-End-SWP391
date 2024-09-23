@@ -1,6 +1,8 @@
 const ICONS = {
     cartPri: require('./cart_pri.png'),
     heartPri: require('./heart_pri.png'),
+    heartWhi: require('./heart_Whi.png'),
+    heartRed: require('./heart_Red.png'),
     notiPri: require('./noti_pri.png'),
     userPri: require('./user_pri.png'),
     femalePri: require('./female_pri.png'),

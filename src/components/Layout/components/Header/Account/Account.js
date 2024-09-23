@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import Button from '~/components/Button';
 import styles from './Account.module.scss';
 import classNames from 'classnames/bind';
-import Menu from '~/components/Menu';
+import { Dropdown } from 'antd';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -22,19 +23,33 @@ function Account() {
         localStorage.removeItem('user');
     };
 
-    const MENU_ITEMS = [
+    const items = [
         {
-            label: 'Admin',
-            to: '/admin'
+            label: (
+                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/admin">
+                    Admin
+                </Link>
+            ),
         },
         {
-            label: 'My Account',
-            to:'/account'
+            label: (
+                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/account">
+                    My Account
+                </Link>
+            ),
         },
         {
-            label: 'Log Out',
-            to: '/',
-            action: handleLogout
+            label: (
+                <Link
+                    style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }}
+                    to="/"
+                    onClick={() => {
+                        handleLogout();
+                    }}
+                >
+                    Log Out
+                </Link>
+            ),
         },
     ];
 
@@ -46,11 +61,11 @@ function Account() {
                     <HeartIcon />
                     <NotiIcon />
 
-                    <Menu items={MENU_ITEMS}>
+                    <Dropdown menu={{ items }}>
                         <span className={cx('username')}>
                             {user.username} <UserIcon />
                         </span>
-                    </Menu>
+                    </Dropdown>
                 </>
             ) : (
                 <>
@@ -67,18 +82,3 @@ function Account() {
 }
 
 export default Account;
-
-// {/* <Tippy content='Account' placement='bottom'
-//                         interactive
-//                         visible
-//                         placeMent='bottom'
-//                         render={(attrs) => (
-//                             <div className={cx('account-menu')} tabIndex="-1" {...attrs}>
-//                                 <Popper>account</Popper>
-//                             </div>
-//                         )}
-//                     >
-//                         <span className={cx('username')}>
-//                             {user.username} <UserIcon />
-//                         </span>
-//                     </Tippy> */}

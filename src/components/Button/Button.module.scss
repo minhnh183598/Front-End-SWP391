@@ -20,6 +20,7 @@
     background-color: white;
 
     &:hover{
+        border: 1px solid var(--primary-color);
         background-color: var(--background-hover-outline);
         color: var(--primary-color);
     }
