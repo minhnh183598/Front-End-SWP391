@@ -1,0 +1,226 @@
+.banner {
+    height: 600px;
+    position: relative;
+
+    img {
+        width: 100%;
+        height: 600px;
+        object-fit: cover;
+        pointer-events: none;
+    }
+
+    h1 {
+        position: absolute;
+        top: 30%;
+        left: 10%;
+        color: white;
+    }
+}
+
+.content {
+    background-color: var(--background-color-grey);
+    min-height: 1000px;
+    padding: 40px;
+    text-align: center;
+
+    h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: var(--primary-color);
+    }
+
+    .main-content {
+        margin: 0 auto;
+        width: 1200px;
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .short-filter {
+            background-color: transparent;
+            height: 40px;
+            display: block;
+            width: calc(3 * 250px + 2 * 20px);
+            margin-left: auto;
+            margin-right: 95px;
+
+            .short-form {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .sort{
+                    select{
+                        height: 30px;
+                        border-radius: 8px;
+                        margin-left: 10px;
+                        width: 100px;
+                    }
+                }
+
+                .search-name {
+                    display: flex;
+                    align-items: center;
+
+                    input {
+                        height: 30px;
+                        outline: none;
+                        margin: 0 10px;
+                        padding: 0 5px;
+                        border-radius: 8px;
+                        font-size: 14px;
+                        border: 1px solid rgb(0, 0, 0);
+                    }
+                }
+            }
+        }
+
+        .pet-content {
+            display: flex;
+            align-items: flex-start;
+
+            .filter-menu {
+                background-color: white;
+                width: 180px;
+                padding: 10px;
+
+                .form {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    label {
+                        margin-bottom: 3px;
+                    }
+
+                    select {
+                        margin-bottom: 15px;
+                        width: 100%;
+                        border-radius: 8px;
+                        height: 30px;
+                        outline: none;
+                    }
+                }
+            }
+
+            .pet-list {
+                background-color: transparent;
+                display: flex;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 20px;
+                width: calc(3 * 250px + 2 * 20px);
+                margin-left: 40px;
+
+                .pet-box {
+                    background-color: white;
+                    padding: 15px;
+                    margin: 0;
+                    box-sizing: border-box;
+                    width: 250px;
+
+                    display: flex;
+                    flex-direction: column;
+
+                    .image {
+                        background-color: lightgray;
+                        height: 200px;
+                        position: relative;
+
+                        img {
+                            height: 100%;
+                            width: 100%;
+                            object-fit: cover;
+                        }
+
+                        .heart-icon {
+                            width: 25px;
+                            height: 25px;
+                            position: absolute;
+                            bottom: 4px;
+                            left: 4px;
+                        }
+
+                        .pet-state {
+                            position: absolute;
+                            margin: 0;
+                            bottom: 4px;
+                            right: 4px;
+                            color: white;
+                            font-size: 12px;
+                            font-weight: 600;
+                            padding: 3px;
+                            border-radius: 8px;
+                        }
+
+                        .available-state {
+                            background-color: green;
+                        }
+
+                        .unavailable-state {
+                            background-color: #90928f;
+                        }
+                    }
+
+                    .pet-info {
+                        margin-top: 10px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+
+                        .info {
+                            display: flex;
+                            justify-content: space-between;
+
+                            .main-info {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: flex-start;
+
+                                h3 {
+                                    font-size: 18px;
+                                    font-weight: 600;
+                                    margin-bottom: 5px;
+                                }
+
+                                p {
+                                    margin: 0;
+                                    font-size: 14px;
+                                }
+
+                                .attr-icon {
+                                    margin-top: 5px;
+                                    img {
+                                        width: 20px;
+                                        &:nth-child(2) {
+                                            margin: 0 5px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .old {
+                                font-weight: 500;
+                                font-size: 14px;
+                            }
+                        }
+
+                        .pet-btn {
+                            margin-top: 20px;
+                            display: flex;
+
+                            .available-state {
+                                background-color: green;
+                            }
+
+                            .unavailable-state {
+                                background-color: #90928f;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

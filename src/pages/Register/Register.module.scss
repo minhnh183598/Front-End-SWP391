@@ -37,7 +37,6 @@
 
             .form{
                 width: 300px;
-                text-align: center;
 
                 .form-item{
 
@@ -53,10 +52,19 @@
                         }
                     }
                 }
+                .mgbt{
+                    margin-bottom: 35px;
+                }
 
                 .regis-msg{
                     color: var(--primary-color);
                     font-style: italic;
+                    display: block;
+                    text-align: center;
+                    margin-bottom: 5px;
+                }
+                .red-text{
+                    color: red;
                 }
             }
             .submit-btn {

@@ -1,12 +1,13 @@
 import styles from './Login.module.scss';
 import classNames from 'classnames/bind';
-import { Form, Input } from 'antd';
+import { Checkbox, Form, Input } from 'antd';
 import Button from '~/components/Button';
 import IMAGES from '~/assets/images';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginHeader from './LoginHeader';
 import api from '~/config/axios';
+import { Color } from 'antd/es/color-picker';
 
 const cx = classNames.bind(styles);
 
@@ -61,27 +62,37 @@ function Login() {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please enter a username',
+                                        message: <span style={{ fontSize: 12 }}>Please enter a username</span>,
                                     },
+                                    {
+                                        min: 6,
+                                        max: 12,
+                                        message: <span style={{ fontSize: 12 }}>Username is required 6-12 characters</span>,
+                                    }
                                 ]}
                             >
                                 <Input className={cx('input')} type="text" placeholder="Username" />
                             </Form.Item>
 
                             <Form.Item
-                                className={cx('form-item')}
+                                className={cx('form-item', 'mgbt')}
                                 name="password"
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please enter a password',
+                                        message: <span style={{ fontSize: 12 }}>Please enter a password</span>,
                                     },
+                                    {
+                                        min: 6,
+                                        max: 20,
+                                        message: <span style={{ fontSize: 12 }}>Password is required 6-20 characters</span>,
+                                    }
                                 ]}
                             >
                                 <Input className={cx('input')} type="password" placeholder="Password" />
                             </Form.Item>
 
-                            <span className={cx('regis-msg')}>{successMsg}</span>
+                            <span className={cx('regis-msg', successMsg === 'Login failed' ? 'red-text': null)}>{successMsg}</span>
 
                             <Button className={cx('submit-btn')} type="submit">
                                 Login
@@ -95,7 +106,6 @@ function Login() {
 }
 
 export default Login;
-
 
 // try {
 //     const response = await api.post('users', values);
@@ -111,4 +121,25 @@ export default Login;
 // } catch (error) {
 //     console.log(error);
 //     setSuccessMsg('Login failed');
+// }
+
+// const { username, password } = values;
+
+// try {
+//     const response = await api.get('users', values);
+//     const users = response.data;
+
+//     const userAuth = users.find((userAuth) => userAuth.username === username && userAuth.password === password);
+
+//     if (userAuth) {
+//         localStorage.setItem('user', JSON.stringify(userAuth));
+//         setSuccessMsg('Login successfully!');
+//         setTimeout(() => {
+//             navigate('/');
+//         }, 2000);
+//     } else {
+//         setSuccessMsg('Login failed');
+//     }
+// } catch (error) {
+//     console.log(error);
 // }

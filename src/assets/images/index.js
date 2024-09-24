@@ -1,6 +1,7 @@
 const IMAGES = {
     logo: require('./logo.png'),
     banner: require('./banner.jpeg'),
+    findPetBanner: require('./findPetBanner.jpeg'),
     about: require('./about.jpg'),
     pets: require('./pets.jpg'),
     donate: require('./donate.jpg'),

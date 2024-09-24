@@ -16,6 +16,8 @@ function Home() {
         <div className={cx('wrapper')}>
             <div className={cx('banner')}>
                 <img src={IMAGES.banner} alt="banner" />
+
+                <h1>Connecting People & Pets</h1>
             </div>
 
             {/*About Us Content */}
@@ -97,7 +99,6 @@ function Home() {
                 </Row>
             </div>
 
-            <DonateBanner />
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import axios from "axios";
 const baseUrl = "http://localhost:8080/api/";
+//const baseUrl = "https://66ee62143ed5bb4d0bf0cdd9.mockapi.io/api/";
 
 const config = {
   baseUrl: baseUrl,

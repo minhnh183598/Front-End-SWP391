@@ -1,93 +1,28 @@
-import { Col, Container, Row } from 'react-bootstrap';
+
 import styles from './FeaturePet.module.scss';
 import classNames from 'classnames/bind';
-import IMAGES from '~/assets/images';
 import Button from '~/components/Button';
 import { useEffect, useState } from 'react';
-import PetImages from '~/assets/images/petImg';
 import ICONS from '~/assets/icons';
 
 const cx = classNames.bind(styles);
 
-function FeaturePet() {
+function FeaturePet({data}) {
     const [index, setIndex] = useState(0);
     const [lovePet, setLovePet] = useState([]);
 
-    const petData = [
-        {
-            id: 1,
-            img: PetImages.cat1,
-            state: 'Available',
-            name: 'Miu',
-            location: 'Ho Chi Minh City',
-            old: '2 years old',
-            vaccine: true,
-            sex: 'male',
-        },
-        {
-            id: 2,
-            img: PetImages.dog3,
-            state: 'Available',
-            name: 'Donny',
-            location: 'Ho Chi Minh City',
-            old: '4 years old',
-            vaccine: false,
-            sex: 'female',
-        },
-        {
-            id: 3,
-            img: PetImages.dog2,
-            state: 'Available',
-            name: 'KiKi',
-            location: 'Ho Chi Minh City',
-            old: '1 years old',
-            vaccine: true,
-            sex: 'female',
-        },
-        {
-            id: 4,
-            img: PetImages.dog,
-            state: 'Available',
-            name: 'Sen',
-            location: 'Ho Chi Minh City',
-            old: '2 years old',
-            vaccine: true,
-            sex: 'male',
-        },
-        {
-            id: 5,
-            img: PetImages.cat3,
-            state: 'Available',
-            name: 'Kitty',
-            location: 'Ho Chi Minh City',
-            old: '2 years old',
-            vaccine: false,
-            sex: 'male',
-        },
-        {
-            id: 6,
-            img: PetImages.cat2,
-            state: 'Available',
-            name: 'Bunny',
-            location: 'Ho Chi Minh City',
-            old: '2 years old',
-            vaccine: true,
-            sex: 'male',
-        },
-    ];
-
     const nextSlide = () => {
-        setIndex((prevIndex) => (prevIndex + 1) % petData.length);
+        setIndex((prevIndex) => (prevIndex + 1) % data.length);
     };
 
     const preSlide = () => {
-        setIndex((prevIndex) => (prevIndex - 1 + petData.length) % petData.length);
+        setIndex((prevIndex) => (prevIndex - 1 + data.length) % data.length);
     };
 
     const petsToShow = [
-        petData[index % petData.length],
-        petData[(index + 1) % petData.length],
-        petData[(index + 2) % petData.length],
+        data[index % data.length],
+        data[(index + 1) % data.length],
+        data[(index + 2) % data.length],
     ];
 
     useEffect(() => {
@@ -158,7 +93,10 @@ function FeaturePet() {
                                             primary
                                             small
                                             to="/"
-                                            className={cx('btn', pet.state === 'Adopted' ? 'unavailable-state' : null)}
+                                            className={cx(
+                                                'btn',
+                                                pet.state === 'Adopted'? 'unavailable-state': null,
+                                            )}
                                         >
                                             Adopt
                                         </Button>
@@ -171,10 +109,6 @@ function FeaturePet() {
                         &gt;
                     </button>
                 </div>
-
-                <Button primary xlarge to="/find-a-pet" className={cx('link-btn')}>
-                    View All Adoptable Pets
-                </Button>
             </div>
         </>
     );

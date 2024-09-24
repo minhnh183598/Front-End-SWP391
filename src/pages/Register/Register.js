@@ -8,7 +8,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import LoginHeader from './LoginHeader';
 import api from '~/config/axios';
 
-
 const cx = classNames.bind(styles);
 
 function Register() {
@@ -21,9 +20,6 @@ function Register() {
         // send request -> server
         try {
             const response = await api.post('users', values);
-            const { token } = response.data;
-            localStorage.setItem('token', token);
-            localStorage.setItem('user', JSON.stringify(response.data));
             setSuccessMsg('Register successfully!');
             setTimeout(() => {
                 navigate('/login');
@@ -43,7 +39,7 @@ function Register() {
 
                 <div className={cx('login-form')}>
                     <div className={cx('wrapper')}>
-                    <LoginHeader/>
+                        <LoginHeader />
 
                         <Link to="/">
                             <img src={IMAGES.logo} className={cx('logo')} />
@@ -56,7 +52,12 @@ function Register() {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please enter a username',
+                                        message: <span style={{ fontSize: 12 }}>Please enter a username</span>,
+                                    },
+                                    {
+                                        min: 6,
+                                        max: 20,
+                                        message: <span style={{ fontSize: 12 }}>User is required 6-12 characters</span>,
                                     },
                                 ]}
                             >
@@ -69,7 +70,14 @@ function Register() {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please enter a password',
+                                        message: <span style={{ fontSize: 12 }}>Please enter a password</span>,
+                                    },
+                                    {
+                                        min: 6,
+                                        max: 20,
+                                        message: (
+                                            <span style={{ fontSize: 12 }}>Password is required 6-20 characters</span>
+                                        ),
                                     },
                                 ]}
                             >
@@ -79,30 +87,47 @@ function Register() {
                             <Form.Item
                                 className={cx('form-item')}
                                 name="confirmPassword"
+                                dependencies={['password']}
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please enter a confirm password',
+                                        message: <span style={{ fontSize: 12 }}>Please enter a confirm password</span>,
                                     },
+                                    ({ getFieldValue }) => ({
+                                        validator(_, value) {
+                                            if (!value || getFieldValue('password') === value) {
+                                                return Promise.resolve();
+                                            }
+                                            return Promise.reject(
+                                                <span style={{ fontSize: 12 }}>The new password do not match!</span>,
+                                            );
+                                        },
+                                    }),
                                 ]}
                             >
                                 <Input className={cx('input')} type="password" placeholder="Confirm password" />
                             </Form.Item>
 
                             <Form.Item
-                                className={cx('form-item')}
+                                className={cx('form-item', 'mgbt')}
                                 name="email"
                                 rules={[
                                     {
+                                        type: 'email',
+                                        message: <span>The input is not valid E-mail!</span>
+                                    },
+                                    {
                                         required: true,
-                                        message: 'Please enter a email',
+                                        message: <span style={{ fontSize: 12 }}>Please enter an email</span>,
                                     },
                                 ]}
                             >
                                 <Input className={cx('input')} type="text" placeholder="Email" />
                             </Form.Item>
 
-                            <span className={cx('regis-msg')}>{successMsg}</span>
+                            <span className={cx('regis-msg', successMsg === 'Failed to register' ? 'red-text' : null)}>
+                                {successMsg}
+                            </span>
 
                             <Button className={cx('submit-btn')} type="submit">
                                 Register
@@ -117,7 +142,8 @@ function Register() {
 
 export default Register;
 
-{/* <div className={cx('login-choice')}>
+{
+    /* <div className={cx('login-choice')}>
                             <button
                                 className={cx(action === 'Login' ? 'active' : '')}
                                 onClick={() => {
@@ -135,4 +161,5 @@ export default Register;
                             >
                                 Register
                             </button>
-                        </div> */}
+                        </div> */
+}
