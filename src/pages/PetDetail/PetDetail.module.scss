@@ -1,0 +1,122 @@
+.wrapper {
+    min-height: 600px;
+    background: linear-gradient(180deg, #7aa366 300px, white 5%, white 53%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 40px;
+    h1{
+        top: 50px;
+        left: 11%;
+        color: white;
+        position: absolute;
+    }
+
+    .content {
+        width: 1200px;
+        display: flex;
+        border-radius: 20px;
+        align-items: stretch;
+        margin-top: 100px;
+
+        .pet-image {
+            background-color: rgb(255, 255, 255);
+            width: 40%;
+            padding: 10px;
+            margin-right: 20px;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 10px;
+            align-items: stretch;
+
+            .image {
+                width: 100%;
+                background-color: white;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                    border-radius: 20px;
+                }
+
+                .sub-img{
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 10px;
+                    
+                    img{
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 10px;
+                        border: 1px solid transparent;
+                    }
+                }
+            }
+            
+        }
+
+        .pet-info {
+            background-color: white;
+            width: 60%;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .detail-info {
+                position: relative;
+                width: 50%;
+                .detail-item {
+                    display: flex;
+                    
+                    div{
+                        margin-right: 25px;
+                        p{
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+
+                .adopt{
+                    display: flex;
+                    margin-top: 10px;
+
+                    Button:first-child{
+                        margin-right: 10px;
+                    }
+                }
+
+                .edit{
+                    margin-top: 20px;
+                    display: flex;
+
+                    Button:first-child{
+                        margin-right: 10px;
+                    }
+                }
+
+                &::after{
+                    content: "";
+                    background-color: rgb(199, 199, 199);
+                    width: 1px;
+                    height: 85%;
+                    position: absolute;
+                    right: 30px;
+                    top: 13%;
+                }
+            }
+            .story {
+                width: 50%;
+                .description {
+                    text-align: justify;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+}

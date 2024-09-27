@@ -4,39 +4,46 @@ import { Checkbox, Form, Input } from 'antd';
 import Button from '~/components/Button';
 import IMAGES from '~/assets/images';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LoginHeader from './LoginHeader';
 import api from '~/config/axios';
 import { Color } from 'antd/es/color-picker';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
 function Login() {
+    const location = useLocation();
     const navigate = useNavigate();
+    const from = location.state?.from || '/';
+    //console.log('Is coming from:', from); 
+
     const [successMsg, setSuccessMsg] = useState('');
 
     const handleLogin = async (values) => {
         console.log(values);
-        //send request -> server
-        const { username, password } = values;
-
         try {
-            const response = await api.get('users', values);
-            const users = response.data;
+            // login
+            const response = await api.post(`auth/login`, values);
+            console.log(response.data);
+            const token = response.data.result.token;
+            localStorage.setItem('token', token);
 
-            const userAuth = users.find((userAuth) => userAuth.username === username && userAuth.password === password);
+            // take info by token
+            const userInfo = await api.get('users/info');
 
-            if (userAuth) {
-                localStorage.setItem('user', JSON.stringify(userAuth));
-                setSuccessMsg('Login successfully!');
-                setTimeout(() => {
-                    navigate('/');
-                }, 2000);
-            } else {
-                setSuccessMsg('Login failed');
-            }
+            localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result))
+            const userRoles = userInfo.data.result.roles.map(role => role.name);
+            localStorage.setItem('userRoles', JSON.stringify(userRoles));
+
+            setSuccessMsg('Login successfully!');
+            setTimeout(() => {
+                navigate(from);
+            }, 2000);
+
         } catch (error) {
             console.log(error);
+            setSuccessMsg('Login failed');
         }
     };
 
@@ -67,8 +74,10 @@ function Login() {
                                     {
                                         min: 6,
                                         max: 12,
-                                        message: <span style={{ fontSize: 12 }}>Username is required 6-12 characters</span>,
-                                    }
+                                        message: (
+                                            <span style={{ fontSize: 12 }}>Username is required 6-12 characters</span>
+                                        ),
+                                    },
                                 ]}
                             >
                                 <Input className={cx('input')} type="text" placeholder="Username" />
@@ -85,14 +94,18 @@ function Login() {
                                     {
                                         min: 6,
                                         max: 20,
-                                        message: <span style={{ fontSize: 12 }}>Password is required 6-20 characters</span>,
-                                    }
+                                        message: (
+                                            <span style={{ fontSize: 12 }}>Password is required 6-20 characters</span>
+                                        ),
+                                    },
                                 ]}
                             >
                                 <Input className={cx('input')} type="password" placeholder="Password" />
                             </Form.Item>
 
-                            <span className={cx('regis-msg', successMsg === 'Login failed' ? 'red-text': null)}>{successMsg}</span>
+                            <span className={cx('regis-msg', successMsg === 'Login successfully!' ? null : 'red-text')}>
+                                {successMsg}
+                            </span>
 
                             <Button className={cx('submit-btn')} type="submit">
                                 Login

@@ -1,7 +1,7 @@
 import Home from '~/pages/Home/Home';
 import About from '~/pages/About/About';
 import FindPet from '~/pages/FindPet';
-import Rehome from '~/pages/Rehome/Rehome';
+import Adopt from '~/pages/Adopt/Adopt';
 import Blog from '~/pages/Blog/Blog';
 import Contact from '~/pages/Contact/Contact';
 import Donate from '~/pages/Donate/Donate';
@@ -9,6 +9,8 @@ import Admin from '~/pages/Admin/Admin';
 import Login from '~/pages/Login';
 import Register from '~/pages/Register/Register';
 import Event from '~/pages/Event';
+import PetDetail from '~/pages/PetDetail';
+import { Children } from 'react';
 
 const publicRoutes = [
     {
@@ -24,8 +26,12 @@ const publicRoutes = [
         component: FindPet,
     },
     {
-        path: '/rehome-pet',
-        component: Rehome,
+        path: '/pet-detail/:id',
+        component: PetDetail,
+    },
+    {
+        path: '/adopt-pet',
+        component: Adopt,
     },
     {
         path: '/blog',

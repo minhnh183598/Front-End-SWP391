@@ -4,26 +4,31 @@ import { Form, Input } from 'antd';
 import Button from '~/components/Button';
 import IMAGES from '~/assets/images';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LoginHeader from './LoginHeader';
 import api from '~/config/axios';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
 function Register() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from || '/';
+
     const [successMsg, setSuccessMsg] = useState('');
 
     const handleRegister = async (values) => {
         console.log(values);
 
-        // send request -> server
         try {
-            const response = await api.post('users', values);
+            await api.post(`users`, values);
+            
             setSuccessMsg('Register successfully!');
             setTimeout(() => {
-                navigate('/login');
+                navigate('/login', { state: { from } });
             }, 2000);
+
         } catch (error) {
             console.log(error);
             setSuccessMsg('Failed to register');
@@ -114,7 +119,7 @@ function Register() {
                                 rules={[
                                     {
                                         type: 'email',
-                                        message: <span>The input is not valid E-mail!</span>
+                                        message: <span>The input is not valid E-mail!</span>,
                                     },
                                     {
                                         required: true,

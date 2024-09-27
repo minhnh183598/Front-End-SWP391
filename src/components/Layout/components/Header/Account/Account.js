@@ -4,15 +4,16 @@ import Button from '~/components/Button';
 import styles from './Account.module.scss';
 import classNames from 'classnames/bind';
 import { Dropdown } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function Account() {
     const [user, setUser] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const loggedUser = JSON.parse(localStorage.getItem('user'));
+        const loggedUser = JSON.parse(localStorage.getItem('userInfo'));
         if (loggedUser) {
             setUser(loggedUser);
         }
@@ -20,7 +21,15 @@ function Account() {
 
     const handleLogout = () => {
         setUser(null);
-        localStorage.removeItem('user');
+        localStorage.removeItem('userInfo');
+    };
+
+    const hanndleToLogin = () => {
+        navigate('/login', { state: { from: window.location.pathname } });
+    };
+
+    const handleToRegister = () => {
+        navigate('/register', { state: { from: window.location.pathname } });
     };
 
     const items = [
@@ -42,7 +51,7 @@ function Account() {
             label: (
                 <Link
                     style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }}
-                    to="/"
+                    to='/'
                     onClick={() => {
                         handleLogout();
                     }}
@@ -69,10 +78,10 @@ function Account() {
                 </>
             ) : (
                 <>
-                    <Button mgRight10 medium primary to="/login">
+                    <Button mgRight10 medium primary onClick={hanndleToLogin}>
                         Log In
                     </Button>
-                    <Button medium outline to="/register">
+                    <Button medium outline onClick={handleToRegister}>
                         Register
                     </Button>{' '}
                 </>

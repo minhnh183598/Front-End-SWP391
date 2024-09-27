@@ -5,9 +5,12 @@ import Button from '~/components/Button';
 import { Row, Col, Container } from 'react-bootstrap';
 import RegisBanner from '~/components/Layout/components/RegisterBanner';
 import ICONS from '~/assets/icons';
-import FeaturePet from './HomeComponents/FeaturePet';
+//import FeaturePet from './HomeComponents/FeaturePet';
 import Events from './HomeComponents/Events';
 import DonateBanner from '~/components/Layout/components/DonateBanner';
+import { useEffect, useState } from 'react';
+import FeaturePet from '../FindPet/components/FeaturePet';
+import { PetProvider } from '~/components/Context/PetContext/PetContext';
 
 const cx = classNames.bind(styles);
 
@@ -38,7 +41,11 @@ function Home() {
             </div>
 
             {/*Feature Pet Content */}
-            <FeaturePet />
+            {/* <FeaturePet homepage={true}>
+                    <Button primary xlarge to="/find-a-pet" className={cx('link-btn')}>
+                        View All Adoptable Pets
+                    </Button>
+                </FeaturePet> */}
 
             <RegisBanner />
 
@@ -98,7 +105,6 @@ function Home() {
                     </Col>
                 </Row>
             </div>
-
         </div>
     );
 }

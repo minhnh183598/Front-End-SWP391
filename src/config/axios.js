@@ -1,9 +1,8 @@
-import axios from "axios";
-const baseUrl = "http://localhost:8080/api/";
-//const baseUrl = "https://66ee62143ed5bb4d0bf0cdd9.mockapi.io/api/";
+import axios from 'axios';
+const baseUrl = 'http://localhost:8080/api/v1/';
 
 const config = {
-  baseUrl: baseUrl,
+    baseUrl: baseUrl,
 };
 
 const api = axios.create(config);
@@ -12,9 +11,12 @@ api.defaults.baseURL = baseUrl;
 
 // handle before call API
 const handleBefore = (config) => {
-  const token = localStorage.getItem("token")?.replaceAll('"', "");
-  config.headers["Authorization"] = `Bearer ${token}`;
-  return config;
+    config.headers['Authorization'] = 'No Auth';
+    const token = localStorage.getItem('token')?.replaceAll('"', '');
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
 };
 
 api.interceptors.request.use(handleBefore, null);

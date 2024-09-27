@@ -10,14 +10,14 @@ function NavBar() {
     const items = [
         {
             label: (
-                <Link style={{textDecoration: 'none', fontSize: 16, fontWeight: 500}} to="/blog">
+                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/blog">
                     Blog
                 </Link>
             ),
         },
         {
             label: (
-                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500}} to="/events">
+                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/events">
                     Events
                 </Link>
             ),
@@ -31,8 +31,8 @@ function NavBar() {
             <NavLink to="/find-a-pet" className={cx('nav-item')}>
                 Find a Pet
             </NavLink>
-            <NavLink to="/rehome-pet" className={cx('nav-item')}>
-                Rehome Pet
+            <NavLink to="/adopt-pet" className={cx('nav-item')}>
+                Adopt
             </NavLink>
             <NavLink to="/contact" className={cx('nav-item')}>
                 Contact

@@ -2,6 +2,7 @@ const IMAGES = {
     logo: require('./logo.png'),
     banner: require('./banner.jpeg'),
     findPetBanner: require('./findPetBanner.jpeg'),
+    blog: require('./blog.png'),
     about: require('./about.jpg'),
     pets: require('./pets.jpg'),
     donate: require('./donate.jpg'),
