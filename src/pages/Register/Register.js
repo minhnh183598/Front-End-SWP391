@@ -22,13 +22,16 @@ function Register() {
         console.log(values);
 
         try {
-            await api.post(`users`, values);
-            
+            await api.post(`users`, values, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
+
             setSuccessMsg('Register successfully!');
             setTimeout(() => {
                 navigate('/login', { state: { from } });
             }, 2000);
-
         } catch (error) {
             console.log(error);
             setSuccessMsg('Failed to register');
@@ -61,7 +64,7 @@ function Register() {
                                     },
                                     {
                                         min: 6,
-                                        max: 20,
+                                        max: 12,
                                         message: <span style={{ fontSize: 12 }}>User is required 6-12 characters</span>,
                                     },
                                 ]}

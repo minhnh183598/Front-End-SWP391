@@ -16,7 +16,11 @@ function FeaturePet({ children, homepage }) {
 
     const handlePetData = async () => {
         try {
-            const response = await api.get('pets/sort6Pets');
+            const response = await api.get('pets/sort6Pets', {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
             setPetList(response.data);
             localStorage.setItem('pet', JSON.stringify(response.data));
         } catch (error) {

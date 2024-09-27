@@ -41,11 +41,11 @@ function Home() {
             </div>
 
             {/*Feature Pet Content */}
-            {/* <FeaturePet homepage={true}>
-                    <Button primary xlarge to="/find-a-pet" className={cx('link-btn')}>
-                        View All Adoptable Pets
-                    </Button>
-                </FeaturePet> */}
+            <FeaturePet homepage={true}>
+                <Button primary xlarge to="/find-a-pet" className={cx('link-btn')}>
+                    View All Adoptable Pets
+                </Button>
+            </FeaturePet>
 
             <RegisBanner />
 

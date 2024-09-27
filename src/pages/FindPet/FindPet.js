@@ -32,7 +32,11 @@ function FindPet() {
         const query = `petType=${type}&petAge=${age}&petGender=${gender}&petColor=${color}&petVaccin=${vaccine}&petStatus=${state}&keyword=${searchName}&sort=${sort}`;
 
         try {
-            const response = await api.get(`pets/SearchPets?${query}`);
+            const response = await api.get(`pets/SearchPets?${query}`, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
             const dataLength = response.data.length;
             setDataLength(dataLength);
             setPetList(response.data);

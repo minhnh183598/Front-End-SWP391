@@ -108,7 +108,7 @@ function Events() {
                     </button>
                 </div>
 
-                <Button primary xlarge to="/blog" className={cx('link-btn')}>
+                <Button primary xlarge to="/events" className={cx('link-btn')}>
                     View More Event
                 </Button>
             </div>

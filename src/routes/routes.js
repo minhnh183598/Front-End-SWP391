@@ -10,7 +10,7 @@ import Login from '~/pages/Login';
 import Register from '~/pages/Register/Register';
 import Event from '~/pages/Event';
 import PetDetail from '~/pages/PetDetail';
-import { Children } from 'react';
+import Volunteer from '~/pages/Volunteer';
 
 const publicRoutes = [
     {
@@ -40,6 +40,10 @@ const publicRoutes = [
     {
         path: '/events',
         component: Event,
+    },
+    {
+        path: '/volunteer',
+        component: Volunteer,
     },
     {
         path: '/contact',

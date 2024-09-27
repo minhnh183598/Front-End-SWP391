@@ -16,7 +16,6 @@ function Login() {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from || '/';
-    //console.log('Is coming from:', from); 
 
     const [successMsg, setSuccessMsg] = useState('');
 
@@ -24,23 +23,30 @@ function Login() {
         console.log(values);
         try {
             // login
-            const response = await api.post(`auth/login`, values);
+            const response = await api.post(`auth/login`, values, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
             console.log(response.data);
             const token = response.data.result.token;
             localStorage.setItem('token', token);
 
             // take info by token
-            const userInfo = await api.get('users/info');
+            const userInfo = await api.get('users/info', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
-            localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result))
-            const userRoles = userInfo.data.result.roles.map(role => role.name);
+            localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
+            const userRoles = userInfo.data.result.roles.map((role) => role.name);
             localStorage.setItem('userRoles', JSON.stringify(userRoles));
 
             setSuccessMsg('Login successfully!');
             setTimeout(() => {
                 navigate(from);
             }, 2000);
-
         } catch (error) {
             console.log(error);
             setSuccessMsg('Login failed');
