@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import ICONS from '~/assets/icons';
 import PetImages from '~/assets/images/petImg';
 import api from '~/config/axios';
-import { usePetContext } from '~/components/Context/PetContext/PetContext';
 
 const cx = classNames.bind(styles);
 
@@ -91,7 +90,7 @@ function FeaturePet({ children, homepage }) {
                                         <div className={cx('main-info')}>
                                             <h3>{pet.petName}</h3>
                                             <p>
-                                                {pet.petSize} - {pet.petWeight}
+                                                {pet.petSize} cm - {pet.petWeight} kg
                                             </p>
                                             <div className={cx('attr-icon')}>
                                                 {pet.petVaccin === 'Yes' && <img src={ICONS.vaccineBl} alt="" />}

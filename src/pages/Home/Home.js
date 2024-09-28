@@ -5,12 +5,8 @@ import Button from '~/components/Button';
 import { Row, Col, Container } from 'react-bootstrap';
 import RegisBanner from '~/components/Layout/components/RegisterBanner';
 import ICONS from '~/assets/icons';
-//import FeaturePet from './HomeComponents/FeaturePet';
 import Events from './HomeComponents/Events';
-import DonateBanner from '~/components/Layout/components/DonateBanner';
-import { useEffect, useState } from 'react';
 import FeaturePet from '../FindPet/components/FeaturePet';
-import { PetProvider } from '~/components/Context/PetContext/PetContext';
 
 const cx = classNames.bind(styles);
 

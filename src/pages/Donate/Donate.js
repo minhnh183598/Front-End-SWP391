@@ -63,23 +63,23 @@ export const Donate = () => {
 
     // Function của các thể loại nút
     const handleSubmit = () => {
-        if (selectedAmount > 0 || customAmount >= 10000) {
-            //Trường hợp nhập tiền và có method thì cho qua step 2
-            if (paymentMethod === 'qr' || paymentMethod === 'visa') {
-                setStep(step + 1);
-                //Trường hợp nhập tiền nhưng ko có method thì alert
-            } else {
-                alert(`You need to choose payment method`);
-            }
-        } else {
-            //Trường hợp ko nhập tiền nhưng có method
-            if (paymentMethod === 'qr' || paymentMethod === 'visa') {
-                alert(`You need to choose payment amount`);
-                //Trường hợp ko nhập tiền và ko nhập method
-            } else {
-                alert(`You need to choose payment amount and method`);
-            }
-        }
+        // if (selectedAmount > 0 || customAmount >= 10000) {
+        //     //Trường hợp nhập tiền và có method thì cho qua step 2
+        //     if (paymentMethod === 'qr' || paymentMethod === 'visa') {
+        //         setStep(step + 1);
+        //         //Trường hợp nhập tiền nhưng ko có method thì alert
+        //     } else {
+        //         alert(`You need to choose payment method`);
+        //     }
+        // } else {
+        //     //Trường hợp ko nhập tiền nhưng có method
+        //     if (paymentMethod === 'qr' || paymentMethod === 'visa') {
+        //         alert(`You need to choose payment amount`);
+        //         //Trường hợp ko nhập tiền và ko nhập method
+        //     } else {
+        //         alert(`You need to choose payment amount and method`);
+        //     }
+        // }
     };
 
     const goBack = () => {

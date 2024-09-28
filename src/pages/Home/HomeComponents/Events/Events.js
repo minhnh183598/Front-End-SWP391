@@ -97,7 +97,7 @@ function Events() {
                                     </div>
 
                                     <Button small outline className={cx('event-btn')} to="/blog">
-                                        Find Out
+                                        View
                                     </Button>
                                 </div>
                             );

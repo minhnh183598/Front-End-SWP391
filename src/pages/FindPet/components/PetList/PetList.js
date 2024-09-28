@@ -5,7 +5,6 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import ICONS from '~/assets/icons';
 import { Pagination } from 'antd';
-import { usePetContext } from '~/components/Context/PetContext/PetContext';
 
 const cx = classNames.bind(styles);
 

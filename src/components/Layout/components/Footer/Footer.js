@@ -41,7 +41,7 @@ function Footer() {
                 </div>
             </div>
             <div className={cx('four')}>
-                <h3>Follow Us</h3>
+                <h3>Location</h3>
             </div>
         </div>
     );

@@ -1,10 +1,13 @@
 .wrapper{
-    background-color: white;
+    background-color: white     ;
     padding: 20px 100px;
     display: flex;
     justify-content: space-between;
     align-items: start;
     
+    p{          
+        color: black;
+    }
     a{
         margin-top: 10px;
         display: block;
@@ -16,6 +19,7 @@
     h3{
         font-size: 18px;
         font-weight: 600;
+        color: black;
     }
     
     .first{
