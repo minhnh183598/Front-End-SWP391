@@ -20,6 +20,8 @@ function Button({
     mgRight10,
     children,
     onClick,
+    donateButton,
+    adoptIntroduceButton,
 }) {
     let Comp = 'button';
     // props để cho các prop như: to,href,function
@@ -48,6 +50,8 @@ function Button({
         leftIcon,
         rightIcon,
         mgRight10,
+        donateButton,
+        adoptIntroduceButton,
         [className]: className, // có thể thêm css riêng
     });
     return (
