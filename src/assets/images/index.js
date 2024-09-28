@@ -14,6 +14,19 @@ const IMAGES = {
     event2: require('./event2.png'),
     event3: require('./event3.png'),
     aboutUs: require('./aboutus.webp'),
+    aboutUs1: require('./aboutUs1.png'),
+    aboutUs2: require('./aboutUs2.png'),
+    aboutUs3: require('./aboutUs3.png'),
+    aboutUs4: require('./aboutUs4.png'),
+    donatepic: require('./donate.png'),
+    donateVisa: require('./donateVisa.png'),
+    donateQR: require('./donateQR.png'),
+    adopt_introduce_1: require('./adopt_introduce_1.png'),
+    adopt_introduce_2: require('./adopt_introduce_2.png'),
+    adopt_introduce_3: require('./adopt_introduce_3.png'),
+    adopt_introduce_4: require('./adopt_introduce_4.png'),
+    adopt_introduce_5: require('./adopt_introduce_5.png'),
+    adopt_introduce_6: require('./adopt_introduce_6.png'),
 };
 
 export default IMAGES;

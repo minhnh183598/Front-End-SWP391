@@ -1,4 +1,4 @@
-.wrapper{
+.wrapper {
     padding: 5px;
     padding-top: 4px;
     font-size: 16px;
@@ -14,29 +14,29 @@
     justify-content: center;
 }
 
-.outline{
+.outline {
     border: 1px solid var(--primary-color);
     color: var(--primary-color);
     background-color: white;
 
-    &:hover{
+    &:hover {
         border: 1px solid var(--primary-color);
         background-color: var(--background-hover-outline);
         color: var(--primary-color);
     }
 }
 
-.primary{
+.primary {
     background-color: var(--primary-color);
     color: white;
 
-    &:hover{
+    &:hover {
         background-color: var(--background-hover-primary);
         color: white;
     }
 }
 
-.disable{
+.disable {
     background-color: var(--disable-btn);
     cursor: default;
     pointer-events: none;
@@ -44,23 +44,43 @@
     border: 1px solid transparent;
 }
 
-.small{
+.small {
     width: 70px;
     font-size: 14px;
 }
 
-.medium{
+.medium {
     width: 90px;
 }
 
-.large{
+.large {
     width: 130px;
 }
 
-.xlarge{
+.xlarge {
     width: 230px;
 }
 
-.mgRight10{
+.mgRight10 {
     margin-right: 10px;
+}
+
+.donateButton {
+    background-color: white;
+    border: 2px;
+    border-color: #79a266;
+
+    &:hover {
+        background-color: var(--background-hover-outline);
+        color: var(--primary-color);
+    }
+}
+
+.adoptIntroduceButton {
+    background-color: #7aa366;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 35px;
+    width: 430px;
+    height: 80px;
 }
