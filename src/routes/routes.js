@@ -11,6 +11,8 @@ import Register from '~/pages/Register/Register';
 import Event from '~/pages/Event';
 import PetDetail from '~/pages/PetDetail';
 import Volunteer from '~/pages/Volunteer';
+import BlogDetail from '~/pages/BlogDetail';
+import EventDetail from '~/pages/EventDetail';
 
 const publicRoutes = [
     {
@@ -38,8 +40,16 @@ const publicRoutes = [
         component: Blog,
     },
     {
+        path: '/blog-detail',
+        component: BlogDetail,
+    },
+    {
         path: '/events',
         component: Event,
+    },
+    {
+        path: '/event-detail',
+        component: EventDetail,
     },
     {
         path: '/volunteer',

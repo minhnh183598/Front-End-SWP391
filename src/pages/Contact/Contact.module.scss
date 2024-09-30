@@ -1,22 +1,23 @@
 .wrapper {
     background-color: white;
     .banner {
-        height: 400px;
+        height: 600px;
         position: relative;
 
         img {
             height: 100%;
             width: 100%;
             object-fit: cover;
-            object-position: center;
+            // object-position: center;
             pointer-events: none;
         }
 
         h1 {
             position: absolute;
-            top: 20%;
-            left: 10%;
+            top: 30%;
+            left: 5%;
             color: black;
+            font-size: 80px;
         }
     }
 

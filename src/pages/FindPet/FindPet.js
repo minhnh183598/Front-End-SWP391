@@ -88,10 +88,10 @@ function FindPet() {
             <div className={cx('banner')}>
                 <img src={IMAGES.findPetBanner} alt="banner" />
 
-                <h1>Adopt a pet, save a life!</h1>
+                {/* <h1>Adopt a pet, save a life!</h1> */}
             </div>
 
-            <FeaturePet />
+            {/* <FeaturePet /> */}
 
             <div className={cx('content')}>
                 <h1>Find Your Pets</h1>

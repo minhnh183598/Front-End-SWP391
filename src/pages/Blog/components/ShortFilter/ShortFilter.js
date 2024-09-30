@@ -18,6 +18,14 @@ function ShortFilter({ filter, handleFinish, handleFilterChange, searchName, han
                     <option value="sortByName">Name</option>
                 </select>
             </div>
+            <div className={cx('type')}>
+                <label htmlFor="type">Type</label>
+                <select id="type" name="type" value={filter.type} onChange={handleFilterChange}>
+                    <option value="all">All</option>
+                    <option value="food">Foods</option>
+                    <option value="health">Health</option>
+                </select>
+            </div>
             <div className={cx('search-name')}>
                 <label htmlFor="searchName">Search by title</label>
                 <div style={{ position: 'relative' }}>

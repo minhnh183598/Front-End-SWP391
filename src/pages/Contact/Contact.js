@@ -11,11 +11,11 @@ function Contact() {
         <div className={cx('wrapper')}>
             <div className={cx('banner')}>
                 <img src={IMAGES.contact} alt="banner" />
-                <h1>Connect with Us Today!</h1>
+                {/* <h1>Connect with Us Today!</h1> */}
             </div>
             <div className={cx('content')}>
                 <h1>Contact Us</h1>
-                <p>Any question or remarks? Just write us a request!</p>
+                <p>Any question or remarks? Just write us a message!</p>
 
                 <div className={cx('main-content')}>
                     <div className={cx('contact-info')}>
@@ -40,7 +40,7 @@ function Contact() {
                         </div>
                     </div>
                     <div className={cx('request-form')}>
-                        <h2>Get a Request Now</h2>
+                        <h2>Send a Message Now</h2>
                         <form>
                             <div className={cx('form-list')}>
                                 <div className={cx('form-item')}>

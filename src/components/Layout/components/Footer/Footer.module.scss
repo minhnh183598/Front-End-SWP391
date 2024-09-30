@@ -1,6 +1,6 @@
 .wrapper{
     background-color: white     ;
-    padding: 20px 100px;
+    padding: 40px 100px;
     display: flex;
     justify-content: space-between;
     align-items: start;
@@ -49,6 +49,14 @@
             .para1{
                 margin-right: 40px;
             }
+        }
+    }
+
+    .four{
+        p{
+            width: 350px;
+            margin: 0;
+            font-size: 12px;
         }
     }
 }

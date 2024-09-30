@@ -12,7 +12,7 @@ api.defaults.baseURL = baseUrl;
 // handle before call API
 const handleBefore = (config) => {
     //config.headers['Authorization'] = 'No Auth';
-    if (config.url.includes('users')) {
+    if (config.url.includes('auth/register')) {
         return config;
     } else if (config.url.includes('auth/login')) {
         return config;

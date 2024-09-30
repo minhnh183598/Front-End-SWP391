@@ -16,7 +16,7 @@ function Home() {
             <div className={cx('banner')}>
                 <img src={IMAGES.banner} alt="banner" />
 
-                <h1>Connecting People & Pets</h1>
+                {/* <h1>Connecting People & Pets</h1> */}
             </div>
 
             {/*About Us Content */}
@@ -100,6 +100,12 @@ function Home() {
                         </div>
                     </Col>
                 </Row>
+
+                <div className={cx('contact-btn')}>
+                    <Button primary large to="/contact">
+                        Send Message
+                    </Button>
+                </div>
             </div>
         </div>
     );

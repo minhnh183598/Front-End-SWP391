@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LoginHeader from './LoginHeader';
 import api from '~/config/axios';
-import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
@@ -17,26 +16,46 @@ function Register() {
     const from = location.state?.from || '/';
 
     const [successMsg, setSuccessMsg] = useState('');
+    const [toVerify, setToVerify] = useState(false);
 
     const handleRegister = async (values) => {
         console.log(values);
 
         try {
-            await api.post(`users`, values, {
+            await api.post(`auth/register`, values, {
                 headers: {
                     Authorization: 'No Auth',
                 },
             });
 
             setSuccessMsg('Register successfully!');
-            setTimeout(() => {
-                navigate('/login', { state: { from } });
-            }, 2000);
+            setToVerify(true);
+
         } catch (error) {
             console.log(error);
             setSuccessMsg('Failed to register');
         }
     };
+
+    const handleVerify = async (values) => {
+        console.log(values);
+
+        try {
+            const response = await api.post(`auth/verify`, values, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            })
+
+            console.log(response.data);
+            
+            setTimeout(() => {
+                navigate('/login', { state: { from } });
+            }, 2000);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -53,7 +72,7 @@ function Register() {
                             <img src={IMAGES.logo} className={cx('logo')} />
                         </Link>
 
-                        <Form className={cx('form')} onFinish={handleRegister}>
+                        {/* <Form className={cx('form')} onFinish={handleRegister}>
                             <Form.Item
                                 className={cx('form-item')}
                                 name="username"
@@ -140,6 +159,30 @@ function Register() {
                             <Button className={cx('submit-btn')} type="submit">
                                 Register
                             </Button>
+                        </Form> */}
+
+                        <Form className={cx('form-otp')} onFinish={handleVerify}>
+                            <p>Check your email to get an OTP</p>
+                            <Form.Item
+                                className={cx('form-item')}
+                                name="OTP"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: <span style={{ fontSize: 12 }}>Please enter an OTP</span>,
+                                    },
+                                ]}
+                            >
+                                <Input className={cx('input')} type="text" placeholder="OTP"/>
+                            </Form.Item>
+                            <div className={cx('wrap-btn')}>
+                                <Button mgRight10 medium primary className={cx('opt-btn')} type="submit">
+                                    Verify
+                                </Button>
+                                <Button medium outline className={cx('otp-btn')} onClick={() => setToVerify(false)}>
+                                    Register
+                                </Button>
+                            </div>
                         </Form>
                     </div>
                 </div>

@@ -42,6 +42,7 @@ function EventList({ data, dataLength }) {
 
                             <div className={cx('event-btn')}>
                                 <Button
+                                    to='/event-detail'
                                     mgRight10
                                     outline
                                     small

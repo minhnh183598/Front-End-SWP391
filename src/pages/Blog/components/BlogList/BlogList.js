@@ -32,7 +32,7 @@ function BlogList({data, dataLength}) {
                         </div>
 
                         <div className={cx('blog-btn')}>
-                            <Button mgRight10 outline small className={cx('btn')} onClick={() => console.log(blog.id)}>
+                            <Button to='/blog-detail' mgRight10 outline small className={cx('btn')} onClick={() => console.log(blog.id)}>
                                 View
                             </Button>
                         </div>
