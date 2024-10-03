@@ -67,6 +67,25 @@ function ForgotPassword({ setOpenPopup }) {
         }
     };
 
+    const handleResend = async () => {
+        const userId = localStorage.getItem('userId');
+        const dataSend = {
+            userId: userId,
+        };
+
+        try {
+            const response = await api.post(`auth/resendVerifyEmail`, dataSend, {
+                headers: {
+                    Authorization: `No Auth`,
+                },
+            });
+
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleClosePopup = () => {
         setOpenPopup(false);
     };
@@ -112,6 +131,7 @@ function ForgotPassword({ setOpenPopup }) {
                         >
                             <Input className={cx('input')} type="text" placeholder="OTP" />
                         </Form.Item>
+                        <p className={cx('send-again')} onClick={handleResend}>Send again</p>
                         <div className={cx('wrap-btn')}>
                             <Button small primary className={cx('opt-btn')} type="submit">
                                 Send

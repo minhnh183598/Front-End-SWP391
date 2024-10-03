@@ -28,6 +28,10 @@ const handleBefore = (config) => {
         return config;
     } else if (config.url.includes('auth/resetPassword')) {
         return config;
+    } else if (config.url.includes('auth/resendVerifyEmail')){
+        return config;
+    } else if (config.url.includes('auth/outbound/authentication')){
+        return config;
     }
     const token = localStorage.getItem('token')?.replaceAll('"', '');
     //if (token) {

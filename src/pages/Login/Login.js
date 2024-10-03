@@ -21,11 +21,11 @@ function Login() {
 
     const [successMsg, setSuccessMsg] = useState('');
     const [openPopup, setOpenPopup] = useState(false);
-    const [popupStep, setPopupStep] = useState(1);
     const [googlePW, setGooglePW] = useState(false);
 
     const handleLogin = async (values) => {
         console.log(values);
+
         try {
             // login
             const response = await api.post(`auth/login`, values, {
@@ -52,11 +52,61 @@ function Login() {
             setTimeout(() => {
                 navigate(from);
             }, 2000);
+
         } catch (error) {
             console.log(error);
             setSuccessMsg('Login failed');
         }
     };
+
+    const handleLoginGoogle = () => {
+        const callbackUrl = OAuthConfig.redirectUri;
+        const authUrl = OAuthConfig.authUri;
+        const googleClientId = OAuthConfig.clientId;
+
+        const targetUrl = `${authUrl}?redirect_uri=${encodeURIComponent(
+            callbackUrl,
+        )}&response_type=code&client_id=${googleClientId}&scope=openid%20email%20profile`;
+
+        console.log(targetUrl);
+
+        window.location.href = targetUrl;
+        setGooglePW(true);
+    };
+
+    useEffect(() => {
+        const authCodeRegex = /code=([^&]+)/;
+        const isMatch = window.location.href.match(authCodeRegex);
+
+        if (isMatch) {
+            const authCode = isMatch[1];
+            const fetchAuthData = async () => {
+                try {
+                    const response = await api.post(`auth/outbound/authentication?code=${authCode}`, {
+                        headers: {
+                            Authorization: 'No Auth',
+                        },
+                    });
+
+                    console.log(response.data)
+                    if (response.data && response.data.result) {
+                        const token = response.data.result.token;
+                        localStorage.setItem('token', token);
+                        localStorage.setItem('userInfo', JSON.stringify(response.data.result.userInfo));
+                        setSuccessMsg('Login successfully!');
+                        navigate('/');
+                    } else {
+                        throw new Error('No token in response');
+                    }
+                } catch (error) {
+                    console.log(error);
+                    setSuccessMsg(error.response?.data?.message || 'Login failed');
+                }
+            };
+            console.log('cho minh');
+            fetchAuthData();
+        }
+    }, []);
 
     return (
         <>
@@ -138,7 +188,7 @@ function Login() {
                                     <Button medium mgRight10 primary type="submit">
                                         Login
                                     </Button>
-                                    <Button outline medium onClick={handleLogin}>
+                                    <Button outline medium onClick={handleLoginGoogle}>
                                         Google
                                     </Button>
                                 </div>
@@ -187,11 +237,7 @@ function Login() {
                     </div>
                 </div>
 
-                {openPopup ? (
-                    <ForgotPassword setOpenPopup={setOpenPopup}/>
-                ) : 
-                null}
-                
+                {openPopup ? <ForgotPassword setOpenPopup={setOpenPopup} /> : null}
             </div>
         </>
     );

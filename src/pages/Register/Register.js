@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import { Form, Input } from 'antd';
 import Button from '~/components/Button';
 import IMAGES from '~/assets/images';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LoginHeader from './LoginHeader';
 import api from '~/config/axios';
@@ -19,8 +19,17 @@ function Register() {
     const [toVerify, setToVerify] = useState(false);
     const [verifyMsg, setVerifyMsg] = useState('Check your email to get an OTP');
 
+    useEffect(() => {
+        const isVerifying = localStorage.getItem('isVerifying');
+        setToVerify(isVerifying === 'true');
+    }, []);
+
     const handleRegister = async (values) => {
         console.log(values);
+
+        if (toVerify) {
+            return;
+        }
 
         try {
             const response = await api.post(`auth/register`, values, {
@@ -31,6 +40,7 @@ function Register() {
             console.log(response.data.result.id);
             localStorage.setItem('userId', response.data.result.id);
             setSuccessMsg('Register successfully!');
+            localStorage.setItem('isVerifying', 'true');
             setTimeout(() => setToVerify(true), 1000);
         } catch (error) {
             console.log(error);
@@ -57,6 +67,7 @@ function Register() {
             setVerifyMsg('Verify email successfully!');
 
             setTimeout(() => {
+                localStorage.removeItem('isVerifying'); 
                 navigate('/login', { state: { from } });
             }, 2000);
         } catch (error) {
@@ -65,27 +76,21 @@ function Register() {
         }
     };
 
-    const handleResend = async (values) => {
-        console.log(values);
+    const handleResend = async () => {
         const userId = localStorage.getItem('userId');
         const dataSend = {
             userId: userId,
-            ...values,
         };
+
         try {
             const response = await api.post(`auth/resendVerifyEmail`, dataSend, {
                 headers: {
-                    Authorization: 'No Auth',
+                    Authorization: `No Auth`,
                 },
             });
 
             console.log(response.data);
-
             setVerifyMsg('Verify email successfully!');
-
-            setTimeout(() => {
-                navigate('/login', { state: { from } });
-            }, 2000);
         } catch (error) {
             setVerifyMsg('Invalid OTP');
             console.log(error);
