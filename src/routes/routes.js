@@ -13,6 +13,7 @@ import PetDetail from '~/pages/PetDetail';
 import Volunteer from '~/pages/Volunteer';
 import BlogDetail from '~/pages/BlogDetail';
 import EventDetail from '~/pages/EventDetail';
+import Account from '~/pages/Account';
 
 const publicRoutes = [
     {
@@ -72,6 +73,10 @@ const publicRoutes = [
         path: '/register',
         component: Register,
         layout: null,
+    },
+    {
+        path: '/account',
+        component: Account,
     },
 ];
 

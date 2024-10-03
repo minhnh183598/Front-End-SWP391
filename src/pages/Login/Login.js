@@ -3,12 +3,14 @@ import classNames from 'classnames/bind';
 import { Checkbox, Form, Input } from 'antd';
 import Button from '~/components/Button';
 import IMAGES from '~/assets/images';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LoginHeader from './LoginHeader';
 import api from '~/config/axios';
 import { Color } from 'antd/es/color-picker';
 import axios from 'axios';
+import { OAuthConfig } from './components/GGconfig/configuration';
+import ForgotPassword from './components/ForgotPassword';
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +20,9 @@ function Login() {
     const from = location.state?.from || '/';
 
     const [successMsg, setSuccessMsg] = useState('');
+    const [openPopup, setOpenPopup] = useState(false);
+    const [popupStep, setPopupStep] = useState(1);
+    const [googlePW, setGooglePW] = useState(false);
 
     const handleLogin = async (values) => {
         console.log(values);
@@ -68,97 +73,128 @@ function Login() {
                             <img src={IMAGES.logo} className={cx('logo')} />
                         </Link>
 
-                        <Form className={cx('form')} onFinish={handleLogin}>
-                            <Form.Item
-                                className={cx('form-item')}
-                                name="username"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: <span style={{ fontSize: 12 }}>Please enter a username</span>,
-                                    },
-                                    {
-                                        min: 6,
-                                        max: 12,
-                                        message: (
-                                            <span style={{ fontSize: 12 }}>Username is required 6-12 characters</span>
-                                        ),
-                                    },
-                                ]}
-                            >
-                                <Input className={cx('input')} type="text" placeholder="Username" />
-                            </Form.Item>
+                        {!googlePW ? (
+                            <Form className={cx('form')} onFinish={handleLogin}>
+                                <Form.Item
+                                    className={cx('form-item')}
+                                    name="username"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: <span style={{ fontSize: 12 }}>Please enter a username</span>,
+                                        },
+                                        {
+                                            min: 6,
+                                            max: 12,
+                                            message: (
+                                                <span style={{ fontSize: 12 }}>
+                                                    Username is required 6-12 characters
+                                                </span>
+                                            ),
+                                        },
+                                    ]}
+                                >
+                                    <Input className={cx('input')} type="text" placeholder="Username" />
+                                </Form.Item>
 
-                            <Form.Item
-                                className={cx('form-item', 'mgbt')}
-                                name="password"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: <span style={{ fontSize: 12 }}>Please enter a password</span>,
-                                    },
-                                    {
-                                        min: 6,
-                                        max: 20,
-                                        message: (
-                                            <span style={{ fontSize: 12 }}>Password is required 6-20 characters</span>
-                                        ),
-                                    },
-                                ]}
-                            >
-                                <Input className={cx('input')} type="password" placeholder="Password" />
-                            </Form.Item>
+                                <Form.Item
+                                    className={cx('form-item', 'mgbt')}
+                                    name="password"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: <span style={{ fontSize: 12 }}>Please enter a password</span>,
+                                        },
+                                        {
+                                            min: 6,
+                                            max: 20,
+                                            message: (
+                                                <span style={{ fontSize: 12 }}>
+                                                    Password is required 6-20 characters
+                                                </span>
+                                            ),
+                                        },
+                                    ]}
+                                >
+                                    <Input className={cx('input')} type="password" placeholder="Password" />
+                                </Form.Item>
 
-                            <span className={cx('regis-msg', successMsg === 'Login successfully!' ? null : 'red-text')}>
-                                {successMsg}
-                            </span>
+                                <div className={cx('small-function')}>
+                                    <p>
+                                        Forgot password? <a onClick={() => setOpenPopup(true)}>Click here</a>
+                                    </p>
+                                </div>
 
-                            <Button className={cx('submit-btn')} type="submit">
-                                Login
-                            </Button>
-                        </Form>
+                                <span
+                                    className={cx(
+                                        'regis-msg',
+                                        successMsg === 'Login successfully!' ? null : 'red-text',
+                                    )}
+                                >
+                                    {successMsg}
+                                </span>
+
+                                <div className={cx('submit-btn')}>
+                                    <Button medium mgRight10 primary type="submit">
+                                        Login
+                                    </Button>
+                                    <Button outline medium onClick={handleLogin}>
+                                        Google
+                                    </Button>
+                                </div>
+                            </Form>
+                        ) : (
+                            <Form className={cx('form')} onFinish={handleLogin}>
+                                <p className={cx('ggpw-msg')}>Please create your password</p>
+                                <Form.Item
+                                    className={cx('form-item', 'mgbt')}
+                                    name="password"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: <span style={{ fontSize: 12 }}>Please enter a password</span>,
+                                        },
+                                        {
+                                            min: 6,
+                                            max: 20,
+                                            message: (
+                                                <span style={{ fontSize: 12 }}>
+                                                    Password is required 6-20 characters
+                                                </span>
+                                            ),
+                                        },
+                                    ]}
+                                >
+                                    <Input className={cx('input')} type="password" placeholder="Password" />
+                                </Form.Item>
+
+                                <span
+                                    className={cx(
+                                        'regis-msg',
+                                        successMsg === 'Login successfully!' ? null : 'red-text',
+                                    )}
+                                >
+                                    {successMsg}
+                                </span>
+
+                                <div className={cx('submit-btn')}>
+                                    <Button primary medium type="submit">
+                                        Submit
+                                    </Button>
+                                </div>
+                            </Form>
+                        )}
                     </div>
                 </div>
+
+                {openPopup ? (
+                    <ForgotPassword setOpenPopup={setOpenPopup}/>
+                ) : 
+                null}
+                
             </div>
         </>
     );
 }
 
 export default Login;
-
-// try {
-//     const response = await api.post('users', values);
-//     console.log(response.data.token);
-//     const { token } = response.data;
-//     localStorage.setItem('token', token);
-//     localStorage.setItem('user', JSON.stringify(response.data));
-//     console.log(localStorage.getItem('user'));
-//     setSuccessMsg('Login successfully!');
-//     setTimeout(() => {
-//         navigate('/');
-//     }, 2000);
-// } catch (error) {
-//     console.log(error);
-//     setSuccessMsg('Login failed');
-// }
-
-// const { username, password } = values;
-
-// try {
-//     const response = await api.get('users', values);
-//     const users = response.data;
-
-//     const userAuth = users.find((userAuth) => userAuth.username === username && userAuth.password === password);
-
-//     if (userAuth) {
-//         localStorage.setItem('user', JSON.stringify(userAuth));
-//         setSuccessMsg('Login successfully!');
-//         setTimeout(() => {
-//             navigate('/');
-//         }, 2000);
-//     } else {
-//         setSuccessMsg('Login failed');
-//     }
-// } catch (error) {
-//     console.log(error);
-// }

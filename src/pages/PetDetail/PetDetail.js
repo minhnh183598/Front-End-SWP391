@@ -123,11 +123,6 @@ function PetDetail() {
         setIndex((prevIndex) => (prevIndex - 1 + petImg.length) % petImg.length);
     };
 
-    // const petsToShow =
-    //     petImg.length > 0
-    //         ? [petImg[index], petImg[(index + 1) % petImg.length], petImg[(index + 2) % petImg.length], petImg[(index + 3) % petImg.length], petImg[(index + 4) % petImg.length]]
-    //         : [];
-
     const petsToShow =
         petImg.length > 0
             ? petImg.slice(index, index + 5).concat(petImg.slice(0, Math.max(0, index + 5 - petImg.length)))

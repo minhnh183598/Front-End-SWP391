@@ -49,7 +49,7 @@ function Home() {
             <Events />
 
             {/*Contact */}
-            <div className={cx('contact')}>
+            {/* <div className={cx('contact')}>
                 <h1 className={cx('main-heading')}>Contact Us</h1>
                 <p className={cx('main-slogan')}>Let us assist you - contact us today!</p>
 
@@ -106,6 +106,12 @@ function Home() {
                         Send Message
                     </Button>
                 </div>
+            </div> */}
+
+            {/*Application */}
+            <div className={cx('application')}>
+                <h1 className={cx('main-heading')}>Adopt Application</h1>
+                <p className={cx('main-slogan')}>Ready to adopt?</p>
             </div>
         </div>
     );

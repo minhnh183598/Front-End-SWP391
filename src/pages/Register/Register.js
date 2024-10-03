@@ -17,45 +17,80 @@ function Register() {
 
     const [successMsg, setSuccessMsg] = useState('');
     const [toVerify, setToVerify] = useState(false);
+    const [verifyMsg, setVerifyMsg] = useState('Check your email to get an OTP');
 
     const handleRegister = async (values) => {
         console.log(values);
 
         try {
-            await api.post(`auth/register`, values, {
+            const response = await api.post(`auth/register`, values, {
                 headers: {
                     Authorization: 'No Auth',
                 },
             });
-
+            console.log(response.data.result.id);
+            localStorage.setItem('userId', response.data.result.id);
             setSuccessMsg('Register successfully!');
-            setToVerify(true);
-
+            setTimeout(() => setToVerify(true), 1000);
         } catch (error) {
             console.log(error);
-            setSuccessMsg('Failed to register');
+            setSuccessMsg(error.response.data.message);
         }
     };
 
     const handleVerify = async (values) => {
         console.log(values);
-
+        const userId = localStorage.getItem('userId');
+        const dataSend = {
+            userId: userId,
+            ...values,
+        };
         try {
-            const response = await api.post(`auth/verify`, values, {
+            const response = await api.post(`auth/verifyEmail`, dataSend, {
                 headers: {
                     Authorization: 'No Auth',
                 },
-            })
+            });
 
             console.log(response.data);
-            
+
+            setVerifyMsg('Verify email successfully!');
+
             setTimeout(() => {
                 navigate('/login', { state: { from } });
             }, 2000);
         } catch (error) {
+            setVerifyMsg('Invalid OTP');
             console.log(error);
         }
-    }
+    };
+
+    const handleResend = async (values) => {
+        console.log(values);
+        const userId = localStorage.getItem('userId');
+        const dataSend = {
+            userId: userId,
+            ...values,
+        };
+        try {
+            const response = await api.post(`auth/resendVerifyEmail`, dataSend, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
+
+            console.log(response.data);
+
+            setVerifyMsg('Verify email successfully!');
+
+            setTimeout(() => {
+                navigate('/login', { state: { from } });
+            }, 2000);
+        } catch (error) {
+            setVerifyMsg('Invalid OTP');
+            console.log(error);
+        }
+    };
 
     return (
         <>
@@ -72,118 +107,136 @@ function Register() {
                             <img src={IMAGES.logo} className={cx('logo')} />
                         </Link>
 
-                        {/* <Form className={cx('form')} onFinish={handleRegister}>
-                            <Form.Item
-                                className={cx('form-item')}
-                                name="username"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: <span style={{ fontSize: 12 }}>Please enter a username</span>,
-                                    },
-                                    {
-                                        min: 6,
-                                        max: 12,
-                                        message: <span style={{ fontSize: 12 }}>User is required 6-12 characters</span>,
-                                    },
-                                ]}
-                            >
-                                <Input className={cx('input')} type="text" placeholder="Username" />
-                            </Form.Item>
-
-                            <Form.Item
-                                className={cx('form-item')}
-                                name="password"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: <span style={{ fontSize: 12 }}>Please enter a password</span>,
-                                    },
-                                    {
-                                        min: 6,
-                                        max: 20,
-                                        message: (
-                                            <span style={{ fontSize: 12 }}>Password is required 6-20 characters</span>
-                                        ),
-                                    },
-                                ]}
-                            >
-                                <Input className={cx('input')} type="password" placeholder="Password" />
-                            </Form.Item>
-
-                            <Form.Item
-                                className={cx('form-item')}
-                                name="confirmPassword"
-                                dependencies={['password']}
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: <span style={{ fontSize: 12 }}>Please enter a confirm password</span>,
-                                    },
-                                    ({ getFieldValue }) => ({
-                                        validator(_, value) {
-                                            if (!value || getFieldValue('password') === value) {
-                                                return Promise.resolve();
-                                            }
-                                            return Promise.reject(
-                                                <span style={{ fontSize: 12 }}>The new password do not match!</span>,
-                                            );
+                        {!toVerify ? (
+                            <Form className={cx('form')} onFinish={handleRegister}>
+                                <Form.Item
+                                    className={cx('form-item')}
+                                    name="username"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: <span style={{ fontSize: 12 }}>Please enter a username</span>,
                                         },
-                                    }),
-                                ]}
-                            >
-                                <Input className={cx('input')} type="password" placeholder="Confirm password" />
-                            </Form.Item>
+                                        {
+                                            min: 6,
+                                            max: 12,
+                                            message: (
+                                                <span style={{ fontSize: 12 }}>User is required 6-12 characters</span>
+                                            ),
+                                        },
+                                    ]}
+                                >
+                                    <Input className={cx('input')} type="text" placeholder="Username" />
+                                </Form.Item>
 
-                            <Form.Item
-                                className={cx('form-item', 'mgbt')}
-                                name="email"
-                                rules={[
-                                    {
-                                        type: 'email',
-                                        message: <span>The input is not valid E-mail!</span>,
-                                    },
-                                    {
-                                        required: true,
-                                        message: <span style={{ fontSize: 12 }}>Please enter an email</span>,
-                                    },
-                                ]}
-                            >
-                                <Input className={cx('input')} type="text" placeholder="Email" />
-                            </Form.Item>
+                                <Form.Item
+                                    className={cx('form-item')}
+                                    name="password"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: <span style={{ fontSize: 12 }}>Please enter a password</span>,
+                                        },
+                                        {
+                                            min: 6,
+                                            max: 20,
+                                            message: (
+                                                <span style={{ fontSize: 12 }}>
+                                                    Password is required 6-20 characters
+                                                </span>
+                                            ),
+                                        },
+                                    ]}
+                                >
+                                    <Input className={cx('input')} type="password" placeholder="Password" />
+                                </Form.Item>
 
-                            <span className={cx('regis-msg', successMsg === 'Failed to register' ? 'red-text' : null)}>
-                                {successMsg}
-                            </span>
+                                <Form.Item
+                                    className={cx('form-item')}
+                                    name="confirmPassword"
+                                    dependencies={['password']}
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: (
+                                                <span style={{ fontSize: 12 }}>Please enter a confirm password</span>
+                                            ),
+                                        },
+                                        ({ getFieldValue }) => ({
+                                            validator(_, value) {
+                                                if (!value || getFieldValue('password') === value) {
+                                                    return Promise.resolve();
+                                                }
+                                                return Promise.reject(
+                                                    <span style={{ fontSize: 12 }}>
+                                                        The new password do not match!
+                                                    </span>,
+                                                );
+                                            },
+                                        }),
+                                    ]}
+                                >
+                                    <Input className={cx('input')} type="password" placeholder="Confirm password" />
+                                </Form.Item>
 
-                            <Button className={cx('submit-btn')} type="submit">
-                                Register
-                            </Button>
-                        </Form> */}
+                                <Form.Item
+                                    className={cx('form-item', 'mgbt')}
+                                    name="email"
+                                    rules={[
+                                        {
+                                            type: 'email',
+                                            message: <span>The input is not valid E-mail!</span>,
+                                        },
+                                        {
+                                            required: true,
+                                            message: <span style={{ fontSize: 12 }}>Please enter an email</span>,
+                                        },
+                                    ]}
+                                >
+                                    <Input className={cx('input')} type="text" placeholder="Email" />
+                                </Form.Item>
 
-                        <Form className={cx('form-otp')} onFinish={handleVerify}>
-                            <p>Check your email to get an OTP</p>
-                            <Form.Item
-                                className={cx('form-item')}
-                                name="OTP"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: <span style={{ fontSize: 12 }}>Please enter an OTP</span>,
-                                    },
-                                ]}
-                            >
-                                <Input className={cx('input')} type="text" placeholder="OTP"/>
-                            </Form.Item>
-                            <div className={cx('wrap-btn')}>
-                                <Button mgRight10 medium primary className={cx('opt-btn')} type="submit">
-                                    Verify
-                                </Button>
-                                <Button medium outline className={cx('otp-btn')} onClick={() => setToVerify(false)}>
+                                <span
+                                    className={cx(
+                                        'regis-msg',
+                                        successMsg === 'Register successfully!' ? null : 'red-text',
+                                    )}
+                                >
+                                    {successMsg}
+                                </span>
+
+                                <Button className={cx('submit-btn')} type="submit">
                                     Register
                                 </Button>
-                            </div>
-                        </Form>
+                            </Form>
+                        ) : (
+                            <Form className={cx('form-otp')} onFinish={handleVerify}>
+                                <p>Check your email to get an OTP</p>
+                                <Form.Item
+                                    className={cx('form-item')}
+                                    name="otp"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: <span style={{ fontSize: 12 }}>Please enter an OTP</span>,
+                                        },
+                                    ]}
+                                >
+                                    <Input className={cx('input')} type="text" placeholder="OTP" />
+                                </Form.Item>
+                                <p className={cx('send-again')} onClick={handleResend}>
+                                    Send again
+                                </p>
+                                <div className={cx('wrap-btn')}>
+                                    <Button mgRight10 medium primary className={cx('opt-btn')} type="submit">
+                                        Verify
+                                    </Button>
+                                    <Button medium outline className={cx('otp-btn')} onClick={() => setToVerify(false)}>
+                                        Register
+                                    </Button>
+                                </div>
+                            </Form>
+                        )}
                     </div>
                 </div>
             </div>
@@ -192,25 +245,3 @@ function Register() {
 }
 
 export default Register;
-
-{
-    /* <div className={cx('login-choice')}>
-                            <button
-                                className={cx(action === 'Login' ? 'active' : '')}
-                                onClick={() => {
-                                    setAction('Login');
-                                    navigate('/login');
-                                }}
-                            >
-                                Login
-                            </button>
-                            <button
-                                className={cx(action === 'Register' ? 'active' : '')}
-                                onClick={() => {
-                                    setAction('Register');
-                                }}
-                            >
-                                Register
-                            </button>
-                        </div> */
-}

@@ -28,6 +28,7 @@ const IMAGES = {
     adopt_introduce_5: require('./adopt_introduce_5.png'),
     adopt_introduce_6: require('./adopt_introduce_6.png'),
     contact: require('./contactBanner.jpeg'),
+    usetPet: require('./userwithpet.jpg'),
 };
 
 export default IMAGES;

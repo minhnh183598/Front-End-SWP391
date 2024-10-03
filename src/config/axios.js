@@ -22,6 +22,12 @@ const handleBefore = (config) => {
         return config;
     } else if (config.url.includes('pets/')) {
         return config;
+    } else if (config.url.includes('auth/verifyEmail')) {
+        return config;
+    } else if (config.url.includes('auth/forgotPassword')) {
+        return config;
+    } else if (config.url.includes('auth/resetPassword')) {
+        return config;
     }
     const token = localStorage.getItem('token')?.replaceAll('"', '');
     //if (token) {

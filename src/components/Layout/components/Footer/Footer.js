@@ -16,17 +16,12 @@ function Footer() {
                 </div>
                 <p>Copyright &copy;2020</p>
             </div>
-            <div className={cx('second')}>
-                <h3>Contact Us</h3>
-                <a href="/contact">Phone</a>
-                <a href="/contact">Email</a>
-                <a href="/contact">Address</a>
-            </div>
             <div className={cx('third')}>
                 <h3>Quick Links</h3>
                 <div className={cx('link')}>
                     <div className={cx('para1')}>
                         <a href="/">Home</a>
+            
                         <a href="/about-us">About Us</a>
                         <a href="/find-a-pet">Our Pets</a>
                         <a href="/contact">Contact</a>
@@ -39,6 +34,11 @@ function Footer() {
                         <a href="/donate">Donate</a>
                     </div>
                 </div>
+            </div>
+            <div className={cx('second')}>
+                <h3>Legal</h3>
+                <a href="/contact">Terms of Use</a>
+                <a href="/contact">Privacy Policy</a>
             </div>
             <div className={cx('four')}>
                 <div className={cx('gmap')}>

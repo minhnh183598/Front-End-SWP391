@@ -29,6 +29,22 @@ function App() {
                             />
                         );
                     })}
+                    {privateRoutes.map((route, index) => {
+                        const Layout = route.layout === null ? Fragment : DefaultLayout;
+                        const Page = route.component;
+                        return (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={
+                                    <Layout>
+                                        <Page />
+                                        <ScrollToTopBtn/>
+                                    </Layout>
+                                }
+                            />
+                        );
+                    })}
                 </Routes>
             </div>
         </Router>
