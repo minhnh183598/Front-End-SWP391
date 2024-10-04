@@ -83,7 +83,7 @@ function Register() {
         };
 
         try {
-            const response = await api.post(`auth/resendVerifyEmail`, dataSend, {
+            const response = await api.post(`auth/resendVerifyEmail?checkEnabled=true`, dataSend, {
                 headers: {
                     Authorization: `No Auth`,
                 },

@@ -7,8 +7,6 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LoginHeader from './LoginHeader';
 import api from '~/config/axios';
-import { Color } from 'antd/es/color-picker';
-import axios from 'axios';
 import { OAuthConfig } from './components/GGconfig/configuration';
 import ForgotPassword from './components/ForgotPassword';
 
@@ -52,10 +50,40 @@ function Login() {
             setTimeout(() => {
                 navigate(from);
             }, 2000);
-
         } catch (error) {
             console.log(error);
             setSuccessMsg('Login failed');
+        }
+    };
+
+    const handleGoogleAuth = async (authCode) => {
+        try {
+            const response = await api.post(`auth/outbound/authentication?code=${authCode}`, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
+
+            if (response.data && response.data.result) {
+                const token = response.data.result.token;
+                localStorage.setItem('token', token);
+
+                const userInfo = await api.get('users/info', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+    
+                localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
+
+                setGooglePW(true);
+                console.log(token);
+            } else {
+                throw new Error('No token in response');
+            }
+        } catch (error) {
+            console.log(error);
+            setSuccessMsg(error.response?.data?.message || 'Login failed');
         }
     };
 
@@ -68,46 +96,59 @@ function Login() {
             callbackUrl,
         )}&response_type=code&client_id=${googleClientId}&scope=openid%20email%20profile`;
 
-        console.log(targetUrl);
-
         window.location.href = targetUrl;
-        setGooglePW(true);
     };
 
     useEffect(() => {
-        const authCodeRegex = /code=([^&]+)/;
-        const isMatch = window.location.href.match(authCodeRegex);
+        const token = localStorage.getItem('token');
+        console.log(token);
+        const checkAuthCode = () => {
+            const authCodeRegex = /code=([^&]+)/;
+            const isMatch = window.location.href.match(authCodeRegex);
 
-        if (isMatch) {
-            const authCode = isMatch[1];
-            const fetchAuthData = async () => {
-                try {
-                    const response = await api.post(`auth/outbound/authentication?code=${authCode}`, {
-                        headers: {
-                            Authorization: 'No Auth',
-                        },
-                    });
+            if (isMatch) {
+                const authCode = isMatch[1];
+                handleGoogleAuth(authCode);
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } else {
+                console.log('No auth code found in URL');
+            }
+        };
 
-                    console.log(response.data)
-                    if (response.data && response.data.result) {
-                        const token = response.data.result.token;
-                        localStorage.setItem('token', token);
-                        localStorage.setItem('userInfo', JSON.stringify(response.data.result.userInfo));
-                        setSuccessMsg('Login successfully!');
-                        navigate('/');
-                    } else {
-                        throw new Error('No token in response');
-                    }
-                } catch (error) {
-                    console.log(error);
-                    setSuccessMsg(error.response?.data?.message || 'Login failed');
-                }
-            };
-            console.log('cho minh');
-            fetchAuthData();
-        }
+        checkAuthCode();
     }, []);
 
+    const handlePasswordGG = async (values) => {
+        console.log(values);
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            console.error('Token not found');
+            return;
+        }
+        const dataSend = {
+            token: token,
+            password: values.password,
+        };
+        console.log('Data to send:', dataSend);
+
+        try {
+            const response = await api.post('auth/create-password', dataSend, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            console.log('Response data:', response.data);
+
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
+        } catch (error) {
+            console.error('Error creating password:', error);
+        }
+    };
     return (
         <>
             <div className={cx('login')}>
@@ -135,7 +176,7 @@ function Login() {
                                         },
                                         {
                                             min: 6,
-                                            max: 12,
+                                            max: 50,
                                             message: (
                                                 <span style={{ fontSize: 12 }}>
                                                     Username is required 6-12 characters
@@ -194,7 +235,7 @@ function Login() {
                                 </div>
                             </Form>
                         ) : (
-                            <Form className={cx('form')} onFinish={handleLogin}>
+                            <Form className={cx('form')} onFinish={handlePasswordGG}>
                                 <p className={cx('ggpw-msg')}>Please create your password</p>
                                 <Form.Item
                                     className={cx('form-item', 'mgbt')}

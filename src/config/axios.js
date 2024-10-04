@@ -32,6 +32,8 @@ const handleBefore = (config) => {
         return config;
     } else if (config.url.includes('auth/outbound/authentication')){
         return config;
+    } else if (config.url.includes('auth/create-password')){
+        return config;
     }
     const token = localStorage.getItem('token')?.replaceAll('"', '');
     //if (token) {

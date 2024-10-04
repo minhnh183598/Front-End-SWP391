@@ -74,7 +74,7 @@ function ForgotPassword({ setOpenPopup }) {
         };
 
         try {
-            const response = await api.post(`auth/resendVerifyEmail`, dataSend, {
+            const response = await api.post(`auth/resendVerifyEmail?checkEnabled=false`, dataSend, {
                 headers: {
                     Authorization: `No Auth`,
                 },
