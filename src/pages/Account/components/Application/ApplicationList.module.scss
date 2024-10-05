@@ -19,7 +19,7 @@
                 width: 120px;
                 font-weight: bold;
 
-                &:hover{
+                &:hover {
                     color: var(--primary-color);
                     border-bottom: 1px solid var(--primary-color);
                 }
@@ -27,45 +27,63 @@
         }
     }
 
-    .application-list{
+    .sort{
         padding: 20px;
-        .application-item{
+        padding-bottom: 0;
+        select{
+            height: 30px;
+            border-radius: 8px;
+            margin-left: 10px;
+            width: 100px;
+            outline: none;
+        }
+    }
+
+    .application-list {
+        padding: 20px;
+
+        .pagination {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        .application-item {
             width: 100%;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
             padding: 15px;
             margin-bottom: 20px;
             border-radius: 15px;
-            &:last-child{
+            &:last-child {
                 margin: 0;
             }
 
-            .appli-date{
+            .appli-date {
                 margin: 0;
                 margin-top: 10px;
                 font-size: 14px;
             }
 
-            .pet-info{
+            .pet-info {
                 display: flex;
-                img{
+                img {
                     width: 100px;
                     height: 100px;
                     object-fit: cover;
                     border-radius: 15px;
                 }
 
-                .detail-info{
+                .detail-info {
                     margin-left: 10px;
                 }
 
-                .appli-state{
+                .appli-state {
                     margin-left: auto;
                     display: flex;
                     flex-direction: column;
                     justify-content: right;
                     align-items: end;
-                    
-                    .state{
+
+                    .state {
                         width: 130px;
                         height: 30px;
                         background-color: green;
@@ -78,15 +96,15 @@
                         margin: 0;
                     }
 
-                    .inprocess{
+                    .inprocess {
                         background-color: rgb(228, 228, 61);
                     }
 
-                    .notpass{
+                    .notpass {
                         background-color: rgb(226, 6, 6);
                     }
 
-                    .feedback{
+                    .feedback {
                         margin: 20px 0;
                         width: 130px;
                         height: 30px;
@@ -94,6 +112,7 @@
                         text-align: center;
                         line-height: 30px;
                         border-radius: 15px;
+                        background-color: white;
                     }
                 }
             }

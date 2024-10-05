@@ -26,7 +26,6 @@
     padding: 60px 0;
     display: flex;
     justify-content: center;
-
     .about-content {
         width: 820px;
         padding: 0px;
@@ -37,26 +36,53 @@
             display: flex;
             flex-direction: column;
             margin-right: 20px;
+            .btn {
+                margin-top: auto;
+            }
+
+            .heading {
+                color: var(--primary-color);
+            }
+
+            .about-para {
+                text-align: justify;
+                width: 400px;
+                margin-top: 20px;
+                color: gray;
+            }
         }
 
-        .heading {
-            color: var(--primary-color);
-        }
-
-        .about-para {
-            text-align: justify;
-            width: 400px;
-            margin-top: 20px;
-            color: gray;
-        }
-
-        .btn {
-            margin-top: auto;
+        .text.animate {
+            animation: slideInLeft 1.5s;
         }
 
         img {
             height: 200px;
             width: 350px;
+
+            &.animate {
+                animation: slideInRight 1.5s;
+            }
+        }
+    }
+    @keyframes slideInLeft {
+        from {
+            transform: translateX(-70%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    @keyframes slideInRight {
+        from {
+            transform: translateX(70%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
         }
     }
 }
@@ -126,7 +152,7 @@
         }
     }
 
-    .contact-btn{
+    .contact-btn {
         margin-top: 40px;
         display: flex;
         justify-content: center;
@@ -134,8 +160,77 @@
 }
 
 // Application
-.application{
+.application {
     background-color: #ffffff;
     padding: 40px 0;
     text-align: center;
+
+    .appli-content {
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .appli-main-content {
+            width: 850px;
+            display: flex;
+            justify-content: space-between;
+
+            .content-left,
+            .content-right {
+                padding: 20px 100px;
+                background-color: var(--third-color);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border-radius: 15px;
+
+                p {
+                    margin: 0;
+                    text-align: left;
+                    width: 100%;
+                    font-size: 18px;
+                }
+
+                .mgTOPBOT {
+                    margin: 20px 0;
+                }
+            }
+
+            .content-left.animate {
+                animation: slideInLeft 1.5s;
+            }
+
+            .content-right.animate {
+                animation: slideInRight 1.5s;
+            }
+        }
+    }
+
+    .start-adopt-btn {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-70%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes slideInRight {
+    from {
+        transform: translateX(70%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }

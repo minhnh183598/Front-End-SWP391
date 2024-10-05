@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import Information from './components/Information';
 import ApplicationList from './components/Application/ApplicationList';
 import { useState } from 'react';
+import VolunteerTasks from './components/Volunteer';
 
 const cx = classNames.bind(styles);
 
@@ -25,9 +26,20 @@ function Account() {
                     <p className={cx(content === 'appliList' ? 'active' : '')} onClick={() => setContent('appliList')}>
                         Application List
                     </p>
+                    <p className={cx(content === 'tasks' ? 'active' : '')} onClick={() => setContent('tasks')}>
+                        Volunteer Tasks
+                    </p>
                 </div>
             </div>
-            <div className={cx('content')}>{content === 'account' ? <Information /> : <ApplicationList />}</div>
+            <div className={cx('content')}>
+                {content === 'account' ? (
+                    <Information />
+                ) : content === 'tasks' ? (
+                    <VolunteerTasks />
+                ) : (
+                    <ApplicationList />
+                )}
+            </div>
         </div>
     );
 }

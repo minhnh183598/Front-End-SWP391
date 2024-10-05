@@ -68,7 +68,7 @@ function ForgotPassword({ setOpenPopup }) {
     };
 
     const handleResend = async () => {
-        const userId = localStorage.getItem('userId');
+        const userId = localStorage.getItem('forgotUserID');
         const dataSend = {
             userId: userId,
         };

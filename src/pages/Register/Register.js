@@ -7,6 +7,9 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LoginHeader from './LoginHeader';
 import api from '~/config/axios';
+import { OAuthConfig } from '../Login/components/GGconfig/configuration';
+import EnterOTP from './EnterOTPRegister';
+import LoginGoogle from '../Login/components/LoginGoogle';
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +21,7 @@ function Register() {
     const [successMsg, setSuccessMsg] = useState('');
     const [toVerify, setToVerify] = useState(false);
     const [verifyMsg, setVerifyMsg] = useState('Check your email to get an OTP');
+    const [googlePW, setGooglePW] = useState(false);
 
     useEffect(() => {
         const isVerifying = localStorage.getItem('isVerifying');
@@ -48,52 +52,105 @@ function Register() {
         }
     };
 
-    const handleVerify = async (values) => {
-        console.log(values);
-        const userId = localStorage.getItem('userId');
-        const dataSend = {
-            userId: userId,
-            ...values,
-        };
+    // GOOGLE
+    const handleGoogleAuth = async (authCode) => {
         try {
-            const response = await api.post(`auth/verifyEmail`, dataSend, {
+            const response = await api.post(`auth/outbound/authentication?code=${authCode}`, {
                 headers: {
                     Authorization: 'No Auth',
                 },
             });
 
-            console.log(response.data);
+            if (response.data && response.data.result) {
+                const token = response.data.result.token;
+                localStorage.setItem('token', token);
 
-            setVerifyMsg('Verify email successfully!');
+                const userInfo = await api.get('users/info', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
 
-            setTimeout(() => {
-                localStorage.removeItem('isVerifying'); 
-                navigate('/login', { state: { from } });
-            }, 2000);
+                localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
+
+                if (userInfo.data.result.noPassword === false) {
+                    // Nếu đã có mật khẩu, điều hướng đến trang chính
+                    navigate('/');
+                } else {
+                    // Nếu chưa có mật khẩu, hiển thị form để tạo mật khẩu
+                    setGooglePW(true);
+                }
+                console.log(userInfo);
+                //setGooglePW(true);
+            } else {
+                throw new Error('No token in response');
+            }
         } catch (error) {
-            setVerifyMsg('Invalid OTP');
             console.log(error);
+            setSuccessMsg(error.response?.data?.message || 'Login failed');
         }
     };
 
-    const handleResend = async () => {
-        const userId = localStorage.getItem('userId');
-        const dataSend = {
-            userId: userId,
+    const handleLoginGoogle = () => {
+        const callbackUrl = OAuthConfig.redirectUri;
+        const authUrl = OAuthConfig.authUri;
+        const googleClientId = OAuthConfig.clientId;
+
+        const targetUrl = `${authUrl}?redirect_uri=${encodeURIComponent(
+            callbackUrl,
+        )}&response_type=code&client_id=${googleClientId}&scope=openid%20email%20profile`;
+
+        window.location.href = targetUrl;
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        console.log(token);
+        const checkAuthCode = () => {
+            const authCodeRegex = /code=([^&]+)/;
+            const isMatch = window.location.href.match(authCodeRegex);
+
+            if (isMatch) {
+                const authCode = isMatch[1];
+                handleGoogleAuth(authCode);
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } else {
+                console.log('No auth code found in URL');
+            }
         };
 
+        checkAuthCode();
+    }, []);
+
+    const handlePasswordGG = async (values) => {
+        console.log(values);
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            console.error('Token not found');
+            return;
+        }
+        const dataSend = {
+            token: token,
+            password: values.password,
+        };
+        console.log('Data to send:', dataSend);
+
         try {
-            const response = await api.post(`auth/resendVerifyEmail?checkEnabled=true`, dataSend, {
+            const response = await api.post('auth/create-password', dataSend, {
                 headers: {
-                    Authorization: `No Auth`,
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
                 },
             });
 
-            console.log(response.data);
-            setVerifyMsg('Verify email successfully!');
+            console.log('Response data:', response.data);
+
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
         } catch (error) {
-            setVerifyMsg('Invalid OTP');
-            console.log(error);
+            console.error('Error creating password:', error);
         }
     };
 
@@ -112,7 +169,7 @@ function Register() {
                             <img src={IMAGES.logo} className={cx('logo')} />
                         </Link>
 
-                        {!toVerify ? (
+                        {!toVerify && !googlePW ? (
                             <Form className={cx('form')} onFinish={handleRegister}>
                                 <Form.Item
                                     className={cx('form-item')}
@@ -210,37 +267,19 @@ function Register() {
                                     {successMsg}
                                 </span>
 
-                                <Button className={cx('submit-btn')} type="submit">
-                                    Register
-                                </Button>
-                            </Form>
-                        ) : (
-                            <Form className={cx('form-otp')} onFinish={handleVerify}>
-                                <p>Check your email to get an OTP</p>
-                                <Form.Item
-                                    className={cx('form-item')}
-                                    name="otp"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: <span style={{ fontSize: 12 }}>Please enter an OTP</span>,
-                                        },
-                                    ]}
-                                >
-                                    <Input className={cx('input')} type="text" placeholder="OTP" />
-                                </Form.Item>
-                                <p className={cx('send-again')} onClick={handleResend}>
-                                    Send again
-                                </p>
-                                <div className={cx('wrap-btn')}>
-                                    <Button mgRight10 medium primary className={cx('opt-btn')} type="submit">
-                                        Verify
-                                    </Button>
-                                    <Button medium outline className={cx('otp-btn')} onClick={() => setToVerify(false)}>
+                                <div className={cx('submit-btn')}>
+                                    <Button mgRight10 primary medium type="submit">
                                         Register
+                                    </Button>
+                                    <Button outline medium onClick={handleLoginGoogle}>
+                                        Google
                                     </Button>
                                 </div>
                             </Form>
+                        ) : googlePW ? (
+                            <LoginGoogle successMsg={successMsg} handlePasswordGG={handlePasswordGG} />
+                        ) : (
+                            <EnterOTP setVerifyMsg={setVerifyMsg} from={from} setToVerify={setToVerify} />
                         )}
                     </div>
                 </div>

@@ -9,6 +9,7 @@ import LoginHeader from './LoginHeader';
 import api from '~/config/axios';
 import { OAuthConfig } from './components/GGconfig/configuration';
 import ForgotPassword from './components/ForgotPassword';
+import LoginGoogle from './components/LoginGoogle';
 
 const cx = classNames.bind(styles);
 
@@ -16,6 +17,7 @@ function Login() {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from || '/';
+
 
     const [successMsg, setSuccessMsg] = useState('');
     const [openPopup, setOpenPopup] = useState(false);
@@ -56,6 +58,7 @@ function Login() {
         }
     };
 
+    // Login google
     const handleGoogleAuth = async (authCode) => {
         try {
             const response = await api.post(`auth/outbound/authentication?code=${authCode}`, {
@@ -77,14 +80,11 @@ function Login() {
                 localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
 
                 if (userInfo.data.result.noPassword === false) {
-                    // Nếu đã có mật khẩu, điều hướng đến trang chính
                     navigate('/');
                 } else {
-                    // Nếu chưa có mật khẩu, hiển thị form để tạo mật khẩu
                     setGooglePW(true);
                 }
                 console.log(userInfo);
-                //setGooglePW(true);
             } else {
                 throw new Error('No token in response');
             }
@@ -242,45 +242,7 @@ function Login() {
                                 </div>
                             </Form>
                         ) : (
-                            <Form className={cx('form')} onFinish={handlePasswordGG}>
-                                <p className={cx('ggpw-msg')}>Please create your password</p>
-                                <Form.Item
-                                    className={cx('form-item', 'mgbt')}
-                                    name="password"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: <span style={{ fontSize: 12 }}>Please enter a password</span>,
-                                        },
-                                        {
-                                            min: 6,
-                                            max: 20,
-                                            message: (
-                                                <span style={{ fontSize: 12 }}>
-                                                    Password is required 6-20 characters
-                                                </span>
-                                            ),
-                                        },
-                                    ]}
-                                >
-                                    <Input className={cx('input')} type="password" placeholder="Password" />
-                                </Form.Item>
-
-                                <span
-                                    className={cx(
-                                        'regis-msg',
-                                        successMsg === 'Login successfully!' ? null : 'red-text',
-                                    )}
-                                >
-                                    {successMsg}
-                                </span>
-
-                                <div className={cx('submit-btn')}>
-                                    <Button primary medium type="submit">
-                                        Submit
-                                    </Button>
-                                </div>
-                            </Form>
+                            <LoginGoogle successMsg={successMsg} handlePasswordGG={handlePasswordGG} />
                         )}
                     </div>
                 </div>
