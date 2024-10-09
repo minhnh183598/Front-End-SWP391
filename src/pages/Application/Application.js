@@ -12,12 +12,8 @@ import { Step, Stepper } from 'react-form-stepper';
 const Application = () => {
     const max_step = 5;
     const { id } = useParams();
-    // const [step, setStep] = useState(() => {
-    //     const savedStep = localStorage.getItem(`adoptionStep_${id}`);
-    //     return savedStep ? Math.min(parseInt(savedStep, 10), max_step) : 0;
-    // });
-
     const [step, setStep] = useState(0);
+    
     useEffect(() => {
         localStorage.setItem(`adoptionStep_${id}`, step.toString());
     }, [step, id]);
