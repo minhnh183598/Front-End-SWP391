@@ -6,7 +6,7 @@
     align-items: center;
     position: relative;
     padding: 40px;
-    h1{
+    h1 {
         top: 50px;
         left: 11%;
         color: white;
@@ -21,44 +21,82 @@
         margin-top: 100px;
 
         .pet-image {
-            background-color: rgb(255, 255, 255);
+            background-color: var(--third-color);
             width: 40%;
             padding: 10px;
             margin-right: 20px;
             border-radius: 20px;
             box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 10px;
             align-items: stretch;
+            position: relative;
+
+            .slideBtn {
+                position: absolute;
+                top: 35%;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border: none;
+                font-weight: 600;
+                font-size: 18px;
+                transition: opacity 0.3s;
+                opacity: 0.3;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+
+            .pre-btn {
+                left: 20px;
+            }
+            .next-btn {
+                right: 20px;
+            }
 
             .image {
                 width: 100%;
-                background-color: white;
+                border-radius: 20px;
+                background-color: var(--third-color);
 
                 img {
                     width: 100%;
-                    height: 100%;
+                    height: 250px;
                     object-fit: cover;
                     object-position: center;
                     border-radius: 20px;
                 }
 
-                .sub-img{
+                .sub-img {
                     display: flex;
                     justify-content: space-between;
                     margin-top: 10px;
-                    
-                    img{
-                        width: 80px;
+
+                    .color-border {
+                        border: 3px solid #718466;
+                    }
+
+                    img {
+                        width: 80px !important;
                         height: 80px;
                         border-radius: 10px;
-                        border: 1px solid transparent;
+                        border: 3px solid transparent;
+                        transition: transform 0.5s ease, border 0.5s ease;
+
+                        &:hover {
+                            transform: scale(1.1);
+                        }
+
+                        &:nth-child(n + 6) {
+                            display: none;
+                        }
                     }
                 }
             }
-            
         }
 
         .pet-info {
-            background-color: white;
+            background-color: var(--third-color);
             width: 60%;
             padding: 10px 20px;
             border-radius: 20px;
@@ -72,35 +110,35 @@
                 width: 50%;
                 .detail-item {
                     display: flex;
-                    
-                    div{
+
+                    div {
                         margin-right: 25px;
-                        p{
+                        p {
                             margin-bottom: 10px;
                         }
                     }
                 }
 
-                .adopt{
+                .adopt {
                     display: flex;
                     margin-top: 10px;
 
-                    Button:first-child{
+                    Button:first-child {
                         margin-right: 10px;
                     }
                 }
 
-                .edit{
+                .edit {
                     margin-top: 20px;
                     display: flex;
 
-                    Button:first-child{
+                    Button:first-child {
                         margin-right: 10px;
                     }
                 }
 
-                &::after{
-                    content: "";
+                &::after {
+                    content: '';
                     background-color: rgb(199, 199, 199);
                     width: 1px;
                     height: 85%;
@@ -109,14 +147,41 @@
                     top: 13%;
                 }
             }
+
             .story {
                 width: 50%;
-                .description {
-                    text-align: justify;
-                    margin-bottom: 0;
+                .description-wrapper {
+                    height: 280px;
+                    overflow-y: auto;
+
+                    &::-webkit-scrollbar {
+                        width: 6px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background-color: transparent; // set màu scroll
+                        border-radius: 6px;
+                    }
+
+                    &::-webkit-scrollbar-track {
+                        background-color: transparent; // set màu cái background của scroll
+                        border-radius: 6px;
+                    }
+                    &::-webkit-scrollbar-thumb:horizontal {
+                        min-width: 20px;
+                    }
+
+                    &:hover::-webkit-scrollbar-thumb {
+                        background-color: rgba(22, 24, 35, 0.1);
+                    }
+
+                    .description {
+                        text-align: justify;
+                        margin-bottom: 0;
+                        margin-right: 10px;
+                    }
                 }
             }
         }
     }
-
 }

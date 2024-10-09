@@ -7,13 +7,82 @@ import IMAGES from '~/assets/images';
 
 const cx = classNames.bind(styles);
 
-function BlogList({data, dataLength}) {
+function BlogList() {
     const [currentPage, setCurrentPage] = useState(1);
+
+    const blogData = [
+        {
+            id: 1,
+            image: IMAGES.blog1,
+            title: '1 Top 10 Best and Worst Foods for Pets',
+            info: 'Dogs are known to be our loyal companions, and as pet owners, it is our responsibility to take care of them. One way to do this is to make sure we avoid feeding them foods that can be toxic to their health. Unfortunately, some of the foods we humans love can cause severe harm to our furry friends.',
+        },
+        {
+            id: 2,
+            image: IMAGES.blog2,
+            title: '2 Top 10 Best and Worst Foods for Pets',
+            info: 'Dogs are known to be our loyal companions, and as pet owners, it is our responsibility to take care of them. One way to do this is to make sure we avoid feeding them foods that can be toxic to their health. Unfortunately, some of the foods we humans love can cause severe harm to our furry friends.',
+        },
+        {
+            id: 3,
+            image: IMAGES.blog3,
+            title: '3 Top 10 Best and Worst Foods for Pets',
+            info: 'Dogs are known to be our loyal companions, and as pet owners, it is our responsibility to take care of them. One way to do this is to make sure we avoid feeding them foods that can be toxic to their health. Unfortunately, some of the foods we humans love can cause severe harm to our furry friends.',
+        },
+        {
+            id: 4,
+            image: IMAGES.blog1,
+            title: 'Top 10 Best and Worst Foods for Pets',
+            info: 'Dogs are known to be our loyal companions, and as pet owners, it is our responsibility to take care of them. One way to do this is to make sure we avoid feeding them foods that can be toxic to their health. Unfortunately, some of the foods we humans love can cause severe harm to our furry friends.',
+        },
+        {
+            id: 5,
+            image: IMAGES.blog2,
+            title: 'Top 10 Best and Worst Foods for Pets',
+            info: 'Dogs are known to be our loyal companions, and as pet owners, it is our responsibility to take care of them. One way to do this is to make sure we avoid feeding them foods that can be toxic to their health. Unfortunately, some of the foods we humans love can cause severe harm to our furry friends.',
+        },
+        {
+            id: 6,
+            image: IMAGES.blog3,
+            title: 'Top 10 Best and Worst Foods for Pets',
+            info: 'Dogs are known to be our loyal companions, and as pet owners, it is our responsibility to take care of them. One way to do this is to make sure we avoid feeding them foods that can be toxic to their health. Unfortunately, some of the foods we humans love can cause severe harm to our furry friends.',
+        },
+        {
+            id: 7,
+            image: IMAGES.blog1,
+            title: 'Top 10 Best and Worst Foods for Pets',
+            info: 'Dogs are known to be our loyal companions, and as pet owners, it is our responsibility to take care of them. One way to do this is to make sure we avoid feeding them foods that can be toxic to their health. Unfortunately, some of the foods we humans love can cause severe harm to our furry friends.',
+        },
+        {
+            id: 8,
+            image: IMAGES.blog2,
+            title: 'Top 10 Best and Worst Foods for Pets',
+            info: 'Dogs are known to be our loyal companions, and as pet owners, it is our responsibility to take care of them. One way to do this is to make sure we avoid feeding them foods that can be toxic to their health. Unfortunately, some of the foods we humans love can cause severe harm to our furry friends.',
+        },
+        {
+            id: 9,
+            image: IMAGES.blog3,
+            title: 'Top 10 Best and Worst Foods for Pets',
+            info: 'Dogs are known to be our loyal companions, and as pet owners, it is our responsibility to take care of them. One way to do this is to make sure we avoid feeding them foods that can be toxic to their health. Unfortunately, some of the foods we humans love can cause severe harm to our furry friends.',
+        },
+        {
+            id: 10,
+            image: IMAGES.blog1,
+            title: 'Top 10 Best and Worst Foods for Pets',
+            info: 'Dogs are known to be our loyal companions, and as pet owners, it is our responsibility to take care of them. One way to do this is to make sure we avoid feeding them foods that can be toxic to their health. Unfortunately, some of the foods we humans love can cause severe harm to our furry friends.',
+        },
+        {
+            id: 11,
+            image: IMAGES.blog2,
+            title: 'Top 10 Best and Worst Foods for Pets',
+            info: 'Dogs are known to be our loyal companions, and as pet owners, it is our responsibility to take care of them. One way to do this is to make sure we avoid feeding them foods that can be toxic to their health. Unfortunately, some of the foods we humans love can cause severe harm to our furry friends.',
+        },
+    ];
 
     const blogPerPage = 9;
     const indexOfLastBlog = currentPage * blogPerPage;
     const indexOfFirstBlog = indexOfLastBlog - blogPerPage; 
-    const currentBlog = data.slice(indexOfFirstBlog, indexOfLastBlog);
+    const currentBlog = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
     
     return (
         <div className={cx('blog-list')}>
@@ -32,7 +101,7 @@ function BlogList({data, dataLength}) {
                         </div>
 
                         <div className={cx('blog-btn')}>
-                            <Button mgRight10 outline small className={cx('btn')} onClick={() => console.log(blog.id)}>
+                            <Button to='/blog-detail' mgRight10 outline small className={cx('btn')} onClick={() => console.log(blog.id)}>
                                 View
                             </Button>
                         </div>
@@ -45,7 +114,7 @@ function BlogList({data, dataLength}) {
                     style={{ display: 'block' }}
                     current={currentPage}
                     defaultCurrent={1}
-                    total={dataLength}
+                    total={blogData.length}
                     pageSize={blogPerPage}
                     onChange={(page) => setCurrentPage(page)}
                 />

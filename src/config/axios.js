@@ -12,7 +12,7 @@ api.defaults.baseURL = baseUrl;
 // handle before call API
 const handleBefore = (config) => {
     //config.headers['Authorization'] = 'No Auth';
-    if (config.url.includes('users')) {
+    if (config.url.includes('auth/register')) {
         return config;
     } else if (config.url.includes('auth/login')) {
         return config;
@@ -23,6 +23,17 @@ const handleBefore = (config) => {
     } else if (config.url.includes('pets/')) {
         return config;
     } else if (config.url.includes('applications')) {
+    } else if (config.url.includes('auth/verifyEmail')) {
+        return config;
+    } else if (config.url.includes('auth/forgotPassword')) {
+        return config;
+    } else if (config.url.includes('auth/resetPassword')) {
+        return config;
+    } else if (config.url.includes('auth/resendVerifyEmail')) {
+        return config;
+    } else if (config.url.includes('auth/outbound/authentication')) {
+        return config;
+    } else if (config.url.includes('auth/create-password')) {
         return config;
     }
     const token = localStorage.getItem('token')?.replaceAll('"', '');

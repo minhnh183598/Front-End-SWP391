@@ -11,6 +11,7 @@ import RegisBanner from '~/components/Layout/components/RegisterBanner';
 const cx = classNames.bind(styles);
 
 function PetDetail() {
+    const [index, setIndex] = useState(0);
     const [user, setUser] = useState();
     const [userRoles, setUserRoles] = useState('');
     const [update, setUpdate] = useState(false);
@@ -58,6 +59,34 @@ function PetDetail() {
     };
     console.log(`pets/${id}`);
     useEffect(() => {
+        const handlePetData = async () => {
+            try {
+                const response = await api.get(`pets/${id}`, {
+                    headers: {
+                        Authorization: 'No Auth',
+                    },
+                });
+                setPet(response.data);
+                localStorage.setItem('petData', JSON.stringify(response.data));
+            } catch (error) {
+                console.log(error);
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        const loggedUser = JSON.parse(localStorage.getItem('userInfo'));
+        if (loggedUser) {
+            setUser(loggedUser);
+        }
+
+        const roles = JSON.parse(localStorage.getItem('userRoles'));
+        if (roles.includes('USER')) {
+            setUserRoles('user');
+        } else {
+            setUserRoles('admin');
+        }
+
         handlePetData();
     }, []);
 
@@ -115,23 +144,50 @@ function PetDetail() {
         });
     };
 
+    const petImg = [PetImages.dog, PetImages.dog2, PetImages.dog3, PetImages.cat1, PetImages.cat2, PetImages.cat3];
+
+    const nextSlide = () => {
+        setIndex((prevIndex) => (prevIndex + 1) % petImg.length);
+    };
+
+    const preSlide = () => {
+        setIndex((prevIndex) => (prevIndex - 1 + petImg.length) % petImg.length);
+    };
+
+    const petsToShow =
+        petImg.length > 0
+            ? petImg.slice(index, index + 5).concat(petImg.slice(0, Math.max(0, index + 5 - petImg.length)))
+            : [];
     return (
         <div>
             <div className={cx('wrapper')}>
                 <h1>Do you love {pet.petName}?</h1>
                 <div className={cx('content')}>
                     <div className={cx('pet-image')}>
+                        <button onClick={preSlide} className={cx('slideBtn', 'pre-btn')}>
+                            &lt;
+                        </button>
                         <div className={cx('image')}>
                             <img src={PetImages.dog} />
+                            <img src={petImg[index]} />
 
                             <div className={cx('sub-img')}>
-                                <img src={PetImages.dog} />
-                                <img src={PetImages.dog} />
-                                <img src={PetImages.dog} />
-                                <img src={PetImages.dog} />
-                                <img src={PetImages.dog} />
+                                {petsToShow.map((image, imgIndex) => (
+                                    <img
+                                        key={imgIndex}
+                                        src={image}
+                                        className={cx({ 'color-border': imgIndex === 0 })}
+                                        onClick={() => {
+                                            const newIndex = (index + imgIndex) % petImg.length;
+                                            setIndex(newIndex);
+                                        }}
+                                    />
+                                ))}
                             </div>
                         </div>
+                        <button onClick={nextSlide} className={cx('slideBtn', 'next-btn')}>
+                            &gt;
+                        </button>
                     </div>
 
                     <div className={cx('pet-info')}>
@@ -201,7 +257,9 @@ function PetDetail() {
                         </div>
                         <div className={cx('story')}>
                             <h2>Story</h2>
-                            <p className={cx('description')}>{pet.petDescription}</p>
+                            <div className={cx('description-wrapper')}>
+                                <p className={cx('description')}>{pet.petDescription}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

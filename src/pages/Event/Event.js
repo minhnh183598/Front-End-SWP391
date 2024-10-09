@@ -11,6 +11,7 @@ function Event() {
     const [searchName, setSearchName] = useState('');
     const [filter, setFilter] = useState({
         sort: 'all',
+        type: 'all',
     });
 
     const eventData = [

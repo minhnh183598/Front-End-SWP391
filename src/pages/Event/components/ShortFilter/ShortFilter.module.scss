@@ -12,6 +12,15 @@
         }
     }
 
+    .type{
+        select{
+            height: 30px;
+            border-radius: 8px;
+            margin-left: 10px;
+            width: 100px;
+        }
+    }
+
     .search-name {
         display: flex;
         align-items: center;

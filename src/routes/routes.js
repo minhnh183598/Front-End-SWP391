@@ -10,9 +10,11 @@ import Register from '~/pages/Register/Register';
 import Event from '~/pages/Event';
 import PetDetail from '~/pages/PetDetail';
 import Volunteer from '~/pages/Volunteer';
-import AdoptStep1 from '~/pages/Application/ApplicationComponents/AdoptStep1/AdoptStep1';
 import Application from '~/pages/Application/Application';
 import DonateSuccess from '~/pages/Donate/DonateComponents/DonateSuccess';
+import BlogDetail from '~/pages/BlogDetail';
+import EventDetail from '~/pages/EventDetail';
+import Account from '~/pages/Account';
 
 const publicRoutes = [
     {
@@ -44,8 +46,16 @@ const publicRoutes = [
         component: Blog,
     },
     {
+        path: '/blog-detail',
+        component: BlogDetail,
+    },
+    {
         path: '/events',
         component: Event,
+    },
+    {
+        path: '/event-detail',
+        component: EventDetail,
     },
     {
         path: '/volunteer',
@@ -72,6 +82,10 @@ const publicRoutes = [
         path: '/register',
         component: Register,
         layout: null,
+    },
+    {
+        path: '/account',
+        component: Account,
     },
 ];
 

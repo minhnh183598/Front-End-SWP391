@@ -72,7 +72,7 @@ function Account() {
 
                     <Dropdown menu={{ items }}>
                         <span className={cx('username')}>
-                            {user.username} <UserIcon />
+                            <p>{user.username}</p> <UserIcon />
                         </span>
                     </Dropdown>
                 </>

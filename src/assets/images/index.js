@@ -27,10 +27,14 @@ const IMAGES = {
     adopt_introduce_4: require('./adopt_introduce_4.png'),
     adopt_introduce_5: require('./adopt_introduce_5.png'),
     adopt_introduce_6: require('./adopt_introduce_6.png'),
+
     adoptStep1_1: require('./AdoptStep1_1.png'),
     adoptStep1_2: require('./AdoptStep1_2.png'),
     adoptStep1_3: require('./vaccin.png'),
     greenTick: require('./greenTick.png'),
+
+    contact: require('./contactBanner.jpeg'),
+    usetPet: require('./userwithpet.jpg'),
 };
 
 export default IMAGES;

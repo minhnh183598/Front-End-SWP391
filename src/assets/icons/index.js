@@ -15,6 +15,10 @@ const ICONS = {
     femaleBl: require('./female_Bl.png'),
     maleBl: require('./male_Bl.png'),
     vaccineBl: require('./vaccine_Bl.png'),
+    clockBl: require('./clock_Bl.png'),
+    locateBl: require('./location_Bl.png'),
+    emailBl: require('./email_Bl.png'),
+    phoneBl: require('./phone_Bl.png'),
 };
 
 export default ICONS;
