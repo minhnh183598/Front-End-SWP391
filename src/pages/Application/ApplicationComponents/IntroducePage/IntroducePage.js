@@ -1,11 +1,69 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Button from '~/components/Button';
 import IMAGES from '~/assets/images';
 import './IntroducePage.scss';
+import { ProgressBar } from 'react-bootstrap';
+import TimelineProgress from '../TimelineProgress/TimelineProgress';
 
-function IntroducePage() {
+const IntroducePage = ({ setStep }) => {
+    const targetRef_1 = useRef(null);
+    const targetRef_2 = useRef(null);
+    const targetRef_3 = useRef(null);
+    const targetRef_4 = useRef(null);
+    const targetRef_5 = useRef(null);
+    const targetRef_6 = useRef(null);
+
+    // Hàm xử lý cuộn
+    const scrollToSection = (targetRef, offset) => {
+        const elementPosition = targetRef.current.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth',
+        });
+    };
     return (
         <div className="adoptIntro">
+            <TimelineProgress />
+            <div className="timelineBar_step">
+                <div>
+                    <Button className="timelineBar_step_btn1" onClick={() => scrollToSection(targetRef_1, 100)}>
+                        1
+                    </Button>
+                </div>
+                <div>
+                    <Button className="timelineBar_step_btn2" onClick={() => scrollToSection(targetRef_2, 100)}>
+                        2
+                    </Button>
+                </div>
+                <div>
+                    <Button className="timelineBar_step_btn3" onClick={() => scrollToSection(targetRef_3, 100)}>
+                        3
+                    </Button>
+                </div>
+                <div>
+                    <Button className="timelineBar_step_btn4" onClick={() => scrollToSection(targetRef_4, 100)}>
+                        4
+                    </Button>
+                </div>
+                <div>
+                    <Button className="timelineBar_step_btn5" onClick={() => scrollToSection(targetRef_5, 100)}>
+                        5
+                    </Button>
+                </div>
+                <div>
+                    <Button className="timelineBar_step_btn6" onClick={() => scrollToSection(targetRef_6, 100)}>
+                        6
+                    </Button>
+                </div>
+            </div>
+            <div className="timelineBar_step_btn7">
+                <Button adoptIntroduceButton onClick={() => setStep((prevStep) => prevStep + 1)}>
+                    Start The Process
+                </Button>
+            </div>
+
             <div className="adopt-container">
                 {/* Header cua container */}
                 <div className="adopt-container-header">
@@ -17,7 +75,7 @@ function IntroducePage() {
                     </p>
                 </div>
                 {/* Doan 1 */}
-                <div className="adopt-container-firstPara">
+                <div ref={targetRef_1} className="adopt-container-firstPara">
                     <img className="adopt-container-firstPara-image" alt="image" src={IMAGES.adopt_introduce_1} />
                     <div className="adopt-container-firstPara-content">
                         <h3>1. Research and Preparation</h3>
@@ -34,7 +92,7 @@ function IntroducePage() {
                     </div>
                 </div>
                 {/* Doan 2 */}
-                <div className="adopt-container-secondPara">
+                <div ref={targetRef_2} className="adopt-container-secondPara">
                     <div className="adopt-container-secondPara-content">
                         <h3>2. Application</h3>
                         <ul class="adopt-container-secondPara-content-list">
@@ -54,7 +112,7 @@ function IntroducePage() {
                     <img className="adopt-container-secondPara-image" alt="image" src={IMAGES.adopt_introduce_2} />
                 </div>
                 {/* Doan 3 */}
-                <div className="adopt-container-thirdPara">
+                <div ref={targetRef_3} className="adopt-container-thirdPara">
                     <img className="adopt-container-thirdPara-image" alt="image" src={IMAGES.adopt_introduce_3} />
                     <div className="adopt-container-thirdPara-content">
                         <h3>3. Meet and Greet</h3>
@@ -71,7 +129,7 @@ function IntroducePage() {
                     </div>
                 </div>
                 {/* Doan 4 */}
-                <div className="adopt-container-fourthPara">
+                <div ref={targetRef_4} className="adopt-container-fourthPara">
                     <div className="adopt-container-fourthPara-content">
                         <h3>4. Home Visit (optional)</h3>
                         <ul class="adopt-container-fourthPara-content-list">
@@ -85,7 +143,7 @@ function IntroducePage() {
                     <img className="adopt-container-fourthPara-image" alt="image" src={IMAGES.adopt_introduce_4} />
                 </div>
                 {/* Doan 5 */}
-                <div className="adopt-container-fifthPara">
+                <div ref={targetRef_5} className="adopt-container-fifthPara">
                     <img className="adopt-container-fifthPara-image" alt="image" src={IMAGES.adopt_introduce_5} />
                     <div className="adopt-container-fifthPara-content">
                         <h3>5. Finalizing the Adoption</h3>
@@ -103,7 +161,7 @@ function IntroducePage() {
                     </div>
                 </div>
                 {/* Doan 6 */}
-                <div className="adopt-container-sixthPara">
+                <div ref={targetRef_6} className="adopt-container-sixthPara">
                     <div className="adopt-container-sixthPara-content">
                         <h3>6. Post-Adoption Support</h3>
                         <ul class="adopt-container-sixthPara-content-list">
@@ -121,13 +179,13 @@ function IntroducePage() {
                 </div>
                 {/* Nút start process để chuyển qua find a pet */}
                 <div className="adopt-container-button">
-                    <Button adoptIntroduceButton to="/find-a-pet">
+                    <Button adoptIntroduceButton onClick={() => setStep((prevStep) => prevStep + 1)}>
                         Start The Process
                     </Button>
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default IntroducePage;

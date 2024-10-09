@@ -28,27 +28,27 @@ function PetDetail() {
         petDescription: '',
     });
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const loggedUser = JSON.parse(localStorage.getItem('userInfo'));
-        if (loggedUser) {
-            setUser(loggedUser);
-        }
+    //     const loggedUser = JSON.parse(localStorage.getItem('userInfo'));
+    //     if (loggedUser) {
+    //         setUser(loggedUser);
+    //     }
 
-        const roles = JSON.parse(localStorage.getItem('userRoles'));
-        if (roles.includes('USER')) {
-            setUserRoles('user');
-        } else {
-            setUserRoles('admin');
-        }
-    }, []);
+    //     const roles = JSON.parse(localStorage.getItem('userRoles'));
+    //     if (roles.includes('USER')) {
+    //         setUserRoles('user');
+    //     } else {
+    //         setUserRoles('admin');
+    //     }
+    // }, []);
 
     const handlePetData = async () => {
         try {
             const response = await api.get(`pets/${id}`, {
-                headers:{
-                    Authorization: 'No Auth', 
-                }
+                headers: {
+                    Authorization: 'No Auth',
+                },
             });
             setPet(response.data);
             localStorage.setItem('petData', JSON.stringify(response.data));
@@ -56,7 +56,7 @@ function PetDetail() {
             console.log(error);
         }
     };
-
+    console.log(`pets/${id}`);
     useEffect(() => {
         handlePetData();
     }, []);
@@ -123,7 +123,7 @@ function PetDetail() {
                     <div className={cx('pet-image')}>
                         <div className={cx('image')}>
                             <img src={PetImages.dog} />
-    
+
                             <div className={cx('sub-img')}>
                                 <img src={PetImages.dog} />
                                 <img src={PetImages.dog} />
@@ -133,7 +133,7 @@ function PetDetail() {
                             </div>
                         </div>
                     </div>
-    
+
                     <div className={cx('pet-info')}>
                         <div className={cx('detail-info')}>
                             <h2>{pet.petName}</h2>
@@ -142,7 +142,7 @@ function PetDetail() {
                                     <p>
                                         <b>Type:</b> {pet.petType}
                                     </p>
-    
+
                                     <p>
                                         <b>Age:</b> {pet.petAge}
                                     </p>
@@ -168,7 +168,7 @@ function PetDetail() {
                                     </p>
                                 </div>
                             </div>
-    
+
                             <div className={cx('adopt')}>
                                 {pet.petStatus === 'Adopted' ? (
                                     <Button medium disable>
@@ -184,10 +184,10 @@ function PetDetail() {
                                         </Button>
                                     </>
                                 )}
-    
+
                                 <div className={cx('admin-btn')}></div>
                             </div>
-    
+
                             {user && userRoles === 'user' ? (
                                 <div className={cx('edit')}>
                                     <Button className={cx('update-btn')} primary medium onClick={toggleUpdate}>
@@ -205,7 +205,7 @@ function PetDetail() {
                         </div>
                     </div>
                 </div>
-    
+
                 {update && (
                     <Update
                         handleSubmit={handleSubmit}
@@ -219,8 +219,6 @@ function PetDetail() {
             {}
             {!user ? <RegisBanner /> : null}
         </div>
-
-        
     );
 }
 

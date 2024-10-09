@@ -9,7 +9,7 @@ import { usePetContext } from '~/components/Context/PetContext/PetContext';
 
 const cx = classNames.bind(styles);
 
-function PetList({data, dataLength}) {
+function PetList({ data, dataLength }) {
     const [lovePet, setLovePet] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -20,9 +20,9 @@ function PetList({data, dataLength}) {
 
     const petPerPage = 9;
     const indexOfLastPet = currentPage * petPerPage;
-    const indexOfFirstPet = indexOfLastPet - petPerPage; 
+    const indexOfFirstPet = indexOfLastPet - petPerPage;
     const currentPet = data.slice(indexOfFirstPet, indexOfLastPet);
-    
+
     return (
         <div className={cx('pet-list')}>
             {currentPet.map((pet) => (
@@ -48,7 +48,9 @@ function PetList({data, dataLength}) {
                         <div className={cx('info')}>
                             <div className={cx('main-info')}>
                                 <h3>{pet.petName}</h3>
-                                <p>{pet.petSize} cm - {pet.petWeight} kg</p>
+                                <p>
+                                    {pet.petSize} - {pet.petWeight} kg
+                                </p>
 
                                 <div className={cx('attr-icon')}>
                                     {pet.petVaccin === 'Yes' ? <img src={ICONS.vaccineBl} /> : null}
@@ -60,14 +62,22 @@ function PetList({data, dataLength}) {
                         </div>
 
                         <div className={cx('pet-btn')}>
-                            <Button mgRight10 outline small to={`/pet-detail/${pet.petId}`} className={cx('btn')} onClick={() => console.log(pet.petId)}>
+                            <Button
+                                mgRight10
+                                outline
+                                small
+                                to={`/pet-detail/${pet.petId}`}
+                                className={cx('btn')}
+                                onClick={() => console.log(pet.petId)}
+                            >
                                 Detail
                             </Button>
                             <Button
                                 primary
                                 small
-                                to="/"
+                                to={`/adopt-application/${pet.petId}`}
                                 className={cx('btn', pet.petStatus === 'Adopted' ? 'unavailable-state' : null)}
+                                onClick={() => console.log(pet.petId)}
                             >
                                 Adopt
                             </Button>

@@ -65,12 +65,12 @@ function FindPet() {
             setUser(loggedUser);
         }
 
-        const roles = JSON.parse(localStorage.getItem('userRoles'));
-        if (roles.includes('USER')) {
-            setUserRoles('user');
-        } else {
-            setUserRoles('admin');
-        }
+        //     const roles = JSON.parse(localStorage.getItem('userRoles'));
+        //     if (roles.includes('USER')) {
+        //         setUserRoles('user');
+        //     } else {
+        //         setUserRoles('admin');
+        //     }
     }, []);
 
     const handleFilterChange = (e) => {

@@ -14,7 +14,7 @@
     display: grid;
     justify-content: center;
     height: 3500px;
-    width: 80%;
+    width: 75%;
     border-radius: 50px;
     background-color: #fff;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
@@ -23,8 +23,9 @@
 // Header của container
 .adopt-container-header {
     text-align: center;
-    padding: 70px 400px 0px 400px;
+    padding: 70px 400px 100px 400px;
     font-size: 19px;
+    height: 100px;
 
     h3 {
         padding-bottom: 10px;
@@ -49,13 +50,14 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    padding-top: 50px;
-    column-gap: 120px;
+    height: 300px;
+    // padding-top:
+    column-gap: 70px;
 }
 
 .adopt-container-firstPara-image {
-    height: 400px;
-    width: 470px;
+    height: 350px;
+    width: 420px;
 }
 
 .adopt-container-firstPara-content {
@@ -74,13 +76,14 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    padding-top: 40px;
-    column-gap: 120px;
+    // margin-top: 50px;
+    column-gap: 70px;
+    height: 300px;
 }
 
 .adopt-container-secondPara-image {
-    height: 400px;
-    width: 470px;
+    height: 350px;
+    width: 420px;
 }
 
 .adopt-container-secondPara-content {
@@ -100,13 +103,14 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    padding-top: 50px;
-    column-gap: 120px;
+    // margin-top: 100px;
+    column-gap: 70px;
+    height: 300px;
 }
 
 .adopt-container-thirdPara-image {
-    height: 400px;
-    width: 470px;
+    height: 350px;
+    width: 420px;
 }
 
 .adopt-container-thirdPara-content {
@@ -125,18 +129,19 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    padding-top: 30px;
-    column-gap: 120px;
+    // margin-top: 100px;
+    column-gap: 70px;
+    height: 300px;
 }
 
 .adopt-container-fourthPara-image {
-    height: 400px;
-    width: 470px;
+    height: 350px;
+    width: 420px;
 }
 
 .adopt-container-fourthPara-content {
     width: 500px;
-    padding-top: 60px;
+    padding-top: 30px;
     font-size: 19px;
 
     h3 {
@@ -150,18 +155,19 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    // padding-top: 10px;
-    column-gap: 120px;
+    // margin-top: 50px;
+    column-gap: 70px;
+    height: 300px;
 }
 
 .adopt-container-fifthPara-image {
-    height: 440px;
-    width: 470px;
+    height: 350px;
+    width: 420px;
 }
 
 .adopt-container-fifthPara-content {
     width: 500px;
-    padding-top: 100px;
+    padding-top: 40px;
     font-size: 19px;
 
     h3 {
@@ -175,18 +181,19 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    padding-top: 20px;
-    column-gap: 120px;
+    // margin-top: 80px;
+    column-gap: 70px;
+    height: 300px;
 }
 
 .adopt-container-sixthPara-image {
-    height: 400px;
-    width: 470px;
+    height: 350px;
+    width: 420px;
 }
 
 .adopt-container-sixthPara-content {
     width: 500px;
-    padding-top: 70px;
+    padding-top: 30px;
     font-size: 19px;
 
     h3 {

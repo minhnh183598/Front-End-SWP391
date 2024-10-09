@@ -22,6 +22,8 @@ const handleBefore = (config) => {
         return config;
     } else if (config.url.includes('pets/')) {
         return config;
+    } else if (config.url.includes('applications')) {
+        return config;
     }
     const token = localStorage.getItem('token')?.replaceAll('"', '');
     //if (token) {

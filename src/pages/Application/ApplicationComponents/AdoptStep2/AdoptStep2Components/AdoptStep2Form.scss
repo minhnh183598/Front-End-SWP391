@@ -1,0 +1,327 @@
+.AdoptStep2 {
+    background-color: white;
+}
+
+.wrap-wrap {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.AdoptStep2-h3-wrap {
+    height: 70px;
+    width: 700px;
+    display: flex;
+    // background-color: white;
+    align-items: center;
+    justify-content: center;
+    // border-radius: 15px;
+    border-bottom: 3px solid #88b179;
+    color: #88b179;
+    h3 {
+        margin: 0px;
+        font-weight: 900;
+        font-size: 50px;
+    }
+}
+
+.AdoptStep2-infoInputbar-wrap {
+    display: flex;
+    column-gap: 30px;
+    padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 400px;
+        border-radius: 5px;
+        outline: none;
+    }
+    select {
+        border-radius: 5px;
+    }
+}
+
+.AdoptStep2-infoInput-bar:focus {
+    border-color: #6a945b;
+    border-width: 3px;
+}
+
+.AdoptStep2-infoInput {
+    height: 840px;
+    form {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 30px;
+    }
+}
+
+.AdoptStep2-button {
+    display: flex;
+    justify-content: right;
+    padding-right: 40px;
+    column-gap: 10px;
+}
+
+// 2 cái nút next và cancel
+.btn-1 {
+    width: 90px;
+    height: 40px;
+    font-size: 20px;
+    background-color: #7aa366;
+    border-radius: 10px;
+}
+
+.btn-1:hover {
+    background-color: #8fca72;
+}
+
+.btn-2 {
+    width: 90px;
+    height: 40px;
+    font-size: 20px;
+    background-color: #db6060;
+    border-radius: 10px;
+    color: white;
+}
+
+.btn-2:hover {
+    background-color: #e14343;
+}
+
+//name_yob_address_city_wrap
+.name_yob_address_city_wrap {
+    background-color: #c5e7b6;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+//wrap_name_yob
+.wrap_name_yob {
+    display: flex;
+    column-gap: 30px;
+}
+// name
+.AdoptStep2-infoInputbar-wrap-name {
+    display: flex;
+    column-gap: 9px;
+    padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 300px;
+        border-radius: 5px;
+        outline: none;
+    }
+    label {
+        width: 80px;
+    }
+}
+
+//yob
+.AdoptStep2-infoInputbar-wrap-yob {
+    display: flex;
+    column-gap: 20px;
+    padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 282px;
+        border-radius: 5px;
+        outline: none;
+    }
+    label {
+        width: 90px;
+    }
+}
+
+//address
+.AdoptStep2-infoInputbar-wrap-address {
+    display: flex;
+    column-gap: 30px;
+    padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        // height: 80px;
+        width: 740px;
+        padding-bottom: 50px;
+        border-radius: 5px;
+        outline: none;
+    }
+}
+
+//city
+.AdoptStep2-infoInputbar-wrap-city {
+    display: flex;
+    column-gap: 60px;
+    // padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 300px;
+        border-radius: 5px;
+        outline: none;
+    }
+}
+
+//gender_phone_job_livewith_wrap
+.gender_phone_job_livewith_wrap {
+    background-color: #c5e7b6;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+//gender_phone_wrap
+.gender_phone_wrap {
+    display: flex;
+    column-gap: 30px;
+}
+
+//gender
+.AdoptStep2-infoInputbar-wrap-gender {
+    display: flex;
+    column-gap: 35px;
+    padding-bottom: 15px;
+    select {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 300px;
+        border-radius: 5px;
+        outline: none;
+    }
+}
+
+//phone
+.AdoptStep2-infoInputbar-wrap-phone {
+    display: flex;
+    column-gap: 60px;
+    padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 290px;
+        border-radius: 5px;
+        outline: none;
+    }
+}
+
+//job_livewith_wrap
+.job_livewith_wrap {
+    display: flex;
+    column-gap: 30px;
+}
+
+//job
+.AdoptStep2-infoInputbar-wrap-job {
+    display: flex;
+    column-gap: 60px;
+    // padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 300px;
+        border-radius: 5px;
+        outline: none;
+    }
+}
+
+//livewith
+.AdoptStep2-infoInputbar-wrap-livewith {
+    display: flex;
+    column-gap: 39px;
+    // padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 292px;
+        border-radius: 5px;
+        outline: none;
+    }
+    label {
+        width: 65px;
+    }
+}
+
+.RE1_RE1Phone_RE2_RE2Phone_wrap {
+    background-color: #c5e7b6;
+    border-radius: 10px;
+    padding: 20px;
+    // margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.RE1_RE1Phone {
+    display: flex;
+    column-gap: 30px;
+}
+
+.AdoptStep2-infoInputbar-wrap-RE1 {
+    display: flex;
+    column-gap: 9px;
+    padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 300px;
+        border-radius: 5px;
+        outline: none;
+    }
+    label {
+        width: 80px;
+    }
+}
+
+.AdoptStep2-infoInputbar-wrap_RE1Phone {
+    display: flex;
+    column-gap: 9px;
+    padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 300px;
+        border-radius: 5px;
+        outline: none;
+    }
+    label {
+        width: 80px;
+    }
+}
+
+.RE2_RE2Phone {
+    display: flex;
+    column-gap: 30px;
+}
+
+.AdoptStep2-infoInputbar-wrap-RE2 {
+    display: flex;
+    column-gap: 9px;
+    // padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 300px;
+        border-radius: 5px;
+        outline: none;
+    }
+    label {
+        width: 80px;
+    }
+}
+
+.AdoptStep2-infoInputbar-wrap-RE2Phone {
+    display: flex;
+    column-gap: 9px;
+    // padding-bottom: 15px;
+    input {
+        border: 2px solid #88b179;
+        height: 30px;
+        width: 300px;
+        border-radius: 5px;
+        outline: none;
+    }
+    label {
+        width: 80px;
+    }
+}

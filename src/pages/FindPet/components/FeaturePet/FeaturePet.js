@@ -116,7 +116,7 @@ function FeaturePet({ children, homepage }) {
                                         <Button
                                             primary
                                             small
-                                            to="/"
+                                            to={`/adopt-application/${pet.petId}`}
                                             className={cx(
                                                 'btn',
                                                 pet.petStatus === 'Adopted' ? 'unavailable-state' : null,
