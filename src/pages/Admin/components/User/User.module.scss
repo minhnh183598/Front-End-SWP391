@@ -123,7 +123,7 @@
                     }
     
                     .name {
-                        width: 30%;
+                        width: 20%;
                     }
     
                     .role {
@@ -136,6 +136,9 @@
     
                     .date {
                         width: 10%;
+                    }
+                    .action{
+                        width: 5%;
                     }
                 }
     
@@ -159,7 +162,7 @@
                         }
     
                         .name {
-                            width: 30%;
+                            width: 20%;
                             .username {
                                 font-weight: 600;
                             }
@@ -171,18 +174,19 @@
                         .role {
                             width: 10%;
                             p{
-                                background-color: rgb(208, 242, 254);
+                                background-color: rgb(110, 191, 220);
                                 display: inline;
                                 padding: 5px;
                                 border-radius: 10px;
+                                color: white;
                             }
 
                             .volunteer{
-                                background-color: lightyellow;
+                                background-color: rgb(228, 228, 50);
                             }
 
                             .admin{
-                                background-color: lightcoral;
+                                background-color: rgb(193, 99, 99);
                             }
                         }
     
@@ -193,8 +197,26 @@
                         .date {
                             width: 10%;
                         }
+                        .action{
+                            width: 5%;
+                            .view-icon {
+                                color: rgb(99, 199, 232);
+                                width: 18px;
+                            }
+
+                            .delete-icon {
+                                color: rgb(255, 98, 98);
+                                width: 18px;
+                                margin-left: 10px;
+                            }
+                        }
                     }
                 }
+            }
+            .pagination{
+                margin-top: 20px;
+                width: 100%;
+                text-align: center;
             }
         }
     }

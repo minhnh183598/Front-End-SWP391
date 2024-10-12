@@ -4,19 +4,17 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import ShortFilter from './components/ShortFilter';
 import BlogList from './components/BlogList';
-import Button from '~/components/Button';
-import CreateBlog from './components/CreateBlog/CreateBlog';
 
 const cx = classNames.bind(styles);
 
 function Blog() {
-    const [openPopup, setOpenPopup] = useState(true);
+    // const [openPopup, setOpenPopup] = useState(false);
     const [searchName, setSearchName] = useState('');
     const [filter, setFilter] = useState({
         sort: 'all',
         type: 'all',
     });
-    
+
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         console.log(name, value);
@@ -45,12 +43,6 @@ function Blog() {
             <div className={cx('content')}>
                 <h1>Blogs</h1>
 
-                <div className={cx('create-blog')}>
-                    <Button outline onClick={() => setOpenPopup(true)}>
-                        Create Blog
-                    </Button>
-                </div>
-
                 <div className={cx('short-filter')}>
                     <ShortFilter
                         filter={filter}
@@ -64,10 +56,6 @@ function Blog() {
                     <BlogList />
                 </div>
             </div>
-
-            {openPopup ? (
-                <CreateBlog setOpenPopup={setOpenPopup}/>
-            ) : null}
         </div>
     );
 }

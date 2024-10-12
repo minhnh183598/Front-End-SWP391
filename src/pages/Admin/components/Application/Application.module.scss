@@ -1,16 +1,10 @@
 .wrapper {
     width: 100%;
     margin: 40px 0;
-    margin-top: 0;
-
-    h1{
-        margin-bottom: 40px;
-        color: var(--primary-color);
-    }
 
     .user-sum {
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
 
         .user-sum-item {
             background-color: white;
@@ -40,10 +34,6 @@
                 line-height: 25px;
                 border-radius: 10px;
             }
-
-            &:nth-child(2){
-                margin: 0 60px;
-            }
         }
     }
 
@@ -63,6 +53,7 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid lightgray;
+
             .sort {
                 display: flex;
                 background-color: #f6f6f6;
@@ -71,7 +62,7 @@
 
                 p {
                     margin: 0;
-                    width: 75px;
+                    width: 70px;
                     text-align: center;
                     padding: 5px 2px;
                     color: #b6b6b6;
@@ -83,11 +74,6 @@
                     background-color: white;
                     color: black;
                 }
-            }
-
-            .add-pet{
-                margin-right: auto;
-                margin-left: 10px;
             }
 
             .search {
@@ -134,26 +120,23 @@
                     }
 
                     .id {
+                        width: 50px;
+                    }
+
+                    .user {
+                        width: 20%;
+                    }
+
+                    .action {
+                        width: 5%;
+                    }
+
+                    .status{
                         width: 10%;
-                    }
-
-                    .name {
-                        width: 15%;
-                    }
-
-                    .role {
-                        width: 10%;
-                    }
-
-                    .appli {
-                        width: 100px;
                     }
 
                     .date {
                         width: 10%;
-                    }
-                    .action{
-                        width: 5%;
                     }
                 }
 
@@ -173,47 +156,40 @@
                             margin: 0;
                         }
                         .id {
-                            width: 10%;
-                            overflow: hidden;
-                            white-space: nowrap; 
+                            width: 50px;
                         }
 
-                        .name {
-                            width: 15%;
-                            display: flex;
-                            align-items: center;
-                            .petname {
+                        .user {
+                            width: 20%;
+                            .fullname {
                                 font-weight: 600;
-                                margin-right: 10px;
                             }
                         }
-                        .role {
+
+                        .status{
                             width: 10%;
                             p {
-                                background-color: rgb(208, 242, 254);
+                                background-color: var(--pass-color);
                                 color: white;
                                 display: inline;
                                 padding: 5px;
                                 border-radius: 10px;
                             }
-
-                            .adopted {
-                                background-color: var(--adopted-color);
+        
+                            .inprocess {
+                                background-color: var(--inprocess-color);
                             }
-
-                            .available {
-                                background-color: var(--available-color);
+        
+                            .notpass {
+                                background-color: var(--notpass-color);
                             }
-                        }
-
-                        .appli {
-                            width: 100px;
                         }
 
                         .date {
                             width: 10%;
                         }
-                        .action{
+
+                        .action {
                             width: 5%;
                             .view-icon {
                                 color: rgb(99, 199, 232);
@@ -230,7 +206,7 @@
                 }
             }
 
-            .pagination{
+            .pagination {
                 margin-top: 20px;
                 width: 100%;
                 text-align: center;

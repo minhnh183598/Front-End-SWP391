@@ -2,10 +2,6 @@ import { Form, Input } from 'antd';
 import styles from './LoginGoogle.module.scss';
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
-import { useEffect } from 'react';
-import { OAuthConfig } from '../GGconfig/configuration';
-import api from '~/config/axios';
-import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 

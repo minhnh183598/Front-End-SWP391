@@ -1,13 +1,15 @@
 import styles from './Admin.module.scss';
 import classNames from 'classnames/bind';
 import Header from './Header';
-import { ICONS_ADMIN } from '~/assets/icons/adminicon';
 import Dashboard from './components/Dashboard/Dashboard';
 import User from './components/User/User';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBlog, faCalendarDays, faHouse, faNewspaper, faPaw, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import Pets from './components/Pets/Pets';
+import Blogs from './components/Blogs/Blogs';
+import Events from './components/Events/Events';
+import Application from './components/Application/Application';
 
 const cx = classNames.bind(styles);
 
@@ -75,8 +77,19 @@ function Admin() {
                     </div>
                 </div>
                 <div className={cx('content')}>
-                    {/* {content === 'Dashboard' ? <Dashboard /> : content == 'Pets' ? <Pets /> : <User />} */}
-                    <Pets/>
+                    {content == 'Dashboard' ? (
+                        <Dashboard />
+                    ) : content == 'Pets' ? (
+                        <Pets />
+                    ) : content == 'Blogs' ? (
+                        <Blogs />
+                    ) : content == 'Events' ? (
+                        <Events />
+                    ) : content == 'Application' ? (
+                        <Application />
+                    ) : (
+                        <User />
+                    )}
                 </div>
             </div>
         </div>

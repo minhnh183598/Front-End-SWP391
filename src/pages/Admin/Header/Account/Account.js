@@ -11,15 +11,15 @@ const cx = classNames.bind(styles);
 function Account() {
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const role = JSON.parse(localStorage.getItem('userRoles'));
-    const isAdmin = role?.includes('ADMIN');
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('userInfo');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('userRoles');
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+            const key = localStorage.key(i);
+            if (key && key.includes('user')) {
+                localStorage.removeItem(key);
+            }
+        }
         navigate('/');
     };
 
@@ -32,17 +32,13 @@ function Account() {
     };
 
     const items = [
-        ...(isAdmin
-            ? [
-                  {
-                      label: (
-                          <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/admin">
-                              Admin
-                          </Link>
-                      ),
-                  },
-              ]
-            : []),
+        {
+            label: (
+                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/admin">
+                    Admin
+                </Link>
+            ),
+        },
         {
             label: (
                 <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/account">
@@ -52,7 +48,13 @@ function Account() {
         },
         {
             label: (
-                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/" onClick={handleLogout}>
+                <Link
+                    style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }}
+                    to='/'
+                    onClick={() => {
+                        handleLogout();
+                    }}
+                >
                     Log Out
                 </Link>
             ),
@@ -63,8 +65,6 @@ function Account() {
         <div className={cx('account')}>
             {userInfo ? (
                 <>
-                    <DogIcon />
-                    <HeartIcon />
                     <NotiIcon />
 
                     <Dropdown menu={{ items }}>

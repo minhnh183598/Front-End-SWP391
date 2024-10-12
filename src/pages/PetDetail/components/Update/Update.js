@@ -1,11 +1,42 @@
-
 import Button from '~/components/Button';
 import styles from './Update.module.scss';
 import classNames from 'classnames/bind';
-
+import api from '~/config/axios';
+import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
-function Update({handleSubmit, formData, handleChange, closeUpdate}) {
+
+function Update({ setUpdate, formData, setFormData, closeUpdate, id, handlePetData }) {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+        try {
+            const response = await api.put(`pets/${id}`, formData, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+
+        setUpdate(false);
+        handlePetData();
+        console.log(formData);
+    };
+
     return (
         <div className={cx('update-content')}>
             <form className={cx('form-wrapper')} onSubmit={handleSubmit}>
@@ -49,6 +80,14 @@ function Update({handleSubmit, formData, handleChange, closeUpdate}) {
                                 <option value="female">Female</option>
                             </select>
                         </div>
+
+                        <div className={cx('input-detail')}>
+                            <label htmlFor="petType">Type</label>
+                            <select id="petType" name="petType" value={formData.petType} onChange={handleChange}>
+                                <option value="Dog">Dog</option>
+                                <option value="Cat">Cat</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div className={cx('form-input')}>
@@ -88,6 +127,14 @@ function Update({handleSubmit, formData, handleChange, closeUpdate}) {
                             <select id="petVaccin" name="petVaccin" value={formData.petVaccin} onChange={handleChange}>
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
+                            </select>
+                        </div>
+
+                        <div className={cx('input-detail')}>
+                            <label htmlFor="petStatus">Status</label>
+                            <select id="petStatus" name="petStatus" value={formData.petStatus} onChange={handleChange}>
+                                <option value="Available">Available</option>
+                                <option value="Adopted">Adopted</option>
                             </select>
                         </div>
                     </div>

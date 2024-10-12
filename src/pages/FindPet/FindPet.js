@@ -15,7 +15,6 @@ function FindPet() {
     const [petList, setPetList] = useState([]);
     const [dataLength, setDataLength] = useState(0);
     const [user, setUser] = useState();
-    const [userRoles, setUserRoles] = useState('');
     const [searchName, setSearchName] = useState('');
     const [filter, setFilter] = useState({
         type: 'all',
@@ -64,13 +63,6 @@ function FindPet() {
         if (loggedUser) {
             setUser(loggedUser);
         }
-
-        //     const roles = JSON.parse(localStorage.getItem('userRoles'));
-        //     if (roles.includes('USER')) {
-        //         setUserRoles('user');
-        //     } else {
-        //         setUserRoles('admin');
-        //     }
     }, []);
 
     const handleFilterChange = (e) => {

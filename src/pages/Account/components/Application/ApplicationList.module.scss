@@ -86,7 +86,7 @@
                     .state {
                         width: 130px;
                         height: 30px;
-                        background-color: green;
+                        background-color: var(--pass-color);
                         border-radius: 15px;
                         color: white;
                         font-size: 18px;
@@ -97,11 +97,11 @@
                     }
 
                     .inprocess {
-                        background-color: rgb(228, 228, 61);
+                        background-color: var(--inprocess-color);
                     }
 
                     .notpass {
-                        background-color: rgb(226, 6, 6);
+                        background-color: var(--notpass-color);
                     }
 
                     .feedback {

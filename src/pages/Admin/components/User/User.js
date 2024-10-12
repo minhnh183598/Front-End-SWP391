@@ -1,10 +1,15 @@
 import Button from '~/components/Button';
 import styles from './User.module.scss';
 import classNames from 'classnames/bind';
+import { Pagination } from 'antd';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
 function User() {
+    const [currentPage, setCurrentPage] = useState(1);
     const data = [
         {
             id: 23,
@@ -54,7 +59,83 @@ function User() {
             noa: 12,
             enrolled: '23/01/2024',
         },
+        {
+            id: 122,
+            username: 'nnthach1',
+            fullname: 'Nguyễn Ngọc Thạch',
+            role: 'User',
+            noa: 12,
+            enrolled: '23/01/2024',
+        },
+        {
+            id: 979,
+            username: 'nnthach1',
+            fullname: 'Nguyễn Ngọc Thạch',
+            role: 'User',
+            noa: 12,
+            enrolled: '23/01/2024',
+        },
+        {
+            id: 106,
+            username: 'nnthach1',
+            fullname: 'Nguyễn Ngọc Thạch',
+            role: 'Volunteer',
+            noa: 12,
+            enrolled: '23/01/2024',
+        },
+        {
+            id: 127,
+            username: 'nnthach1',
+            fullname: 'Nguyễn Ngọc Thạch',
+            role: 'User',
+            noa: 12,
+            enrolled: '23/01/2024',
+        },
+        {
+            id: 98,
+            username: 'nnthach1',
+            fullname: 'Nguyễn Ngọc Thạch',
+            role: 'User',
+            noa: 12,
+            enrolled: '23/01/2024',
+        },
+        {
+            id: 195,
+            username: 'nnthach1',
+            fullname: 'Nguyễn Ngọc Thạch',
+            role: 'Volunteer',
+            noa: 12,
+            enrolled: '23/01/2024',
+        },
+        {
+            id: 124,
+            username: 'nnthach1',
+            fullname: 'Nguyễn Ngọc Thạch',
+            role: 'User',
+            noa: 12,
+            enrolled: '23/01/2024',
+        },
+        {
+            id: 9,
+            username: 'nnthach1',
+            fullname: 'Nguyễn Ngọc Thạch',
+            role: 'User',
+            noa: 12,
+            enrolled: '23/01/2024',
+        },
+        {
+            id: 115,
+            username: 'nnthach1',
+            fullname: 'Nguyễn Ngọc Thạch',
+            role: 'Volunteer',
+            noa: 12,
+            enrolled: '23/01/2024',
+        },
     ];
+    const userPerPage = 12;
+    const indexOfLastUser = currentPage * userPerPage;
+    const indexOfFirstUser = indexOfLastUser - userPerPage; 
+    const currentUser = data.slice(indexOfFirstUser, indexOfLastUser);
     return (
         <>
             <h1>Users</h1>
@@ -125,9 +206,10 @@ function User() {
                                 <p className={cx('role')}>Role</p>
                                 <p className={cx('appli')}>Number of application</p>
                                 <p className={cx('date')}>Enrolled</p>
+                                <p className={cx('action')}>Action</p>
                             </div>
                             <div className={cx('content')}>
-                                {data.map((user) => (
+                                {currentUser.map((user) => (
                                     <div className={cx('content-item')} key={user.id}>
                                         <p className={cx('id')}>#{user.id}</p>
                                         <div className={cx('name')}>
@@ -151,9 +233,23 @@ function User() {
                                         </div>
                                         <p className={cx('appli')}>{user.noa}</p>
                                         <p className={cx('date')}>{user.enrolled}</p>
+                                        <div className={cx('action')}>
+                                            <FontAwesomeIcon icon={faEye} className={cx('view-icon')} />
+                                            <FontAwesomeIcon icon={faTrash} className={cx('delete-icon')}/>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
+                        </div>
+                        <div className={cx('pagination')}>
+                            <Pagination
+                                style={{ display: 'block' }}
+                                current={currentPage}
+                                defaultCurrent={1}
+                                total={data.length}
+                                pageSize={userPerPage}
+                                onChange={(page) => setCurrentPage(page)}
+                            />
                         </div>
                     </div>
                 </div>
