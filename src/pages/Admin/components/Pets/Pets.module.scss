@@ -90,25 +90,7 @@
                 margin-left: 10px;
             }
 
-            .search {
-                form {
-                    display: flex;
-                    align-items: center;
-
-                    select,
-                    input {
-                        border-radius: 8px;
-                        padding: 5px;
-                        outline: none;
-                        border: 1px solid black;
-                        font-size: 14px;
-                        margin-right: 5px;
-                    }
-                    select {
-                        margin: 0 20px 0 10px;
-                    }
-                }
-            }
+            
         }
 
         .main-content {
@@ -154,78 +136,6 @@
                     }
                     .action{
                         width: 5%;
-                    }
-                }
-
-                .content {
-                    width: 100%;
-                    background-color: white;
-
-                    .content-item {
-                        padding: 0 20px;
-                        height: 70px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        border-bottom: 1px solid lightgray;
-
-                        p {
-                            margin: 0;
-                        }
-                        .id {
-                            width: 10%;
-                            overflow: hidden;
-                            white-space: nowrap; 
-                        }
-
-                        .name {
-                            width: 15%;
-                            display: flex;
-                            align-items: center;
-                            .petname {
-                                font-weight: 600;
-                                margin-right: 10px;
-                            }
-                        }
-                        .role {
-                            width: 10%;
-                            p {
-                                background-color: rgb(208, 242, 254);
-                                color: white;
-                                display: inline;
-                                padding: 5px;
-                                border-radius: 10px;
-                            }
-
-                            .adopted {
-                                background-color: var(--adopted-color);
-                            }
-
-                            .available {
-                                background-color: var(--available-color);
-                            }
-                        }
-
-                        .appli {
-                            width: 100px;
-                        }
-
-                        .date {
-                            width: 10%;
-                        }
-                        .action{
-                            width: 5%;
-                            .view-icon {
-                                color: rgb(99, 199, 232);
-                                width: 18px;
-                            }
-
-                            .delete-icon {
-                                color: rgb(255, 98, 98);
-                                width: 18px;
-                                margin-left: 10px;
-                            }
-                        }
                     }
                 }
             }

@@ -5,7 +5,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import User from './components/User/User';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBlog, faCalendarDays, faHouse, faNewspaper, faPaw, faUser } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Pets from './components/Pets/Pets';
 import Blogs from './components/Blogs/Blogs';
 import Events from './components/Events/Events';
@@ -14,7 +14,17 @@ import Application from './components/Application/Application';
 const cx = classNames.bind(styles);
 
 function Admin() {
-    const [content, setContent] = useState('Dashboard');
+    const [content, setContent] = useState(() => {
+        return localStorage.getItem('adminContent') || 'Dashboard';
+    });
+
+    useEffect(() => {
+        localStorage.setItem('adminContent', content);
+    }, [content]);
+
+    const handleContentChange = (newContent) => {
+        setContent(newContent);
+    };
     return (
         <div className={cx('wrapper')}>
             <Header />
@@ -23,7 +33,7 @@ function Admin() {
                 <div className={cx('sidebar')}>
                     <div
                         className={cx('sidebar-item', { active: content === 'Dashboard' })}
-                        onClick={() => setContent('Dashboard')}
+                        onClick={() => handleContentChange('Dashboard')}
                     >
                         <span>
                             <FontAwesomeIcon icon={faHouse} className={cx('icon')} />
@@ -32,7 +42,7 @@ function Admin() {
                     </div>
                     <div
                         className={cx('sidebar-item', { active: content === 'Pets' })}
-                        onClick={() => setContent('Pets')}
+                        onClick={() => handleContentChange('Pets')}
                     >
                         <span>
                             <FontAwesomeIcon icon={faPaw} className={cx('icon')} />
@@ -41,7 +51,7 @@ function Admin() {
                     </div>
                     <div
                         className={cx('sidebar-item', { active: content === 'Users' })}
-                        onClick={() => setContent('Users')}
+                        onClick={() => handleContentChange('Users')}
                     >
                         <span>
                             <FontAwesomeIcon icon={faUser} className={cx('icon')} />
@@ -50,7 +60,7 @@ function Admin() {
                     </div>
                     <div
                         className={cx('sidebar-item', { active: content === 'Blogs' })}
-                        onClick={() => setContent('Blogs')}
+                        onClick={() => handleContentChange('Blogs')}
                     >
                         <span>
                             <FontAwesomeIcon icon={faBlog} className={cx('icon')} />
@@ -59,7 +69,7 @@ function Admin() {
                     </div>
                     <div
                         className={cx('sidebar-item', { active: content === 'Events' })}
-                        onClick={() => setContent('Events')}
+                        onClick={() => handleContentChange('Events')}
                     >
                         <span>
                             <FontAwesomeIcon icon={faCalendarDays} className={cx('icon')} />
@@ -68,7 +78,7 @@ function Admin() {
                     </div>
                     <div
                         className={cx('sidebar-item', { active: content === 'Application' })}
-                        onClick={() => setContent('Application')}
+                        onClick={() => handleContentChange('Application')}
                     >
                         <span>
                             <FontAwesomeIcon icon={faNewspaper} className={cx('icon')} />

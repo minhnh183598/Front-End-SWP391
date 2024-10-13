@@ -1,21 +1,15 @@
-
-import styles from './PetDetail.module.scss';
-import classNames from 'classnames/bind';
-import Button from '~/components/Button';
-import { useParams } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
 import api from '~/config/axios';
-import Update from './components/Update';
-import RegisBanner from '~/components/Layout/components/RegisterBanner';
-import PetImage from './components/PetImage/PetImage';
+import PetImage from './PetImage/PetImage';
+import styles from './ViewPet.module.scss';
+import classNames from 'classnames/bind';
+import { useEffect, useState } from 'react';
+import Update from './Update';
+import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
-function PetDetail() {
-    const [user, setUser] = useState(false);
-    const [userRoles, setUserRoles] = useState('');
+function ViewPet({ id, setViewPet }) {
     const [update, setUpdate] = useState(false);
-    const { id } = useParams();
     const [pet, setPet] = useState(null);
     const [formData, setFormData] = useState({
         petName: '',
@@ -30,7 +24,6 @@ function PetDetail() {
         petType: '',
         petStatus: '',
     });
-
     const handlePetData = async () => {
         try {
             const response = await api.get(`pets/${id}`, {
@@ -46,18 +39,8 @@ function PetDetail() {
     };
 
     useEffect(() => {
-        const role = JSON.parse(localStorage.getItem('userRoles'));
-        console.log(role);
-        if (role?.includes('ADMIN')) {
-            setUser(true);
-            setUserRoles('admin');
-        } else {
-            setUserRoles('user');
-            setUser(true);
-        }
         handlePetData();
     }, []);
-
 
     useEffect(() => {
         if (pet) {
@@ -76,7 +59,6 @@ function PetDetail() {
             });
         }
     }, [pet]);
-
 
     if (!pet) {
         return <div>Loading...</div>;
@@ -98,14 +80,28 @@ function PetDetail() {
         });
     };
 
+    const handleDeletePet = async () => {
+        try {
+            await api.delete(`pets/${id}`, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
+            alert('Delete pet successfully!');
+            setViewPet(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
-        <div>
+        <>
             <div className={cx('wrapper')}>
-                <h1>Do you love {pet.petName}?</h1>
-                <div className={cx('content')}>
-
-                    <PetImage/>
-
+                <p style={{ cursor: 'pointer' }} onClick={() => setViewPet(false)}>
+                    &larr;Back
+                </p>
+                <div style={{ display: 'flex' }}>
+                    <PetImage />
                     <div className={cx('pet-info')}>
                         <div className={cx('detail-info')}>
                             <h2>{pet.petName}</h2>
@@ -141,32 +137,14 @@ function PetDetail() {
                                 </div>
                             </div>
 
-                            <div className={cx('adopt')}>
-                                {pet.petStatus === 'Adopted' ? (
-                                    <Button medium disable>
-                                        Adopted
-                                    </Button>
-                                ) : (
-                                    <>
-                                        <Button medium primary>
-                                            Adopt Now
-                                        </Button>
-                                        <Button medium outline>
-                                            Donate
-                                        </Button>
-                                    </>
-                                )}
-
-                                <div className={cx('admin-btn')}></div>
+                            <div className={cx('edit')}>
+                                <Button className={cx('update-btn')} primary medium onClick={toggleUpdate}>
+                                    Update
+                                </Button>
+                                <Button className={cx('update-btn')} outline medium onClick={handleDeletePet}>
+                                    Delete
+                                </Button>
                             </div>
-
-                            {userRoles === 'admin' ? (
-                                <div className={cx('edit')}>
-                                    <Button className={cx('update-btn')} primary medium onClick={toggleUpdate}>
-                                        Update
-                                    </Button>
-                                </div>
-                            ) : null}
                         </div>
                         <div className={cx('story')}>
                             <h2>Story</h2>
@@ -176,7 +154,6 @@ function PetDetail() {
                         </div>
                     </div>
                 </div>
-
                 {update && (
                     <Update
                         setUpdate={setUpdate}
@@ -188,10 +165,8 @@ function PetDetail() {
                     />
                 )}
             </div>
-
-            {user == false  ? <RegisBanner /> : null}
-        </div>
+        </>
     );
 }
 
-export default PetDetail;
+export default ViewPet;

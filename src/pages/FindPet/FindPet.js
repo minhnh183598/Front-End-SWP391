@@ -79,11 +79,7 @@ function FindPet() {
         <div className={cx('wrapper')}>
             <div className={cx('banner')}>
                 <img src={IMAGES.findPetBanner} alt="banner" />
-
-                {/* <h1>Adopt a pet, save a life!</h1> */}
             </div>
-
-            {/* <FeaturePet /> */}
 
             <div className={cx('content')}>
                 <h1>Find Your Pets</h1>
@@ -107,7 +103,7 @@ function FindPet() {
                         />
 
                         {petList.length === 0 ? (
-                            <p className={cx('null-pet-list')}>No pets found for your search.</p> // Show message if no pets found
+                            <p className={cx('null-pet-list')}>No pets found for your search</p>
                         ) : (
                             <PetList data={petList} dataLength={petList.length} />
                         )}

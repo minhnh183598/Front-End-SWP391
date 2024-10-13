@@ -1,13 +1,13 @@
 import Button from '~/components/Button';
 import styles from './Pets.module.scss';
 import classNames from 'classnames/bind';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from 'antd';
 import { useEffect, useState } from 'react';
 import api from '~/config/axios';
-import AddPet from './AddPet/AddPet';
-import ViewPet from './ViewPet/ViewPet';
+import AddPet from './components/AddPet/AddPet';
+import ViewPet from './components/ViewPet/ViewPet';
+import Search from './components/Search/Search';
+import PetContent from './components/PetContent/PetContent';
 
 const cx = classNames.bind(styles);
 
@@ -19,10 +19,28 @@ function Pets() {
     const [refresh, setRefresh] = useState(0);
     const [petID, setPetID] = useState('');
     const [viewPet, setViewPet] = useState(false);
+    const [searchName, setSearchName] = useState('');
+    const [activeSort, setActiveSort] = useState('View All');
+    const [filter, setFilter] = useState({
+        type: 'all',
+        gender: 'all',
+        age: 'all',
+        color: 'all',
+        state: 'all',
+        vaccine: 'all',
+        sort: 'all',
+    });
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        console.log(name, value);
+        setFilter((pre) => ({ ...pre, [name]: value }));
+    };
 
     const handlePetsData = async () => {
+        const { type, gender, age, color, vaccine, sort, state } = filter;
+        const query = `petType=${type}&petAge=${age}&petGender=${gender}&petColor=${color}&petVaccin=${vaccine}&petStatus=${state}&keyword=${searchName}&sort=${sort}`;
         try {
-            const response = await api.get(`pets`, {
+            const response = await api.get(`pets/SearchPets?${query}`, {
                 headers: {
                     Authorization: 'No Auth',
                 },
@@ -37,9 +55,20 @@ function Pets() {
         }
     };
 
+    const handleFinish = async (e) => {
+        if (e) e.preventDefault();
+        await handlePetsData();
+
+        const searchParams = {
+            searchName,
+            filter,
+        };
+        console.log(searchParams);
+    };
+
     useEffect(() => {
         handlePetsData();
-    }, [refresh]);
+    }, [filter, refresh, currentPage, viewPet]);
 
     const handleAddPet = () => {
         setAddPet(false);
@@ -86,9 +115,36 @@ function Pets() {
                             <div className={cx('user-content')}>
                                 <div className={cx('header')}>
                                     <div className={cx('sort')}>
-                                        <p className={cx('active')}>View All</p>
-                                        <p>Available</p>
-                                        <p>Adopted</p>
+                                        <p
+                                            className={cx({ active: activeSort == 'View All' })}
+                                            onClick={() => {
+                                                setActiveSort('View All');
+                                                setFilter((prev) => ({ ...prev, state: 'all' }));
+                                                setCurrentPage(1);
+                                            }}
+                                        >
+                                            View All
+                                        </p>
+                                        <p
+                                            className={cx({ active: activeSort == 'Available' })}
+                                            onClick={() => {
+                                                setActiveSort('Available');
+                                                setFilter((prev) => ({ ...prev, state: 'Available' }));
+                                                setCurrentPage(1);
+                                            }}
+                                        >
+                                            Available
+                                        </p>
+                                        <p
+                                            className={cx({ active: activeSort == 'Adopted' })}
+                                            onClick={() => {
+                                                setActiveSort('Adopted');
+                                                setFilter((prev) => ({ ...prev, state: 'Adopted' }));
+                                                setCurrentPage(1);
+                                            }}
+                                        >
+                                            Adopted
+                                        </p>
                                     </div>
 
                                     <div className={cx('add-pet')}>
@@ -97,22 +153,13 @@ function Pets() {
                                         </Button>
                                     </div>
 
-                                    <div className={cx('search')}>
-                                        <form>
-                                            <label htmlFor="sort">Sort by</label>
-                                            <select id="sort" name="sort">
-                                                <option value="all">All</option>
-                                                <option value="sortByWeight">ID</option>
-                                                <option value="sortByAge">Create Date</option>
-                                                <option value="sortByName">Number of Application</option>
-                                            </select>
-
-                                            <input type="text" placeholder="Search by name" />
-                                            <Button primary small type="submit">
-                                                Search
-                                            </Button>
-                                        </form>
-                                    </div>
+                                    <Search
+                                        filter={filter}
+                                        handleFilterChange={handleFilterChange}
+                                        searchName={searchName}
+                                        setSearchName={setSearchName}
+                                        handleFinish={handleFinish}
+                                    />
                                 </div>
 
                                 <div className={cx('main-content')}>
@@ -125,45 +172,21 @@ function Pets() {
                                             <p className={cx('date')}>Create Date</p>
                                             <p className={cx('action')}>Action</p>
                                         </div>
-                                        <div className={cx('content')}>
-                                            {currentPet.map((pet) => (
-                                                <div className={cx('content-item')} key={pet.petId}>
-                                                    <p className={cx('id')}>#{pet.petId}</p>
-                                                    <div className={cx('name')}>
-                                                        <p className={cx('petname')}>{pet.petName}</p>
-                                                    </div>
-                                                    <div className={cx('role')}>
-                                                        <p
-                                                            className={cx(
-                                                                `${
-                                                                    pet.petStatus == 'Adopted'
-                                                                        ? 'adopted'
-                                                                        : pet.petStatus == 'Available'
-                                                                        ? 'available'
-                                                                        : ''
-                                                                }`,
-                                                            )}
-                                                        >
-                                                            {pet.petStatus}
-                                                        </p>
-                                                    </div>
-                                                    <p className={cx('appli')}>#{pet.noa}</p>
-                                                    <p className={cx('date')}>{pet.enrolled}</p>
-                                                    <div className={cx('action')}>
-                                                        <FontAwesomeIcon
-                                                            icon={faEye}
-                                                            className={cx('view-icon')}
-                                                            onClick={() => {
-                                                                setPetID(pet.petId);
-                                                                setViewPet(true);
-                                                                console.log(pet.petId);
-                                                            }}
-                                                        />
-                                                        <FontAwesomeIcon icon={faTrash} className={cx('delete-icon')} />
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
+
+                                        {petList.length === 0 ? (
+                                            <p
+                                                style={{ textAlign: 'center', marginTop: 16 }}
+                                                className={cx('null-pet-list')}
+                                            >
+                                                No pets found for your search
+                                            </p>
+                                        ) : (
+                                            <PetContent
+                                                currentPet={currentPet}
+                                                setPetID={setPetID}
+                                                setViewPet={setViewPet}
+                                            />
+                                        )}
                                     </div>
                                     <div className={cx('pagination')}>
                                         <Pagination
@@ -171,7 +194,7 @@ function Pets() {
                                             current={currentPage}
                                             defaultCurrent={1}
                                             total={dataLength}
-                                            pageSize={petPerPage}
+                                            pageSize={12}
                                             onChange={(page) => setCurrentPage(page)}
                                         />
                                     </div>
@@ -179,7 +202,7 @@ function Pets() {
                             </div>
                         </>
                     ) : (
-                        <ViewPet id={petID}/>
+                        <ViewPet id={petID} setViewPet={setViewPet} />
                     )}
                 </div>
             ) : (
