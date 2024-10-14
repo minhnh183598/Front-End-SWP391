@@ -2,16 +2,18 @@
 import styles from './PetDetail.module.scss';
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import api from '~/config/axios';
 import Update from './components/Update';
 import RegisBanner from '~/components/Layout/components/RegisterBanner';
 import PetImage from './components/PetImage/PetImage';
+import FeaturePet from '../FindPet/components/FeaturePet';
 
 const cx = classNames.bind(styles);
 
 function PetDetail() {
+    const navigate = useNavigate();
     const [user, setUser] = useState(false);
     const [userRoles, setUserRoles] = useState('');
     const [update, setUpdate] = useState(false);
@@ -39,7 +41,6 @@ function PetDetail() {
                 },
             });
             setPet(response.data);
-            localStorage.setItem('petData', JSON.stringify(response.data));
         } catch (error) {
             console.log(error);
         }
@@ -102,6 +103,9 @@ function PetDetail() {
         <div>
             <div className={cx('wrapper')}>
                 <h1>Do you love {pet.petName}?</h1>
+                <p className={cx('back')} onClick={() => navigate('/find-a-pet')}>
+                    &larr;Back
+                </p>
                 <div className={cx('content')}>
 
                     <PetImage/>
@@ -189,7 +193,10 @@ function PetDetail() {
                 )}
             </div>
 
+            <FeaturePet homepage={true} title='Another Pets'/>
+            
             {user == false  ? <RegisBanner /> : null}
+
         </div>
     );
 }

@@ -12,6 +12,7 @@ import FilterMenu from './components/FilterMenu/FilterMenu';
 const cx = classNames.bind(styles);
 
 function FindPet() {
+    const [currentPage, setCurrentPage] = useState(1);
     const [petList, setPetList] = useState([]);
     const [dataLength, setDataLength] = useState(0);
     const [user, setUser] = useState();
@@ -23,7 +24,7 @@ function FindPet() {
         color: 'all',
         state: 'available',
         vaccine: 'all',
-        sort: 'all',
+        sort: 'sortByDate',
     });
 
     const handlePetsData = async () => {
@@ -39,7 +40,6 @@ function FindPet() {
             const dataLength = response.data.length;
             setDataLength(dataLength);
             setPetList(response.data);
-            localStorage.setItem('pet', JSON.stringify(response.data));
         } catch (error) {
             console.log(error);
         }
@@ -92,6 +92,7 @@ function FindPet() {
                             handleFilterChange={handleFilterChange}
                             searchName={searchName}
                             handleSearchChange={handleSearchChange}
+                            setCurrentPage={setCurrentPage}
                         />
                     </div>
 
@@ -100,12 +101,13 @@ function FindPet() {
                             filter={filter}
                             handleFinish={handleFinish}
                             handleFilterChange={handleFilterChange}
+                            setCurrentPage={setCurrentPage}
                         />
 
                         {petList.length === 0 ? (
                             <p className={cx('null-pet-list')}>No pets found for your search</p>
                         ) : (
-                            <PetList data={petList} dataLength={petList.length} />
+                            <PetList data={petList} dataLength={petList.length} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
                         )}
                     </div>
                 </div>

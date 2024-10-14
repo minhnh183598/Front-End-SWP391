@@ -42,9 +42,8 @@ const handleBefore = (config) => {
         return config;
     }
     const token = localStorage.getItem('token')?.replaceAll('"', '');
-    //if (token) {
     config.headers['Authorization'] = `Bearer ${token}`;
-    //}
+
     return config;
 };
 

@@ -32,7 +32,6 @@ function ViewPet({ id, setViewPet }) {
                 },
             });
             setPet(response.data);
-            localStorage.setItem('petData', JSON.stringify(response.data));
         } catch (error) {
             console.log(error);
         }

@@ -28,7 +28,7 @@ function Pets() {
         color: 'all',
         state: 'all',
         vaccine: 'all',
-        sort: 'all',
+        sort: 'sortByDate',
     });
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
@@ -49,7 +49,6 @@ function Pets() {
             console.log(response.data);
             setDataLength(dataLength);
             setPetList(response.data);
-            localStorage.setItem('pet', JSON.stringify(response.data));
         } catch (error) {
             console.log(error);
         }

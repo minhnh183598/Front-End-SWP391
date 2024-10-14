@@ -16,9 +16,8 @@ function Search({ filter, handleFilterChange, searchName, setSearchName, handleF
             <form onSubmit={handleFinish}>
                 <label htmlFor="sort">Sort by</label>
                 <select id="sort" name="sort" value={filter.sort} onChange={handleFilterChange}>
-                    <option value="all">All</option>
+                    <option value="sortByDate">All</option>
                     <option value="sortByName">Name</option>
-                    <option value="sortByDate">Create Date</option>
                 </select>
 
                 <div style={{ position: 'relative' }}>

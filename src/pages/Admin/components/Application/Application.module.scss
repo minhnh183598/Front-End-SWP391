@@ -1,6 +1,12 @@
 .wrapper {
     width: 100%;
     margin: 40px 0;
+    margin-top: 0;
+
+    h1 {
+        margin-bottom: 40px;
+        color: var(--primary-color);
+    }
 
     .user-sum {
         display: flex;
@@ -62,7 +68,7 @@
 
                 p {
                     margin: 0;
-                    width: 70px;
+                    width: 85px;
                     text-align: center;
                     padding: 5px 2px;
                     color: #b6b6b6;
@@ -73,26 +79,6 @@
                 .active {
                     background-color: white;
                     color: black;
-                }
-            }
-
-            .search {
-                form {
-                    display: flex;
-                    align-items: center;
-
-                    select,
-                    input {
-                        border-radius: 8px;
-                        padding: 5px;
-                        outline: none;
-                        border: 1px solid black;
-                        font-size: 14px;
-                        margin-right: 5px;
-                    }
-                    select {
-                        margin: 0 20px 0 10px;
-                    }
                 }
             }
         }
@@ -120,88 +106,27 @@
                     }
 
                     .id {
-                        width: 50px;
+                        width: 10%;
                     }
 
                     .user {
-                        width: 20%;
+                        width: 15%;
+                    }
+
+                    .pet {
+                        width: 10%;
                     }
 
                     .action {
                         width: 5%;
                     }
 
-                    .status{
+                    .status {
                         width: 10%;
                     }
 
                     .date {
                         width: 10%;
-                    }
-                }
-
-                .content {
-                    width: 100%;
-                    background-color: white;
-
-                    .content-item {
-                        padding: 0 20px;
-                        height: 70px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        border-bottom: 1px solid lightgray;
-
-                        p {
-                            margin: 0;
-                        }
-                        .id {
-                            width: 50px;
-                        }
-
-                        .user {
-                            width: 20%;
-                            .fullname {
-                                font-weight: 600;
-                            }
-                        }
-
-                        .status{
-                            width: 10%;
-                            p {
-                                background-color: var(--pass-color);
-                                color: white;
-                                display: inline;
-                                padding: 5px;
-                                border-radius: 10px;
-                            }
-        
-                            .inprocess {
-                                background-color: var(--inprocess-color);
-                            }
-        
-                            .notpass {
-                                background-color: var(--notpass-color);
-                            }
-                        }
-
-                        .date {
-                            width: 10%;
-                        }
-
-                        .action {
-                            width: 5%;
-                            .view-icon {
-                                color: rgb(99, 199, 232);
-                                width: 18px;
-                            }
-
-                            .delete-icon {
-                                color: rgb(255, 98, 98);
-                                width: 18px;
-                                margin-left: 10px;
-                            }
-                        }
                     }
                 }
             }

@@ -5,8 +5,11 @@ import { Fragment } from 'react';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import ScrollToTopBtn from './components/ScrollToTopBtn/ScrollToTopBtn';
 import ProtectedRoute from './routes/ProtectedRoute';
+import useAuth from './components/RefreshToken/RefreshToken';
 
 function App() {
+    useAuth();
+
     return (
         <Router>
             <ScrollToTop />

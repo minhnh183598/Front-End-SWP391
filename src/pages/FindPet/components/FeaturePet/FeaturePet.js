@@ -8,7 +8,7 @@ import api from '~/config/axios';
 
 const cx = classNames.bind(styles);
 
-function FeaturePet({ children, homepage }) {
+function FeaturePet({ children, homepage, title }) {
     const [index, setIndex] = useState(0);
     const [lovePet, setLovePet] = useState({});
     const [petList, setPetList] = useState([]);
@@ -21,7 +21,6 @@ function FeaturePet({ children, homepage }) {
                 },
             });
             setPetList(response.data);
-            localStorage.setItem('pet', JSON.stringify(response.data));
         } catch (error) {
             console.log('Error:', error);
         }
@@ -58,7 +57,7 @@ function FeaturePet({ children, homepage }) {
 
     return (
         <div className={cx('feature-pets', { 'white-content': homepage })}>
-            <h1 className={cx('main-heading', { 'primary-text': homepage })}>Waiting Home</h1>
+            <h1 className={cx('main-heading', { 'primary-text': homepage })}>{title || "Waiting Home"}</h1>
             <p className={cx('main-slogan', { 'grey-text': homepage })}>Love, Care, Companionship</p>
             <div className={cx('content')}>
                 <button onClick={preSlide} className={cx('pre-btn')}>
