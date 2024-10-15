@@ -15,6 +15,10 @@ const cx = classNames.bind(styles);
 function Application() {
     const [appliList, setAppliList] = useState([]);
     const [dataLength, setDataLength] = useState(0);
+    const [totalAppli, setTotalAppli] = useState(0);
+    const [totalPass, setTotalPass] = useState(0);
+    const [totalFail, setTotalFail] = useState(0);
+    const [totalProcess, setTotalProcess] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [viewAppli, setViewAppli] = useState(false);
     const [appliID, setAppliID] = useState('');
@@ -45,6 +49,7 @@ function Application() {
             const combinedData = [...successResponse.data, ...failResponse.data, ...inProcessResponse.data];
             console.log(combinedData);
             setDataLength(combinedData.length);
+            setTotalAppli(combinedData.length);
             setAppliList(combinedData);
         } catch (error) {
             console.log(error);
@@ -62,6 +67,7 @@ function Application() {
             const dataLength = response.data.length;
             console.log(response.data);
             setDataLength(dataLength);
+            setTotalProcess(dataLength);
             setAppliList(response.data);
         } catch (error) {
             console.log(error);
@@ -79,6 +85,7 @@ function Application() {
             const dataLength = response.data.length;
             console.log(response.data);
             setDataLength(dataLength);
+            setTotalPass(dataLength);
             setAppliList(response.data);
         } catch (error) {
             console.log(error);
@@ -96,6 +103,7 @@ function Application() {
             const dataLength = response.data.length;
             console.log(response.data);
             setDataLength(dataLength);
+            setTotalFail(dataLength);
             setAppliList(response.data);
         } catch (error) {
             console.log(error);
@@ -104,6 +112,9 @@ function Application() {
 
     useEffect(() => {
         handleAppliDataCombined();
+        handleAppliData();
+        handleAppliDataSuccess();
+        handleAppliDataFail();
     }, [viewAppli]);
 
     const appliPerPage = 12;
@@ -120,28 +131,28 @@ function Application() {
                         <div className={cx('user-sum')}>
                             <div className={cx('user-sum-item')}>
                                 <div>
-                                    <p className={cx('item-number')}>231</p>
+                                    <p className={cx('item-number')}>{totalAppli}</p>
                                     <p className={cx('item-label')}>Total Application</p>
                                 </div>
                                 <span>+2.15%</span>
                             </div>
                             <div className={cx('user-sum-item')}>
                                 <div>
-                                    <p className={cx('item-number')}>10</p>
+                                    <p className={cx('item-number')}>{totalPass}</p>
                                     <p className={cx('item-label')}>Passed</p>
                                 </div>
                                 <span>-3.5%</span>
                             </div>
                             <div className={cx('user-sum-item')}>
                                 <div>
-                                    <p className={cx('item-number')}>10</p>
+                                    <p className={cx('item-number')}>{totalProcess}</p>
                                     <p className={cx('item-label')}>In Process</p>
                                 </div>
                                 <span>-3.5%</span>
                             </div>
                             <div className={cx('user-sum-item')}>
                                 <div>
-                                    <p className={cx('item-number')}>10</p>
+                                    <p className={cx('item-number')}>{totalFail}</p>
                                     <p className={cx('item-label')}>Not Passed</p>
                                 </div>
                                 <span>-3.5%</span>

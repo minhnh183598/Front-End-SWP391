@@ -100,7 +100,7 @@ function ViewPet({ id, setViewPet }) {
                     &larr;Back
                 </p>
                 <div style={{ display: 'flex' }}>
-                    <PetImage />
+                    <PetImage pet={pet} />
                     <div className={cx('pet-info')}>
                         <div className={cx('detail-info')}>
                             <h2>{pet.petName}</h2>

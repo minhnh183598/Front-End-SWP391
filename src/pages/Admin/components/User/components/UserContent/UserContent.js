@@ -20,9 +20,14 @@ function UserContent({ currentUser, setViewUser, setUserID }) {
                             <p className={cx('admin')}>Admin</p>
                         ) : user.roles.some((role) => role.name === 'USER') ? (
                             <p className={cx('user')}>User</p>
+                        ) : user.roles.some((role) => role.name === 'VOLUNTEER') ? (
+                            <p className={cx('volunteer')}>Volunteer</p>
                         ) : null}
                     </div>
-                    <p className={cx('appli')}>{user.noa || 0}</p> <p className={cx('date')}>{user.enrolled || ''}</p>{' '}
+                    <p className={cx('appli')}>{user.applicationQuantity || 0}</p>
+                    <p className={cx('date')}>
+                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : ''}
+                    </p>
                     <div className={cx('action')}>
                         <FontAwesomeIcon
                             icon={faEye}

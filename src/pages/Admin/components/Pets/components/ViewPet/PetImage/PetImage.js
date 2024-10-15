@@ -4,21 +4,19 @@ import classNames from 'classnames/bind';
 import PetImages from '~/assets/images/petImg';
 const cx = classNames.bind(styles);
 
-function PetImage() {
+function PetImage({ pet }) {
     const [index, setIndex] = useState(0);
-    const petImg = [PetImages.dog, PetImages.dog2, PetImages.dog3, PetImages.cat1, PetImages.cat2, PetImages.cat3];
+    const petImg = pet.petImage ? pet.petImage.split(', ').map((img) => img.trim()) : [];
 
-    const petsToShow =
-        petImg.length > 0
-            ? petImg.slice(index, index + 5).concat(petImg.slice(0, Math.max(0, index + 5 - petImg.length)))
-            : [];
+    const totalImages = petImg.length;
+    const petsToShow = totalImages > 0 ? petImg : [];
 
     const nextSlide = () => {
-        setIndex((prevIndex) => (prevIndex + 1) % petImg.length);
+        setIndex((prevIndex) => (prevIndex + 1) % totalImages);
     };
 
     const preSlide = () => {
-        setIndex((prevIndex) => (prevIndex - 1 + petImg.length) % petImg.length);
+        setIndex((prevIndex) => (prevIndex - 1 + totalImages) % totalImages);
     };
     return (
         <div className={cx('pet-image')}>
@@ -26,18 +24,17 @@ function PetImage() {
                 &lt;
             </button>
             <div className={cx('image')}>
-                <img src={petImg[index]} />
+                <div className={cx('wrap-img')}>
+                    <img src={petImg[index]} />
+                </div>
 
                 <div className={cx('sub-img')}>
                     {petsToShow.map((image, imgIndex) => (
                         <img
                             key={imgIndex}
                             src={image}
-                            className={cx({ 'color-border': imgIndex === 0 })}
-                            onClick={() => {
-                                const newIndex = (index + imgIndex) % petImg.length;
-                                setIndex(newIndex);
-                            }}
+                            className={cx({ 'color-border': imgIndex === index })}
+                            onClick={() => setIndex(imgIndex)}
                         />
                     ))}
                 </div>

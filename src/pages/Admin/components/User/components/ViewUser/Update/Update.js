@@ -54,6 +54,7 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handleUserD
                             name="username"
                             value={formData.username}
                             onChange={handleChange}
+                            readOnly
                         />
                     </div>
 
@@ -65,6 +66,7 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handleUserD
                             name="firstname"
                             value={formData.firstname}
                             onChange={handleChange}
+                            readOnly
                         />
                     </div>
 
@@ -76,6 +78,7 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handleUserD
                             name="lastname"
                             value={formData.lastname}
                             onChange={handleChange}
+                            readOnly
                         />
                     </div>
 

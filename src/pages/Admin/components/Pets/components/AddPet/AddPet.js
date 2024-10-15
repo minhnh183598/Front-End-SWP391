@@ -3,23 +3,72 @@ import styles from './AddPet.module.scss';
 import classNames from 'classnames/bind';
 import api from '~/config/axios';
 import { useState } from 'react';
+import { Image, Upload } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import uploadFile from '~/utils/Upload';
 
 const cx = classNames.bind(styles);
 
-function AddPet({setAddPet}) {
+function AddPet({ setAddPet }) {
     const [formData, setFormData] = useState({
         petName: '',
         petType: 'Dog',
         petAge: 'Young',
         petBreed: '',
-        petColor: 'Black', 
+        petColor: 'Black',
         petDescription: '',
         petSize: '',
         petWeight: '',
         petGender: 'Male',
-        petVaccin: 'Yes', 
-        petStatus: 'Available', 
+        petVaccin: 'Yes',
+        petStatus: 'Available',
+        petImage: '',
     });
+    // image
+    const [previewOpen, setPreviewOpen] = useState(false);
+    const [previewImage, setPreviewImage] = useState('');
+    const [fileList, setFileList] = useState([]);
+
+    const getBase64 = (file) =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+
+    const handlePreview = async (file) => {
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj);
+        }
+        setPreviewImage(file.url || file.preview);
+        setPreviewOpen(true);
+    };
+
+    const handleFileChange = ({ fileList: newFileList }) => {
+        setFileList(newFileList);
+    };
+
+    const uploadButton = (
+        <button
+            style={{
+                border: 0,
+                background: 'none',
+            }}
+            type="button"
+        >
+            <PlusOutlined />
+            <div
+                style={{
+                    marginTop: 8,
+                }}
+            >
+                Upload
+            </div>
+        </button>
+    );
+
+    // end image
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,15 +81,32 @@ function AddPet({setAddPet}) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const uploadedUrls = await Promise.all(
+            fileList.map(async (file) => {
+                if (file.originFileObj) {
+                    const url = await uploadFile(file.originFileObj);
+                    console.log('Uploaded URL:', url);
+                    return url;
+                }
+                return null;
+            }),
+        );
+
+        const validUrls = uploadedUrls.filter(Boolean).join(', ');
+
+        const updatedData = {
+            ...formData,
+            petImage: validUrls,
+        };
+        console.log(updatedData)
+
         try {
-            const response = await api.post('pets', formData, {
+            const response = await api.post('pets', updatedData, {
                 headers: {
                     Authorization: 'No Auth',
                 },
             });
-            console.log(formData);
             console.log(response.data);
-
             setAddPet(false);
         } catch (error) {
             console.log(error);
@@ -180,6 +246,21 @@ function AddPet({setAddPet}) {
                         </div>
                     </div>
 
+                    <div className={cx('form-image')}>
+                        <div className={cx('upload-image')}>
+                            <label htmlFor="petImage">Image</label>
+                            <Upload
+                                // action="gs://furryfriendshaven-acfd9.appspot.com"
+                                listType="picture-card"
+                                fileList={fileList}
+                                onPreview={handlePreview}
+                                onChange={handleFileChange}
+                            >
+                                {fileList.length >= 8 ? null : uploadButton}
+                            </Upload>
+                        </div>
+                    </div>
+
                     <div className={cx('form-btn')}>
                         <Button type="submit" primary medium mgRight10>
                             Add
@@ -190,6 +271,17 @@ function AddPet({setAddPet}) {
                     </div>
                 </form>
             </div>
+            {previewImage && (
+                <Image
+                    wrapperStyle={{ display: 'none' }}
+                    preview={{
+                        visible: previewOpen,
+                        onVisibleChange: (visible) => setPreviewOpen(visible),
+                        afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                    }}
+                    src={previewImage}
+                />
+            )}
         </div>
     );
 }

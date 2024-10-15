@@ -4,19 +4,42 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-function Search() {
+function Search({ setSearchName, handleFinish, filter, handleFilterChange, searchName }) {
+    const handleSearchChange = (e) => {
+        setSearchName(e.target.value.trim());
+    };
+    const clearSearch = () => {
+        handleSearchChange({ target: { value: '' } });
+    };
+
     return (
         <div className={cx('search')}>
-            <form>
-                <label htmlFor="sort">Sort by</label>
-                <select id="sort" name="sort">
-                    <option value="all">All</option>
-                    <option value="sortByWeight">ID</option>
-                    <option value="sortByAge">Create Date</option>
-                    <option value="sortByName">Number of Application</option>
+            <form onSubmit={handleFinish}>
+                <label htmlFor="sortBy">Sort by</label>
+                <select id="sortBy" name="sortBy" value={filter.sortBy} onChange={handleFilterChange}>
+                    <option value="createdAt">Create Date</option>
+                    <option value="username">Username</option>
+                    <option value="applicationQuantity">Number of Application</option>
                 </select>
 
-                <input type="text" placeholder="Search by name" />
+                <div style={{ position: 'relative' }}>
+                    <input type="text" placeholder="Search by name" value={searchName} onChange={handleSearchChange} />
+
+                    {searchName && (
+                        <span
+                            onClick={clearSearch}
+                            style={{
+                                position: 'absolute',
+                                top: '3px',
+                                right: '20px',
+                                cursor: 'pointer',
+                                color: '#aaa',
+                            }}
+                        >
+                            &times;
+                        </span>
+                    )}
+                </div>
                 <Button primary small type="submit">
                     Search
                 </Button>

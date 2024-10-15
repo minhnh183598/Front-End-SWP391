@@ -21,6 +21,8 @@
 
         .name {
             width: 15%;
+            overflow: hidden;
+            white-space: nowrap;
             .username {
                 font-weight: 600;
             }

@@ -21,6 +21,8 @@ function Pets() {
     const [viewPet, setViewPet] = useState(false);
     const [searchName, setSearchName] = useState('');
     const [activeSort, setActiveSort] = useState('View All');
+    const [totalAdopted, setTotalAdopted] = useState(0);
+    const [totalAvailable, setTotalAvailable] = useState(0);
     const [filter, setFilter] = useState({
         type: 'all',
         gender: 'all',
@@ -30,6 +32,7 @@ function Pets() {
         vaccine: 'all',
         sort: 'sortByDate',
     });
+
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         console.log(name, value);
@@ -54,6 +57,38 @@ function Pets() {
         }
     };
 
+    const handlePetsAvailable = async () => {
+        const query = `petType=all&petAge=all&petGender=all&petColor=all&petVaccin=all&petStatus=Available&keyword=&sort=`;
+        try {
+            const response = await api.get(`pets/SearchPets?${query}`, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
+            const dataLength = response.data.length;
+            console.log(response.data);
+            setTotalAvailable(dataLength);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handlePetsAdopted = async () => {
+        const query = `petType=all&petAge=all&petGender=all&petColor=all&petVaccin=all&petStatus=Adopted&keyword=&sort=`;
+        try {
+            const response = await api.get(`pets/SearchPets?${query}`, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
+            const dataLength = response.data.length;
+            console.log(response.data);
+            setTotalAdopted(dataLength);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleFinish = async (e) => {
         if (e) e.preventDefault();
         await handlePetsData();
@@ -67,6 +102,8 @@ function Pets() {
 
     useEffect(() => {
         handlePetsData();
+        handlePetsAvailable();
+        handlePetsAdopted();
     }, [filter, refresh, currentPage, viewPet]);
 
     const handleAddPet = () => {
@@ -90,22 +127,15 @@ function Pets() {
                             <div className={cx('user-sum')}>
                                 <div className={cx('user-sum-item')}>
                                     <div>
-                                        <p className={cx('item-number')}>231</p>
+                                        <p className={cx('item-number')}>{totalAvailable}</p>
                                         <p className={cx('item-label')}>Available Pets</p>
                                     </div>
                                     <span>+2.15%</span>
                                 </div>
                                 <div className={cx('user-sum-item')}>
                                     <div>
-                                        <p className={cx('item-number')}>220</p>
+                                        <p className={cx('item-number')}>{totalAdopted}</p>
                                         <p className={cx('item-label')}>Adopted Pets</p>
-                                    </div>
-                                    <span>-3.5%</span>
-                                </div>
-                                <div className={cx('user-sum-item')}>
-                                    <div>
-                                        <p className={cx('item-number')}>10</p>
-                                        <p className={cx('item-label')}>New Pets</p>
                                     </div>
                                     <span>-3.5%</span>
                                 </div>

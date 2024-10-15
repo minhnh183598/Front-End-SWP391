@@ -31,6 +31,7 @@ function PetDetail() {
         petDescription: '',
         petType: '',
         petStatus: '',
+        petImage: '',
     });
 
     const handlePetData = async () => {
@@ -108,7 +109,7 @@ function PetDetail() {
                 </p>
                 <div className={cx('content')}>
 
-                    <PetImage/>
+                    <PetImage pet={pet}/>
 
                     <div className={cx('pet-info')}>
                         <div className={cx('detail-info')}>

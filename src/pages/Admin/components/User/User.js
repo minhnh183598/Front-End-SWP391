@@ -18,22 +18,47 @@ function User() {
     const [dataLength, setDataLength] = useState(0);
     const [viewUser, setViewUser] = useState(false);
     const [userID, setUserID] = useState('');
+    const [activeSort, setActiveSort] = useState('View All');
+    const [searchName, setSearchName] = useState('');
+    const [totalUsers, setTotalUsers] = useState(0);
+    const [totalAdmin, setTotalAdmin] = useState(0);
+    const [totalVolunteer, setTotalVolunteer] = useState(0);
+    const [filter, setFilter] = useState({
+        role: 'ALL',
+        sort: 'DESC',
+        sortBy: 'createdAt',
+    });
+
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        console.log(name, value);
+        const newSort = value === 'username' ? 'ASC' : filter.sort;
+
+        setFilter((prev) => ({
+            ...prev,
+            [name]: value,
+            sort: newSort,
+        }));
+    };
 
     const handleUserData = async () => {
+        const { role, sort, sortBy } = filter;
+        const query = `role=${role}&sort=${sort}&sortBy=${sortBy}&keyword=${searchName}`;
         const token = localStorage.getItem('token');
 
         try {
-            const response = await api.get(`users`, {
+            const response = await api.get(`users/search?${query}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            console.log(response.data);
 
             if (Array.isArray(response.data.result)) {
                 setUserList(response.data.result);
                 setDataLength(response.data.result.length);
             } else {
-                console.error('Dữ liệu trả về không phải là mảng:', response.data.result);
+                console.error('Error', response.data.result);
                 setUserList([]);
             }
         } catch (error) {
@@ -42,9 +67,95 @@ function User() {
         }
     };
 
+    const handleTotalAdmin = async () => {
+        const query = `role=ADMIN&sort=&sortBy=&keyword=`;
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await api.get(`users/search?${query}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(response.data);
+
+            if (Array.isArray(response.data.result)) {
+                setTotalAdmin(response.data.result.length);
+            } else {
+                console.error('Error', response.data.result);
+                setUserList([]);
+            }
+        } catch (error) {
+            console.log(error);
+            setUserList([]);
+        }
+    };
+
+    const handleTotalUser = async () => {
+        const query = `role=USER&sort=&sortBy=&keyword=`;
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await api.get(`users/search?${query}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(response.data);
+
+            if (Array.isArray(response.data.result)) {
+                setTotalUsers(response.data.result.length);
+            } else {
+                console.error('Error', response.data.result);
+                setUserList([]);
+            }
+        } catch (error) {
+            console.log(error);
+            setUserList([]);
+        }
+    };
+
+    const handleTotalVolunteer = async () => {
+        const query = `role=VOLUNTEER&sort=&sortBy=&keyword=`;
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await api.get(`users/search?${query}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(response.data);
+
+            if (Array.isArray(response.data.result)) {
+                setTotalVolunteer(response.data.result.length);
+            } else {
+                console.error('Error', response.data.result);
+                setUserList([]);
+            }
+        } catch (error) {
+            console.log(error);
+            setUserList([]);
+        }
+    };
+
+    const handleFinish = async (e) => {
+        if (e) e.preventDefault();
+        await handleUserData();
+
+        const searchParams = {
+            searchName,
+            filter,
+        };
+        console.log(searchParams);
+    };
+
     useEffect(() => {
         handleUserData();
-    }, [viewUser]);
+        handleTotalAdmin();
+        handleTotalUser();
+        handleTotalVolunteer();
+    }, [viewUser, filter, currentPage]);
 
     const userPerPage = 12;
     const indexOfLastUser = currentPage * userPerPage;
@@ -61,28 +172,28 @@ function User() {
                         <div className={cx('user-sum')}>
                             <div className={cx('user-sum-item')}>
                                 <div>
-                                    <p className={cx('item-number')}>231</p>
+                                    <p className={cx('item-number')}>{dataLength}</p>
                                     <p className={cx('item-label')}>Total Account</p>
                                 </div>
                                 <span>+2.15%</span>
                             </div>
                             <div className={cx('user-sum-item')}>
                                 <div>
-                                    <p className={cx('item-number')}>220</p>
+                                    <p className={cx('item-number')}>{totalUsers}</p>
                                     <p className={cx('item-label')}>Total User</p>
                                 </div>
                                 <span>-3.5%</span>
                             </div>
                             <div className={cx('user-sum-item')}>
                                 <div>
-                                    <p className={cx('item-number')}>10</p>
+                                    <p className={cx('item-number')}>{totalVolunteer}</p>
                                     <p className={cx('item-label')}>Total Volunteer</p>
                                 </div>
                                 <span>-3.5%</span>
                             </div>
                             <div className={cx('user-sum-item')}>
                                 <div>
-                                    <p className={cx('item-number')}>2</p>
+                                    <p className={cx('item-number')}>{totalAdmin}</p>
                                     <p className={cx('item-label')}>Total Admin</p>
                                 </div>
                                 <span>0%</span>
@@ -92,13 +203,55 @@ function User() {
                         <div className={cx('user-content')}>
                             <div className={cx('header')}>
                                 <div className={cx('sort')}>
-                                    <p className={cx('active')}>View All</p>
-                                    <p>Users</p>
-                                    <p>Volunteer</p>
-                                    <p>Admin</p>
+                                    <p
+                                        className={cx({ active: activeSort == 'View All' })}
+                                        onClick={() => {
+                                            setActiveSort('View All');
+                                            setFilter((prev) => ({ ...prev, role: 'ALL' }));
+                                            setCurrentPage(1);
+                                        }}
+                                    >
+                                        View All
+                                    </p>
+                                    <p
+                                        className={cx({ active: activeSort == 'Users' })}
+                                        onClick={() => {
+                                            setActiveSort('Users');
+                                            setFilter((prev) => ({ ...prev, role: 'USER' }));
+                                            setCurrentPage(1);
+                                        }}
+                                    >
+                                        Users
+                                    </p>
+                                    <p
+                                        className={cx({ active: activeSort == 'Volunteer' })}
+                                        onClick={() => {
+                                            setActiveSort('Volunteer');
+                                            setFilter((prev) => ({ ...prev, role: 'VOLUNTEER' }));
+                                            setCurrentPage(1);
+                                        }}
+                                    >
+                                        Volunteer
+                                    </p>
+                                    <p
+                                        className={cx({ active: activeSort == 'Admin' })}
+                                        onClick={() => {
+                                            setActiveSort('Admin');
+                                            setFilter((prev) => ({ ...prev, role: 'ADMIN' }));
+                                            setCurrentPage(1);
+                                        }}
+                                    >
+                                        Admin
+                                    </p>
                                 </div>
 
-                                <Search />
+                                <Search
+                                    setSearchName={setSearchName}
+                                    searchName={searchName}
+                                    handleFinish={handleFinish}
+                                    filter={filter}
+                                    handleFilterChange={handleFilterChange}
+                                />
                             </div>
 
                             <div className={cx('main-content')}>
