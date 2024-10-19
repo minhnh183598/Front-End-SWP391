@@ -1,6 +1,12 @@
 .wrapper {
     width: 100%;
     margin: 40px 0;
+    margin-top: 0;
+
+    h1{
+        margin-bottom: 40px;
+        color: var(--primary-color);
+    }
 
     .user-sum {
         display: flex;
@@ -22,6 +28,10 @@
 
                 &:first-child {
                     font-weight: bold;
+                }
+                &:last-child{
+                    font-weight: 400;
+                    font-size: 16px;
                 }
             }
 
@@ -84,25 +94,7 @@
                 margin-left: 10px;
             }
 
-            .search {
-                form {
-                    display: flex;
-                    align-items: center;
-
-                    select,
-                    input {
-                        border-radius: 8px;
-                        padding: 5px;
-                        outline: none;
-                        border: 1px solid black;
-                        font-size: 14px;
-                        margin-right: 5px;
-                    }
-                    select {
-                        margin: 0 20px 0 10px;
-                    }
-                }
-            }
+            
         }
 
         .main-content {
@@ -128,11 +120,11 @@
                     }
 
                     .id {
-                        width: 50px;
+                        width: 10%;
                     }
 
                     .name {
-                        width: 30%;
+                        width: 15%;
                     }
 
                     .role {
@@ -140,72 +132,14 @@
                     }
 
                     .appli {
-                        width: 160px;
+                        width: 100px;
                     }
 
                     .date {
                         width: 10%;
                     }
-                }
-
-                .content {
-                    width: 100%;
-                    background-color: white;
-
-                    .content-item {
-                        padding: 0 20px;
-                        height: 70px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        border-bottom: 1px solid lightgray;
-
-                        p {
-                            margin: 0;
-                        }
-                        .id {
-                            width: 50px;
-                        }
-
-                        .name {
-                            width: 30%;
-                            display: flex;
-                            align-items: center;
-                            .username {
-                                font-weight: 600;
-                                margin-right: 10px;
-                            }
-                            .view-icon {
-                                color: rgb(99, 199, 232);
-                                width: 14px;
-                            }
-                        }
-                        .role {
-                            width: 10%;
-                            p {
-                                background-color: rgb(208, 242, 254);
-                                color: white;
-                                display: inline;
-                                padding: 5px;
-                                border-radius: 10px;
-                            }
-
-                            .adopted {
-                                background-color: var(--adopted-color);
-                            }
-
-                            .available {
-                                background-color: var(--available-color);
-                            }
-                        }
-
-                        .appli {
-                            width: 160px;
-                        }
-
-                        .date {
-                            width: 10%;
-                        }
+                    .action{
+                        width: 5%;
                     }
                 }
             }

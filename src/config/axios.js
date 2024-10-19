@@ -37,12 +37,14 @@ const handleBefore = (config) => {
     } else if (config.url.includes('auth/create-password')) {
         return config;
     } else if (config.url.includes('volunteer/application')) {
+    } else if (config.url.includes('users/')) {
+        return config;
+    } else if (config.url.includes('auth/refresh')) {
         return config;
     }
     const token = localStorage.getItem('token')?.replaceAll('"', '');
-    //if (token) {
     config.headers['Authorization'] = `Bearer ${token}`;
-    //}
+
     return config;
 };
 

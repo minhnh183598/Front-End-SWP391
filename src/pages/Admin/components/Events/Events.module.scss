@@ -1,0 +1,194 @@
+.wrapper {
+    width: 100%;
+    margin: 40px 0;
+
+    .user-sum {
+        display: flex;
+        justify-content: flex-start;
+
+        .user-sum-item {
+            background-color: white;
+            width: 250px;
+            height: 74px;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 10px;
+            display: flex;
+            justify-content: space-between;
+
+            p {
+                font-size: 18px;
+                margin: 0;
+
+                &:first-child {
+                    font-weight: bold;
+                }
+                &:last-child{
+                    font-weight: 400;
+                    font-size: 16px;
+                }
+            }
+
+            span {
+                background-color: rgb(142, 223, 142, 0.6);
+                width: 70px;
+                height: 25px;
+                text-align: center;
+                font-size: 14px;
+                line-height: 25px;
+                border-radius: 10px;
+            }
+
+            &:nth-child(2) {
+                margin: 0 60px;
+            }
+        }
+    }
+
+    .user-content {
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 10px;
+        background-color: white;
+        overflow: hidden;
+        border-radius: 15px;
+        width: 100%;
+        margin-top: 20px;
+
+        .header {
+            width: 100%;
+            height: 70px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid lightgray;
+
+            .search {
+                form {
+                    display: flex;
+                    align-items: center;
+
+                    select,
+                    input {
+                        border-radius: 8px;
+                        padding: 5px;
+                        outline: none;
+                        border: 1px solid black;
+                        font-size: 14px;
+                        margin-right: 5px;
+                    }
+                    select {
+                        margin: 0 20px 0 10px;
+                    }
+                }
+            }
+        }
+
+        .main-content {
+            padding: 20px;
+            width: 100%;
+
+            .content-wrapper {
+                width: 100%;
+                border: 1px solid lightgray;
+
+                .header-content {
+                    width: 100%;
+                    height: 50px;
+                    padding: 20px;
+                    background-color: #f6f6f6;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    p {
+                        margin: 0;
+                        color: rgb(140, 140, 140);
+                    }
+
+                    .id {
+                        width: 50px;
+                    }
+
+                    .title {
+                        width: 30%;
+                    }
+
+                    .action {
+                        width: 5%;
+                    }
+
+                    .appli {
+                        width: 160px;
+                    }
+
+                    .date {
+                        width: 10%;
+                    }
+                }
+
+                .content {
+                    width: 100%;
+                    background-color: white;
+
+                    .content-item {
+                        padding: 0 20px;
+                        height: 70px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        border-bottom: 1px solid lightgray;
+
+                        p {
+                            margin: 0;
+                        }
+                        .id {
+                            width: 50px;
+                        }
+
+                        .title {
+                            width: 30%;
+                            display: flex;
+                            align-items: center;
+                            .blogtitle {
+                                font-weight: 600;
+                                margin-right: 10px;
+                                display: -webkit-box; 
+                                -webkit-line-clamp: 2; 
+                                -webkit-box-orient: vertical;
+                                overflow: hidden; 
+                            }
+                        }
+
+                        .appli {
+                            width: 160px;
+                        }
+
+                        .date {
+                            width: 10%;
+                        }
+
+                        .action{
+                            width: 5%;
+                            .view-icon {
+                                color: rgb(99, 199, 232);
+                                width: 18px;
+                            }
+
+                            .delete-icon {
+                                color: rgb(255, 98, 98);
+                                width: 18px;
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .pagination {
+                margin-top: 20px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+}

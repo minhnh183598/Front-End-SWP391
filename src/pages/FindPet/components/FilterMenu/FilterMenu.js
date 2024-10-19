@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-function FilterMenu({ filter, handleFinish, handleFilterChange }) {
+function FilterMenu({ filter, handleFinish, handleFilterChange, setCurrentPage }) {
     
     const handleReset = (e) => {
         e.preventDefault();
@@ -61,7 +61,7 @@ function FilterMenu({ filter, handleFinish, handleFilterChange }) {
                 </select>
 
                 <div className={cx('button-all')}>
-                    <Button primary small className={cx('submit-btn')} type="submit">
+                    <Button primary small className={cx('submit-btn')} type="submit" onClick={() => setCurrentPage(1)}>
                         Search
                     </Button>
                     <Button outline small className={cx('submit-btn')} onClick={handleReset}>

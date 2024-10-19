@@ -8,9 +8,8 @@ import { Pagination } from 'antd';
 
 const cx = classNames.bind(styles);
 
-function PetList({ data, dataLength }) {
+function PetList({ data, dataLength, currentPage, setCurrentPage }) {
     const [lovePet, setLovePet] = useState({});
-    const [currentPage, setCurrentPage] = useState(1);
 
     const handleWishlist = (pet) => {
         console.log(pet.petId);

@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-function ShortFilter({ filter, handleFinish, handleFilterChange, searchName, handleSearchChange }) {
+function ShortFilter({ filter, handleFinish, handleFilterChange, searchName, handleSearchChange, setCurrentPage }) {
     const clearSearch = () => {
         handleSearchChange({ target: { value: '' } });
     };
@@ -13,7 +13,7 @@ function ShortFilter({ filter, handleFinish, handleFilterChange, searchName, han
             <div className={cx('sort')}>
                 <label htmlFor="sort">Sort</label>
                 <select id="sort" name="sort" value={filter.sort} onChange={handleFilterChange}>
-                    <option value="all">All</option>
+                    <option value="sortByDate">All</option>
                     <option value="sortByWeight">Weight</option>
                     <option value="sortByAge">Age</option>
                     <option value="sortByName">Name</option>
@@ -36,17 +36,17 @@ function ShortFilter({ filter, handleFinish, handleFilterChange, searchName, han
                             style={{
                                 position: 'absolute',
                                 top: '3px',
-                                right: '20px', // Điều chỉnh vị trí
+                                right: '20px',
                                 cursor: 'pointer',
-                                color: '#aaa', // Màu sắc cho dấu "x"
+                                color: '#aaa',
                             }}
                         >
-                            &times; {/* Dấu "x" */}
+                            &times;
                         </span>
                     )}
                 </div>
 
-                <Button primary small type="submit">
+                <Button primary small type="submit" onClick={() => setCurrentPage(1)}>
                     Search
                 </Button>
             </div>

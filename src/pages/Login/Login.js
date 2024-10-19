@@ -27,7 +27,7 @@ function Login() {
 
         try {
             // login
-            const response = await api.post(`auth/login`, values, {
+            const response = await api.post('auth/login', values, {
                 headers: {
                     Authorization: 'No Auth',
                 },
@@ -35,6 +35,8 @@ function Login() {
             console.log(response.data);
             const token = response.data.result.token;
             localStorage.setItem('token', token);
+            const rfToken = response.data.result.refreshToken;
+            localStorage.setItem('refreshToken', rfToken);
 
             // take info by token
             const userInfo = await api.get('users/info', {
@@ -81,8 +83,11 @@ function Login() {
                 });
 
                 localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
+                localStorage.setItem('userId', userInfo.data.result.id);
 
                 if (userInfo.data.result.noPassword === false) {
+                    localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
+                    localStorage.setItem('userId', userInfo.data.result.id);
                     navigate('/');
                 } else {
                     setGooglePW(true);
@@ -151,6 +156,16 @@ function Login() {
             });
 
             console.log('Response data:', response.data);
+
+            //change
+            const userInfo = await api.get('users/info', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
+            localStorage.setItem('userId', userInfo.data.result.id);
 
             setTimeout(() => {
                 navigate('/');

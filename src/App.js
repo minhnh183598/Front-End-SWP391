@@ -1,14 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes, privateRoutes } from './routes/routes';
 import { DefaultLayout } from './components/Layout';
-import { Fragment} from 'react';
+import { Fragment } from 'react';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import ScrollToTopBtn from './components/ScrollToTopBtn/ScrollToTopBtn';
+import ProtectedRoute from './routes/ProtectedRoute';
+import useAuth from './components/RefreshToken/RefreshToken';
 
 function App() {
+    useAuth();
+
     return (
         <Router>
-            <ScrollToTop/>
+            <ScrollToTop />
             <div>
                 <Routes>
                     {publicRoutes.map((route, index) => {
@@ -23,7 +27,7 @@ function App() {
                                     // Layout = default layout -> page là children (content)
                                     <Layout>
                                         <Page />
-                                        <ScrollToTopBtn/>
+                                        <ScrollToTopBtn />
                                     </Layout>
                                 }
                             />
@@ -38,8 +42,10 @@ function App() {
                                 path={route.path}
                                 element={
                                     <Layout>
-                                        <Page />
-                                        <ScrollToTopBtn/>
+                                        <ProtectedRoute>
+                                            <Page />
+                                        </ProtectedRoute>
+                                        <ScrollToTopBtn />
                                     </Layout>
                                 }
                             />

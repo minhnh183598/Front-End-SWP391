@@ -1,18 +1,20 @@
-import PetImages from '~/assets/images/petImg';
+
 import styles from './PetDetail.module.scss';
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import api from '~/config/axios';
 import Update from './components/Update';
 import RegisBanner from '~/components/Layout/components/RegisterBanner';
+import PetImage from './components/PetImage/PetImage';
+import FeaturePet from '../FindPet/components/FeaturePet';
 
 const cx = classNames.bind(styles);
 
 function PetDetail() {
-    const [index, setIndex] = useState(0);
-    const [user, setUser] = useState();
+    const navigate = useNavigate();
+    const [user, setUser] = useState(false);
     const [userRoles, setUserRoles] = useState('');
     const [update, setUpdate] = useState(false);
     const { id } = useParams();
@@ -27,22 +29,10 @@ function PetDetail() {
         petWeight: '',
         petVaccin: '',
         petDescription: '',
+        petType: '',
+        petStatus: '',
+        petImage: '',
     });
-
-    // useEffect(() => {
-
-    //     const loggedUser = JSON.parse(localStorage.getItem('userInfo'));
-    //     if (loggedUser) {
-    //         setUser(loggedUser);
-    //     }
-
-    //     const roles = JSON.parse(localStorage.getItem('userRoles'));
-    //     if (roles.includes('USER')) {
-    //         setUserRoles('user');
-    //     } else {
-    //         setUserRoles('admin');
-    //     }
-    // }, []);
 
     const handlePetData = async () => {
         try {
@@ -52,52 +42,24 @@ function PetDetail() {
                 },
             });
             setPet(response.data);
-            localStorage.setItem('petData', JSON.stringify(response.data));
         } catch (error) {
             console.log(error);
         }
     };
-    console.log(`pets/${id}`);
 
     useEffect(() => {
-        const handlePetData = async () => {
-            try {
-                const response = await api.get(`pets/${id}`, {
-                    headers: {
-                        Authorization: 'No Auth',
-                    },
-                });
-                setPet(response.data);
-                localStorage.setItem('petData', JSON.stringify(response.data));
-            } catch (error) {
-                console.log(error);
-            }
-        };
-    }, []);
-
-    useEffect(() => {
-        const loggedUser = JSON.parse(localStorage.getItem('userInfo'));
-        if (loggedUser) {
-            setUser(loggedUser);
-        }
-
-        const roles = JSON.parse(localStorage.getItem('userRoles'));
-        if (roles.includes('USER')) {
-            setUserRoles('user');
-        } else {
+        const role = JSON.parse(localStorage.getItem('userRoles'));
+        console.log(role);
+        if (role?.includes('ADMIN')) {
+            setUser(true);
             setUserRoles('admin');
+        } else {
+            setUserRoles('user');
+            setUser(true);
         }
-
         handlePetData();
     }, []);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
 
     useEffect(() => {
         if (pet) {
@@ -111,19 +73,12 @@ function PetDetail() {
                 petWeight: pet.petWeight || '',
                 petVaccin: pet.petVaccin || '',
                 petDescription: pet.petDescription || '',
+                petType: pet.petType || '',
+                petStatus: pet.petStatus || '',
             });
         }
     }, [pet]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
-        setUpdate(false);
-        console.log(formData);
-    };
 
     if (!pet) {
         return <div>Loading...</div>;
@@ -145,51 +100,16 @@ function PetDetail() {
         });
     };
 
-    const petImg = [PetImages.dog, PetImages.dog2, PetImages.dog3, PetImages.cat1, PetImages.cat2, PetImages.cat3];
-
-    const nextSlide = () => {
-        setIndex((prevIndex) => (prevIndex + 1) % petImg.length);
-    };
-
-    const preSlide = () => {
-        setIndex((prevIndex) => (prevIndex - 1 + petImg.length) % petImg.length);
-    };
-
-    const petsToShow =
-        petImg.length > 0
-            ? petImg.slice(index, index + 5).concat(petImg.slice(0, Math.max(0, index + 5 - petImg.length)))
-            : [];
     return (
         <div>
             <div className={cx('wrapper')}>
                 <h1>Do you love {pet.petName}?</h1>
+                <p className={cx('back')} onClick={() => navigate('/find-a-pet')}>
+                    &larr;Back
+                </p>
                 <div className={cx('content')}>
-                    <div className={cx('pet-image')}>
-                        <button onClick={preSlide} className={cx('slideBtn', 'pre-btn')}>
-                            &lt;
-                        </button>
-                        <div className={cx('image')}>
-                            <img src={PetImages.dog} />
-                            <img src={petImg[index]} />
 
-                            <div className={cx('sub-img')}>
-                                {petsToShow.map((image, imgIndex) => (
-                                    <img
-                                        key={imgIndex}
-                                        src={image}
-                                        className={cx({ 'color-border': imgIndex === 0 })}
-                                        onClick={() => {
-                                            const newIndex = (index + imgIndex) % petImg.length;
-                                            setIndex(newIndex);
-                                        }}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-                        <button onClick={nextSlide} className={cx('slideBtn', 'next-btn')}>
-                            &gt;
-                        </button>
-                    </div>
+                    <PetImage pet={pet}/>
 
                     <div className={cx('pet-info')}>
                         <div className={cx('detail-info')}>
@@ -245,13 +165,10 @@ function PetDetail() {
                                 <div className={cx('admin-btn')}></div>
                             </div>
 
-                            {user && userRoles === 'user' ? (
+                            {userRoles === 'admin' ? (
                                 <div className={cx('edit')}>
                                     <Button className={cx('update-btn')} primary medium onClick={toggleUpdate}>
                                         Update
-                                    </Button>
-                                    <Button className={cx('update-btn')} outline medium>
-                                        Delete
                                     </Button>
                                 </div>
                             ) : null}
@@ -267,16 +184,20 @@ function PetDetail() {
 
                 {update && (
                     <Update
-                        handleSubmit={handleSubmit}
+                        setUpdate={setUpdate}
                         formData={formData}
-                        handleChange={handleChange}
+                        setFormData={setFormData}
                         closeUpdate={closeUpdate}
+                        handlePetData={handlePetData}
+                        id={id}
                     />
                 )}
             </div>
 
-            {}
-            {!user ? <RegisBanner /> : null}
+            <FeaturePet homepage={true} title='Another Pets'/>
+            
+            {user == false  ? <RegisBanner /> : null}
+
         </div>
     );
 }

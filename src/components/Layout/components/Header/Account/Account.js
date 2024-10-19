@@ -9,19 +9,18 @@ import { Link, useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function Account() {
-    const [user, setUser] = useState();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const loggedUser = JSON.parse(localStorage.getItem('userInfo'));
-        if (loggedUser) {
-            setUser(loggedUser);
-        }
-    }, []);
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const role = JSON.parse(localStorage.getItem('userRoles'));
+    const isAdmin = role?.includes('ADMIN');
 
     const handleLogout = () => {
-        setUser(null);
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
         localStorage.removeItem('userInfo');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userRoles');
+        navigate('/');
     };
 
     const hanndleToLogin = () => {
@@ -33,13 +32,17 @@ function Account() {
     };
 
     const items = [
-        {
-            label: (
-                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/admin">
-                    Admin
-                </Link>
-            ),
-        },
+        ...(isAdmin
+            ? [
+                  {
+                      label: (
+                          <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/admin">
+                              Admin
+                          </Link>
+                      ),
+                  },
+              ]
+            : []),
         {
             label: (
                 <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/account">
@@ -49,13 +52,7 @@ function Account() {
         },
         {
             label: (
-                <Link
-                    style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }}
-                    to='/'
-                    onClick={() => {
-                        handleLogout();
-                    }}
-                >
+                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/" onClick={handleLogout}>
                     Log Out
                 </Link>
             ),
@@ -64,7 +61,7 @@ function Account() {
 
     return (
         <div className={cx('account')}>
-            {user ? (
+            {userInfo ? (
                 <>
                     <DogIcon />
                     <HeartIcon />
@@ -72,7 +69,7 @@ function Account() {
 
                     <Dropdown menu={{ items }}>
                         <span className={cx('username')}>
-                            <p>{user.username}</p> <UserIcon />
+                            <p>{userInfo.username}</p> <UserIcon />
                         </span>
                     </Dropdown>
                 </>
