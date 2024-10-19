@@ -44,12 +44,10 @@ function Login() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
             localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
             const userRoles = userInfo.data.result.roles.map((role) => role.name);
             localStorage.setItem('userRoles', JSON.stringify(userRoles));
             localStorage.setItem('userId', userInfo.data.result.id);
-
             setSuccessMsg('Login successfully!');
             setTimeout(() => {
                 navigate(from);

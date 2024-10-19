@@ -9,25 +9,26 @@ import Login from '~/pages/Login';
 import Register from '~/pages/Register/Register';
 import Event from '~/pages/Event';
 import PetDetail from '~/pages/PetDetail';
-import Volunteer from '~/pages/Volunteer';
+import Volunteer from '~/pages/Volunteer/Volunteer';
 import Application from '~/pages/Application/Application';
 import DonateSuccess from '~/pages/Donate/DonateComponents/DonateSuccess';
 import BlogDetail from '~/pages/BlogDetail';
 import EventDetail from '~/pages/EventDetail';
 import Account from '~/pages/Account';
+import Adopt from '~/pages/Adopt/Adopt';
 
 const publicRoutes = [
     {
         path: '/',
         component: Home,
     },
-    // {
-    //     path: '/adopt-application/:id',
-    //     component: AdoptStep1,
-    // },
     {
         path: '/adopt-application/:id',
         component: Application,
+    },
+    {
+        path: '/adopt',
+        component: Adopt,
     },
     {
         path: '/about-us',
@@ -70,7 +71,7 @@ const publicRoutes = [
         component: Donate,
     },
     {
-        path: '/donate-success',
+        path: 'thanks',
         component: DonateSuccess,
     },
     {

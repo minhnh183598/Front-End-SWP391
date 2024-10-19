@@ -1,41 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import IMAGES from '~/assets/images';
 import api from '~/config/axios';
 import './AdoptStep2Form.scss';
 import Button from '~/components/Button';
-import Form from 'react-bootstrap/Form';
-import axios from 'axios';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 
-const AdoptStep2Form = ({ setStep }) => {
+const AdoptStep2Form = ({ id, setStep }) => {
     const [formData, setFormData] = useState({
-        age_of_child: '',
-        num_of_children: '',
         address: '',
         city: '',
-        full_name: '',
+        fullName: '',
         gender: '',
         job: '',
-        live_with: '',
+        liveWith: '',
         phone: '',
         yob: '',
         first_person: '',
-        first_phone: '',
-        second_person: '',
-        second_phone: '',
+        firstPhone: '',
+        secondPerson: '',
+        secondPhone: '',
     });
-
+    const userID = localStorage.getItem('userId');
+    // console.log('userID: ', userID);
     useEffect(() => {
         const savedFormData = localStorage.getItem('applicationFormData');
         if (savedFormData) {
             setFormData(JSON.parse(savedFormData));
         }
     }, []);
-
-    // useEffect(() => {
-    //     localStorage.setItem('applicationFormData', JSON.stringify(formData));
-    // }, [formData]);
 
     const handleChange = (e) => {
         setFormData({
@@ -44,10 +35,90 @@ const AdoptStep2Form = ({ setStep }) => {
         });
     };
 
-    // console.log(formData);
-    const handleSubmit = () => {
-        let response = axios.post(formData);
+    const handleNext = async (e) => {
+        e.preventDefault();
+        try {
+            // Lưu dữ liệu biểu mẫu vào localStorage (tùy chọn)
+            localStorage.setItem('applicationFormData', JSON.stringify(formData));
+            setStep((prevStep) => prevStep + 1);
+
+            // Lấy token từ localStorage
+            const token = localStorage.getItem('token');
+            console.log('Token:', token); // Kiểm tra giá trị token
+
+            if (!token) {
+                throw new Error('Token không tồn tại. Vui lòng đăng nhập lại.');
+            }
+
+            const petId = id;
+
+            if (!petId) {
+                throw new Error('ID không hợp lệ. Vui lòng kiểm tra lại.');
+            }
+
+            // Chuyển đổi kiểu dữ liệu nếu cần
+            const newFormData = {
+                applicationId: '', // Bạn có thể để rỗng nếu tạo mới
+                petId: petId,
+                id: userID,
+                fullName: formData.fullName,
+                yob: parseInt(formData.yob, 10),
+                gender: formData.gender,
+                address: formData.address,
+                city: formData.city,
+                job: formData.job,
+                phone: formData.phone,
+                liveIn: formData.liveIn,
+                liveWith: formData.liveWith,
+                firstPerson: formData.first_person,
+                firstPhone: formData.firstPhone,
+                secondPerson: formData.secondPerson,
+                secondPhone: formData.secondPhone,
+                status: 1,
+            };
+            // console.log('Pet ID:', id);
+            // console.log('userID: ', userID);
+            console.log('Sending data:', newFormData);
+
+            // Gửi dữ liệu biểu mẫu đến backend
+            try {
+                const response = await api.post(`applications`, newFormData, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                // const result = await response.json();
+                const appliId = response.data.applicationId;
+                // console.log('day la json cua form vua tao: ', result);
+                // console.log('day la id cua json do: ', userId);
+                localStorage.setItem('applicationId', appliId);
+                console.log(response.data);
+            } catch (error) {
+                console.log('Loi nhu cc: ', error);
+                if (error.response) {
+                    console.log('Data:', error.response.data);
+                    console.log('Status:', error.response.status);
+                    console.log('Headers:', error.response.headers);
+                } else {
+                    console.log('Error message:', error.message);
+                }
+            }
+
+            // Nếu yêu cầu thành công, chuyển sang bước tiếp theo
+            // setStep((prevStep) => prevStep + 1);
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            if (error.response) {
+                console.log('Error Data:', error.response.data);
+            } else {
+                console.log('Error Message:', error.message);
+            }
+        }
     };
+
+    // console.log(formData);
+
     return (
         <div className="AdoptStep2">
             <ScrollToTop />
@@ -59,18 +130,18 @@ const AdoptStep2Form = ({ setStep }) => {
                             <h3>ADOPTION FORM</h3>
                         </div>
                     </div>
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <div className="name_yob_address_city_wrap">
                             <div className="wrap_name_yob">
                                 {/* Name  */}
                                 <div className="AdoptStep2-infoInputbar-wrap-name">
-                                    <label htmlFor="name">Full name</label>
+                                    <label htmlFor="fullName">Full name</label>
                                     <input
                                         className="AdoptStep2-infoInput-bar"
                                         type="text"
-                                        id="full_name"
-                                        name="full_name"
-                                        value={formData.full_name}
+                                        id="fullName"
+                                        name="fullName"
+                                        value={formData.fullName}
                                         onChange={handleChange}
                                         required
                                         // placeholder="Full name"
@@ -170,13 +241,13 @@ const AdoptStep2Form = ({ setStep }) => {
                                 </div>
                                 {/* live with  */}
                                 <div className="AdoptStep2-infoInputbar-wrap-livewith">
-                                    <label htmlFor="live_with">Live with</label>
+                                    <label htmlFor="liveWith">Live with</label>
                                     <input
                                         className="AdoptStep2-infoInput-bar"
                                         type="text"
-                                        id="live_with"
-                                        name="live_with"
-                                        value={formData.live_with}
+                                        id="liveWith"
+                                        name="liveWith"
+                                        value={formData.liveWith}
                                         onChange={handleChange}
                                         required
                                         // placeholder="live_with"
@@ -201,13 +272,13 @@ const AdoptStep2Form = ({ setStep }) => {
                                 </div>
                                 {/* first_phone */}
                                 <div className="AdoptStep2-infoInputbar-wrap_RE1Phone">
-                                    <label htmlFor="first_phone">RE1 phone</label>
+                                    <label htmlFor="firstPhone">RE1 phone</label>
                                     <input
                                         className="AdoptStep2-infoInput-bar"
                                         type="text"
-                                        id="first_phone"
-                                        name="first_phone"
-                                        value={formData.first_phone}
+                                        id="firstPhone"
+                                        name="firstPhone"
+                                        value={formData.firstPhone}
                                         onChange={handleChange}
                                         // placeholder="first_phone"
                                     />
@@ -216,26 +287,26 @@ const AdoptStep2Form = ({ setStep }) => {
                             <div className="RE2_RE2Phone">
                                 {/* second_person */}
                                 <div className="AdoptStep2-infoInputbar-wrap-RE2">
-                                    <label htmlFor="second_person">Reference person 2 (RE2)</label>
+                                    <label htmlFor="secondPerson">Reference person 2 (RE2)</label>
                                     <input
                                         className="AdoptStep2-infoInput-bar"
                                         type="text"
-                                        id="second_person"
-                                        name="second_person"
-                                        value={formData.second_person}
+                                        id="secondPerson"
+                                        name="secondPerson"
+                                        value={formData.secondPerson}
                                         onChange={handleChange}
                                         // placeholder="second_person"
                                     />
                                 </div>
                                 {/* second_phone */}
                                 <div className="AdoptStep2-infoInputbar-wrap-RE2Phone">
-                                    <label htmlFor="second_phone">RE2 phone</label>
+                                    <label htmlFor="secondPhone">RE2 phone</label>
                                     <input
                                         className="AdoptStep2-infoInput-bar"
                                         type="text"
-                                        id="second_phone"
-                                        name="second_phone"
-                                        value={formData.second_phone}
+                                        id="secondPhone"
+                                        name="secondPhone"
+                                        value={formData.secondPhone}
                                         onChange={handleChange}
                                         // placeholder="second_phone"
                                     />
@@ -244,10 +315,10 @@ const AdoptStep2Form = ({ setStep }) => {
                         </div>
                     </form>
                     <div className="AdoptStep2-button">
-                        <Button className="btn-1" onClick={() => setStep((prevStep) => prevStep + 1)}>
+                        <Button className="btn-1" onClick={handleNext}>
                             Next
                         </Button>
-                        <Button onClick={() => setStep((prevStep) => prevStep - 1)} className="btn-2">
+                        <Button className="btn-2" onClick={() => setStep((prevStep) => prevStep - 1)}>
                             Cancel
                         </Button>
                     </div>

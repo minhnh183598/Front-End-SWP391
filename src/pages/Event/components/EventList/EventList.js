@@ -14,11 +14,15 @@ function EventList({ data, dataLength }) {
     const indexOfLastEvent = currentPage * eventPerPage;
     const indexOfFirstEvent = indexOfLastEvent - eventPerPage;
     const currentEvent = data.slice(indexOfFirstEvent, indexOfLastEvent);
+    console.log('DAy la currenevent', currentEvent);
 
     return (
         <div className={cx('event-list')}>
             {currentEvent.map((event) => {
-                const [day, month, year] = event.date.split(' ');
+                const [year, month, day] = event.date.split('-');
+                console.log(day);
+                console.log(month);
+                console.log(year);
                 return (
                     <div className={cx('event-box')} key={event.id}>
                         <div className={cx('image')}>
@@ -42,7 +46,7 @@ function EventList({ data, dataLength }) {
 
                             <div className={cx('event-btn')}>
                                 <Button
-                                    to='/event-detail'
+                                    to="/event-detail"
                                     mgRight10
                                     outline
                                     small

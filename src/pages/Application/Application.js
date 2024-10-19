@@ -8,29 +8,49 @@ import AdoptStep3 from './ApplicationComponents/AdoptStep3/AdoptStep3';
 import AdoptStep4 from './ApplicationComponents/AdoptStep4/AdoptStep4';
 import AdoptStep5 from './ApplicationComponents/AdoptStep5/AdoptStep5';
 import { Step, Stepper } from 'react-form-stepper';
+import AdoptStep2FormWait from './ApplicationComponents/AdoptStep2/AdoptStep2Components/AdoptStep2FormWait';
+import AdoptStep4Waiting from './ApplicationComponents/AdoptStep4/AdoptStep4Components/AdoptStep4Waiting';
 
 const Application = () => {
-    const max_step = 5;
     const { id } = useParams();
+    const max_step = 6;
+    // const [step, setStep] = useState(() => {
+    //     const savedStep = localStorage.getItem(`adoptionStep_${id}`);
+    //     return savedStep ? Math.min(parseInt(savedStep, 10), max_step) : 0;
+    // });
+
     const [step, setStep] = useState(0);
-    
+
     useEffect(() => {
         localStorage.setItem(`adoptionStep_${id}`, step.toString());
     }, [step, id]);
 
+    const handleNext = () => {
+        setStep((prevStep) => prevStep + 1);
+    };
+
     const renderStep = () => {
         switch (step) {
             case 0:
-                return <IntroducePage setStep={setStep} />;
+                return <IntroducePage onButtonClick={handleNext} />;
             case 1:
                 return <AdoptStep1 id={id} setStep={setStep} />;
             case 2:
-                return <AdoptStep2 setStep={setStep} />;
+                return <AdoptStep2 id={id} setStep={setStep} />;
             case 3:
-                return <AdoptStep3 id={id} setStep={setStep} />;
+                // return <AdoptStep3 id={id} setStep={setStep} />;
+                return <AdoptStep2FormWait id={id} setStep={setStep} />; // this is the page waiting for admin approval
             case 4:
-                return <AdoptStep4 id={id} setStep={setStep} />;
+                // return <AdoptStep4 id={id} setStep={setStep} />;
+                return <AdoptStep3 id={id} setStep={setStep} />;
             case 5:
+                // return <AdoptStep5 id={id} setStep={setStep} />;
+                return <AdoptStep4 id={id} setStep={setStep} />;
+            case 6:
+                // return <AdoptStep5 id={id} setStep={setStep} />;
+                return <AdoptStep4Waiting id={id} setStep={setStep} />;
+            case 7:
+                // return <AdoptStep5 id={id} setStep={setStep} />;
                 return <AdoptStep5 id={id} setStep={setStep} />;
             default:
                 return null;
@@ -52,17 +72,17 @@ const Application = () => {
 
                             <div className={`stepCir_2 ${step >= 2 ? 'selected' : ''}`}>2</div>
 
-                            <div className={`line_3 ${step >= 3 ? 'selected' : ''}`}></div>
+                            <div className={`line_3 ${step >= 4 ? 'selected' : ''}`}></div>
 
-                            <div className={`stepCir_3 ${step >= 3 ? 'selected' : ''}`}>3</div>
+                            <div className={`stepCir_3 ${step >= 4 ? 'selected' : ''}`}>3</div>
 
-                            <div className={`line_4 ${step >= 4 ? 'selected' : ''}`}></div>
+                            <div className={`line_4 ${step >= 5 ? 'selected' : ''}`}></div>
 
-                            <div className={`stepCir_4 ${step >= 4 ? 'selected' : ''}`}>4</div>
+                            <div className={`stepCir_4 ${step >= 5 ? 'selected' : ''}`}>4</div>
 
-                            <div className={`line_5 ${step >= 5 ? 'selected' : ''}`}></div>
+                            <div className={`line_5 ${step >= 7 ? 'selected' : ''}`}></div>
 
-                            <div className={`stepCir_5 ${step >= 5 ? 'selected' : ''}`}>5</div>
+                            <div className={`stepCir_5 ${step >= 7 ? 'selected' : ''}`}>5</div>
                         </div>
                     </div>
                 </div>

@@ -36,6 +36,7 @@ const handleBefore = (config) => {
         return config;
     } else if (config.url.includes('auth/create-password')) {
         return config;
+    } else if (config.url.includes('volunteer/application')) {
     } else if (config.url.includes('users/')) {
         return config;
     } else if (config.url.includes('auth/refresh')) {

@@ -31,7 +31,7 @@ function NavBar() {
             <NavLink to="/find-a-pet" className={cx('nav-item')}>
                 Find a Pet
             </NavLink>
-            <NavLink to="/adopt-pet" className={cx('nav-item')}>
+            <NavLink to="/adopt" className={cx('nav-item')}>
                 Adopt
             </NavLink>
             <NavLink to="/volunteer" className={cx('nav-item')}>
