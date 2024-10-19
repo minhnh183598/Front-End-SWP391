@@ -23,15 +23,20 @@
     position: fixed;
     top: 210px;
     right: 68px;
-    row-gap: 20px;
+    // row-gap: 20px;
     z-index: 1100;
 
     Button {
         border-radius: 50px;
         height: 30px;
         width: 30px;
-        background-color: #7aa366;
+        background-color: lightgrey;
         color: white;
+        transition: 0.3s;
+    }
+    Button.selected {
+        background-color: #7aa366;
+        transition: 0.3s;
     }
 }
 

@@ -1,105 +1,43 @@
-import { useState } from "react";
-import IMAGES from "~/assets/images";
+import { useEffect, useState } from 'react';
+import IMAGES from '~/assets/images';
 import styles from './Event.module.scss';
 import classNames from 'classnames/bind';
-import ShortFilter from "./components/ShortFilter";
-import BlogList from "./components/EventList";
+import ShortFilter from './components/ShortFilter';
+import BlogList from './components/EventList';
+import api from '~/config/axios';
 
 const cx = classNames.bind(styles);
 
 function Event() {
     const [searchName, setSearchName] = useState('');
+    const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState({
         sort: 'all',
         type: 'all',
     });
+    const [eventData, setEventData] = useState([]);
 
-    const eventData = [
-        {
-            id:1,
-            image: IMAGES.event1,
-            title: 'Pet show very cute dogs and cats if you go with us you can touch them',
-            location: 'District 3, Ho Chi Minh City',
-            date: '25 July 2024',
-        },
-        {
-            id:2,
-            image: IMAGES.event2,
-            title: 'Do you love your pets? Join with us on sunday!!!',
-            location: 'FPT University, Thu Duc City',
-            date: '23 Jan 2024',
-        },
-        {
-            id:3,
-            image: IMAGES.event3,
-            title: 'Do you understand your pets?',
-            location: 'District 3, Ho Chi Minh City',
-            date: '25 Oct 2024',
-        },
-        {
-            id:4,
-            image: IMAGES.event3,
-            title: 'Do you understand your pets?',
-            location: '222 Pasteur District 3, Ho Chi Minh City',
-            date: '12 Dec 2024',
-        },
-        {
-            id:5,
-            image: IMAGES.event2,
-            title: 'Do you love your pets? Join with us on sunday!!!',
-            location: 'FPT University, Thu Duc City',
-            date: '25 July 2024',
-        },
-        {
-            id:6,
-            image: IMAGES.event1,
-            title: 'Pet show very cute dogs and cats if you go with us you can touch them',
-            location: 'District 3, Ho Chi Minh City',
-            date: '25 Feb 2024',
-        },
-        {
-            id:7,
-            image: IMAGES.event3,
-            title: 'Do you understand your pets?',
-            location: '222 Pasteur District 3, Ho Chi Minh City',
-            date: '12 Dec 2024',
-        },
-        {
-            id:8,
-            image: IMAGES.event2,
-            title: 'Do you love your pets? Join with us on sunday!!!',
-            location: 'FPT University, Thu Duc City',
-            date: '25 July 2024',
-        },
-        {
-            id:9,
-            image: IMAGES.event1,
-            title: 'Pet show very cute dogs and cats if you go with us you can touch them',
-            location: 'District 3, Ho Chi Minh City',
-            date: '25 Feb 2024',
-        },
-        {
-            id:10,
-            image: IMAGES.event3,
-            title: 'Do you understand your pets?',
-            location: '222 Pasteur District 3, Ho Chi Minh City',
-            date: '12 Dec 2024',
-        },
-        {
-            id:11,
-            image: IMAGES.event2,
-            title: 'Do you love your pets? Join with us on sunday!!!',
-            location: 'FPT University, Thu Duc City',
-            date: '25 July 2024',
-        },
-        {
-            id:12,
-            image: IMAGES.event1,
-            title: 'Pet show very cute dogs and cats if you go with us you can touch them',
-            location: 'District 3, Ho Chi Minh City',
-            date: '25 Feb 2024',
-        },
-    ];
+    // goi api
+    const handleEventData = async () => {
+        try {
+            setLoading(true);
+            const response = await api.get(`events`, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
+            setEventData(response.data);
+            localStorage.setItem('eventuData', JSON.stringify(response.data));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false); // Hoàn tất quá trình tải
+        }
+    };
+    useEffect(() => {
+        handleEventData();
+    }, []);
+    console.log(eventData);
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
@@ -119,7 +57,7 @@ function Event() {
         };
         console.log(searchParams);
     };
-    
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('banner')}>
@@ -139,7 +77,7 @@ function Event() {
                     />
                 </div>
                 <div className={cx('blog-content')}>
-                    <BlogList data={eventData} dataLength={eventData.length}/>
+                    <BlogList data={eventData} dataLength={eventData.length} />
                 </div>
             </div>
         </div>

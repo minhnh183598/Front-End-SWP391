@@ -8,8 +8,8 @@ import Form from 'react-bootstrap/Form';
 import AdoptStep2Form from './AdoptStep2Components/AdoptStep2Form';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 
-const AdoptStep2 = ({ setStep }) => {
-    return <AdoptStep2Form setStep={setStep} />;
+const AdoptStep2 = ({ id, setStep }) => {
+    return <AdoptStep2Form id={id} setStep={setStep} />;
 };
 
 export default AdoptStep2;

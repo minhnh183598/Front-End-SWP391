@@ -1,11 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Button from '~/components/Button';
 import IMAGES from '~/assets/images';
 import './IntroducePage.scss';
 import { ProgressBar } from 'react-bootstrap';
 import TimelineProgress from '../TimelineProgress/TimelineProgress';
+import { Link } from 'react-router-dom';
 
-const IntroducePage = ({ setStep }) => {
+const IntroducePage = ({ onButtonClick }) => {
     const targetRef_1 = useRef(null);
     const targetRef_2 = useRef(null);
     const targetRef_3 = useRef(null);
@@ -13,11 +14,25 @@ const IntroducePage = ({ setStep }) => {
     const targetRef_5 = useRef(null);
     const targetRef_6 = useRef(null);
 
+    const [scrollHeight, setScrollHeight] = useState(0);
+
+    const handleScroll = () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const progress = (scrollTop / scrollTotal) * 100;
+        setScrollHeight(progress);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+    // console.log(scrollHeight);
+
     // Hàm xử lý cuộn
     const scrollToSection = (targetRef, offset) => {
         const elementPosition = targetRef.current.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
-
         window.scrollTo({
             top: offsetPosition,
             behavior: 'smooth',
@@ -28,38 +43,56 @@ const IntroducePage = ({ setStep }) => {
             <TimelineProgress />
             <div className="timelineBar_step">
                 <div>
-                    <Button className="timelineBar_step_btn1" onClick={() => scrollToSection(targetRef_1, 100)}>
+                    <Button
+                        className={`timelineBar_step_btn1 ${scrollHeight >= 11.06931219024776 ? 'selected' : ''}`}
+                        onClick={() => scrollToSection(targetRef_1, 100)}
+                    >
                         1
                     </Button>
                 </div>
                 <div>
-                    <Button className="timelineBar_step_btn2" onClick={() => scrollToSection(targetRef_2, 100)}>
+                    <Button
+                        className={`timelineBar_step_btn2 ${scrollHeight >= 23.43725780948048 ? 'selected' : ''}`}
+                        onClick={() => scrollToSection(targetRef_2, 100)}
+                    >
                         2
                     </Button>
                 </div>
                 <div>
-                    <Button className="timelineBar_step_btn3" onClick={() => scrollToSection(targetRef_3, 100)}>
+                    <Button
+                        className={`timelineBar_step_btn3 ${scrollHeight >= 33.92578065395355 ? 'selected' : ''}`}
+                        onClick={() => scrollToSection(targetRef_3, 100)}
+                    >
                         3
                     </Button>
                 </div>
                 <div>
-                    <Button className="timelineBar_step_btn4" onClick={() => scrollToSection(targetRef_4, 100)}>
+                    <Button
+                        className={`timelineBar_step_btn4 ${scrollHeight >= 45.64453065395355 ? 'selected' : ''}`}
+                        onClick={() => scrollToSection(targetRef_4, 100)}
+                    >
                         4
                     </Button>
                 </div>
                 <div>
-                    <Button className="timelineBar_step_btn5" onClick={() => scrollToSection(targetRef_5, 100)}>
+                    <Button
+                        className={`timelineBar_step_btn5 ${scrollHeight >= 57.36328363418579 ? 'selected' : ''}`}
+                        onClick={() => scrollToSection(targetRef_5, 100)}
+                    >
                         5
                     </Button>
                 </div>
                 <div>
-                    <Button className="timelineBar_step_btn6" onClick={() => scrollToSection(targetRef_6, 100)}>
+                    <Button
+                        className={`timelineBar_step_btn6 ${scrollHeight >= 72.08203363418579 ? 'selected' : ''}`}
+                        onClick={() => scrollToSection(targetRef_6, 100)}
+                    >
                         6
                     </Button>
                 </div>
             </div>
             <div className="timelineBar_step_btn7">
-                <Button adoptIntroduceButton onClick={() => setStep((prevStep) => prevStep + 1)}>
+                <Button adoptIntroduceButton onClick={onButtonClick}>
                     Start The Process
                 </Button>
             </div>
@@ -179,7 +212,11 @@ const IntroducePage = ({ setStep }) => {
                 </div>
                 {/* Nút start process để chuyển qua find a pet */}
                 <div className="adopt-container-button">
-                    <Button adoptIntroduceButton onClick={() => setStep((prevStep) => prevStep + 1)}>
+                    <Button
+                        adoptIntroduceButton
+                        // onClick={() => setStep((prevStep) => prevStep + 1)}
+                        onClick={onButtonClick}
+                    >
                         Start The Process
                     </Button>
                 </div>

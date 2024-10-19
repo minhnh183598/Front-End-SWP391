@@ -140,9 +140,18 @@
     display: flex;
     column-gap: 30px;
     padding-bottom: 15px;
+    // input {
+    //     border: 2px solid #88b179;
+    //     // height: 80px;
+    //     width: 740px;
+    //     padding-bottom: 50px;
+    //     border-radius: 5px;
+    //     outline: none;
+    // }
+
     input {
         border: 2px solid #88b179;
-        // height: 80px;
+        height: 80px;
         width: 740px;
         padding-bottom: 50px;
         border-radius: 5px;

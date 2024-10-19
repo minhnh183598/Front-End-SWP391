@@ -14,27 +14,6 @@
     column-gap: 10px;
 }
 
-.stepProg-1 {
-    background-color: #9fcca3;
-    height: 5px;
-    width: 70px;
-    border-radius: 10px;
-}
-
-.stepProg-2 {
-    background-color: #d9d9d9;
-    height: 5px;
-    width: 70px;
-    border-radius: 10px;
-}
-
-.stepProg-3 {
-    background-color: #d9d9d9;
-    height: 5px;
-    width: 70px;
-    border-radius: 10px;
-}
-
 .donation-container {
     display: flex;
     flex-direction: column;
@@ -53,6 +32,7 @@
 }
 
 .select-amount {
+    margin-top: 20px;
     text-align: center;
     h3 {
         margin: 0;
@@ -70,6 +50,7 @@
     padding-right: 17px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .donate-button {
@@ -82,6 +63,7 @@
 
 .button-display {
     display: grid;
+    margin-top: 50px;
     grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
     row-gap: 30px;
     column-gap: 35px;
@@ -131,7 +113,7 @@ input[type='number'] {
 }
 
 .save-button {
-    background-color: #7aa366;
+    background-color: #93d57b;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -200,16 +182,4 @@ input[type='number'] {
 .header-amount {
     margin: 0;
     font-size: 20px;
-}
-
-.step-display-step-2-visa {
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 19px;
-    column-gap: 10px;
-    .stepProg-2 {
-        background-color: #9fcca3;
-    }
 }

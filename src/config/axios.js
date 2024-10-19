@@ -23,6 +23,7 @@ const handleBefore = (config) => {
     } else if (config.url.includes('pets/')) {
         return config;
     } else if (config.url.includes('applications')) {
+        return config;
     } else if (config.url.includes('auth/verifyEmail')) {
         return config;
     } else if (config.url.includes('auth/forgotPassword')) {
@@ -34,6 +35,8 @@ const handleBefore = (config) => {
     } else if (config.url.includes('auth/outbound/authentication')) {
         return config;
     } else if (config.url.includes('auth/create-password')) {
+        return config;
+    } else if (config.url.includes('volunteer/application')) {
         return config;
     }
     const token = localStorage.getItem('token')?.replaceAll('"', '');

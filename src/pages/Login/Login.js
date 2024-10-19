@@ -18,7 +18,6 @@ function Login() {
     const navigate = useNavigate();
     const from = location.state?.from || '/';
 
-
     const [successMsg, setSuccessMsg] = useState('');
     const [openPopup, setOpenPopup] = useState(false);
     const [googlePW, setGooglePW] = useState(false);
@@ -43,11 +42,15 @@ function Login() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
             localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
             const userRoles = userInfo.data.result.roles.map((role) => role.name);
             localStorage.setItem('userRoles', JSON.stringify(userRoles));
-
+            const user = await api.get('users/info', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            localStorage.setItem('userId', user.data.result.id);
             setSuccessMsg('Login successfully!');
             setTimeout(() => {
                 navigate(from);

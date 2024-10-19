@@ -30,7 +30,7 @@ function FindPet() {
     const handlePetsData = async () => {
         const { type, gender, age, color, vaccine, sort, state } = filter;
         const query = `petType=${type}&petAge=${age}&petGender=${gender}&petColor=${color}&petVaccin=${vaccine}&petStatus=${state}&keyword=${searchName}&sort=${sort}`;
-
+        console.log(`Query: ${query}`);
         try {
             const response = await api.get(`pets/SearchPets?${query}`, {
                 headers: {
@@ -54,7 +54,7 @@ function FindPet() {
             searchName,
             filter,
         };
-        console.log(searchParams);
+        // console.log(searchParams);
     };
 
     useEffect(() => {
@@ -82,7 +82,7 @@ function FindPet() {
     const handleSearchChange = (e) => {
         setSearchName(e.target.value.trim());
     };
-
+    console.log(petList);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('banner')}>
