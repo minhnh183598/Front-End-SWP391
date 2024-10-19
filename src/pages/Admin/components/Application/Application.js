@@ -32,14 +32,11 @@ function Application() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            // Gọi API để lấy dữ liệu thành công
             const successResponse = await api.get(`applications/status/1`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
-            // Gọi API để lấy dữ liệu thất bại
             const failResponse = await api.get(`applications/status/2`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -50,6 +47,7 @@ function Application() {
             console.log(combinedData);
             setDataLength(combinedData.length);
             setTotalAppli(combinedData.length);
+            localStorage.setItem('totalAppli', combinedData.length);
             setAppliList(combinedData);
         } catch (error) {
             console.log(error);
@@ -124,7 +122,7 @@ function Application() {
     return (
         <>
             <div className={cx('wrapper')}>
-                <h1>Application</h1>
+                <h1>Adopt Application</h1>
 
                 {!viewAppli ? (
                     <>

@@ -43,6 +43,15 @@
         .container-info{
             width: 50%;
             padding: 10px;
+
+            .deletebtn{
+                background-color: rgb(252, 80, 80);
+                color: white;
+
+                &:hover{
+                    background-color: rgb(194, 37, 37);
+                }
+            }
         }
     }
 }

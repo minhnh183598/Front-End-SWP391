@@ -51,6 +51,7 @@ function Pets() {
             const dataLength = response.data.length;
             console.log(response.data);
             setDataLength(dataLength);
+            localStorage.setItem('totalPets', dataLength);
             setPetList(response.data);
         } catch (error) {
             console.log(error);
@@ -125,6 +126,13 @@ function Pets() {
                     {!viewPet ? (
                         <>
                             <div className={cx('user-sum')}>
+                                <div className={cx('user-sum-item')}>
+                                    <div>
+                                        <p className={cx('item-number')}>{totalAvailable + totalAdopted}</p>
+                                        <p className={cx('item-label')}>Total Pets</p>
+                                    </div>
+                                    <span>+2.15%</span>
+                                </div>
                                 <div className={cx('user-sum-item')}>
                                     <div>
                                         <p className={cx('item-number')}>{totalAvailable}</p>

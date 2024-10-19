@@ -18,6 +18,7 @@ function Button({
     leftIcon,
     rightIcon,
     mgRight10,
+    width100,
     children,
     onClick,
     donateButton,
@@ -50,6 +51,7 @@ function Button({
         leftIcon,
         rightIcon,
         mgRight10,
+        width100,
         donateButton,
         adoptIntroduceButton,
         [className]: className, // có thể thêm css riêng

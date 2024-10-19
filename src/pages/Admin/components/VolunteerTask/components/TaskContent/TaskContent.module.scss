@@ -1,0 +1,59 @@
+.content {
+    width: 100%;
+    background-color: white;
+
+    .content-item {
+        padding: 0 20px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid lightgray;
+
+        p {
+            margin: 0;
+        }
+        .id {
+            width: 5%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .name {
+            width: 25%;
+            font-weight: 600;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .state {
+            width: 10%;
+            p {
+                background-color: rgb(110, 191, 220);
+                display: inline;
+                padding: 5px;
+                border-radius: 10px;
+                color: white;
+            }
+        }
+
+        .date {
+            width: 10%;
+        }
+        .action {
+            width: 5%;
+            text-align: center;
+            .view-icon {
+                color: rgb(99, 199, 232);
+                width: 18px;
+
+                cursor: pointer;
+            }
+
+            .delete-icon {
+                color: rgb(255, 98, 98);
+                width: 18px;
+                margin-left: 10px;
+            }
+        }
+    }
+}

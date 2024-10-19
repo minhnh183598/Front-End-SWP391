@@ -3,12 +3,11 @@ import styles from './User.module.scss';
 import classNames from 'classnames/bind';
 import { Pagination } from 'antd';
 import { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import api from '~/config/axios';
 import UserContent from './components/UserContent/UserContent';
 import Search from './components/Search/Search';
 import ViewUser from './components/ViewUser/ViewUser';
+import { ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -32,7 +31,14 @@ function User() {
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         console.log(name, value);
-        const newSort = value === 'username' ? 'ASC' : filter.sort;
+        const newSort =
+            value == 'username'
+                ? 'ASC'
+                : value == 'createdAt'
+                ? 'DESC'
+                : value == 'applicationQuantity'
+                ? 'DESC'
+                : filter.sort;
 
         setFilter((prev) => ({
             ...prev,
@@ -57,6 +63,7 @@ function User() {
             if (Array.isArray(response.data.result)) {
                 setUserList(response.data.result);
                 setDataLength(response.data.result.length);
+                localStorage.setItem('totalUser', response.data.result.length);
             } else {
                 console.error('Error', response.data.result);
                 setUserList([]);
@@ -77,17 +84,14 @@ function User() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response.data);
 
             if (Array.isArray(response.data.result)) {
                 setTotalAdmin(response.data.result.length);
             } else {
                 console.error('Error', response.data.result);
-                setUserList([]);
             }
         } catch (error) {
             console.log(error);
-            setUserList([]);
         }
     };
 
@@ -101,17 +105,14 @@ function User() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response.data);
 
             if (Array.isArray(response.data.result)) {
                 setTotalUsers(response.data.result.length);
             } else {
                 console.error('Error', response.data.result);
-                setUserList([]);
             }
         } catch (error) {
             console.log(error);
-            setUserList([]);
         }
     };
 
@@ -125,17 +126,14 @@ function User() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response.data);
 
             if (Array.isArray(response.data.result)) {
                 setTotalVolunteer(response.data.result.length);
             } else {
                 console.error('Error', response.data.result);
-                setUserList([]);
             }
         } catch (error) {
             console.log(error);
-            setUserList([]);
         }
     };
 
@@ -172,7 +170,7 @@ function User() {
                         <div className={cx('user-sum')}>
                             <div className={cx('user-sum-item')}>
                                 <div>
-                                    <p className={cx('item-number')}>{dataLength}</p>
+                                    <p className={cx('item-number')}>{totalUsers + totalVolunteer + totalAdmin}</p>
                                     <p className={cx('item-label')}>Total Account</p>
                                 </div>
                                 <span>+2.15%</span>

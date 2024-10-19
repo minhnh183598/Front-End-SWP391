@@ -3,6 +3,7 @@ import styles from './Update.module.scss';
 import classNames from 'classnames/bind';
 import api from '~/config/axios';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +34,7 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handleUserD
                 },
             );
             console.log(response.data);
+            toast.success('Update successfully!');
         } catch (error) {
             console.log(error);
         }

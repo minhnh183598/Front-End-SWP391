@@ -26,7 +26,7 @@ function PetList({ data, dataLength, currentPage, setCurrentPage }) {
             {currentPet.map((pet) => (
                 <div className={cx('pet-box')} key={pet.petId}>
                     <div className={cx('image')}>
-                        <img src={PetImages.dog2} />
+                        <img src={pet.petImage} />
                         <img
                             src={lovePet[pet.petId] ? ICONS.heartRed : ICONS.heartWhi}
                             className={cx('heart-icon')}

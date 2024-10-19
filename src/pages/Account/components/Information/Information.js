@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 import api from '~/config/axios';
 import Button from '~/components/Button';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -32,6 +33,13 @@ function Information() {
     const handleChangeInfo = async (e) => {
         e.preventDefault();
         const id = localStorage.getItem('userId');
+        const role = localStorage.getItem('userRoles');
+        console.log(id);
+
+        if (!id) {
+            console.error('User ID is null or undefined');
+            return;
+        }
 
         const { username, firstname, lastname } = userInfo;
 
@@ -53,10 +61,18 @@ function Information() {
 
         if (hasError) return;
 
+        let roles;
+        try {
+            roles = JSON.parse(role);
+        } catch (error) {
+            console.error('Error parsing roles:', error);
+            return;
+        }
+
         try {
             await api.put(
                 `users/${id}`,
-                { username, firstname, lastname },
+                { username, firstname, lastname, roles },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -64,18 +80,7 @@ function Information() {
                 },
             );
 
-            alert('Update successful');
-
-            localStorage.removeItem('token');
-            const rfToken = localStorage.getItem('refreshToken');
-
-            const takeNewToken = await api.post('auth/refresh', rfToken, {
-                headers: {
-                    Authorization: `No Auth`,
-                },
-            })
-
-            console.log('newtokenne ',takeNewToken);
+            toast.success('Update successful');
 
             const userInfo = await api.get('users/info', {
                 headers: {
@@ -92,6 +97,7 @@ function Information() {
 
     return (
         <div className={cx('wrapper')}>
+            <ToastContainer />
             <div>
                 <div className={cx('header')}>
                     <h1>Account Information</h1>
@@ -161,43 +167,3 @@ function Information() {
 }
 
 export default Information;
-
-{
-    /* <div className={cx('form-item')}>
-<label htmlFor="password">Password</label>
-<input type="password" id="password" name="password" />
-<p className={cx('change-info')} style={{ visibility: 'hidden' }}>
-    Change
-</p>
-</div> */
-}
-{
-    /* <div className={cx('form-item')}>
-    <label htmlFor="phone">Phone</label>
-    <input
-        type="text"
-        id="phone"
-        name="phone"
-        value={updatedInfo.phone || ''}
-        onChange={handleChange}
-    />
-</div>
-<div className={cx('form-item')}>
-    <label htmlFor="address">Address</label>
-    <input
-        type="text"
-        id="address"
-        name="address"
-        value={updatedInfo.address || ''}
-        onChange={handleChange}
-    />
-</div>
-<div className={cx('form-item')}>
-    <label htmlFor="city">City</label>
-    <select id="city" name="city" value={updatedInfo.city || ''} onChange={handleChange}>
-        <option value="other">Other</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-    </select>
-</div> */
-}

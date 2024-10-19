@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 function ViewUser({ id, setViewUser }) {
     const [user, setUser] = useState(null);
     const [update, setUpdate] = useState(false);
+    const [checkRole, setCheckRole] = useState(false);
     const [formData, setFormData] = useState({
         username: '',
         firstname: '',
@@ -27,8 +28,10 @@ function ViewUser({ id, setViewUser }) {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
-            console.log(response.data);
+            const checkRole = response.data.result.roles;
+            if (checkRole.some((role) => role.name === 'ADMIN')) {
+                setCheckRole(true);
+            }
             setUser(response.data);
         } catch (error) {
             console.log(error);
@@ -70,6 +73,21 @@ function ViewUser({ id, setViewUser }) {
         });
     };
 
+    const handleDeleteUser = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await api.delete(`users/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            alert('Delete successfully!');
+            setViewUser(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <div className={cx('wrapper')}>
             <p style={{ cursor: 'pointer', width: '70px' }} onClick={() => setViewUser(false)}>
@@ -94,9 +112,16 @@ function ViewUser({ id, setViewUser }) {
                             : 'No role assigned'}
                     </p>
 
-                    <Button primary onClick={toggleUpdate}>
-                        Update
-                    </Button>
+                    {!checkRole ? (
+                        <div style={{ display: 'flex' }}>
+                            <Button primary medium mgRight10 onClick={toggleUpdate}>
+                                Update
+                            </Button>
+                            <Button className={cx('deletebtn')} medium onClick={handleDeleteUser}>
+                                Delete
+                            </Button>
+                        </div>
+                    ) : null}
                 </div>
             </div>
 

@@ -72,16 +72,16 @@ function Register() {
                 });
 
                 localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
+                const userRoles = userInfo.data.result.roles.map((role) => role.name);
+                localStorage.setItem('userRoles', JSON.stringify(userRoles));
+                localStorage.setItem('userId', userInfo.data.result.id);
 
                 if (userInfo.data.result.noPassword === false) {
-                    // Nếu đã có mật khẩu, điều hướng đến trang chính
                     navigate('/');
                 } else {
-                    // Nếu chưa có mật khẩu, hiển thị form để tạo mật khẩu
                     setGooglePW(true);
                 }
                 console.log(userInfo);
-                //setGooglePW(true);
             } else {
                 throw new Error('No token in response');
             }
