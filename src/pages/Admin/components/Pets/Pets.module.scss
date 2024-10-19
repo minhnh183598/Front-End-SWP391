@@ -4,7 +4,7 @@
 
     .user-sum {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
 
         .user-sum-item {
             background-color: white;
@@ -34,6 +34,10 @@
                 line-height: 25px;
                 border-radius: 10px;
             }
+
+            &:nth-child(2){
+                margin: 0 60px;
+            }
         }
     }
 
@@ -61,7 +65,7 @@
 
                 p {
                     margin: 0;
-                    width: 70px;
+                    width: 75px;
                     text-align: center;
                     padding: 5px 2px;
                     color: #b6b6b6;
@@ -75,11 +79,16 @@
                 }
             }
 
+            .add-pet{
+                margin-right: auto;
+                margin-left: 10px;
+            }
+
             .search {
                 form {
                     display: flex;
                     align-items: center;
-                    
+
                     select,
                     input {
                         border-radius: 8px;
@@ -89,7 +98,7 @@
                         font-size: 14px;
                         margin-right: 5px;
                     }
-                    select{
+                    select {
                         margin: 0 20px 0 10px;
                     }
                 }
@@ -100,7 +109,7 @@
             padding: 20px;
             width: 100%;
 
-            .content-wrapper{
+            .content-wrapper {
                 width: 100%;
                 border: 1px solid lightgray;
 
@@ -112,37 +121,37 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-    
+
                     p {
                         margin: 0;
                         color: rgb(140, 140, 140);
                     }
-    
+
                     .id {
                         width: 50px;
                     }
-    
+
                     .name {
                         width: 30%;
                     }
-    
+
                     .role {
                         width: 10%;
                     }
-    
+
                     .appli {
                         width: 160px;
                     }
-    
+
                     .date {
                         width: 10%;
                     }
                 }
-    
+
                 .content {
                     width: 100%;
                     background-color: white;
-    
+
                     .content-item {
                         padding: 0 20px;
                         height: 70px;
@@ -150,51 +159,61 @@
                         align-items: center;
                         justify-content: space-between;
                         border-bottom: 1px solid lightgray;
-    
+
                         p {
                             margin: 0;
                         }
                         .id {
                             width: 50px;
                         }
-    
+
                         .name {
                             width: 30%;
+                            display: flex;
+                            align-items: center;
                             .username {
                                 font-weight: 600;
+                                margin-right: 10px;
                             }
-                            .fullname {
-                                font-size: 12px;
-                                color: gray;
+                            .view-icon {
+                                color: rgb(99, 199, 232);
+                                width: 14px;
                             }
                         }
                         .role {
                             width: 10%;
-                            p{
+                            p {
                                 background-color: rgb(208, 242, 254);
+                                color: white;
                                 display: inline;
                                 padding: 5px;
                                 border-radius: 10px;
                             }
 
-                            .volunteer{
-                                background-color: lightyellow;
+                            .adopted {
+                                background-color: var(--adopted-color);
                             }
 
-                            .admin{
-                                background-color: lightcoral;
+                            .available {
+                                background-color: var(--available-color);
                             }
                         }
-    
+
                         .appli {
                             width: 160px;
                         }
-    
+
                         .date {
                             width: 10%;
                         }
                     }
                 }
+            }
+
+            .pagination{
+                margin-top: 20px;
+                width: 100%;
+                text-align: center;
             }
         }
     }

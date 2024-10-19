@@ -20,6 +20,7 @@ const Application = () => {
     // });
 
     const [step, setStep] = useState(0);
+
     useEffect(() => {
         localStorage.setItem(`adoptionStep_${id}`, step.toString());
     }, [step, id]);

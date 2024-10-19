@@ -7,6 +7,7 @@ import User from './components/User/User';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBlog, faCalendarDays, faHouse, faNewspaper, faPaw, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import Pets from './components/Pets/Pets';
 
 const cx = classNames.bind(styles);
 
@@ -18,45 +19,64 @@ function Admin() {
 
             <div className={cx('container')}>
                 <div className={cx('sidebar')}>
-                    <div className={cx('sidebar-item',{ active: content === 'Dashboard' })} onClick={()=>setContent('Dashboard')}>
+                    <div
+                        className={cx('sidebar-item', { active: content === 'Dashboard' })}
+                        onClick={() => setContent('Dashboard')}
+                    >
                         <span>
-                            <FontAwesomeIcon icon={faHouse} className={cx('icon')}/>
+                            <FontAwesomeIcon icon={faHouse} className={cx('icon')} />
                             Dashboard
                         </span>
                     </div>
-                    <div className={cx('sidebar-item', { active: content === 'Pets' })} onClick={()=>setContent('Pets')}>
+                    <div
+                        className={cx('sidebar-item', { active: content === 'Pets' })}
+                        onClick={() => setContent('Pets')}
+                    >
                         <span>
-                            <FontAwesomeIcon icon={faPaw} className={cx('icon')}/>
+                            <FontAwesomeIcon icon={faPaw} className={cx('icon')} />
                             Pets
                         </span>
                     </div>
-                    <div className={cx('sidebar-item', { active: content === 'Users' })} onClick={()=>setContent('Users')}>
+                    <div
+                        className={cx('sidebar-item', { active: content === 'Users' })}
+                        onClick={() => setContent('Users')}
+                    >
                         <span>
-                            <FontAwesomeIcon icon={faUser} className={cx('icon')}/>
+                            <FontAwesomeIcon icon={faUser} className={cx('icon')} />
                             Users
                         </span>
                     </div>
-                    <div className={cx('sidebar-item',{ active: content === 'Blogs' })} onClick={()=>setContent('Blogs')}>
+                    <div
+                        className={cx('sidebar-item', { active: content === 'Blogs' })}
+                        onClick={() => setContent('Blogs')}
+                    >
                         <span>
-                            <FontAwesomeIcon icon={faBlog} className={cx('icon')}/>
+                            <FontAwesomeIcon icon={faBlog} className={cx('icon')} />
                             Blogs
                         </span>
                     </div>
-                    <div className={cx('sidebar-item',{ active: content === 'Events' })} onClick={()=>setContent('Events')}>
+                    <div
+                        className={cx('sidebar-item', { active: content === 'Events' })}
+                        onClick={() => setContent('Events')}
+                    >
                         <span>
-                            <FontAwesomeIcon icon={faCalendarDays} className={cx('icon')}/>
+                            <FontAwesomeIcon icon={faCalendarDays} className={cx('icon')} />
                             Events
                         </span>
                     </div>
-                    <div className={cx('sidebar-item',{ active: content === 'Application' })} onClick={()=>setContent('Application')}>
+                    <div
+                        className={cx('sidebar-item', { active: content === 'Application' })}
+                        onClick={() => setContent('Application')}
+                    >
                         <span>
-                            <FontAwesomeIcon icon={faNewspaper} className={cx('icon')}/>
+                            <FontAwesomeIcon icon={faNewspaper} className={cx('icon')} />
                             Application
                         </span>
                     </div>
                 </div>
                 <div className={cx('content')}>
-                    {content === 'Dashboard' ? <Dashboard/> : <User/>}
+                    {/* {content === 'Dashboard' ? <Dashboard /> : content == 'Pets' ? <Pets /> : <User />} */}
+                    <Pets/>
                 </div>
             </div>
         </div>

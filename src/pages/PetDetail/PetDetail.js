@@ -58,6 +58,7 @@ function PetDetail() {
         }
     };
     console.log(`pets/${id}`);
+
     useEffect(() => {
         const handlePetData = async () => {
             try {
