@@ -21,7 +21,7 @@ function Application() {
     const [totalProcess, setTotalProcess] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [viewAppli, setViewAppli] = useState(false);
-    const [appliID, setAppliID] = useState('');
+    const [appliID, setAppliID] = useState(null);
     const [activeSort, setActiveSort] = useState('View All');
 
     const handleAppliDataCombined = async () => {
@@ -44,7 +44,7 @@ function Application() {
             });
 
             const combinedData = [...successResponse.data, ...failResponse.data, ...inProcessResponse.data];
-            console.log(combinedData);
+            console.log('All appli: ', combinedData);
             setDataLength(combinedData.length);
             setTotalAppli(combinedData.length);
             localStorage.setItem('totalAppli', combinedData.length);
@@ -63,7 +63,6 @@ function Application() {
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
             setDataLength(dataLength);
             setTotalProcess(dataLength);
             setAppliList(response.data);
@@ -81,7 +80,6 @@ function Application() {
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
             setDataLength(dataLength);
             setTotalPass(dataLength);
             setAppliList(response.data);
@@ -99,7 +97,6 @@ function Application() {
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
             setDataLength(dataLength);
             setTotalFail(dataLength);
             setAppliList(response.data);
@@ -246,7 +243,7 @@ function Application() {
                         </div>
                     </>
                 ) : (
-                    <ViewAppli id={appliID} setViewAppli={setViewAppli} />
+                    <ViewAppli appliID={appliID} setViewAppli={setViewAppli} />
                 )}
             </div>
         </>

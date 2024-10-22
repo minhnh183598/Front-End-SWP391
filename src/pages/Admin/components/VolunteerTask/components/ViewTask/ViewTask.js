@@ -4,9 +4,12 @@ import classNames from 'classnames/bind';
 import api from '~/config/axios';
 import Button from '~/components/Button';
 import Update from './Update';
-import Issues from './Issues/Issues';
+import Issues from './IssuesDetail/IssuesDetail';
 import Tasks from './Tasks/Tasks';
 import AddIssue from '../AddIssue/AddIssue';
+import IssuesDetail from './IssuesDetail/IssuesDetail';
+import Adopter from './Adopter/Adopter.js';
+import Issue from './Issue/Issue';
 
 const cx = classNames.bind(styles);
 
@@ -16,6 +19,8 @@ function ViewTask({ id, setViewUser, tagIssueData, setAddAll }) {
     const [update, setUpdate] = useState(false);
     const [formData, setFormData] = useState({});
     const [openCreateIssue, setOpenCreateIssue] = useState(false);
+    const [openIssueDetail, setOpenIssueDetail] = useState(false);
+    const [issueStatusDetail, setIssueStatusDetail] = useState('');
 
     const handleTaskData = async () => {
         const token = localStorage.getItem('token');
@@ -26,7 +31,7 @@ function ViewTask({ id, setViewUser, tagIssueData, setAddAll }) {
                 },
             });
 
-            console.log(response.data.result);
+            console.log('task data: ', response.data.result);
             setTask(response.data.result);
         } catch (error) {
             console.log(error);
@@ -85,7 +90,9 @@ function ViewTask({ id, setViewUser, tagIssueData, setAddAll }) {
                     <div className={cx('container-info')}>
                         <Tasks task={task} />
 
-                        {task.issue == null ? (
+                        {task.adopter !== null ? <Adopter /> : null}
+
+                        {task.issues.length == 0 ? (
                             <>
                                 <Button primary onClick={() => setOpenCreateIssue(true)}>
                                     Create Issue
@@ -93,21 +100,32 @@ function ViewTask({ id, setViewUser, tagIssueData, setAddAll }) {
                                 {openCreateIssue && (
                                     <AddIssue
                                         tagIssueData={tagIssueData}
-                                        setAddAll={setAddAll}
                                         id={id}
                                         setOpenCreateIssue={setOpenCreateIssue}
                                     />
                                 )}
                             </>
                         ) : (
-                            <Issues issue={issue} />
+
+                            <Issue
+                                setIssueStatusDetail={setIssueStatusDetail}
+                                setOpenIssueDetail={setOpenIssueDetail}
+                                task={task}
+                            />
                         )}
                     </div>
                 </div>
 
-                <div className={cx('container-right')}>
-                    <h5>Issue Comment</h5>
-                </div>
+                {openIssueDetail ? (
+                    <div className={cx('container-right')}>
+                        <IssuesDetail
+                            id={id}
+                            issueStatusDetail={issueStatusDetail}
+                            issue={issue}
+                            setOpenIssueDetail={setOpenIssueDetail}
+                        />
+                    </div>
+                ) : null}
             </div>
 
             {update && (

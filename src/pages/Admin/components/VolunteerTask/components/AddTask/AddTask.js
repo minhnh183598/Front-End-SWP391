@@ -96,6 +96,10 @@ function AddTask({ tagTaskData, setAddAll }) {
                                 <option value="NOT_STARTED">NOT_STARTED</option>
                                 <option value="IN_PROGRESS">IN_PROGRESS</option>
                                 <option value="DONE">DONE</option>
+                                <option value="URGENT">URGENT</option>
+                                <option value="ON_HOLD">ON_HOLD</option>
+                                <option value="OVERDUE">OVERDUE</option>
+                                <option value="CANCELLED">CANCELLED</option>
                             </select>
                         </div>
                         <div className={cx('input-detail')}>
@@ -114,13 +118,13 @@ function AddTask({ tagTaskData, setAddAll }) {
                                 name="tags"
                                 isMulti
                                 options={tagTaskData.map((tag) => ({
-                                    value: tag.name, // Ensure this is defined
+                                    value: tag.name,
                                     label: tag.name,
                                 }))}
                                 value={formData.tags.map((tag) => ({
                                     value: tag.name,
                                     label: tag.name,
-                                }))} // Map back the tags for display in the select
+                                }))}
                                 onChange={handleTagChange}
                             />
                         </div>

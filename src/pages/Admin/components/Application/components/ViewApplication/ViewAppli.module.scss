@@ -98,14 +98,13 @@
         .approve-btn {
             display: flex;
             align-items: center;
-            
-            Button{
 
-                &:nth-child(2){
+            Button {
+                &:nth-child(2) {
                     background-color: rgb(250, 47, 47);
                     color: white;
 
-                    &:hover{
+                    &:hover {
                         background-color: rgb(208, 8, 8);
                     }
                 }

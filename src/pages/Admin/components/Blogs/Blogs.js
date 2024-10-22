@@ -7,8 +7,6 @@ import { Pagination } from 'antd';
 import { useState } from 'react';
 
 import { convertToRaw, EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const cx = classNames.bind(styles);
 
@@ -232,13 +230,6 @@ function Blogs() {
                         <p style={{ cursor: 'pointer', width: '70px' }} onClick={() => setAddBlog(false)}>
                             &larr;Back
                         </p>
-                        <Editor
-                            editorState={editorState}
-                            toolbarClassName={cx('toolbarClassName')}
-                            wrapperClassName={cx('wrapperClassName')}
-                            editorClassName={cx('editorClassName')}
-                            onEditorStateChange={onEditorStateChange}
-                        />
                     </div>
                     <Button primary onClick={handleSubmit}>
                         Create

@@ -3,11 +3,13 @@ import styles from './ApplicationList.module.scss';
 import PetImages from '~/assets/images/petImg';
 import { Pagination } from 'antd';
 import { useState } from 'react';
+import React from 'react';
 
 const cx = classNames.bind(styles);
 
 function ApplicationList() {
     const [currentPage, setCurrentPage] = useState(1);
+    const [appli, setAppli] = useState(null);
     const [activeSort, setActiveSort] = useState('ALL');
     const [filter, setFilter] = useState({
         state: 'ALL',
@@ -73,6 +75,10 @@ function ApplicationList() {
             finishDate: '22/11/2024',
         },
     ];
+
+    const handleUserApplication = async () => {
+
+    }
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;

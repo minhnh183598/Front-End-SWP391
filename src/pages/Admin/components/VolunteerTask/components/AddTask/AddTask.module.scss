@@ -45,10 +45,12 @@
                     border: 1px solid rgb(0, 0, 0);
                 }
 
-                textarea{
+                textarea {
                     width: 100%;
                     height: 150px;
                 }
+
+                //status color: overdue-orange, notstart-grey, done-green, in-progress-yellow, cancel-red, urgent-pink , on-hold-blue
             }
         }
 

@@ -7,7 +7,7 @@ import Select from 'react-select';
 
 const cx = classNames.bind(styles);
 
-function AddIssue({ tagIssueData, setAddAll, id, setOpenCreateIssue }) {
+function AddIssue({ tagIssueData, id, setOpenCreateIssue }) {
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -60,7 +60,7 @@ function AddIssue({ tagIssueData, setAddAll, id, setOpenCreateIssue }) {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response.data);
+            console.log('create issue: ', response.data);
             setOpenCreateIssue(false);
         } catch (error) {
             console.log(error);
@@ -142,7 +142,7 @@ function AddIssue({ tagIssueData, setAddAll, id, setOpenCreateIssue }) {
                         <Button type="submit" primary medium mgRight10>
                             Create
                         </Button>
-                        <Button outline medium onClick={() => setAddAll('')}>
+                        <Button outline medium onClick={() => setOpenCreateIssue(false)}>
                             Cancel
                         </Button>
                     </div>

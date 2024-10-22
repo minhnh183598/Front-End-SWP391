@@ -50,7 +50,7 @@ function Admin() {
     };
     return (
         <div className={cx('wrapper')}>
-            <ToastContainer/>
+            <ToastContainer />
             <Header />
 
             <div className={cx('container')}>
