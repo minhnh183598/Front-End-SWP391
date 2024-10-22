@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from '~/components/Button';
+import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 import api from '~/config/axios';
 
 const AdoptStep4Waiting = ({ setStep }) => {
@@ -35,15 +36,12 @@ const AdoptStep4Waiting = ({ setStep }) => {
         }
     };
     return (
-        <div>
-            AdoptStep4Waiting
-            <div className="AdoptStep3-button">
-                <Button className="btn-1" onClick={() => setStep((prevStep) => prevStep + 1)}>
-                    Yes
-                </Button>
-                <Button onClick={() => setStep((prevStep) => prevStep - 1)} className="btn-2">
-                    No
-                </Button>
+        <div className="adoptStep2_waiting">
+            <ScrollToTop />
+            <div className="adoptStep2_waiting_container">
+                <div className="adoptStep2_waiting_container_content">
+                    <p>Waiting for admin to approve your Adopt form</p>
+                </div>
             </div>
         </div>
     );

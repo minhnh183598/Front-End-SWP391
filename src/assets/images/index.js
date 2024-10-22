@@ -39,6 +39,11 @@ const IMAGES = {
     VolunteerIntro_1: require('./VolunteerIntro_1.png'),
     VolunteerIntro_2: require('./VolunteerIntro_2.png'),
     VolunteerIntro_3: require('./VolunteerIntro_3.png'),
+
+    slide_1: require('./slide_1.png'),
+    slide_2: require('./slide_2.webp'),
+
+    destination_icon: require('./destinationIcon.png'),
 };
 
 export default IMAGES;

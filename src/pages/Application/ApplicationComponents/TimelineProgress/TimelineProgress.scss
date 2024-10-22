@@ -69,5 +69,9 @@
         height: 50px;
         width: 100px;
         font-size: 15px;
+        transition: transform 0.2s ease;
+    }
+    Button:hover {
+        transform: scale(1.1);
     }
 }

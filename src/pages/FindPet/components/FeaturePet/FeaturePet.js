@@ -57,7 +57,7 @@ function FeaturePet({ children, homepage, title }) {
 
     return (
         <div className={cx('feature-pets', { 'white-content': homepage })}>
-            <h1 className={cx('main-heading', { 'primary-text': homepage })}>{title || "Waiting Home"}</h1>
+            <h1 className={cx('main-heading', { 'primary-text': homepage })}>{title || 'Waiting For Love'}</h1>
             <p className={cx('main-slogan', { 'grey-text': homepage })}>Love, Care, Companionship</p>
             <div className={cx('content')}>
                 <button onClick={preSlide} className={cx('pre-btn')}>

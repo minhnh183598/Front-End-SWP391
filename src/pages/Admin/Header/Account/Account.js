@@ -39,6 +39,22 @@ function Account() {
                 </Link>
             ),
         },
+        // moi them
+        {
+            label: (
+                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/account">
+                    My Application
+                </Link>
+            ),
+        },
+        {
+            label: (
+                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/account">
+                    My Pet
+                </Link>
+            ),
+        },
+        /////////////////////////////////////////////////////////////////
         {
             label: (
                 <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/account">
@@ -50,7 +66,7 @@ function Account() {
             label: (
                 <Link
                     style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }}
-                    to='/'
+                    to="/"
                     onClick={() => {
                         handleLogout();
                     }}

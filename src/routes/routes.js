@@ -16,11 +16,21 @@ import BlogDetail from '~/pages/BlogDetail';
 import EventDetail from '~/pages/EventDetail';
 import Account from '~/pages/Account';
 import Adopt from '~/pages/Adopt/Adopt';
+import ShowAllApplication from '~/pages/Application/ApplicationComponents/ShowAllApplication/ShowAllApplication';
+import ShowAllPetAdopted from '~/pages/ShowAllPetAdopted/ShowAllPetAdopted';
 
 const publicRoutes = [
     {
         path: '/',
         component: Home,
+    },
+    {
+        path: '/my-application',
+        component: ShowAllApplication,
+    },
+    {
+        path: '/my-pet',
+        component: ShowAllPetAdopted,
     },
     {
         path: '/adopt-application/:id',

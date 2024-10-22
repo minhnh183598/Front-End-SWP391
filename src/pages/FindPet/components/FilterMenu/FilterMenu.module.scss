@@ -2,6 +2,8 @@
     background-color: white;
     width: 180px;
     padding: 10px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 
     .form {
         display: flex;
@@ -20,12 +22,11 @@
             outline: none;
         }
 
-        .button-all{
+        .button-all {
             display: flex;
 
-            .submit-btn{
-
-                &:first-child{
+            .submit-btn {
+                &:first-child {
                     margin-right: 5px;
                 }
             }

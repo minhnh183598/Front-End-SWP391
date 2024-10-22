@@ -113,7 +113,7 @@ export const Donate = () => {
                                 SAVE
                             </Button> */}
                             <button onClick={handleSubmit} className="save-button">
-                                Thanh Toán
+                                Donate
                             </button>
                         </div>
                     </div>

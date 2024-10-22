@@ -50,8 +50,9 @@ const AdoptStep5 = ({ id, setStep }) => {
                         <div className="AdoptStep5_container_header">
                             <h3>Thank you for applying to adopt !</h3>
                             <p>
-                                We are so excited that you have chosen to bring Donny into your family. Not only will
-                                your actions change a pet's life, but you will also help make the world a better place.
+                                We are so excited that you have chosen to bring {pet.petName} into your family. Not only
+                                will your actions change a pet's life, but you will also help make the world a better
+                                place.
                             </p>
                         </div>
                         <div className="AdoptStep5_container_petDetail">
@@ -106,8 +107,8 @@ const AdoptStep5 = ({ id, setStep }) => {
                         </div>
                         <div className="AdoptStep5_container_footer">
                             <p>
-                                We'll see you soon! Thank you for your love and care for Donny. We look forward to the
-                                day when you and Donny officially become family!
+                                We'll see you soon! Thank you for your love and care for {pet.petName}. We look forward
+                                to the day when you and {pet.petName} officially become family!
                             </p>
                         </div>
                         <div className="AdoptStep5-button">

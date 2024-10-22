@@ -9,6 +9,10 @@
     padding-bottom: 20px;
 }
 
+input {
+    padding: 10px;
+}
+
 .volunteerAppli_infoInput_header {
     height: 70px;
     width: 700px;
@@ -47,9 +51,9 @@ select {
 }
 
 .volunteerAppli_infoInput {
-    height: 840px;
+    height: 800px;
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
     border-radius: 20px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
     width: 910px;
@@ -79,6 +83,7 @@ select {
 
 .gender_phone_wrap {
     display: flex;
+    column-gap: 30px;
 }
 
 .volunteer_name {

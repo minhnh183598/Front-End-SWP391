@@ -50,6 +50,8 @@
             transition: transform 0.5s ease;
 
             .event-box {
+                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+                border-radius: 10px;
                 background-color: white;
                 width: 250px;
                 height: 390px;
@@ -59,11 +61,13 @@
                 transition: opacity 0.5s ease;
 
                 .image {
+                    border-radius: 10px;
                     background-color: lightgray;
                     height: 200px;
                     position: relative;
 
                     img {
+                        border-radius: 10px;
                         height: 100%;
                         width: 100%;
                         object-fit: cover;

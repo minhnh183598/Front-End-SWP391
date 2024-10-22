@@ -13,16 +13,26 @@ import AdoptStep4Waiting from './ApplicationComponents/AdoptStep4/AdoptStep4Comp
 
 const Application = () => {
     const { id } = useParams();
-    const max_step = 6;
-    // const [step, setStep] = useState(() => {
-    //     const savedStep = localStorage.getItem(`adoptionStep_${id}`);
-    //     return savedStep ? Math.min(parseInt(savedStep, 10), max_step) : 0;
-    // });
+    const max_step = 7;
+    const userId = localStorage.getItem('userId');
+    const [step, setStep] = useState(() => {
+        const savedStep = localStorage.getItem(`adoptionStep_${id}_${userId}`);
+        return savedStep ? Math.min(parseInt(savedStep, 10), max_step) : 0;
+    });
+    console.log(userId);
+    // const [step, setStep] = useState(0);
 
-    const [step, setStep] = useState(0);
+    // useEffect(() => {
+    //     const savedStep = localStorage.getItem(`adoptionStep_${id}`);
+    //     if (savedStep) {
+    //         setStep(Math.min(parseInt(savedStep, 10), max_step));
+    //     } else {
+    //         setStep(0); // Khởi tạo lại step khi không có dữ liệu
+    //     }
+    // }, [id]); // Chỉ chạy lại khi id thay đổi
 
     useEffect(() => {
-        localStorage.setItem(`adoptionStep_${id}`, step.toString());
+        localStorage.setItem(`adoptionStep_${id}_${userId}`, step.toString());
     }, [step, id]);
 
     const handleNext = () => {
@@ -39,7 +49,7 @@ const Application = () => {
                 return <AdoptStep2 id={id} setStep={setStep} />;
             case 3:
                 // return <AdoptStep3 id={id} setStep={setStep} />;
-                return <AdoptStep2FormWait id={id} setStep={setStep} />; // this is the page waiting for admin approval
+                return <AdoptStep2FormWait id={id} setStep={setStep} />;
             case 4:
                 // return <AdoptStep4 id={id} setStep={setStep} />;
                 return <AdoptStep3 id={id} setStep={setStep} />;

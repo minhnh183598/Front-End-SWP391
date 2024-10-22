@@ -63,11 +63,12 @@
     justify-content: center;
     height: 120px;
     padding-top: 10px;
-    Button {
-        border-radius: 70px;
-        width: 370px;
-        background: linear-gradient(90deg, rgba(111, 203, 88, 1) 0%, rgba(195, 210, 26, 1) 100%);
-        font-size: 70px;
-        color: white;
-    }
+}
+
+.donate_success_container_button_btn {
+    border-radius: 70px;
+    width: 370px;
+    background: linear-gradient(90deg, rgba(111, 203, 88, 1) 0%, rgba(195, 210, 26, 1) 100%);
+    font-size: 70px;
+    color: white;
 }

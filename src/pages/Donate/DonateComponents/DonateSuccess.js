@@ -54,7 +54,9 @@ const DonateSuccess = () => {
                     </p>
                 </div>
                 <div className="donate_success_container_button">
-                    <Button>Next</Button>
+                    <Button className="donate_success_container_button_btn" to="/">
+                        Next
+                    </Button>
                 </div>
             </div>
         </div>

@@ -14,8 +14,8 @@ function EventList({ data, dataLength }) {
     const indexOfLastEvent = currentPage * eventPerPage;
     const indexOfFirstEvent = indexOfLastEvent - eventPerPage;
     const currentEvent = data.slice(indexOfFirstEvent, indexOfLastEvent);
-    console.log('DAy la currenevent', currentEvent);
-
+    // console.log('DAy la currenevent', currentEvent);
+    console.log('event title', currentEvent);
     return (
         <div className={cx('event-list')}>
             {currentEvent.map((event) => {
@@ -29,9 +29,9 @@ function EventList({ data, dataLength }) {
                             <img src={event.image} />
                             <div className={cx('date')}>
                                 <p className={cx('date-detail')}>
-                                    {month}
-                                    <br />
                                     {day}
+                                    <br />
+                                    {month}
                                 </p>
                             </div>
                         </div>
@@ -39,8 +39,14 @@ function EventList({ data, dataLength }) {
                         <div className={cx('event-info')}>
                             <div className={cx('info')}>
                                 <div className={cx('main-info')}>
-                                    <h3>{event.title}</h3>
-                                    <p>{event.location}</p>
+                                    <h3>{event.name}</h3>
+                                    <div className={cx('location_icon')}>
+                                        <img src={IMAGES.destination_icon} alt="destination_icon" />
+                                        <p>{event.location}</p>
+                                    </div>
+                                    <div className={cx('event_content')}>
+                                        <p>{event.content}</p>
+                                    </div>
                                 </div>
                             </div>
 

@@ -10,7 +10,7 @@
     }
 }
 
-.content{
+.content {
     text-align: center;
     display: flex;
     justify-content: center;
@@ -20,12 +20,12 @@
     background-color: rgb(255, 255, 255);
     padding: 40px 0;
 
-    .short-filter{
+    .short-filter {
         width: calc(3 * 250px + 2 * 20px);
         margin: 20px 0;
     }
 
-    .blog-content{
+    .blog-content {
         width: calc(3 * 250px + 2 * 20px);
         display: flex;
         justify-content: center;

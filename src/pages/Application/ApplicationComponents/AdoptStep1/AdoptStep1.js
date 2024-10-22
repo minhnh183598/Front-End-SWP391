@@ -95,11 +95,11 @@ const AdoptStep1 = ({ id, setStep }) => {
                             </div>
 
                             <div className="AdoptStep1-button">
-                                <Button className="btn-1" onClick={() => setStep((prevStep) => prevStep + 1)}>
-                                    Next
-                                </Button>
                                 <Button to="/find-a-pet" className="btn-2">
                                     Cancel
+                                </Button>
+                                <Button className="btn-1" onClick={() => setStep((prevStep) => prevStep + 1)}>
+                                    Next
                                 </Button>
                             </div>
                         </div>

@@ -9,20 +9,35 @@
     padding-bottom: 20px;
 }
 
+.AdoptStep2-infoInput {
+    height: 870px;
+    background-color: #eff8eb;
+    padding-left: 30px;
+    form {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 30px;
+    }
+}
+
 .AdoptStep2-h3-wrap {
-    height: 70px;
-    width: 700px;
+    height: 100px;
+    width: 340px;
     display: flex;
     // background-color: white;
+    background-color: #6a945b;
+    border-radius: 50px;
     align-items: center;
     justify-content: center;
     // border-radius: 15px;
-    border-bottom: 3px solid #88b179;
+    // border-bottom: 3px solid #88b179;
     color: #88b179;
     h3 {
+        color: white;
         margin: 0px;
-        font-weight: 900;
-        font-size: 50px;
+        text-align: center;
+        // font-weight: 900;
+        font-size: 30px;
     }
 }
 
@@ -47,20 +62,12 @@
     border-width: 3px;
 }
 
-.AdoptStep2-infoInput {
-    height: 840px;
-    form {
-        padding-left: 30px;
-        padding-right: 30px;
-        padding-top: 30px;
-    }
-}
-
 .AdoptStep2-button {
     display: flex;
     justify-content: right;
     padding-right: 40px;
     column-gap: 10px;
+    margin-top: 35px;
 }
 
 // 2 cái nút next và cancel
@@ -89,248 +96,411 @@
     background-color: #e14343;
 }
 
-//name_yob_address_city_wrap
-.name_yob_address_city_wrap {
-    background-color: #c5e7b6;
-    border-radius: 10px;
-    padding: 20px;
+// label {
+//     margin-right: 20px;
+//     font-weight: 800;
+//     font-size: 23px;
+// }
+// input {
+//     border-radius: 50px;
+//     padding-left: 10px;
+// }
+
+select {
+    border-radius: 50px;
+    padding-left: 10px;
 }
 
-//wrap_name_yob
-.wrap_name_yob {
-    display: flex;
+.wrap-city-job {
     column-gap: 30px;
+    display: flex;
 }
-// name
+
+.AdoptStep2-infoInput-logo {
+    position: absolute;
+    width: 100px;
+    top: 330px;
+    left: 350px;
+}
+// //name_yob_address_city_wrap
+// .name_yob_address_city_wrap {
+//     background-color: #c5e7b6;
+//     border-radius: 10px;
+//     padding: 20px;
+// }
+
+// //wrap_name_yob
+// .wrap_name_yob {
+//     display: flex;
+//     column-gap: 30px;
+// }
+// // name
 .AdoptStep2-infoInputbar-wrap-name {
-    display: flex;
-    column-gap: 9px;
-    padding-bottom: 15px;
-    input {
-        border: 2px solid #88b179;
-        height: 30px;
-        width: 300px;
-        border-radius: 5px;
-        outline: none;
-    }
+    margin-bottom: 20px;
     label {
-        width: 80px;
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
     }
+    input {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    //     display: flex;
+    //     column-gap: 9px;
+    //     padding-bottom: 15px;
+    //     input {
+    //         border: 2px solid #88b179;
+    //         height: 30px;
+    //         width: 300px;
+    //         border-radius: 5px;
+    //         outline: none;
+    //     }
+    //     label {
+    //         width: 80px;
+    //     }
 }
 
-//yob
+// //yob
 .AdoptStep2-infoInputbar-wrap-yob {
-    display: flex;
-    column-gap: 20px;
-    padding-bottom: 15px;
-    input {
-        border: 2px solid #88b179;
-        height: 30px;
-        width: 282px;
-        border-radius: 5px;
-        outline: none;
-    }
+    margin-bottom: 20px;
     label {
-        width: 90px;
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
     }
+    input {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    //     display: flex;
+    //     column-gap: 20px;
+    //     padding-bottom: 15px;
+    //     input {
+    //         border: 2px solid #88b179;
+    //         height: 30px;
+    //         width: 282px;
+    //         border-radius: 5px;
+    //         outline: none;
+    //     }
+    //     label {
+    //         width: 90px;
+    //     }
 }
 
-//address
+// //address
 .AdoptStep2-infoInputbar-wrap-address {
-    display: flex;
-    column-gap: 30px;
-    padding-bottom: 15px;
-    // input {
-    //     border: 2px solid #88b179;
-    //     // height: 80px;
-    //     width: 740px;
-    //     padding-bottom: 50px;
-    //     border-radius: 5px;
-    //     outline: none;
-    // }
-
-    input {
-        border: 2px solid #88b179;
-        height: 80px;
-        width: 740px;
-        padding-bottom: 50px;
-        border-radius: 5px;
-        outline: none;
-    }
-}
-
-//city
-.AdoptStep2-infoInputbar-wrap-city {
-    display: flex;
-    column-gap: 60px;
-    // padding-bottom: 15px;
-    input {
-        border: 2px solid #88b179;
-        height: 30px;
-        width: 300px;
-        border-radius: 5px;
-        outline: none;
-    }
-}
-
-//gender_phone_job_livewith_wrap
-.gender_phone_job_livewith_wrap {
-    background-color: #c5e7b6;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-//gender_phone_wrap
-.gender_phone_wrap {
-    display: flex;
-    column-gap: 30px;
-}
-
-//gender
-.AdoptStep2-infoInputbar-wrap-gender {
-    display: flex;
-    column-gap: 35px;
-    padding-bottom: 15px;
-    select {
-        border: 2px solid #88b179;
-        height: 30px;
-        width: 300px;
-        border-radius: 5px;
-        outline: none;
-    }
-}
-
-//phone
-.AdoptStep2-infoInputbar-wrap-phone {
-    display: flex;
-    column-gap: 60px;
-    padding-bottom: 15px;
-    input {
-        border: 2px solid #88b179;
-        height: 30px;
-        width: 290px;
-        border-radius: 5px;
-        outline: none;
-    }
-}
-
-//job_livewith_wrap
-.job_livewith_wrap {
-    display: flex;
-    column-gap: 30px;
-}
-
-//job
-.AdoptStep2-infoInputbar-wrap-job {
-    display: flex;
-    column-gap: 60px;
-    // padding-bottom: 15px;
-    input {
-        border: 2px solid #88b179;
-        height: 30px;
-        width: 300px;
-        border-radius: 5px;
-        outline: none;
-    }
-}
-
-//livewith
-.AdoptStep2-infoInputbar-wrap-livewith {
-    display: flex;
-    column-gap: 39px;
-    // padding-bottom: 15px;
-    input {
-        border: 2px solid #88b179;
-        height: 30px;
-        width: 292px;
-        border-radius: 5px;
-        outline: none;
-    }
+    margin-bottom: 20px;
+    //     display: flex;
+    //     column-gap: 30px;
+    //     padding-bottom: 15px;
     label {
-        width: 65px;
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
+    }
+    input {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    input {
+        //     border: 2px solid #88b179;
+        //     // height: 80px;
+        width: 700px;
+        //     padding-bottom: 50px;
+        //     border-radius: 5px;
+        //     outline: none;
     }
 }
 
-.RE1_RE1Phone_RE2_RE2Phone_wrap {
-    background-color: #c5e7b6;
-    border-radius: 10px;
-    padding: 20px;
-    // margin-top: 30px;
-    margin-bottom: 30px;
+//     input {
+//         border: 2px solid #88b179;
+//         height: 80px;
+//         width: 740px;
+//         padding-bottom: 50px;
+//         border-radius: 5px;
+//         outline: none;
+//     }
+// }
+
+// //city
+.AdoptStep2-infoInputbar-wrap-city {
+    margin-bottom: 20px;
+    //     display: flex;
+    //     column-gap: 60px;
+    //     // padding-bottom: 15px;
+    label {
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
+    }
+    input {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    input {
+        //         border: 2px solid #88b179;
+        //         height: 30px;
+        width: 300px;
+        //         border-radius: 5px;
+        //         outline: none;
+    }
 }
 
-.RE1_RE1Phone {
-    display: flex;
-    column-gap: 30px;
+// //gender_phone_job_livewith_wrap
+// .gender_phone_job_livewith_wrap {
+//     background-color: #c5e7b6;
+//     border-radius: 10px;
+//     padding: 20px;
+//     margin-top: 30px;
+//     margin-bottom: 30px;
+// }
+
+// //gender_phone_wrap
+// .gender_phone_wrap {
+//     display: flex;
+//     column-gap: 30px;
+// }
+
+// //gender
+.AdoptStep2-infoInputbar-wrap-gender {
+    margin-bottom: 20px;
+    label {
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
+    }
+    select {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    //     display: flex;
+
+    //     padding-bottom: 15px;
+    //     // select {
+    //     //     border: 2px solid #88b179;
+    //     //     height: 30px;
+    //     //     width: 300px;
+    //     //     border-radius: 5px;
+    //     //     outline: none;
+    //     // }
 }
+
+// .gender-radio-group {
+//     display: flex;
+// }
+
+// //phone
+.AdoptStep2-infoInputbar-wrap-phone {
+    margin-bottom: 20px;
+    label {
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
+    }
+    input {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    //     display: flex;
+    //     column-gap: 60px;
+    //     padding-bottom: 15px;
+    //     input {
+    //         border: 2px solid #88b179;
+    //         height: 30px;
+    //         width: 290px;
+    //         border-radius: 5px;
+    //         outline: none;
+    //     }
+}
+
+// //job_livewith_wrap
+// .job_livewith_wrap {
+//     display: flex;
+//     column-gap: 30px;
+// }
+
+// //job
+.AdoptStep2-infoInputbar-wrap-job {
+    margin-bottom: 20px;
+    //     display: flex;
+    //     column-gap: 60px;
+    //     // padding-bottom: 15px;
+    label {
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
+    }
+    input {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    input {
+        // border: 2px solid #88b179;
+        // height: 30px;
+        width: 300px;
+        // border-radius: 5px;
+        // outline: none;
+    }
+}
+
+// //livewith
+.AdoptStep2-infoInputbar-wrap-livewith {
+    margin-bottom: 20px;
+    label {
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
+    }
+    input {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    //     display: flex;
+    //     column-gap: 39px;
+    //     // padding-bottom: 15px;
+    //     input {
+    //         border: 2px solid #88b179;
+    //         height: 30px;
+    //         width: 292px;
+    //         border-radius: 5px;
+    //         outline: none;
+    //     }
+    //     label {
+    //         width: 65px;
+    //     }
+}
+
+// .RE1_RE1Phone_RE2_RE2Phone_wrap {
+//     background-color: #c5e7b6;
+//     border-radius: 10px;
+//     padding: 20px;
+//     // margin-top: 30px;
+//     margin-bottom: 30px;
+// }
+
+// .RE1_RE1Phone {
+//     display: flex;
+//     column-gap: 30px;
+// }
 
 .AdoptStep2-infoInputbar-wrap-RE1 {
-    display: flex;
-    column-gap: 9px;
-    padding-bottom: 15px;
-    input {
-        border: 2px solid #88b179;
-        height: 30px;
-        width: 300px;
-        border-radius: 5px;
-        outline: none;
+    margin-bottom: 20px;
+    label {
+        margin-right: 34px;
     }
     label {
-        width: 80px;
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
     }
+    input {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    //     display: flex;
+    //     column-gap: 9px;
+    //     padding-bottom: 15px;
+    //     input {
+    //         border: 2px solid #88b179;
+    //         height: 30px;
+    //         width: 300px;
+    //         border-radius: 5px;
+    //         outline: none;
+    //     }
+    //     label {
+    //         width: 80px;
+    //     }
 }
 
 .AdoptStep2-infoInputbar-wrap_RE1Phone {
-    display: flex;
-    column-gap: 9px;
-    padding-bottom: 15px;
-    input {
-        border: 2px solid #88b179;
-        height: 30px;
-        width: 300px;
-        border-radius: 5px;
-        outline: none;
+    margin-bottom: 20px;
+    label {
+        margin-right: 67px;
     }
     label {
-        width: 80px;
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
     }
+    input {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    //     display: flex;
+    //     column-gap: 9px;
+    //     padding-bottom: 15px;
+    //     input {
+    //         border: 2px solid #88b179;
+    //         height: 30px;
+    //         width: 300px;
+    //         border-radius: 5px;
+    //         outline: none;
+    //     }
+    //     label {
+    //         width: 80px;
+    //     }
 }
 
-.RE2_RE2Phone {
-    display: flex;
-    column-gap: 30px;
-}
+// .RE2_RE2Phone {
+//     display: flex;
+//     column-gap: 30px;
+// }
 
 .AdoptStep2-infoInputbar-wrap-RE2 {
-    display: flex;
-    column-gap: 9px;
-    // padding-bottom: 15px;
-    input {
-        border: 2px solid #88b179;
-        height: 30px;
-        width: 300px;
-        border-radius: 5px;
-        outline: none;
+    margin-bottom: 20px;
+    label {
+        margin-right: 36px;
     }
     label {
-        width: 80px;
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
     }
+    input {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    //     display: flex;
+    //     column-gap: 9px;
+    //     // padding-bottom: 15px;
+    //     input {
+    //         border: 2px solid #88b179;
+    //         height: 30px;
+    //         width: 300px;
+    //         border-radius: 5px;
+    //         outline: none;
+    //     }
+    //     label {
+    //         width: 80px;
+    //     }
 }
 
 .AdoptStep2-infoInputbar-wrap-RE2Phone {
-    display: flex;
-    column-gap: 9px;
-    // padding-bottom: 15px;
-    input {
-        border: 2px solid #88b179;
-        height: 30px;
-        width: 300px;
-        border-radius: 5px;
-        outline: none;
+    margin-bottom: 20px;
+    label {
+        margin-right: 67px;
     }
     label {
-        width: 80px;
+        margin-right: 20px;
+        font-weight: 800;
+        font-size: 23px;
     }
+    input {
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+    //     display: flex;
+    //     column-gap: 9px;
+    //     // padding-bottom: 15px;
+    //     input {
+    //         border: 2px solid #88b179;
+    //         height: 30px;
+    //         width: 300px;
+    //         border-radius: 5px;
+    //         outline: none;
+    //     }
+    //     label {
+    //         width: 80px;
+    //     }
 }

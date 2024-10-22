@@ -13,7 +13,26 @@
         position: absolute;
     }
 
-    .back{
+    .petDetail_adopt_btn {
+        margin-right: 10px;
+    }
+
+    .petDetail_h2_wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #7aa366;
+        height: 50px;
+        width: 100px;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        h2 {
+            color: white;
+            margin: 0;
+        }
+    }
+
+    .back {
         cursor: pointer;
         color: white;
         position: absolute;
@@ -21,7 +40,7 @@
         top: 21%;
         margin: 0;
         opacity: 0.7;
-        &:hover{
+        &:hover {
             opacity: 1;
         }
     }
@@ -60,10 +79,6 @@
                 .adopt {
                     display: flex;
                     margin-top: 10px;
-
-                    Button:first-child {
-                        margin-right: 10px;
-                    }
                 }
 
                 .edit {

@@ -6,6 +6,20 @@
     gap: 20px;
     width: calc(3 * 250px + 2 * 20px);
 
+    .location_icon {
+        display: flex;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        img {
+            height: 16px;
+        }
+    }
+
+    .event_content {
+        margin-bottom: 10px;
+        margin-left: 5px;
+    }
+
     .event-box {
         background-color: var(--background-color-grey);
         padding: 15px;
@@ -17,17 +31,21 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
+        border-radius: 20px;
+        transition: transform 0.2s ease;
 
         .image {
             background-color: rgb(93, 80, 80);
             height: 200px;
             width: 100%;
             position: relative;
+            border-radius: 10px;
 
             img {
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
+                border-radius: 10px;
             }
 
             .date {
@@ -58,7 +76,8 @@
                     display: flex;
                     flex-direction: column;
 
-                    h3,p{
+                    h3,
+                    p {
                         overflow: hidden;
                         text-overflow: ellipsis;
                         display: -webkit-box;
@@ -80,12 +99,11 @@
                     }
                 }
             }
-
-            .event-btn {
-                margin-top: auto;
-                display: flex;
-            }
         }
+    }
+
+    .event-box:hover {
+        transform: scale(1.03);
     }
 
     .pagination {
@@ -94,3 +112,18 @@
         width: 100%;
     }
 }
+
+.event-btn {
+    background-color: rgb(98, 134, 79);
+    width: 60px;
+    margin-top: auto;
+    display: flex;
+    border-radius: 10px;
+}
+
+// .btn {
+//     margin: 0;
+//     p {
+//         margin: 0;
+//     }
+// }

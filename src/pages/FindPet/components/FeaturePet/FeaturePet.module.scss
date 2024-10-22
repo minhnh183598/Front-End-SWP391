@@ -35,11 +35,14 @@
             font-size: 20px;
             font-weight: 600;
             opacity: 0.5;
-            color: gray;
+            color: rgb(0, 0, 0);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
 
             &:hover {
                 opacity: 1;
                 color: black;
+                transform: scale(1.2);
             }
         }
 
@@ -48,20 +51,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: transform 0.5s ease;
+            transition: transform 0.3s ease;
 
             .pet-box {
+                border-radius: 10px;
                 background-color: white;
                 padding: 15px;
                 width: 250px;
                 transition: opacity 0.5s ease;
+                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+                transition: transform 0.3s ease;
 
                 .image {
+                    border-radius: 10px;
                     background-color: lightgray;
                     height: 200px;
                     position: relative;
 
                     img {
+                        border-radius: 10px;
                         height: 100%;
                         width: 100%;
                         object-fit: cover;
@@ -146,20 +154,28 @@
                     .pet-btn {
                         margin-top: 20px;
                         display: flex;
-
+                        .btn {
+                            background-color: var(--primary-color);
+                            height: 30px;
+                            width: 50px;
+                            color: white;
+                        }
                         .available-state {
                             background-color: green;
                         }
-    
+
                         .unavailable-state {
                             background-color: #90928f;
                         }
-    
+
                         // .onhold-state {
                         //     background-color: rgb(187, 187, 23);
                         // }
                     }
                 }
+            }
+            .pet-box:hover {
+                transform: scale(1.05);
             }
         }
     }
@@ -174,10 +190,10 @@
     background-color: var(--background-color-grey);
 }
 
-.primary-text{
+.primary-text {
     color: var(--primary-color);
 }
 
-.grey-text{
+.grey-text {
     color: gray;
 }

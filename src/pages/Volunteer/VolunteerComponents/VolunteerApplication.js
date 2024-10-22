@@ -109,7 +109,7 @@ const VolunteerApplication = ({ setStep }) => {
                 <div className="volunteerAppli_infoInput">
                     <div className="volunteerAppli_infoInput_header_wrap">
                         <div className="volunteerAppli_infoInput_header">
-                            <h3>ADOPTION FORM</h3>
+                            <h3>VOLUNTEER FORM</h3>
                         </div>
                     </div>
                     <form>
@@ -247,7 +247,7 @@ const VolunteerApplication = ({ setStep }) => {
                             </div>
                             {/* reason */}
                             <div className="volunteer_reason">
-                                <label htmlFor="reason">reason you apply</label>
+                                <label htmlFor="reason">Reason you apply</label>
                                 <input
                                     className="volunteer_input_bar"
                                     type="text"

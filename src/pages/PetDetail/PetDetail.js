@@ -1,5 +1,6 @@
-
+import './PetDetail.module.scss';
 import styles from './PetDetail.module.scss';
+
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -60,7 +61,6 @@ function PetDetail() {
         handlePetData();
     }, []);
 
-
     useEffect(() => {
         if (pet) {
             setFormData({
@@ -78,7 +78,6 @@ function PetDetail() {
             });
         }
     }, [pet]);
-
 
     if (!pet) {
         return <div>Loading...</div>;
@@ -104,16 +103,19 @@ function PetDetail() {
         <div>
             <div className={cx('wrapper')}>
                 <h1>Do you love {pet.petName}?</h1>
+
                 <p className={cx('back')} onClick={() => navigate('/find-a-pet')}>
                     &larr;Back
                 </p>
                 <div className={cx('content')}>
-
-                    <PetImage pet={pet}/>
+                    <PetImage pet={pet} />
 
                     <div className={cx('pet-info')}>
                         <div className={cx('detail-info')}>
-                            <h2>{pet.petName}</h2>
+                            <div className={cx('petDetail_h2_wrap')}>
+                                <h2>{pet.petName}</h2>
+                            </div>
+
                             <div className={cx('detail-item')}>
                                 <div>
                                     <p>
@@ -153,12 +155,17 @@ function PetDetail() {
                                     </Button>
                                 ) : (
                                     <>
-                                        <Button medium primary>
-                                            Adopt Now
-                                        </Button>
-                                        <Button medium outline>
-                                            Donate
-                                        </Button>
+                                        <div className={styles.petDetail_adopt_btn}>
+                                            <Button to={`/adopt-application/${pet.petId}`} medium primary>
+                                                Adopt
+                                            </Button>
+                                        </div>
+
+                                        <div className="petDetail_donate_btn">
+                                            <Button to={'/donate'} medium outline>
+                                                Donate
+                                            </Button>
+                                        </div>
                                     </>
                                 )}
 
@@ -194,10 +201,9 @@ function PetDetail() {
                 )}
             </div>
 
-            <FeaturePet homepage={true} title='Another Pets'/>
-            
-            {user == false  ? <RegisBanner /> : null}
+            <FeaturePet homepage={true} title="Another Pets" />
 
+            {user == false ? <RegisBanner /> : null}
         </div>
     );
 }

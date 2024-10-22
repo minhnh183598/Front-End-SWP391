@@ -10,7 +10,7 @@ const AdoptStep2FormWait = ({ setStep }) => {
     useEffect(() => {
         const interval = setInterval(() => {
             checkApprovalStatus();
-        }, 5000); // Kiểm tra mỗi 5 giây
+        }, 1000); // Kiểm tra mỗi 1 giây
 
         return () => clearInterval(interval); // Dọn dẹp khi component unmount
     }, []);
@@ -36,6 +36,7 @@ const AdoptStep2FormWait = ({ setStep }) => {
             console.error('Lỗi khi kiểm tra trạng thái:', error);
         }
     };
+
     return (
         <div className="adoptStep2_waiting">
             <ScrollToTop />

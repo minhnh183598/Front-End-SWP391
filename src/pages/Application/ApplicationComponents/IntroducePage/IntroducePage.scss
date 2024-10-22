@@ -43,6 +43,11 @@
     justify-content: center;
     // padding-top: 20px;
     padding-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.adopt-container-button:hover {
+    transform: scale(1.05);
 }
 
 // Đoạn 1

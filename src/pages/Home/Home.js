@@ -6,29 +6,30 @@ import RegisBanner from '~/components/Layout/components/RegisterBanner';
 import Events from './HomeComponents/Events';
 import FeaturePet from '../FindPet/components/FeaturePet';
 import { useInView } from 'react-intersection-observer';
+import HomeCarousel from './HomeComponents/HomeCarousel/HomeCarousel';
 
 const cx = classNames.bind(styles);
 
 function Home() {
     const { ref, inView } = useInView({
-        threshold: 0.1, 
-        triggerOnce: true
+        threshold: 0.1,
+        triggerOnce: true,
     });
 
-    console.log("In View:", inView);
+    console.log('In View:', inView);
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('banner')}>
-                <img src={IMAGES.banner} alt="banner" />
-
+                {/* <img src={IMAGES.banner} alt="banner" /> */}
+                <HomeCarousel />
                 {/* <h1>Connecting People & Pets</h1> */}
             </div>
 
             {/*About Us Content */}
             <div className={cx('about')} ref={ref}>
                 <div className={cx('about-content')}>
-                    <div className={cx('text' , { 'animate': inView })}>
+                    <div className={cx('text', { animate: inView })}>
                         <h2 className={cx('heading')}>Who We Are?</h2>
                         <p className={cx('about-para')}>
                             Since 2020, we've been devoted to rescuing stray, neglected, abandoned and surrendered pets
@@ -38,7 +39,7 @@ function Home() {
                             Learn More
                         </Button>
                     </div>
-                    <img src={IMAGES.aboutUs} alt="about" className={cx({ 'animate': inView })}/>
+                    <img src={IMAGES.aboutUs} alt="about" className={cx({ animate: inView })} />
                 </div>
             </div>
 
@@ -61,12 +62,12 @@ function Home() {
 
                 <div className={cx('appli-content')}>
                     <div className={cx('appli-main-content')}>
-                        <div className={cx('content-left', { 'animate': inView })}>
+                        <div className={cx('content-left', { animate: inView })}>
                             <p>1. Search and Preparation</p>
                             <p className={cx('mgTOPBOT')}>2. Fill in Application</p>
                             <p>3. Meet and Greet</p>
                         </div>
-                        <div className={cx('content-right', { 'animate': inView })}>
+                        <div className={cx('content-right', { animate: inView })}>
                             <p>4. Home Visit ( optional )</p>
                             <p className={cx('mgTOPBOT')}>5. Finalizing the Adoption</p>
                             <p>6. Post-Adoption Support</p>
@@ -75,7 +76,7 @@ function Home() {
                 </div>
 
                 <div className={cx('start-adopt-btn')}>
-                    <Button large primary to="/adopt-pet">
+                    <Button large primary to="/adopt">
                         Start Adopt
                     </Button>
                 </div>

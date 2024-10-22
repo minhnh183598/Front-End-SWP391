@@ -9,6 +9,15 @@ const VolunteerIntroduce = ({ onButtonClick }) => {
     const targetRef_2 = useRef(null);
     const targetRef_3 = useRef(null);
 
+    // const handleRemoveItem = () => {
+    //     localStorage.removeItem('adoptionStep_a01812d4-d17e-447a-99ab-6ec398c57f13');
+    //     localStorage.removeItem('adoptionStep_f00ffe17-c460-466b-a248-c07eafc240ef');
+    //     localStorage.removeItem('adoptionStep_fb6bf6fb-8dd0-4540-ac38-eaed96f21588');
+    //     localStorage.removeItem('adoptionStep_fd12bd6d-ef2f-403b-a893-b4a6ced46c92');
+    //     localStorage.removeItem('adoptionStep}');
+    //     console.log('application_id removed');
+    // };
+
     return (
         <div className="adoptIntro">
             <div className="volunteer_container">
@@ -67,6 +76,7 @@ const VolunteerIntroduce = ({ onButtonClick }) => {
                     >
                         Start The Process
                     </Button>
+                    {/* <Button onClick={handleRemoveItem}>xoa</Button> */}
                 </div>
             </div>
         </div>

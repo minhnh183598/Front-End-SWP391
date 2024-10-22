@@ -48,11 +48,11 @@ const AdoptStep4 = ({ id, setStep }) => {
                         </div>
 
                         <div className="AdoptStep4-button">
-                            <Button className="btn-1" onClick={() => setStep((prevStep) => prevStep + 1)}>
-                                Agree
-                            </Button>
                             <Button onClick={() => setStep((prevStep) => prevStep + 1)} className="btn-2">
                                 Deny
+                            </Button>
+                            <Button className="btn-1" onClick={() => setStep((prevStep) => prevStep + 1)}>
+                                Agree
                             </Button>
                         </div>
                     </div>
