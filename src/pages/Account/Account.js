@@ -5,11 +5,13 @@ import Information from './components/Information';
 import ApplicationList from './components/Application/ApplicationList';
 import { useState } from 'react';
 import VolunteerTasks from './components/Volunteer';
+import React from 'react';
 
 const cx = classNames.bind(styles);
 
 function Account() {
     const [content, setContent] = useState('account');
+    const userRole = localStorage.getItem('userRoles');
     return (
         <div className={cx('wrapper')}>
             <div className={cx('sidebar')}>
@@ -26,9 +28,12 @@ function Account() {
                     <p className={cx(content === 'appliList' ? 'active' : '')} onClick={() => setContent('appliList')}>
                         Application List
                     </p>
-                    <p className={cx(content === 'tasks' ? 'active' : '')} onClick={() => setContent('tasks')}>
-                        Volunteer Tasks
-                    </p>
+
+                    {userRole.includes('VOLUNTEER') ? (
+                        <p className={cx(content === 'tasks' ? 'active' : '')} onClick={() => setContent('tasks')}>
+                            Volunteer Tasks
+                        </p>
+                    ) : null}
                 </div>
             </div>
             <div className={cx('content')}>

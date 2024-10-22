@@ -1,0 +1,61 @@
+.issue-info {
+    background-color: white;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-top: 20px;
+    padding-bottom: 20px;
+
+    .issue-title {
+        text-align: center;
+        padding: 5px 15px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        background-color: var(--primary-color);
+        width: 150px;
+    }
+
+    .issue-state-list {
+        display: flex;
+        justify-content: space-around;
+
+        .issue-state-box-notstart,
+        .issue-state-box-process,
+        .issue-state-box-done {
+            width: 30%;
+            border-radius: 15px;
+            padding: 10px;
+
+            .issue-state-heading {
+                margin: 0 auto;
+                font-weight: bold;
+                text-align: center;
+                border-radius: 15px;
+                background-color: white;
+                width: 100px;
+            }
+
+            .issue-state-info {
+                background-color: white;
+                border-radius: 15px;
+                padding: 5px;
+                p {
+                    font-size: 14px;
+                    &:last-child {
+                        margin: 0;
+                    }
+                }
+                margin: 15px 0;
+            }
+
+            .issue-state-more {
+                text-align: right;
+                font-size: 14px;
+                font-weight: bold;
+                p {
+                    margin: 0;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

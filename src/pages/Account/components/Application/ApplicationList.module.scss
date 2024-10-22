@@ -24,18 +24,24 @@
                     border-bottom: 1px solid var(--primary-color);
                 }
             }
+
+            .active {
+                color: var(--primary-color);
+                border-bottom: 1px solid var(--primary-color);
+            }
         }
     }
 
-    .sort{
+    .sort {
         padding: 20px;
         padding-bottom: 0;
-        select{
+        select {
             height: 30px;
             border-radius: 8px;
             margin-left: 10px;
-            width: 100px;
+            width: 110px;
             outline: none;
+            border: 1px solid black;
         }
     }
 

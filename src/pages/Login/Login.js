@@ -47,12 +47,7 @@ function Login() {
             localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
             const userRoles = userInfo.data.result.roles.map((role) => role.name);
             localStorage.setItem('userRoles', JSON.stringify(userRoles));
-            const user = await api.get('users/info', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            localStorage.setItem('userId', user.data.result.id);
+            localStorage.setItem('userId', userInfo.data.result.id);
             setSuccessMsg('Login successfully!');
             setTimeout(() => {
                 navigate(from);
@@ -83,11 +78,13 @@ function Login() {
                 });
 
                 localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
+                const userRoles = userInfo.data.result.roles.map((role) => role.name);
+                localStorage.setItem('userRoles', JSON.stringify(userRoles));
                 localStorage.setItem('userId', userInfo.data.result.id);
 
                 if (userInfo.data.result.noPassword === false) {
-                    localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
-                    localStorage.setItem('userId', userInfo.data.result.id);
+                    // localStorage.setItem('userInfo', JSON.stringify(userInfo.data.result));
+                    // localStorage.setItem('userId', userInfo.data.result.id);
                     navigate('/');
                 } else {
                     setGooglePW(true);

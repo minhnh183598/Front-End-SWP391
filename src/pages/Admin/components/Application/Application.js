@@ -21,7 +21,7 @@ function Application() {
     const [totalProcess, setTotalProcess] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [viewAppli, setViewAppli] = useState(false);
-    const [appliID, setAppliID] = useState('');
+    const [appliID, setAppliID] = useState(null);
     const [activeSort, setActiveSort] = useState('View All');
 
     const handleAppliDataCombined = async () => {
@@ -32,14 +32,11 @@ function Application() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            // Gọi API để lấy dữ liệu thành công
             const successResponse = await api.get(`applications/status/1`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
-            // Gọi API để lấy dữ liệu thất bại
             const failResponse = await api.get(`applications/status/2`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -47,9 +44,10 @@ function Application() {
             });
 
             const combinedData = [...successResponse.data, ...failResponse.data, ...inProcessResponse.data];
-            console.log(combinedData);
+            console.log('All appli: ', combinedData);
             setDataLength(combinedData.length);
             setTotalAppli(combinedData.length);
+            localStorage.setItem('totalAppli', combinedData.length);
             setAppliList(combinedData);
         } catch (error) {
             console.log(error);
@@ -65,7 +63,6 @@ function Application() {
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
             setDataLength(dataLength);
             setTotalProcess(dataLength);
             setAppliList(response.data);
@@ -83,7 +80,6 @@ function Application() {
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
             setDataLength(dataLength);
             setTotalPass(dataLength);
             setAppliList(response.data);
@@ -101,7 +97,6 @@ function Application() {
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
             setDataLength(dataLength);
             setTotalFail(dataLength);
             setAppliList(response.data);
@@ -124,7 +119,7 @@ function Application() {
     return (
         <>
             <div className={cx('wrapper')}>
-                <h1>Application</h1>
+                <h1>Adopt Application</h1>
 
                 {!viewAppli ? (
                     <>
@@ -248,7 +243,7 @@ function Application() {
                         </div>
                     </>
                 ) : (
-                    <ViewAppli id={appliID} setViewAppli={setViewAppli} />
+                    <ViewAppli appliID={appliID} setViewAppli={setViewAppli} />
                 )}
             </div>
         </>

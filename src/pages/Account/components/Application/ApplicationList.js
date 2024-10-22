@@ -3,11 +3,19 @@ import styles from './ApplicationList.module.scss';
 import PetImages from '~/assets/images/petImg';
 import { Pagination } from 'antd';
 import { useState } from 'react';
+import React from 'react';
 
 const cx = classNames.bind(styles);
 
 function ApplicationList() {
     const [currentPage, setCurrentPage] = useState(1);
+    const [appli, setAppli] = useState(null);
+    const [activeSort, setActiveSort] = useState('ALL');
+    const [filter, setFilter] = useState({
+        state: 'ALL',
+        sort: 'DESC',
+        sortBy: 'createdAt',
+    });
 
     const data = [
         {
@@ -67,6 +75,23 @@ function ApplicationList() {
             finishDate: '22/11/2024',
         },
     ];
+
+    const handleUserApplication = async () => {
+
+    }
+
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        console.log(name, value);
+        const newSort = value == 'createdAt' ? 'DESC' : value == 'finishAt' ? 'DESC' : filter.sort;
+
+        setFilter((prev) => ({
+            ...prev,
+            [name]: value,
+            sort: newSort,
+        }));
+    };
+
     const appliPerPage = 6;
     const indexOfLastPet = currentPage * appliPerPage;
     const indexOfFirstPet = indexOfLastPet - appliPerPage;
@@ -75,19 +100,55 @@ function ApplicationList() {
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <ul>
-                    <li>All</li>
-                    <li>Passed</li>
-                    <li>In Process</li>
-                    <li>Not Passed</li>
+                    <li
+                        className={cx({ active: activeSort == 'ALL' })}
+                        onClick={() => {
+                            setActiveSort('ALL');
+                            setFilter((prev) => ({ ...prev, role: 'ALL' }));
+                            setCurrentPage(1);
+                        }}
+                    >
+                        View All
+                    </li>
+                    <li
+                        className={cx({ active: activeSort == 'Passed' })}
+                        onClick={() => {
+                            setActiveSort('Passed');
+                            setFilter((prev) => ({ ...prev, role: 'Passed' }));
+                            setCurrentPage(1);
+                        }}
+                    >
+                        Passed
+                    </li>
+                    <li
+                        className={cx({ active: activeSort == 'InProcess' })}
+                        onClick={() => {
+                            setActiveSort('InProcess');
+                            setFilter((prev) => ({ ...prev, role: 'In Process' }));
+                            setCurrentPage(1);
+                        }}
+                    >
+                        In Process
+                    </li>
+                    <li
+                        className={cx({ active: activeSort == 'NotPassed' })}
+                        onClick={() => {
+                            setActiveSort('NotPassed');
+                            setFilter((prev) => ({ ...prev, role: 'Not Passed' }));
+                            setCurrentPage(1);
+                        }}
+                    >
+                        Not Passed
+                    </li>
                 </ul>
             </div>
 
             <div className={cx('sort')}>
                 <label htmlFor="sort">Sort</label>
-                <select id="sort" name="sort" value=''>
+                <select id="sort" name="sort" value={filter.sortBy} onChange={handleFilterChange}>
                     <option value="all">All</option>
-                    <option value="createDate">Create Date</option>
-                    <option value="finishDate">Finish Date</option>
+                    <option value="createdAt">Create Date</option>
+                    <option value="finishAt">Finish Date</option>
                 </select>
             </div>
 

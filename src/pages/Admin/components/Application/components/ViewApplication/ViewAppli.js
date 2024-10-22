@@ -9,19 +9,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const cx = classNames.bind(styles);
 
-function ViewAppli({ id, setViewAppli }) {
-    const [appli, setAppli] = useState(null);
+function ViewAppli({ appliID, setViewAppli }) {
+    const [appli, setAppli] = useState({});
+    const [petInAppli, setPetInAppli] = useState({});
 
     const handleAppliData = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await api.get(`applications/${id}`, {
+            const response = await api.get(`applications/${appliID}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
             setAppli(response.data);
-            console.log(response.data);
+            setPetInAppli(response.data.pet);
+            console.log('Appli by id ', response.data);
+            console.log('Pet In appli ', response.data.pet);
         } catch (error) {
             console.log(error);
         }
@@ -39,7 +42,7 @@ function ViewAppli({ id, setViewAppli }) {
         const token = localStorage.getItem('token');
         try {
             const response = await api.put(
-                `applications/status/${id}`,
+                `applications/status/${appliID}`,
                 {
                     status: 1, // Gửi body với status là 1
                 },
@@ -51,7 +54,7 @@ function ViewAppli({ id, setViewAppli }) {
             );
             alert('Update successfully');
             setViewAppli(false);
-            console.log(response.data);
+            console.log('success appli', response.data);
         } catch (error) {
             console.log(error);
         }
@@ -61,9 +64,9 @@ function ViewAppli({ id, setViewAppli }) {
         const token = localStorage.getItem('token');
         try {
             const response = await api.put(
-                `applications/status/${id}`,
+                `applications/status/${appliID}`,
                 {
-                    status: 2, // Gửi body với status là 1
+                    status: 2,
                 },
                 {
                     headers: {
@@ -73,7 +76,7 @@ function ViewAppli({ id, setViewAppli }) {
             );
             alert('Update successfully');
             setViewAppli(false);
-            console.log(response.data);
+            console.log('fail appli', response.data);
         } catch (error) {
             console.log(error);
         }
@@ -82,14 +85,14 @@ function ViewAppli({ id, setViewAppli }) {
     const handleDeleteAppli = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await api.delete(`applications/${id}`, {
+            const response = await api.delete(`applications/${appliID}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
             alert('Delete successfully');
             setViewAppli(false);
-            console.log(response.data);
+            console.log('Delete appli ', response.data);
         } catch (error) {
             console.log(error);
         }
@@ -114,41 +117,41 @@ function ViewAppli({ id, setViewAppli }) {
                             </div>
                             <div className={cx('pet-info')}>
                                 <p style={{ fontSize: '12px', marginTop: '2px' }}>
-                                    <b>Pet ID:</b> {appli.pet.petId}
+                                    <b>Pet ID:</b> {petInAppli.petId}
                                 </p>
                                 <div className={cx('pet-info-heading')}>
-                                    <h4>{appli.pet.petName}</h4>
-                                    <p className={cx(`${appli.pet.petStatus == 'Adopted' ? 'adopted' : ''}`)}>
-                                        {appli.pet.petStatus}
+                                    <h4>{petInAppli.petName}</h4>
+                                    <p className={cx(`${petInAppli.petStatus == 'Adopted' ? 'adopted' : ''}`)}>
+                                        {petInAppli.petStatus}
                                     </p>
                                 </div>
                                 <div className={cx('pet-detail')}>
                                     <div>
                                         <p>
-                                            <b>Breed:</b> {appli.pet.petBreed}
+                                            <b>Breed:</b> {petInAppli.petBreed}
                                         </p>
                                         <p>
-                                            <b>Age:</b> {appli.pet.petAge}
+                                            <b>Age:</b> {petInAppli.petAge}
                                         </p>
                                         <p>
-                                            <b>Color:</b> {appli.pet.petColor}
+                                            <b>Color:</b> {petInAppli.petColor}
                                         </p>
                                         <p style={{ margin: 0 }}>
-                                            <b>Vaccin:</b> {appli.pet.petVaccin}
+                                            <b>Vaccin:</b> {petInAppli.petVaccin}
                                         </p>
                                     </div>
                                     <div style={{ marginLeft: '20px' }}>
                                         <p>
-                                            <b>Weight:</b> {appli.pet.petWeight}
+                                            <b>Weight:</b> {petInAppli.petWeight}
                                         </p>
                                         <p>
-                                            <b>Size:</b> {appli.pet.petSize}
+                                            <b>Size:</b> {petInAppli.petSize}
                                         </p>
                                         <p>
-                                            <b>Gender:</b> {appli.pet.petGender}
+                                            <b>Gender:</b> {petInAppli.petGender}
                                         </p>
                                         <p style={{ margin: 0 }}>
-                                            <b>Type:</b> {appli.pet.petType}
+                                            <b>Type:</b> {petInAppli.petType}
                                         </p>
                                     </div>
                                 </div>
@@ -156,7 +159,7 @@ function ViewAppli({ id, setViewAppli }) {
                         </div>
                         <div className={cx('adopter')}>
                             <p style={{ fontSize: '12px' }}>
-                                <b>User ID:</b> {appli.user.id}
+                                <b>User ID:</b> {appli.id}
                             </p>
                             <div className={cx('user-info')}>
                                 <div className={cx('user-info-heading')}>

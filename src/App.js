@@ -6,6 +6,7 @@ import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import ScrollToTopBtn from './components/ScrollToTopBtn/ScrollToTopBtn';
 import ProtectedRoute from './routes/ProtectedRoute';
 import useAuth from './components/RefreshToken/RefreshToken';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     useAuth();

@@ -4,12 +4,23 @@ import Header from './Header';
 import Dashboard from './components/Dashboard/Dashboard';
 import User from './components/User/User';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBlog, faCalendarDays, faHouse, faNewspaper, faPaw, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+    faBlog,
+    faCalendarDays,
+    faHouse,
+    faListCheck,
+    faNewspaper,
+    faPaw,
+    faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import Pets from './components/Pets/Pets';
 import Blogs from './components/Blogs/Blogs';
 import Events from './components/Events/Events';
 import Application from './components/Application/Application';
+import VolunteerApplication from './components/VolunteerApplication/VolunteerApplication';
+import VolunteerTask from './components/VolunteerTask/VolunteerTask';
+import { ToastContainer } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
@@ -17,9 +28,21 @@ function Admin() {
     const [content, setContent] = useState(() => {
         return localStorage.getItem('adminContent') || 'Dashboard';
     });
+    const [totalUser, setTotalUser] = useState(0);
+    const [totalPet, setTotalPet] = useState(0);
+    const [totalAppli, setTotalAppli] = useState(0);
 
     useEffect(() => {
         localStorage.setItem('adminContent', content);
+        if (content === 'Dashboard') {
+            const storedTotalUser = localStorage.getItem('totalUser');
+            const storedTotalPet = localStorage.getItem('totalPets');
+            const storedTotalAppli = localStorage.getItem('totalAppli');
+
+            setTotalUser(storedTotalUser ? JSON.parse(storedTotalUser) : 0);
+            setTotalPet(storedTotalPet ? JSON.parse(storedTotalPet) : 0);
+            setTotalAppli(storedTotalAppli ? JSON.parse(storedTotalAppli) : 0);
+        }
     }, [content]);
 
     const handleContentChange = (newContent) => {
@@ -27,6 +50,7 @@ function Admin() {
     };
     return (
         <div className={cx('wrapper')}>
+            <ToastContainer />
             <Header />
 
             <div className={cx('container')}>
@@ -77,12 +101,30 @@ function Admin() {
                         </span>
                     </div>
                     <div
+                        className={cx('sidebar-item', { active: content === 'VolunteerTask' })}
+                        onClick={() => handleContentChange('VolunteerTask')}
+                    >
+                        <span>
+                            <FontAwesomeIcon icon={faListCheck} className={cx('icon')} />
+                            Volunteer Task
+                        </span>
+                    </div>
+                    <div
                         className={cx('sidebar-item', { active: content === 'Application' })}
                         onClick={() => handleContentChange('Application')}
                     >
                         <span>
                             <FontAwesomeIcon icon={faNewspaper} className={cx('icon')} />
-                            Application
+                            Adopt Application
+                        </span>
+                    </div>
+                    <div
+                        className={cx('sidebar-item', { active: content === 'VolunteerApplication' })}
+                        onClick={() => handleContentChange('VolunteerApplication')}
+                    >
+                        <span>
+                            <FontAwesomeIcon icon={faNewspaper} className={cx('icon')} />
+                            Volunteer Application
                         </span>
                     </div>
                 </div>
@@ -97,6 +139,10 @@ function Admin() {
                         <Events />
                     ) : content == 'Application' ? (
                         <Application />
+                    ) : content == 'VolunteerApplication' ? (
+                        <VolunteerApplication />
+                    ) : content == 'VolunteerTask' ? (
+                        <VolunteerTask />
                     ) : (
                         <User />
                     )}

@@ -98,7 +98,7 @@ function AddPet({ setAddPet }) {
             ...formData,
             petImage: validUrls,
         };
-        console.log(updatedData)
+        console.log(updatedData);
 
         try {
             const response = await api.post('pets', updatedData, {

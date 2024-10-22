@@ -68,7 +68,7 @@ function FeaturePet({ children, homepage, title }) {
                         pet ? (
                             <div className={cx('pet-box')} key={pet.petId}>
                                 <div className={cx('image')}>
-                                    <img src={PetImages.dog} alt={pet.petName} />
+                                    <img src={pet.petImage} alt={pet.petName} />
                                     <img
                                         src={lovePet[pet.petId] ? ICONS.heartRed : ICONS.heartWhi}
                                         className={cx('heart-icon')}

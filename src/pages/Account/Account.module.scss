@@ -1,40 +1,40 @@
-.wrapper{
+.wrapper {
     display: flex;
     width: 100%;
     margin-top: 100px;
     background-color: var(--background-color-grey);
     padding: 20px 80px;
-    
+
     .sidebar {
-        width: 20%; 
+        width: 20%;
         padding: 20px 0;
         padding-right: 20px;
 
-        .account{
+        .account {
             margin-bottom: 20px;
 
-            .username{
+            .username {
                 color: var(--primary-color);
                 font-size: 18px;
                 font-weight: bold;
             }
         }
 
-        .sidebar-item{
-            p{
+        .sidebar-item {
+            p {
                 cursor: pointer;
-                &:hover{
+                &:hover {
                     color: #99b18d;
                 }
             }
 
-            .active{
+            .active {
                 color: var(--primary-color);
             }
         }
     }
 
-    .content{
+    .content {
         flex: 1;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 8px;
