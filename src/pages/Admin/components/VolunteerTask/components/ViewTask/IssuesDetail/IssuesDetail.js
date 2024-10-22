@@ -26,19 +26,6 @@ function IssuesDetail({ id, issue, setOpenIssueDetail, issueStatusDetail }) {
         }
     };
 
-    // const handleSingleIssueDetail = async () => {
-    //     const token = localStorage.getItem('token');
-    //     try {
-    //         const response = await api.get(`issues/${singleIssueID}/task/${id}`, {
-    //             headers: `Bearer ${token}`,
-    //         });
-    //         console.log('Single Issue Detail ', response.data.result);
-    //         setMoreSingleIssue(response.data.result);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
     const handleCommentInIssue = async () => {
         const token = localStorage.getItem('token');
         try {
@@ -61,6 +48,13 @@ function IssuesDetail({ id, issue, setOpenIssueDetail, issueStatusDetail }) {
         return color;
     };
 
+    const formatStatus = (status) => {
+        return status
+            .split('_')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) 
+            .join(' ');
+    };
+
     useEffect(() => {
         handleIssueStateDetail();
     }, []);
@@ -76,7 +70,7 @@ function IssuesDetail({ id, issue, setOpenIssueDetail, issueStatusDetail }) {
         <>
             <div className={cx('issue-detail')}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <p className={cx('issue-detail-state')}>{issueStatusDetail}</p>
+                    <p className={cx('issue-detail-state')}>{formatStatus(issueStatusDetail)}</p>
                     <p className={cx('close-issue-detail')} onClick={() => setOpenIssueDetail(false)}>
                         Close &times;
                     </p>

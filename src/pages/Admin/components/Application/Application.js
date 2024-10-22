@@ -116,6 +116,7 @@ function Application() {
     const indexOfLastAppli = currentPage * appliPerPage;
     const indexOfFirstAppli = indexOfLastAppli - appliPerPage;
     const currentAppli = appliList.slice(indexOfFirstAppli, indexOfLastAppli);
+    console.log('current',currentAppli);
     return (
         <>
             <div className={cx('wrapper')}>

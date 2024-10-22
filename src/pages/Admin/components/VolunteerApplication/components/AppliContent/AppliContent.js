@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 function AppliContent({ currentAppli, setAppliID, setViewAppli }) {
     return (
         <div className={cx('content')}>
-            {currentAppli.map((appli) => (
+            {/* {currentAppli.map((appli) => (
                 <div className={cx('content-item')} key={appli.applicationId}>
                     <p className={cx('id')}>#{appli.applicationId}</p>
                     <div className={cx('user')}>
@@ -39,7 +39,7 @@ function AppliContent({ currentAppli, setAppliID, setViewAppli }) {
                         />
                     </div>
                 </div>
-            ))}
+            ))} */}
         </div>
     );
 }

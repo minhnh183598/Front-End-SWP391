@@ -15,6 +15,13 @@ function Tasks({ task }) {
         return color;
     };
 
+    const formatStatus = (status) => {
+        return status
+            .split('_')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Uppercase chữ cái đầu và lowercase các chữ cái còn lại
+            .join(' ');
+    };
+
     return (
         <div className={cx('task-info')}>
             <div className={cx('task-title')}>
@@ -48,7 +55,7 @@ function Tasks({ task }) {
                         <p style={{ marginRight: 10, marginBottom: 0 }}>
                             <b>Status:</b>
                         </p>
-                        <p className={cx('task-tag')}>{task.status == 'NOT_STARTED' ? 'Not Start' : task.status}</p>
+                        <p className={cx('task-tag')}>{formatStatus(task.status == 'NOT_STARTED' ? 'Not Start' : task.status)}</p>
                     </div>
                 </div>
                 <div className={cx('task-right-info')}>

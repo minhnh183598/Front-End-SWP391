@@ -7,7 +7,7 @@ import React from 'react';
 
 const cx = classNames.bind(styles);
 
-function IssuesDetail({ taskID, issue, setOpenIssueDetail, issueStatusDetail }) {
+function IssuesDetail({ taskID, setOpenIssueDetail, issueStatusDetail }) {
     const [issueDetailData, setIssueDetailData] = useState(null);
     const [singleIssueID, setSingleIssueID] = useState('');
     const [commentIssue, setCommentIssue] = useState([]);
@@ -48,6 +48,13 @@ function IssuesDetail({ taskID, issue, setOpenIssueDetail, issueStatusDetail }) 
         return color;
     };
 
+    const formatStatus = (status) => {
+        return status
+            .split('_')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+    };
+
     useEffect(() => {
         handleIssueStateDetail();
     }, []);
@@ -63,7 +70,7 @@ function IssuesDetail({ taskID, issue, setOpenIssueDetail, issueStatusDetail }) 
         <>
             <div className={cx('issue-detail')}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <p className={cx('issue-detail-state')}>{issueStatusDetail}</p>
+                    <p className={cx('issue-detail-state')}>{formatStatus(issueStatusDetail)}</p>
                     <p className={cx('close-issue-detail')} onClick={() => setOpenIssueDetail(false)}>
                         Close &times;
                     </p>
@@ -110,7 +117,11 @@ function IssuesDetail({ taskID, issue, setOpenIssueDetail, issueStatusDetail }) 
                                 ))}
                             </div>
                             {openDetailAndComment ? (
-                                <Comment taskID={taskID} singleIssueID={singleIssueID} commentIssue={commentIssue} />
+                                <Comment
+                                    taskID={taskID}
+                                    singleIssueID={singleIssueID}
+                                    commentIssue={commentIssue}
+                                />
                             ) : null}
                         </div>
                     ))

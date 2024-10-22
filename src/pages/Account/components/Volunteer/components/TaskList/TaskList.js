@@ -11,6 +11,8 @@ function TaskList({ setUndertakeTask, setTaskID }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [activeSort, setActiveSort] = useState('ALL');
     const [taskData, setTaskData] = useState([]);
+    const [undertookList, setUndertookList] = useState([]);
+    const [showUndertookTasks, setShowUndertookTasks] = useState(false);
     const [filter, setFilter] = useState({
         state: 'ALL',
         sort: 'DESC',
@@ -26,6 +28,21 @@ function TaskList({ setUndertakeTask, setTaskID }) {
             });
             console.log('task list: ', response.data.result);
             setTaskData(response.data.result);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleTaskByTeamUndertook = async () => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await api.get('tasks/team', {
+                header: `Bearer ${token}`,
+            });
+            console.log('task by team: ', response.data.result);
+            setUndertookList(response.data.result);
+            setShowUndertookTasks(true);
         } catch (error) {
             console.error(error);
         }
@@ -50,6 +67,13 @@ function TaskList({ setUndertakeTask, setTaskID }) {
     const formatDueDate = (dueDate) => {
         const formattedDate = dueDate.slice(0, 16).replace('T', ' ');
         return formattedDate;
+    };
+
+    const formatStatus = (status) => {
+        return status
+            .split('_')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
     };
 
     const taskPerPage = 6;
@@ -94,7 +118,7 @@ function TaskList({ setUndertakeTask, setTaskID }) {
                         className={cx({ active: activeSort == 'Undertook' })}
                         onClick={() => {
                             setActiveSort('Undertook');
-                            setFilter((prev) => ({ ...prev, role: 'Undertook' }));
+                            handleTaskByTeamUndertook();
                             setCurrentPage(1);
                         }}
                     >
@@ -113,7 +137,7 @@ function TaskList({ setUndertakeTask, setTaskID }) {
             </div>
 
             <div className={cx('application-list')}>
-                {taskPage.map((task, index) => (
+                {(showUndertookTasks ? undertookList : taskPage).map((task, index) => (
                     <div className={cx('application-item')} key={index}>
                         <div className={cx('pet-info')}>
                             <div className={cx('detail-info')}>
@@ -129,7 +153,7 @@ function TaskList({ setUndertakeTask, setTaskID }) {
                             </div>
                             <div className={cx('appli-state')}>
                                 <p className={cx('state', task.status == 'Unavailable' ? 'unavailable' : '')}>
-                                    {task.status}
+                                    {formatStatus(task.status)}
                                 </p>
                                 <button
                                     className={cx('feedback')}

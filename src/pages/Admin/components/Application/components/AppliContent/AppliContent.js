@@ -2,10 +2,15 @@ import styles from './AppliContent.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function AppliContent({ currentAppli, setAppliID, setViewAppli }) {
+    if (!Array.isArray(currentAppli) || currentAppli.length === 0) {
+        return <p>No applications available</p>;
+    }
+
     return (
         <div className={cx('content')}>
             {currentAppli.map((appli) => (
@@ -15,17 +20,34 @@ function AppliContent({ currentAppli, setAppliID, setViewAppli }) {
                         <p className={cx('fullname')}>{appli.fullName}</p>
                     </div>
                     <div className={cx('pet')}>
-                        <p className={cx('petname')}>{appli.pet.petName}</p>
-                    </div>
-
-                    <div className={cx('status')}>
-                        <p className={cx(appli.status == '0' ? 'inprocess' : appli.status == '2' ? 'notpass' : null)}>
-                            {appli.status == '0' ? 'In Process' : appli.status == '1' ? 'Success' : 'Fail'}
+                        <p className={cx('petname')}>
+                            {appli.pet && appli.pet.petName ? appli.pet.petName : 'No Pet Info'}
                         </p>
                     </div>
-                    <p className={cx('date')}>{appli.createAt ? new Date(appli.createAt).toLocaleDateString() : ''}</p>
+                    <div className={cx('status')}>
+                        <p
+                            className={cx(
+                                String(appli.status) === '0'
+                                    ? 'inprocess'
+                                    : String(appli.status) === '2'
+                                    ? 'notpass'
+                                    : null,
+                            )}
+                        >
+                            {String(appli.status) === '0'
+                                ? 'In Process'
+                                : String(appli.status) === '1'
+                                ? 'Success'
+                                : 'Fail'}
+                        </p>
+                    </div>
                     <p className={cx('date')}>
-                        {appli.status != '0' && appli.updateAt ? new Date(appli.updateAt).toLocaleDateString() : ''}
+                        {appli.createAt ? new Date(appli.createAt).toLocaleDateString() : ''}
+                    </p>
+                    <p className={cx('date')}>
+                        {appli.status !== '0' && appli.updateAt
+                            ? new Date(appli.updateAt).toLocaleDateString()
+                            : ''}
                     </p>
                     <div className={cx('action')}>
                         <FontAwesomeIcon
@@ -34,7 +56,6 @@ function AppliContent({ currentAppli, setAppliID, setViewAppli }) {
                             onClick={() => {
                                 setAppliID(appli.applicationId);
                                 setViewAppli(true);
-                                console.log(appli.applicationId);
                             }}
                         />
                     </div>
@@ -45,3 +66,4 @@ function AppliContent({ currentAppli, setAppliID, setViewAppli }) {
 }
 
 export default AppliContent;
+
