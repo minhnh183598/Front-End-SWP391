@@ -49,7 +49,8 @@ const AdoptStep1 = ({ id, setStep }) => {
                                     <img
                                         className="AdoptStep1-container-content-image"
                                         alt="image"
-                                        src={IMAGES.adoptStep1_1}
+                                        // src={IMAGES.adoptStep1_1}
+                                        src={pet.petImage}
                                     />
                                     <div>
                                         <img alt="image" src={IMAGES.adoptStep1_3} />

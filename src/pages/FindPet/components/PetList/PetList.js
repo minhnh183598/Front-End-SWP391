@@ -65,7 +65,7 @@ function PetList({ data, dataLength, currentPage, setCurrentPage }) {
                                 outline
                                 small
                                 to={`/pet-detail/${pet.petId}`}
-                                className={cx('btn')}
+                                // className={cx('btn')}
                                 onClick={() => console.log(pet.petId)}
                             >
                                 Detail
@@ -74,7 +74,7 @@ function PetList({ data, dataLength, currentPage, setCurrentPage }) {
                                 primary
                                 small
                                 to={`/adopt-application/${pet.petId}`}
-                                className={cx('btn', pet.petStatus === 'Adopted' ? 'unavailable-state' : null)}
+                                className={cx(pet.petStatus === 'Adopted' ? 'unavailable-state' : null)}
                                 onClick={() => console.log(pet.petId)}
                             >
                                 Adopt

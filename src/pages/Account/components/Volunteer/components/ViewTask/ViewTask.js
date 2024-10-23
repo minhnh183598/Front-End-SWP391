@@ -9,63 +9,51 @@ import IssuesDetail from './components/IssuesDetail/IssuesDetail';
 import Adopter from './components/Adopter/Adopter';
 import AddIssue from '../AddIssue/AddIssue';
 import React from 'react';
+import CreateFeedback from './components/CreateFeedback/CreateFeedback';
 
 const cx = classNames.bind(styles);
 
 function ViewTask({ setUndertakeTask, taskID }) {
     const [singleTask, setSingleTask] = useState(null);
-    const [issue, setIssue] = useState([]);
+    //const [issue, setIssue] = useState([]);
     const [openCreateIssue, setOpenCreateIssue] = useState(false);
     const [openIssueDetail, setOpenIssueDetail] = useState(false);
     const [issueStatusDetail, setIssueStatusDetail] = useState('');
     const [tagIssueData, setTagIssueData] = useState([]);
+    const [isUndertake, setIsUndertakeTask] = useState(false);
+    const [openFeedback, setOpenFeedback] = useState(false);
 
     const handleSingTaskData = async () => {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await api.get(`tasks/${taskID}`, {
+            const taskData = await api.get(`tasks/${taskID}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
 
-            console.log('task data: ', response.data.result);
-            setSingleTask(response.data.result);
+            console.log('task data: ', taskData.data.result);
+            setSingleTask(taskData.data.result);
+
+            const tagIssue = await api.get(`tags/type/ISSUE_LABEL`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log('tag issue', tagIssue.data.result);
+            setTagIssueData(tagIssue.data.result);
+
+            // const taskIssue = await api.get(`issues/tasks/${taskID}`, {
+            //     headers: {
+            //         Authorization: `Bearer ${token}`,
+            //     },
+            // });
+
+            // console.log('issue: ', taskIssue.data.result);
+            // setIssue(taskIssue.data.result);
         } catch (error) {
             console.error(error);
-        }
-    };
-
-    const handleTagsIssueData = async () => {
-        const token = localStorage.getItem('token');
-
-        try {
-            const response = await api.get(`tags/type/ISSUE_LABEL`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            console.log('tag issue', response.data.result);
-            setTagIssueData(response.data.result);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleTaskIssue = async () => {
-        const token = localStorage.getItem('token');
-        try {
-            const response = await api.get(`issues/tasks/${taskID}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            console.log('issue: ', response.data.result);
-            setIssue(response.data.result);
-        } catch (error) {
-            console.log(error);
         }
     };
 
@@ -80,6 +68,7 @@ function ViewTask({ setUndertakeTask, taskID }) {
             });
 
             console.log('undertake-task: ', response.data);
+            setIsUndertakeTask(true);
         } catch (error) {
             console.log(error);
         }
@@ -87,9 +76,9 @@ function ViewTask({ setUndertakeTask, taskID }) {
 
     useEffect(() => {
         handleSingTaskData();
-        handleTagsIssueData();
-        handleTaskIssue();
-    }, []);
+    }, [isUndertake, openCreateIssue]);
+
+    const userId = localStorage.getItem('userId');
 
     return (
         <div className={cx('wrapper')}>
@@ -100,13 +89,14 @@ function ViewTask({ setUndertakeTask, taskID }) {
             <div className={cx('wrapper-bottom')}>
                 <div className={cx('container-left')}>
                     <div className={cx('container-info')}>
-                        {singleTask ? ( // Kiểm tra xem singleTask có tồn tại
+                        {singleTask ? (
                             <>
                                 <Tasks singleTask={singleTask} />
 
                                 {singleTask.adopter !== null ? <Adopter /> : null}
 
-                                {singleTask.issues.length === 0 ? (
+                                {!singleTask.team.some((member) => member.id === userId) ? null : singleTask.issues
+                                      .length === 0 ? (
                                     <>
                                         <Button primary onClick={() => setOpenCreateIssue(true)}>
                                             Create Issue
@@ -120,18 +110,29 @@ function ViewTask({ setUndertakeTask, taskID }) {
                                         )}
                                     </>
                                 ) : (
-                                    <Issue
-                                        setIssueStatusDetail={setIssueStatusDetail}
-                                        setOpenIssueDetail={setOpenIssueDetail}
-                                        singleTask={singleTask}
-                                    />
+                                    <>
+                                        <Issue
+                                            setIssueStatusDetail={setIssueStatusDetail}
+                                            setOpenIssueDetail={setOpenIssueDetail}
+                                            singleTask={singleTask}
+                                        />
+
+                                        <Button primary onClick={() => setOpenFeedback(true)}>
+                                            Send Feedback
+                                        </Button>
+                                        {openFeedback ? (
+                                            <CreateFeedback taskID={taskID} setOpenFeedback={setOpenFeedback} />
+                                        ) : null}
+                                    </>
                                 )}
 
-                                <div className={cx('undertake-btn')}>
-                                    <Button primary onClick={handleUndertakeTask}>
-                                        Undertake
-                                    </Button>
-                                </div>
+                                {!singleTask.team.some((member) => member.id === userId) ? (
+                                    <div className={cx('undertake-btn')}>
+                                        <Button primary onClick={handleUndertakeTask}>
+                                            Undertake
+                                        </Button>
+                                    </div>
+                                ) : null}
                             </>
                         ) : (
                             <p>Loading task data...</p>
@@ -144,7 +145,6 @@ function ViewTask({ setUndertakeTask, taskID }) {
                         <IssuesDetail
                             taskID={taskID}
                             issueStatusDetail={issueStatusDetail}
-                            issue={issue}
                             setOpenIssueDetail={setOpenIssueDetail}
                         />
                     </div>

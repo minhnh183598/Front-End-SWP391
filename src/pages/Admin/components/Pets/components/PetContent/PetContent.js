@@ -31,7 +31,7 @@ function PetContent({ currentPet, setPetID, setViewPet }) {
                     </div>
                     <p className={cx('appli')}>#{pet.noa}</p>
                     <p className={cx('date')}>
-                        {pet.createPetAt ? new Date(pet.createPetAt).toLocaleDateString() : ''}
+                        {pet.createdPetAt ? new Date(pet.createdPetAt).toLocaleDateString() : ''}
                     </p>
                     <div className={cx('action')}>
                         <FontAwesomeIcon

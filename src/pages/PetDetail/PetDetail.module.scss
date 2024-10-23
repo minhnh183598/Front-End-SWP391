@@ -13,22 +13,23 @@
         position: absolute;
     }
 
-    .petDetail_adopt_btn {
-        margin-right: 10px;
-    }
-
     .petDetail_h2_wrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #7aa366;
-        height: 50px;
-        width: 100px;
-        border-radius: 20px;
-        margin-bottom: 20px;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        // background-color: #7aa366;
+        // height: 50px;
+        // width: 100px;
+        // border-radius: 20px;
+        // margin-bottom: 20px;
         h2 {
+            display: inline-block;
             color: white;
             margin: 0;
+            padding:0 8px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            background-color: var(--primary-color);
         }
     }
 

@@ -26,6 +26,7 @@ function ApplicationList() {
             const token = localStorage.getItem('token');
             const userId = localStorage.getItem('userId');
 
+<<<<<<< HEAD
             const response = await api.get(`applications/sorted-by-user/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -105,6 +106,9 @@ function ApplicationList() {
                 return ''; // Không có lớp cho trường hợp không xác định
         }
     };
+=======
+    const handleUserApplication = async () => {};
+>>>>>>> 4637a5593457a5f1de394e74b9f6912c23380c23
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
@@ -180,7 +184,6 @@ function ApplicationList() {
             <div className={cx('sort')}>
                 <label htmlFor="sort">Sort</label>
                 <select id="sort" name="sort" value={filter.sortBy} onChange={handleFilterChange}>
-                    <option value="all">All</option>
                     <option value="createdAt">Create Date</option>
                     <option value="finishAt">Finish Date</option>
                 </select>
@@ -195,8 +198,24 @@ function ApplicationList() {
                                 <h4>{appli.petName}</h4>
                             </div>
                             <div className={cx('appli-state')}>
+<<<<<<< HEAD
                                 <p className={cx(getStatusLabelClass(appli.status))}>{getStatusLabel(appli.status)}</p>
                                 <button className={cx('feedback')}>View Feedback</button>
+=======
+                                <p
+                                    className={cx(
+                                        'state',
+                                        appli.state === 'In Process'
+                                            ? 'inprocess'
+                                            : appli.state === 'Not Pass'
+                                            ? 'notpass'
+                                            : null,
+                                    )}
+                                >
+                                    {appli.state}
+                                </p>
+                                <button className={cx('feedback')}>View Application</button>
+>>>>>>> 4637a5593457a5f1de394e74b9f6912c23380c23
                             </div>
                         </div>
                         <p className={cx('appli-date')}>Create Date: {convertDate(appli.createAt)}</p>

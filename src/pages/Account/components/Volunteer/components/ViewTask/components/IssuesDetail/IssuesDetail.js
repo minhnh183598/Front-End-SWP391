@@ -7,7 +7,7 @@ import React from 'react';
 
 const cx = classNames.bind(styles);
 
-function IssuesDetail({ taskID, issue, setOpenIssueDetail, issueStatusDetail }) {
+function IssuesDetail({ taskID, setOpenIssueDetail, issueStatusDetail }) {
     const [issueDetailData, setIssueDetailData] = useState(null);
     const [singleIssueID, setSingleIssueID] = useState('');
     const [commentIssue, setCommentIssue] = useState([]);
@@ -17,7 +17,9 @@ function IssuesDetail({ taskID, issue, setOpenIssueDetail, issueStatusDetail }) 
         const token = localStorage.getItem('token');
         try {
             const response = await api.get(`issues/tasks/${taskID}/detail?status=${issueStatusDetail}&sort=Desc`, {
-                headers: `Bearer ${token}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
             console.log('issue new detail ', response.data.result);
             setIssueDetailData(response.data.result);
@@ -30,7 +32,9 @@ function IssuesDetail({ taskID, issue, setOpenIssueDetail, issueStatusDetail }) 
         const token = localStorage.getItem('token');
         try {
             const response = await api.get(`comments/issue/${singleIssueID}/task/${taskID}`, {
-                headers: `Bearer ${token}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
             console.log('Comments Issue Detail ', response.data.result);
             setCommentIssue(response.data.result);
@@ -48,6 +52,13 @@ function IssuesDetail({ taskID, issue, setOpenIssueDetail, issueStatusDetail }) 
         return color;
     };
 
+    const formatStatus = (status) => {
+        return status
+            .split('_')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+    };
+
     useEffect(() => {
         handleIssueStateDetail();
     }, []);
@@ -63,7 +74,7 @@ function IssuesDetail({ taskID, issue, setOpenIssueDetail, issueStatusDetail }) 
         <>
             <div className={cx('issue-detail')}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <p className={cx('issue-detail-state')}>{issueStatusDetail}</p>
+                    <p className={cx('issue-detail-state')}>{formatStatus(issueStatusDetail)}</p>
                     <p className={cx('close-issue-detail')} onClick={() => setOpenIssueDetail(false)}>
                         Close &times;
                     </p>

@@ -27,28 +27,17 @@ function Application() {
     const handleAppliDataCombined = async () => {
         const token = localStorage.getItem('token');
         try {
-            const inProcessResponse = await api.get(`applications`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            const successResponse = await api.get(`applications/status/1`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            const failResponse = await api.get(`applications/status/2`, {
+            const response = await api.get(`applications/status/all`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
 
-            const combinedData = [...successResponse.data, ...failResponse.data, ...inProcessResponse.data];
-            console.log('All appli: ', combinedData);
-            setDataLength(combinedData.length);
-            setTotalAppli(combinedData.length);
-            localStorage.setItem('totalAppli', combinedData.length);
-            setAppliList(combinedData);
+            console.log('All appli: ', response.data);
+            setDataLength(response.data.length);
+            setTotalAppli(response.data.length);
+            localStorage.setItem('totalAppli', response.data.length);
+            setAppliList(response.data);
         } catch (error) {
             console.log(error);
         }
@@ -116,6 +105,7 @@ function Application() {
     const indexOfLastAppli = currentPage * appliPerPage;
     const indexOfFirstAppli = indexOfLastAppli - appliPerPage;
     const currentAppli = appliList.slice(indexOfFirstAppli, indexOfLastAppli);
+
     return (
         <>
             <div className={cx('wrapper')}>

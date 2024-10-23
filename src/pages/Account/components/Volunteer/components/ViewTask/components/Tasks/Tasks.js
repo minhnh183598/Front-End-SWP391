@@ -32,6 +32,13 @@ function Tasks({ singleTask }) {
         return formattedDate;
     };
 
+    const formatStatus = (status) => {
+        return status
+            .split('_')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) 
+            .join(' ');
+    };
+
     return (
         <div className={cx('task-info')}>
             <div className={cx('task-title')}>
@@ -73,7 +80,7 @@ function Tasks({ singleTask }) {
                             <b>Status:</b>
                         </p>
                         <p className={cx('task-tag')}>
-                            {singleTask.status == 'NOT_STARTED' ? 'Not Start' : singleTask.status}
+                            {formatStatus(singleTask.status == 'NOT_STARTED' ? 'Not Start' : singleTask.status)}
                         </p>
                     </div>
                 </div>

@@ -236,7 +236,7 @@ function VolunteerTask() {
                                             <p className={cx('id')}>ID</p>
                                             <p className={cx('name')}>Name</p>
                                             <p className={cx('state')}>Status</p>
-                                            <p className={cx('date')}>Create Date</p>
+                                            <p className={cx('date')}>Due Date</p>
                                             <p className={cx('action')}>Action</p>
                                         </div>
 

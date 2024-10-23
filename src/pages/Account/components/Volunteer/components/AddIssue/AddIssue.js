@@ -8,7 +8,7 @@ import React from 'react';
 
 const cx = classNames.bind(styles);
 
-function AddIssue({ tagIssueData, taskID, setOpenCreateIssue }) {
+function AddIssue({tagIssueData, taskID, setOpenCreateIssue }) {
     const [formData, setFormData] = useState({
         title: '',
         description: '',
