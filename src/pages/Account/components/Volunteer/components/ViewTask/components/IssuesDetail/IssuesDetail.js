@@ -17,7 +17,9 @@ function IssuesDetail({ taskID, setOpenIssueDetail, issueStatusDetail }) {
         const token = localStorage.getItem('token');
         try {
             const response = await api.get(`issues/tasks/${taskID}/detail?status=${issueStatusDetail}&sort=Desc`, {
-                headers: `Bearer ${token}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
             console.log('issue new detail ', response.data.result);
             setIssueDetailData(response.data.result);
@@ -30,7 +32,9 @@ function IssuesDetail({ taskID, setOpenIssueDetail, issueStatusDetail }) {
         const token = localStorage.getItem('token');
         try {
             const response = await api.get(`comments/issue/${singleIssueID}/task/${taskID}`, {
-                headers: `Bearer ${token}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
             console.log('Comments Issue Detail ', response.data.result);
             setCommentIssue(response.data.result);
@@ -117,11 +121,7 @@ function IssuesDetail({ taskID, setOpenIssueDetail, issueStatusDetail }) {
                                 ))}
                             </div>
                             {openDetailAndComment ? (
-                                <Comment
-                                    taskID={taskID}
-                                    singleIssueID={singleIssueID}
-                                    commentIssue={commentIssue}
-                                />
+                                <Comment taskID={taskID} singleIssueID={singleIssueID} commentIssue={commentIssue} />
                             ) : null}
                         </div>
                     ))

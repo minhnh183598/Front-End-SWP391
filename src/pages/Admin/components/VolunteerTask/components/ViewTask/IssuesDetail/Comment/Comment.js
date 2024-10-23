@@ -28,7 +28,9 @@ function Comment({ id, commentIssue, singleIssueID }) {
                 `comments/issue/${singleIssueID}/task/${id}`,
                 { content: searchName },
                 {
-                    header: `Bearer ${token}`,
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 },
             );
 

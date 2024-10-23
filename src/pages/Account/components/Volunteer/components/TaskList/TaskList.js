@@ -24,7 +24,9 @@ function TaskList({ setUndertakeTask, setTaskID }) {
 
         try {
             const response = await api.get('tasks', {
-                header: `Bearer ${token}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
             console.log('task list: ', response.data.result);
             setTaskData(response.data.result);
@@ -38,7 +40,9 @@ function TaskList({ setUndertakeTask, setTaskID }) {
 
         try {
             const response = await api.get('tasks/team', {
-                header: `Bearer ${token}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
             console.log('task by team: ', response.data.result);
             setUndertookList(response.data.result);

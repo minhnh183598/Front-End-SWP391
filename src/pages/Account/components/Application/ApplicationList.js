@@ -173,7 +173,7 @@ function ApplicationList() {
                                 >
                                     {appli.state}
                                 </p>
-                                <button className={cx('feedback')}>View Feedback</button>
+                                <button className={cx('feedback')}>View Application</button>
                             </div>
                         </div>
                         <p className={cx('appli-date')}>Create Date: {appli.createDate}</p>

@@ -45,7 +45,7 @@ function Home() {
 
             {/*Feature Pet Content */}
             <FeaturePet homepage={true}>
-                <Button primary xlarge to="/find-a-pet" className={cx('link-btn')}>
+                <Button primary xlarge to="/find-a-pet" className={cx('link-btn')} mgTop20>
                     View All Adoptable Pets
                 </Button>
             </FeaturePet>

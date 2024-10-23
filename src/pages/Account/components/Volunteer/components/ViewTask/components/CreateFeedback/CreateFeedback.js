@@ -85,6 +85,22 @@ function CreateFeedback({ taskID, setOpenFeedback }) {
         }
     };
 
+    const handleChangeTaskStatusDone = async () => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await api.put(`tasks/${taskID}/status/DONE`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            console.log('update done', response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const handleCreateFeedback = async (e) => {
         e.preventDefault();
 
@@ -112,7 +128,9 @@ function CreateFeedback({ taskID, setOpenFeedback }) {
 
         try {
             const response = await api.post(`feedbacks/task/${taskID}`, updatedData, {
-                header: `Bearer ${token}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             console.log('send feedback', response.data);
@@ -120,20 +138,6 @@ function CreateFeedback({ taskID, setOpenFeedback }) {
             await handleChangeTaskStatusDone();
 
             setOpenFeedback(false);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const handleChangeTaskStatusDone = async () => {
-        const token = localStorage.getItem('token');
-
-        try {
-            const response = await api.put(`tasks/${taskID}/status/DONE`, {
-                header: `Bearer ${token}`,
-            });
-
-            console.log('update done', response.data);
         } catch (error) {
             console.error(error);
         }

@@ -17,7 +17,9 @@ function IssuesDetail({ id, issue, setOpenIssueDetail, issueStatusDetail }) {
         const token = localStorage.getItem('token');
         try {
             const response = await api.get(`issues/tasks/${id}/detail?status=${issueStatusDetail}&sort=Desc`, {
-                headers: `Bearer ${token}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
             console.log('issue new detail ', response.data.result);
             setIssueDetailData(response.data.result);
@@ -30,7 +32,9 @@ function IssuesDetail({ id, issue, setOpenIssueDetail, issueStatusDetail }) {
         const token = localStorage.getItem('token');
         try {
             const response = await api.get(`comments/issue/${singleIssueID}/task/${id}`, {
-                headers: `Bearer ${token}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
             console.log('Comments Issue Detail ', response.data.result);
             setCommentIssue(response.data.result);
@@ -51,7 +55,7 @@ function IssuesDetail({ id, issue, setOpenIssueDetail, issueStatusDetail }) {
     const formatStatus = (status) => {
         return status
             .split('_')
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) 
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
             .join(' ');
     };
 

@@ -107,7 +107,7 @@ function FeaturePet({ children, homepage, title }) {
                                             outline
                                             small
                                             to={`/pet-detail/${pet.petId}`}
-                                            className={cx('btn')}
+                                            // className={cx('btn')}
                                         >
                                             Detail
                                         </Button>
@@ -116,7 +116,7 @@ function FeaturePet({ children, homepage, title }) {
                                             small
                                             to={`/adopt-application/${pet.petId}`}
                                             className={cx(
-                                                'btn',
+                                                // 'btn',
                                                 pet.petStatus === 'Adopted' ? 'unavailable-state' : null,
                                             )}
                                         >

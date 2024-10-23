@@ -156,7 +156,7 @@ function PetDetail() {
                                 ) : (
                                     <>
                                         <div className={styles.petDetail_adopt_btn}>
-                                            <Button to={`/adopt-application/${pet.petId}`} medium primary>
+                                            <Button to={`/adopt-application/${pet.petId}`} mgRight10 medium primary>
                                                 Adopt
                                             </Button>
                                         </div>
