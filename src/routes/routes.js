@@ -18,6 +18,7 @@ import Account from '~/pages/Account';
 import Adopt from '~/pages/Adopt/Adopt';
 import ShowAllApplication from '~/pages/Application/ApplicationComponents/ShowAllApplication/ShowAllApplication';
 import ShowAllPetAdopted from '~/pages/ShowAllPetAdopted/ShowAllPetAdopted';
+import ShowAllPetDetail from '~/pages/ShowAllPetAdopted/ShowAllPetAdopted/ShowAllPetDetail';
 
 const publicRoutes = [
     {
@@ -27,6 +28,10 @@ const publicRoutes = [
     {
         path: '/my-application',
         component: ShowAllApplication,
+    },
+    {
+        path: '/my-pet-detail/:id',
+        component: ShowAllPetDetail,
     },
     {
         path: '/my-pet',
@@ -78,6 +83,10 @@ const publicRoutes = [
     },
     {
         path: '/donate',
+        component: Donate,
+    },
+    {
+        path: '/donate/:id',
         component: Donate,
     },
     {

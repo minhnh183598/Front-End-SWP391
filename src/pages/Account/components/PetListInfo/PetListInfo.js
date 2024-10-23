@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import styles from './ApplicationList.module.scss';
+import styles from './PetListInfo.module.scss';
 import PetImages from '~/assets/images/petImg';
 import { Pagination } from 'antd';
 import { useEffect, useState } from 'react';
@@ -9,10 +9,11 @@ import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 
 const cx = classNames.bind(styles);
 
-function ApplicationList() {
+function PetListInfo() {
     const [currentPage, setCurrentPage] = useState(1);
-    const [appliList, setAppliList] = useState([]);
     const [petList, setPet] = useState([]);
+    const [appliList, setAppliList] = useState([]);
+    const [adoptedPet, setAdoptedPet] = useState([]);
     const [activeSort, setActiveSort] = useState('ALL');
     const [filter, setFilter] = useState({
         state: 'ALL',
@@ -31,8 +32,8 @@ function ApplicationList() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
-            setAppliList(response.data); // Lưu dữ liệu vào state
+            const filterApplication = response.data.filter((app) => app.status === 3);
+            setAppliList(filterApplication); // Lưu dữ liệu vào state
         } catch (error) {
             console.error('Lỗi khi kiểm tra trạng thái:', error);
         }
@@ -57,54 +58,12 @@ function ApplicationList() {
     };
     console.log('Day la pet List', petList);
 
-    const convertDate = (isoDateString) => {
-        const date = new Date(isoDateString); // Tạo đối tượng Date từ chuỗi ISO
-        const day = String(date.getDate()).padStart(2, '0'); // Lấy ngày và đảm bảo có 2 chữ số
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Lấy tháng (tháng bắt đầu từ 0) và đảm bảo có 2 chữ số
-        const year = date.getFullYear(); // Lấy năm
-
-        return `${day}/${month}/${year}`; // Trả về định dạng ngày/tháng/năm
+    const filterPetByApplication = () => {
+        const applicationPetIds = appliList.map((app) => app.petId);
+        const filtered = petList.filter((pet) => applicationPetIds.includes(pet.petId));
+        setAdoptedPet(filtered);
     };
-
-    const combinedData = appliList.map((app) => {
-        const pet = petList.find((p) => p.petId === app.petId); // Giả sử ứng dụng có thuộc tính petId
-        return {
-            ...app,
-            petName: pet ? pet.petName : 'Chưa có tên', // Nếu không tìm thấy, hiển thị giá trị mặc định
-        };
-    });
-
-    console.log(combinedData);
-
-    const getStatusLabel = (status) => {
-        switch (status) {
-            case 0:
-                return 'Waiting';
-            case 1:
-            case 3:
-                return 'Approved';
-            case 2:
-            case 4:
-                return 'Denied';
-            default:
-                return 'Unknown'; // Trường hợp không xác định
-        }
-    };
-
-    const getStatusLabelClass = (status) => {
-        switch (status) {
-            case 0:
-                return 'waiting'; // Trạng thái Waiting
-            case 1:
-            case 3:
-                return 'approved'; // Trạng thái Approved
-            case 2:
-            case 4:
-                return 'denied'; // Trạng thái Denied
-            default:
-                return ''; // Không có lớp cho trường hợp không xác định
-        }
-    };
+    console.log('day la adopted pet: ', adoptedPet);
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
@@ -119,16 +78,20 @@ function ApplicationList() {
     };
 
     useEffect(() => {
-        getApplication(); // Gọi hàm để lấy dữ liệu khi component được mount
+        getApplication();
         getPet();
-    }, []); // Chỉ chạy 1 lần khi component được mount
+    }, []);
+
+    useEffect(() => {
+        filterPetByApplication(); // Lọc pet sau khi cả application và pet đã được lấy
+    }, [appliList, petList]);
 
     // console.log('Day la pet color: ', combinedData.petAge);
 
     const appliPerPage = 6;
     const indexOfLastPet = currentPage * appliPerPage;
     const indexOfFirstPet = indexOfLastPet - appliPerPage;
-    const appliPage = combinedData.slice(indexOfFirstPet, indexOfLastPet);
+    const appliPage = adoptedPet.slice(indexOfFirstPet, indexOfLastPet);
     return (
         <div className={cx('wrapper')}>
             <ScrollToTop />
@@ -190,17 +153,14 @@ function ApplicationList() {
                 {appliPage.map((appli) => (
                     <div className={cx('application-item')}>
                         <div className={cx('pet-info')}>
-                            <img src={appli.pet.petImage} />
+                            <img src={appli.petImage} />
                             <div className={cx('detail-info')}>
                                 <h4>{appli.petName}</h4>
                             </div>
                             <div className={cx('appli-state')}>
-                                <p className={cx(getStatusLabelClass(appli.status))}>{getStatusLabel(appli.status)}</p>
-                                <button className={cx('feedback')}>View Feedback</button>
+                                <a href={`/my-pet-detail/${appli.petId}`}>View Details</a>
                             </div>
                         </div>
-                        <p className={cx('appli-date')}>Create Date: {convertDate(appli.createAt)}</p>
-                        {/* <p className={cx('appli-date')}>Finish Date: {appli.finishDate}</p> */}
                     </div>
                 ))}
 
@@ -219,4 +179,4 @@ function ApplicationList() {
     );
 }
 
-export default ApplicationList;
+export default PetListInfo;

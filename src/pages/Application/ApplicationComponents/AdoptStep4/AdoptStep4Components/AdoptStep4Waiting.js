@@ -9,7 +9,7 @@ const AdoptStep4Waiting = ({ setStep }) => {
     useEffect(() => {
         const interval = setInterval(() => {
             checkApprovalStatus();
-        }, 5000); // Kiểm tra mỗi 5 giây
+        }, 1000); // Kiểm tra mỗi 5 giây
 
         return () => clearInterval(interval); // Dọn dẹp khi component unmount
     }, []);

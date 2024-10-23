@@ -7,12 +7,11 @@ import Button from '~/components/Button';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 
 const AdoptStep5 = ({ id, setStep }) => {
-    const [user, setUser] = useState();
-    const [userRoles, setUserRoles] = useState('');
     const [pet, setPet] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
+    // Hàm để lấy dữ liệu thú cưng
     const handlePetData = async () => {
         try {
             setLoading(true);
@@ -29,6 +28,28 @@ const AdoptStep5 = ({ id, setStep }) => {
             setLoading(false); // Hoàn tất quá trình tải
         }
     };
+
+    // Hàm để cập nhật trạng thái thú cưng
+    const updatePetStatus = async () => {
+        if (!pet) return; // Nếu không có dữ liệu thú cưng, không làm gì cả
+
+        try {
+            setLoading(true);
+            const updatedPet = { ...pet, petStatus: 'adopted' }; // Cập nhật trạng thái thú cưng
+            await api.put(`pets/${id}`, updatedPet, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
+            console.log('Trạng thái thú cưng đã được cập nhật thành công!');
+            setStep((prevStep) => prevStep + 1); // Chuyển sang bước tiếp theo
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         handlePetData();
     }, []);
@@ -37,6 +58,11 @@ const AdoptStep5 = ({ id, setStep }) => {
 
     const handleFindPet = () => {
         navigate('/find-a-pet');
+    };
+
+    const handleAdoptPet = async () => {
+        await updatePetStatus(); // Cập nhật trạng thái thú cưng
+        navigate('/find-a-pet'); // Điều hướng đến trang tìm thú cưng
     };
 
     return (
@@ -112,14 +138,8 @@ const AdoptStep5 = ({ id, setStep }) => {
                             </p>
                         </div>
                         <div className="AdoptStep5-button">
-                            <Button
-                                className="great"
-                                onClick={() => {
-                                    setStep((prevStep) => prevStep - 5);
-                                    handleFindPet();
-                                }}
-                            >
-                                Great !
+                            <Button className="great" onClick={handleAdoptPet}>
+                                Adopt Pet
                             </Button>
                         </div>
                     </div>
