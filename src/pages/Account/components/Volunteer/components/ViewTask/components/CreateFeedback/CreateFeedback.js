@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './CreateFeedback.module.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '~/config/axios';
 import { Image, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -134,9 +134,6 @@ function CreateFeedback({ taskID, setOpenFeedback }) {
             });
 
             console.log('send feedback', response.data);
-
-            await handleChangeTaskStatusDone();
-
             setOpenFeedback(false);
         } catch (error) {
             console.error(error);

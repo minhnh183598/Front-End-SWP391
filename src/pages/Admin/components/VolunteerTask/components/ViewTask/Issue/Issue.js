@@ -7,7 +7,7 @@ import { useState } from 'react';
 const cx = classNames.bind(styles);
 
 function Issue({ setOpenIssueDetail, task, setIssueStatusDetail }) {
-    console.log(task.issues);
+    console.log('task isssue ne',task.issues);
     return (
         <div className={cx('wrapper')}>
             <p className={cx('title')}>
@@ -28,7 +28,7 @@ function Issue({ setOpenIssueDetail, task, setIssueStatusDetail }) {
                                     <div key={index} className={cx('issue-box-info')}>
                                         <p>Due Date: {issue.dueDate}</p>
                                         <p>Title: {issue.title}</p>
-                                        <p>Priority: {issue.priority}</p>
+                                        {/* <p>Priority: {issue.priority}</p> */}
                                     </div>
                                     <div className={cx('more')}>
                                         <p

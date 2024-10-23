@@ -15,7 +15,7 @@ const cx = classNames.bind(styles);
 
 function ViewTask({ setUndertakeTask, taskID }) {
     const [singleTask, setSingleTask] = useState(null);
-    const [issue, setIssue] = useState([]);
+    //const [issue, setIssue] = useState([]);
     const [openCreateIssue, setOpenCreateIssue] = useState(false);
     const [openIssueDetail, setOpenIssueDetail] = useState(false);
     const [issueStatusDetail, setIssueStatusDetail] = useState('');
@@ -44,14 +44,14 @@ function ViewTask({ setUndertakeTask, taskID }) {
             console.log('tag issue', tagIssue.data.result);
             setTagIssueData(tagIssue.data.result);
 
-            const taskIssue = await api.get(`issues/tasks/${taskID}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            // const taskIssue = await api.get(`issues/tasks/${taskID}`, {
+            //     headers: {
+            //         Authorization: `Bearer ${token}`,
+            //     },
+            // });
 
-            console.log('issue: ', taskIssue.data.result);
-            setIssue(taskIssue.data.result);
+            // console.log('issue: ', taskIssue.data.result);
+            // setIssue(taskIssue.data.result);
         } catch (error) {
             console.error(error);
         }

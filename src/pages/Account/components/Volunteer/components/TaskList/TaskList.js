@@ -134,7 +134,6 @@ function TaskList({ setUndertakeTask, setTaskID }) {
             <div className={cx('sort')}>
                 <label htmlFor="sort">Sort</label>
                 <select id="sort" name="sort" value={filter.sortBy} onChange={handleFilterChange}>
-                    <option value="all">All</option>
                     <option value="createdAt">Create Date</option>
                     <option value="finishAt">Finish Date</option>
                 </select>

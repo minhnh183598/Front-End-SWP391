@@ -27,7 +27,7 @@ function Issue({ setOpenIssueDetail, singleTask, setIssueStatusDetail }) {
                                     <div key={issue.id} className={cx('issue-box-info')}>
                                         <p>Due Date: {issue.dueDate}</p>
                                         <p>Title: {issue.title}</p>
-                                        <p>Priority: {issue.priority}</p>
+                                        {/* <p>Priority: {issue.priority}</p> */}
                                     </div>
                                     <div className={cx('more')}>
                                         <p
