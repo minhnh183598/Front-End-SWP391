@@ -7,8 +7,6 @@ import Button from '~/components/Button';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 
 const AdoptStep1 = ({ id, setStep }) => {
-    const [user, setUser] = useState();
-    const [userRoles, setUserRoles] = useState('');
     const [pet, setPet] = useState(null);
     const [loading, setLoading] = useState(true);
 

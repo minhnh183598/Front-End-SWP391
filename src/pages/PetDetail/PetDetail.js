@@ -162,7 +162,7 @@ function PetDetail() {
                                         </div>
 
                                         <div className="petDetail_donate_btn">
-                                            <Button to={'/donate'} medium outline>
+                                            <Button to={`/donate/${pet.petId}`} medium outline>
                                                 Donate
                                             </Button>
                                         </div>

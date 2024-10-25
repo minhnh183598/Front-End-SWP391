@@ -9,14 +9,23 @@ const VolunteerIntroduce = ({ onButtonClick }) => {
     const targetRef_2 = useRef(null);
     const targetRef_3 = useRef(null);
 
-    // const handleRemoveItem = () => {
-    //     localStorage.removeItem('adoptionStep_a01812d4-d17e-447a-99ab-6ec398c57f13');
-    //     localStorage.removeItem('adoptionStep_f00ffe17-c460-466b-a248-c07eafc240ef');
-    //     localStorage.removeItem('adoptionStep_fb6bf6fb-8dd0-4540-ac38-eaed96f21588');
-    //     localStorage.removeItem('adoptionStep_fd12bd6d-ef2f-403b-a893-b4a6ced46c92');
-    //     localStorage.removeItem('adoptionStep}');
-    //     console.log('application_id removed');
-    // };
+    const handleRemoveItem = () => {
+        const keysToDelete = [
+            'adoptionStep_2a773d0a-3b71-4e8f-a4cf-4c714c5fed01',
+            'adoptionStep_2b9335f7-6b79-44cf-9028-9d84b0605036',
+            'adoptionStep_59e32047-7ebf-44ed-8d2b-18bd1e165ba7',
+            'adoptionStep_5df9e535-a8ba-4bdd-886e-b42ca6afd768',
+            'adoptionStep_8d141d1f-8466-4d0c-a6f1-a165e730dcc2',
+            'adoptionStep_9d229ff3-770f-4b78-87b6-4fbdce79f425',
+            'adoptionStep_a01812d4-d17e-447a-99ab-6ec398c57f13',
+        ];
+
+        keysToDelete.forEach((key) => {
+            localStorage.removeItem(key);
+            console.log(`Item with key "${key}" has been removed from local storage.`);
+        });
+        console.log('application_id removed');
+    };
 
     return (
         <div className="adoptIntro">

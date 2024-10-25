@@ -104,7 +104,7 @@ const ShowAllPetAdopted = () => {
                                         <p>{pet.petColor}</p>
                                     </div>
                                     <div className="petInfo_action">
-                                        <a href="">View Details</a>
+                                        <a href={`/my-pet-detail/${pet.petId}`}>View Details</a>
                                     </div>
                                 </div>
                             </div>

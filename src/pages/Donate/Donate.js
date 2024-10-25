@@ -6,14 +6,15 @@ import Form from 'react-bootstrap/Form';
 import { DefaultLayout } from '~/components/Layout';
 import axios from 'axios';
 import api from '~/config/axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const Donate = () => {
     const navigate = useNavigate();
     const [selectedAmount, setSelectedAmount] = useState(''); // Biến trạng thái này lưu giá trị số tiền quy định mà người dùng chọn
     const [customAmount, setCustomAmount] = useState(''); // Biến trạng thái này lưu giá trị số tiền mà người dùng tự nhập vào khi không chọn số tiền có sẵn.
     const amounts = [50000, 100000, 500000, 1000000]; // Các số tiền quy định sẵn
-
+    const { id } = useParams();
+    console.log('Day la id: ', id);
     // functions step 1
     // Hàm này xử lý giá tiền chọn của 4 nút bước 1
     const handleAmountSelect = (amount) => {
@@ -31,13 +32,17 @@ export const Donate = () => {
     console.log(customAmount);
     // Function của các thể loại nút
     const handleSubmit = async () => {
+        if (!id && !selectedAmount) {
+            alert('Vui lòng chọn hoặc nhập số tiền hợp lệ và xác định Pet ID.');
+            return;
+        }
         try {
             const token = localStorage.getItem('token');
             const callbackUrl = `${window.location.origin}/payment/vn-pay/callback`;
             // console.log(token);
             try {
                 const response = await api.get(
-                    `payment/vn-pay?amount=${selectedAmount}&bankCode=NCB&returnUrl=http://localhost:3000/thanks`,
+                    `payment/vn-pay?petId=${id}&amount=${selectedAmount}&bankCode=NCB&returnUrl=http://localhost:3000/thanks`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
