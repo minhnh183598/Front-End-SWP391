@@ -37,8 +37,8 @@ function AppliContent({ currentAppli, setAppliID, setViewAppli }) {
                             {String(appli.status) === '0'
                                 ? 'In Process'
                                 : String(appli.status) === '1'
-                                ? 'Success'
-                                : 'Fail'}
+                                ? 'Pass'
+                                : 'Not Pass'}
                         </p>
                     </div>
                     <p className={cx('date')}>

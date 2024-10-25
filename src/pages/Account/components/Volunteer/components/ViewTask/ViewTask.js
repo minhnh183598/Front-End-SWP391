@@ -57,6 +57,23 @@ function ViewTask({ setUndertakeTask, taskID }) {
         }
     };
 
+    // const handleAddUserToIssue = async () => {
+    //     const token = localStorage.getItem('token');
+    //     const userId = localStorage.getItem('userId');
+
+    //     try {
+    //         const response = await api.put(`issues/${issueDetailData.map(is => return is.id)}/task/${taskID}/user?userId=${userId}`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+
+    //         console.log('add user to issue: ', response.data);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
     const handleUndertakeTask = async () => {
         const token = localStorage.getItem('token');
 
@@ -74,7 +91,29 @@ function ViewTask({ setUndertakeTask, taskID }) {
         }
     };
 
+    const handleUpdateStatusDone = async () => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await api.put(`tasks/${taskID}/status/DONE`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    // useEffect(() => {
+    //     if (singleTask.feedbacks !== null) {
+    //         handleUpdateStatusDone();
+    //     }
+    // }, [openFeedback]);
+
     useEffect(() => {
+        //handleAddUserToIssue();
         handleSingTaskData();
     }, [isUndertake, openCreateIssue]);
 

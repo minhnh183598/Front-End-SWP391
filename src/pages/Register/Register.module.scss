@@ -22,93 +22,90 @@
         .wrapper {
             width: 380px;
             background-color: white;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             overflow: hidden;
 
-
-            img{
+            img {
                 width: 80px;
-                margin: 20px 0 ;
+                margin: 20px 0;
             }
 
-            .form{
+            .form {
                 width: 300px;
 
-                .form-item{
-
+                .form-item {
                     .input {
-                        border-color: var(--primary-color); 
-    
+                        border-color: var(--primary-color);
+
                         &:focus {
-                            box-shadow: 0 0 3px var(--primary-color); 
+                            box-shadow: 0 0 3px var(--primary-color);
                         }
-    
-                        &::placeholder{
+
+                        &::placeholder {
                             color: rgb(18, 89, 0);
                         }
                     }
                 }
 
-                .mgbt{
+                .mgbt {
                     margin-bottom: 35px;
                 }
 
-                .regis-msg{
+                .regis-msg {
                     color: var(--primary-color);
                     font-style: italic;
                     display: block;
                     text-align: center;
                     margin-bottom: 5px;
                 }
-                .red-text{
+                .red-text {
                     color: red;
                 }
             }
 
-            .form-otp{
+            .form-otp {
                 width: 200px;
 
-                p{
+                p {
                     color: var(--primary-color);
                 }
 
-                .form-item{
-
+                .form-item {
                     .input {
-                        border-color: var(--primary-color); 
-    
+                        border-color: var(--primary-color);
+
                         &:focus {
-                            box-shadow: 0 0 3px var(--primary-color); 
+                            box-shadow: 0 0 3px var(--primary-color);
                         }
-    
-                        &::placeholder{
+
+                        &::placeholder {
                             color: rgb(18, 89, 0);
                         }
                     }
                 }
 
-                .send-again{
+                .send-again {
                     margin-top: -20px;
                     font-size: 12px;
                     color: black;
                     cursor: pointer;
                 }
-                .regis-msg{
+                .regis-msg {
                     color: var(--primary-color);
                     font-style: italic;
                     display: block;
                     text-align: center;
                     margin-bottom: 5px;
                 }
-                .red-text{
+                .red-text {
                     color: red;
                 }
 
-                .wrap-btn{
+                .wrap-btn {
                     display: flex;
                     margin-bottom: 20px;
                 }

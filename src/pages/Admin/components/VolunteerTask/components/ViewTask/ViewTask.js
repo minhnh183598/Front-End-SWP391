@@ -10,6 +10,7 @@ import AddIssue from '../AddIssue/AddIssue';
 import IssuesDetail from './IssuesDetail/IssuesDetail';
 import Adopter from './Adopter/Adopter.js';
 import Issue from './Issue/Issue';
+import HomeCheck from './HomeCheck/HomeCheck';
 
 const cx = classNames.bind(styles);
 
@@ -57,7 +58,7 @@ function ViewTask({ id, setViewUser, tagIssueData, setAddAll }) {
     useEffect(() => {
         handleTaskData();
         handleTaskIssue();
-    }, []);
+    }, [openCreateIssue]);
 
     if (!task) {
         return <div>Loading...</div>;
@@ -90,9 +91,11 @@ function ViewTask({ id, setViewUser, tagIssueData, setAddAll }) {
                     <div className={cx('container-info')}>
                         <Tasks task={task} />
 
-                        {task.adopter !== null ? <Adopter /> : null}
+                        {/* {task.adopter !== null ? <Adopter /> : null}
 
-                        {task.issues.length == 0 ? (
+                        <HomeCheck/> */}
+
+                        {/* {task.issues.length == 0 ? (
                             <>
                                 <Button primary onClick={() => setOpenCreateIssue(true)}>
                                     Create Issue
@@ -106,26 +109,24 @@ function ViewTask({ id, setViewUser, tagIssueData, setAddAll }) {
                                 )}
                             </>
                         ) : (
-
                             <Issue
                                 setIssueStatusDetail={setIssueStatusDetail}
                                 setOpenIssueDetail={setOpenIssueDetail}
                                 task={task}
                             />
-                        )}
+                        )} */}
                     </div>
                 </div>
 
-                {openIssueDetail ? (
+                {/* {openIssueDetail ? (
                     <div className={cx('container-right')}>
                         <IssuesDetail
                             id={id}
                             issueStatusDetail={issueStatusDetail}
-                            issue={issue}
                             setOpenIssueDetail={setOpenIssueDetail}
                         />
                     </div>
-                ) : null}
+                ) : null} */}
             </div>
 
             {update && (

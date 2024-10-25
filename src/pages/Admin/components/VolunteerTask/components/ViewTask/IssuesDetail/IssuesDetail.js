@@ -6,11 +6,10 @@ import Comment from './Comment/Comment';
 
 const cx = classNames.bind(styles);
 
-function IssuesDetail({ id, issue, setOpenIssueDetail, issueStatusDetail }) {
+function IssuesDetail({ id, setOpenIssueDetail, issueStatusDetail }) {
     const [issueDetailData, setIssueDetailData] = useState(null);
     const [singleIssueID, setSingleIssueID] = useState('');
     const [commentIssue, setCommentIssue] = useState([]);
-    const [moreSingleIssue, setMoreSingleIssue] = useState(null);
     const [openDetailAndComment, setOpenDetailAndComment] = useState(false);
 
     const handleIssueStateDetail = async () => {
@@ -83,8 +82,8 @@ function IssuesDetail({ id, issue, setOpenIssueDetail, issueStatusDetail }) {
                 {issueDetailData ? (
                     issueDetailData.map((issue) => (
                         <div
-                            key={issue.id}
                             className={cx('issue-state-info')}
+                            key={issue.id}
                             onClick={() => {
                                 console.log(issue.id);
                                 setSingleIssueID(issue.id);
@@ -120,7 +119,7 @@ function IssuesDetail({ id, issue, setOpenIssueDetail, issueStatusDetail }) {
                                     </p>
                                 ))}
                             </div>
-
+                            
                             {openDetailAndComment ? (
                                 <Comment id={id} singleIssueID={singleIssueID} commentIssue={commentIssue} />
                             ) : null}

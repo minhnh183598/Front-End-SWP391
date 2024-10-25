@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import AddTag from './components/AddTag/AddTag';
 import AddIssue from './components/AddIssue/AddIssue';
+import AddTemplate from './components/AddTemplate/AddTemplate';
 
 const cx = classNames.bind(styles);
 
@@ -44,6 +45,13 @@ function VolunteerTask() {
             label: (
                 <Button width100 primary mgRight10 onClick={() => setAddAll('add-task')}>
                     Create Task
+                </Button>
+            ),
+        },
+        {
+            label: (
+                <Button width100 primary mgRight10 onClick={() => setAddAll('add-template')}>
+                    Create Template
                 </Button>
             ),
         },
@@ -281,6 +289,8 @@ function VolunteerTask() {
                 <AddTask tagTaskData={tagTaskData} setAddAll={setAddAll} />
             ) : addAll == 'add-tag' ? (
                 <AddTag setAddAll={setAddAll} />
+            ) : addAll == 'add-template' ? (
+                <AddTemplate setAddAll={setAddAll} />
             ) : null}
         </>
     );

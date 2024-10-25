@@ -7,7 +7,7 @@ import React from 'react';
 
 const cx = classNames.bind(styles);
 
-function IssuesDetail({ taskID, setOpenIssueDetail, issueStatusDetail }) {
+function IssuesDetail({ taskID, setOpenIssueDetail, issueStatusDetail}) {
     const [issueDetailData, setIssueDetailData] = useState(null);
     const [singleIssueID, setSingleIssueID] = useState('');
     const [commentIssue, setCommentIssue] = useState([]);
