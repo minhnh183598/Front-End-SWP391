@@ -3,11 +3,10 @@ import styles from './IssuesDetail.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import Comment from './Comment/Comment';
-import React from 'react';
 
 const cx = classNames.bind(styles);
 
-function IssuesDetail({ taskID, setOpenIssueDetail, issueStatusDetail}) {
+function IssuesDetail({ id, setOpenIssueDetail, issueStatusDetail }) {
     const [issueDetailData, setIssueDetailData] = useState(null);
     const [singleIssueID, setSingleIssueID] = useState('');
     const [commentIssue, setCommentIssue] = useState([]);
@@ -16,7 +15,7 @@ function IssuesDetail({ taskID, setOpenIssueDetail, issueStatusDetail}) {
     const handleIssueStateDetail = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await api.get(`issues/tasks/${taskID}/detail?status=${issueStatusDetail}&sort=Desc`, {
+            const response = await api.get(`issues/tasks/${id}/detail?status=${issueStatusDetail}&sort=Desc`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -31,7 +30,7 @@ function IssuesDetail({ taskID, setOpenIssueDetail, issueStatusDetail}) {
     const handleCommentInIssue = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await api.get(`comments/issue/${singleIssueID}/task/${taskID}`, {
+            const response = await api.get(`comments/issue/${singleIssueID}/task/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -120,8 +119,9 @@ function IssuesDetail({ taskID, setOpenIssueDetail, issueStatusDetail}) {
                                     </p>
                                 ))}
                             </div>
+                            
                             {openDetailAndComment ? (
-                                <Comment taskID={taskID} singleIssueID={singleIssueID} commentIssue={commentIssue} />
+                                <Comment id={id} singleIssueID={singleIssueID} commentIssue={commentIssue} />
                             ) : null}
                         </div>
                     ))

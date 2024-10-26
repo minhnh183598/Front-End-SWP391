@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './HomeCheck.module.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '~/config/axios';
 import { Image, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -11,7 +11,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function HomeCheck({ taskID }) {
+function HomeCheck({ taskID, task, setIsSendHomeCheck }) {
     const [starHover, setStarHover] = useState({});
     const [openHomeCheck, setOpenHomeCheck] = useState(false);
     const [formData, setFormData] = useState({
@@ -96,6 +96,22 @@ function HomeCheck({ taskID }) {
         }));
     };
 
+    const handleUpdateTaskStatusUndertake = async () => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await api.put(`tasks/${taskID}/status/DONE`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            console.log('update after undertake', response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleCreateFeedback = async (e) => {
         e.preventDefault();
 
@@ -128,10 +144,22 @@ function HomeCheck({ taskID }) {
                 },
             });
             console.log('send homecheck', response.data);
+            setOpenHomeCheck(false);
+            setIsSendHomeCheck(true);
         } catch (error) {
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        const updateTaskStatus = async () => {
+            if (task.feedbacks.length > 0) {
+                await handleUpdateTaskStatusUndertake();
+            }
+        };
+
+        updateTaskStatus();
+    }, [openHomeCheck]);
 
     const formatLabel = (string) => {
         return string.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
@@ -141,7 +169,6 @@ function HomeCheck({ taskID }) {
         <>
             {!openHomeCheck ? (
                 <Button
-                    mgBottom20
                     primary
                     onClick={(e) => {
                         e.preventDefault();
@@ -251,7 +278,14 @@ function HomeCheck({ taskID }) {
                             <Button mgRight10 primary medium type="submit">
                                 Submit
                             </Button>
-                            <Button outline medium>
+                            <Button
+                                outline
+                                medium
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setOpenHomeCheck(false);
+                                }}
+                            >
                                 Cancel
                             </Button>
                         </div>

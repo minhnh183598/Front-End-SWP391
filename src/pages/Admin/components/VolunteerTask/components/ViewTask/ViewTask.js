@@ -14,14 +14,12 @@ import HomeCheck from './HomeCheck/HomeCheck';
 
 const cx = classNames.bind(styles);
 
-function ViewTask({ id, setViewUser, tagIssueData, setAddAll }) {
+function ViewTask({ id, setViewUser }) {
     const [task, setTask] = useState(null);
-    const [issue, setIssue] = useState([]);
     const [update, setUpdate] = useState(false);
     const [formData, setFormData] = useState({});
-    const [openCreateIssue, setOpenCreateIssue] = useState(false);
-    const [openIssueDetail, setOpenIssueDetail] = useState(false);
-    const [issueStatusDetail, setIssueStatusDetail] = useState('');
+    // const [openCreateIssue, setOpenCreateIssue] = useState(false);
+    const [isUndertake, setIsUndertake] = useState(false);
 
     const handleTaskData = async () => {
         const token = localStorage.getItem('token');
@@ -39,26 +37,26 @@ function ViewTask({ id, setViewUser, tagIssueData, setAddAll }) {
         }
     };
 
-    const handleTaskIssue = async () => {
-        const token = localStorage.getItem('token');
-        try {
-            const response = await api.get(`issues/tasks/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+    // const handleTaskIssue = async () => {
+    //     const token = localStorage.getItem('token');
+    //     try {
+    //         const response = await api.get(`issues/tasks/${id}`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
 
-            console.log('issue: ', response.data.result);
-            setIssue(response.data.result);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    //         console.log('issue: ', response.data.result);
+    //         setIssue(response.data.result);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     useEffect(() => {
         handleTaskData();
-        handleTaskIssue();
-    }, [openCreateIssue]);
+        // handleTaskIssue();
+    }, [isUndertake]);
 
     if (!task) {
         return <div>Loading...</div>;
@@ -89,13 +87,46 @@ function ViewTask({ id, setViewUser, tagIssueData, setAddAll }) {
             <div className={cx('wrapper-bottom')}>
                 <div className={cx('container-left')}>
                     <div className={cx('container-info')}>
-                        <Tasks task={task} />
+                        <Tasks id={id} task={task} setIsUndertake={setIsUndertake} />
+                    </div>
+                </div>
+            </div>
 
-                        {/* {task.adopter !== null ? <Adopter /> : null}
+            {update && (
+                <Update
+                    setUpdate={setUpdate}
+                    formData={formData}
+                    setFormData={setFormData}
+                    closeUpdate={closeUpdate}
+                    handleTaskData={handleTaskData}
+                    id={id}
+                />
+            )}
+        </div>
+    );
+}
 
-                        <HomeCheck/> */}
+export default ViewTask;
+{
+    /* {openIssueDetail ? (
+                    <div className={cx('container-right')}>
+                        <IssuesDetail
+                            id={id}
+                            issueStatusDetail={issueStatusDetail}
+                            setOpenIssueDetail={setOpenIssueDetail}
+                        />
+                    </div>
+                ) : null} */
+}
 
-                        {/* {task.issues.length == 0 ? (
+{
+    /* {task.adopter !== null ? <Adopter /> : null}
+
+                        <HomeCheck/> */
+}
+
+{
+    /* {task.issues.length == 0 ? (
                             <>
                                 <Button primary onClick={() => setOpenCreateIssue(true)}>
                                     Create Issue
@@ -114,33 +145,5 @@ function ViewTask({ id, setViewUser, tagIssueData, setAddAll }) {
                                 setOpenIssueDetail={setOpenIssueDetail}
                                 task={task}
                             />
-                        )} */}
-                    </div>
-                </div>
-
-                {/* {openIssueDetail ? (
-                    <div className={cx('container-right')}>
-                        <IssuesDetail
-                            id={id}
-                            issueStatusDetail={issueStatusDetail}
-                            setOpenIssueDetail={setOpenIssueDetail}
-                        />
-                    </div>
-                ) : null} */}
-            </div>
-
-            {update && (
-                <Update
-                    setUpdate={setUpdate}
-                    formData={formData}
-                    setFormData={setFormData}
-                    closeUpdate={closeUpdate}
-                    handleTaskData={handleTaskData}
-                    id={id}
-                />
-            )}
-        </div>
-    );
+                        )} */
 }
-
-export default ViewTask;

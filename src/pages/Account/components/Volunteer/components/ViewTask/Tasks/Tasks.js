@@ -8,10 +8,9 @@ import api from '~/config/axios';
 import { useEffect, useState } from 'react';
 import HomeCheckResult from '../HomeCheckResult/HomeCheckResult';
 
-
 const cx = classNames.bind(styles);
 
-function Tasks({ id,task, setIsUndertake}) {
+function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
     const [checklistState, setChecklistState] = useState([]);
 
     useEffect(() => {
@@ -73,6 +72,23 @@ function Tasks({ id,task, setIsUndertake}) {
         return formattedDate;
     };
 
+    const handleUnderTakeTask = async () => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await api.get(`tasks/${taskID}/attend`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            console.log('undertake', response.data);
+            setIsUndertake(true);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <div className={cx('task-info')}>
             <div className={cx('task-title')}>
@@ -80,13 +96,15 @@ function Tasks({ id,task, setIsUndertake}) {
                 <p>Due date: {formatDueDate(task.dueDate)}</p>
             </div>
 
+            <div className={cx('task-name')}>
+                <h5>
+                    <b>{task.name}</b>
+                </h5>
+            </div>
+
             <span className={cx('task-status', { 'status-notstart': task.status === 'NOT_STARTED', 'status-inprocess': task.status === 'IN_PROGRESS' })}>
                 {formatStatus(task.status)}
             </span>
-
-            <h5>
-                <b>{task.name}</b>
-            </h5>
 
             <div className={cx('task-content')}>
                 <div className={cx('task-checklist-wrap')}>
@@ -117,10 +135,11 @@ function Tasks({ id,task, setIsUndertake}) {
                                     <label htmlFor={`checkitem-${checkItem.id}`}>{checkItem.entry}</label>
                                 </div>
                             ))}
-
-                            <Button primary small type="submit">
-                                Save
-                            </Button>
+                            {task.checklist.assignee !== null ? (
+                                <Button primary small type="submit">
+                                    Save
+                                </Button>
+                            ) : null}
                         </form>
                     </div>
                 </div>
@@ -148,13 +167,13 @@ function Tasks({ id,task, setIsUndertake}) {
 
                 {task.feedbacks.length > 0 ? <HomeCheckResult task={task} /> : null}
 
-                {task.checklist.assignee === null ? <HomeCheck taskID={id} /> : null}
+                {task.checklist.assignee !== null && !task.feedbacks.length > 0  ? <HomeCheck task={task} taskID={task.id} setIsSendHomeCheck={setIsSendHomeCheck}/> : null}
 
-                {/* {task.checklist.assignee === null ? (
+                {task.checklist.assignee === null ? (
                     <Button primary className={cx('undertake-btn')} onClick={handleUnderTakeTask}>
                         Undertake
                     </Button>
-                ) : null} */}
+                ) : null}
             </div>
         </div>
     );

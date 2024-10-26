@@ -3,12 +3,14 @@
     flex-direction: column;
     border-radius: 15px;
     align-items: stretch;
+    width: 800px;
     padding: 20px;
-    margin: 0;
+    margin: 40px 0;
+    margin-bottom: 0;
+    margin-top: 0;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 10px;
     background-color: white;
-
-
+    
     .wrapper-bottom{
         display: flex;
 
@@ -16,9 +18,9 @@
             background-color: var(--third-color);
             padding: 15px;
             border-radius: 15px;
-            width: 60%;
-            margin-right: 20px;
+            width: 100%;
             box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 5px;
+
     
             .container-info {
                 padding: 10px;
@@ -47,12 +49,12 @@
             }
         }
     
-        .container-right{
-            background-color: var(--third-color);
-            width: 40%;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 5px;
-        }
+        // .container-right{
+        //     background-color: var(--third-color);
+        //     width: 40%;
+        //     padding: 15px;
+        //     border-radius: 15px;
+        //     box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 5px;
+        // }
     }
 }

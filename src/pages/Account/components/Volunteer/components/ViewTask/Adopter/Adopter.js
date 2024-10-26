@@ -1,6 +1,5 @@
 import styles from './Adopter.module.scss';
 import classNames from 'classnames/bind';
-import React from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -11,7 +10,11 @@ function Adopter() {
                 <b>Adopter</b>
             </p>
 
-            <h5></h5>
+            <div className={cx('adopter-info')}>
+                <div>
+                    alo alo
+                </div>
+            </div>
         </div>
     );
 }

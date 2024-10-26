@@ -28,9 +28,9 @@ function VolunteerTask() {
     const [searchName, setSearchName] = useState('');
     const [addAll, setAddAll] = useState('');
     const [filter, setFilter] = useState({
-        role: 'ALL',
-        sort: 'DESC',
-        sortBy: 'createdAt',
+        category: '',
+        status: '',
+        dueDate: '',
     });
 
     const items = [
@@ -91,21 +91,21 @@ function VolunteerTask() {
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
-        console.log(name, value);
-        const newSort = value === 'username' ? 'ASC' : filter.sort;
+        console.log('filterchange', name, value);
 
         setFilter((prev) => ({
             ...prev,
             [name]: value,
-            sort: newSort,
         }));
     };
 
     const handleTaskData = async () => {
+        const { category, status, dueDate } = filter;
+        const query = `category=${category}&status=${status}&dueDate=${dueDate}`;
         const token = localStorage.getItem('token');
 
         try {
-            const response = await api.get(`tasks`, {
+            const response = await api.get(`tasks/sort?${query}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -115,6 +115,7 @@ function VolunteerTask() {
             setDataLength(response.data.result.length);
         } catch (error) {
             console.log(error);
+            setTaskList([]);
         }
     };
 
@@ -133,7 +134,7 @@ function VolunteerTask() {
         handleTaskData();
         handleTagsTaskData();
         handleTagsIssueData();
-    }, [viewTask, currentPage, addAll]);
+    }, [viewTask, currentPage, addAll, filter]);
 
     const taskPerPage = 12;
     const indexOfLastTask = currentPage * taskPerPage;
@@ -186,41 +187,31 @@ function VolunteerTask() {
                                             className={cx({ active: activeSort == 'View All' })}
                                             onClick={() => {
                                                 setActiveSort('View All');
-                                                setFilter((prev) => ({ ...prev, role: 'ALL' }));
+                                                setFilter((prev) => ({ ...prev, category: 'All' }));
                                                 setCurrentPage(1);
                                             }}
                                         >
                                             View All
                                         </p>
                                         <p
-                                            className={cx({ active: activeSort == 'Users' })}
+                                            className={cx({ active: activeSort == 'Events' })}
                                             onClick={() => {
-                                                setActiveSort('Users');
-                                                setFilter((prev) => ({ ...prev, role: 'USER' }));
+                                                setActiveSort('Events');
+                                                setFilter((prev) => ({ ...prev, category: 'EVENT' }));
                                                 setCurrentPage(1);
                                             }}
                                         >
-                                            Users
+                                            Events
                                         </p>
                                         <p
-                                            className={cx({ active: activeSort == 'Volunteer' })}
+                                            className={cx({ active: activeSort == 'Adoption' })}
                                             onClick={() => {
-                                                setActiveSort('Volunteer');
-                                                setFilter((prev) => ({ ...prev, role: 'VOLUNTEER' }));
+                                                setActiveSort('Adoption');
+                                                setFilter((prev) => ({ ...prev, category: 'ADOPTION' }));
                                                 setCurrentPage(1);
                                             }}
                                         >
-                                            Volunteer
-                                        </p>
-                                        <p
-                                            className={cx({ active: activeSort == 'Admin' })}
-                                            onClick={() => {
-                                                setActiveSort('Admin');
-                                                setFilter((prev) => ({ ...prev, role: 'ADMIN' }));
-                                                setCurrentPage(1);
-                                            }}
-                                        >
-                                            Admin
+                                            Adoption
                                         </p>
                                     </div>
                                     <Dropdown menu={{ items }}>

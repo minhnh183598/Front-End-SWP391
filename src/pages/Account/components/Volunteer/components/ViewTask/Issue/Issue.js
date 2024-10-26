@@ -1,12 +1,13 @@
 import { faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
 import styles from './Issue.module.scss';
 import classNames from 'classnames/bind';
-import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Issue({ setOpenIssueDetail, singleTask, setIssueStatusDetail }) {
-    console.log(singleTask.issues);
+function Issue({ setOpenIssueDetail, task, setIssueStatusDetail }) {
+    console.log('task isssue ne',task.issues);
     return (
         <div className={cx('wrapper')}>
             <p className={cx('title')}>
@@ -19,12 +20,12 @@ function Issue({ setOpenIssueDetail, singleTask, setIssueStatusDetail }) {
                     <p className={cx('issue-box-state')}>
                         <b>Not Started</b>
                     </p>
-                    {singleTask.issues.filter((issue) => issue.status === 'NOT_STARTED').length > 0 ? (
-                        singleTask.issues
+                    {task.issues.filter((issue) => issue.status === 'NOT_STARTED').length > 0 ? (
+                        task.issues
                             .filter((issue) => issue.status === 'NOT_STARTED')
-                            .map((issue) => (
+                            .map((issue, index) => (
                                 <>
-                                    <div key={issue.id} className={cx('issue-box-info')}>
+                                    <div key={index} className={cx('issue-box-info')}>
                                         <p>Due Date: {issue.dueDate}</p>
                                         <p>Title: {issue.title}</p>
                                         {/* <p>Priority: {issue.priority}</p> */}
@@ -51,12 +52,12 @@ function Issue({ setOpenIssueDetail, singleTask, setIssueStatusDetail }) {
                     <p className={cx('issue-box-state')}>
                         <b>In Process</b>
                     </p>
-                    {singleTask.issues.filter((issue) => issue.status === 'IN_PROGRESS').length > 0 ? (
-                        singleTask.issues
+                    {task.issues.filter((issue) => issue.status === 'IN_PROGRESS').length > 0 ? (
+                        task.issues
                             .filter((issue) => issue.status === 'IN_PROGRESS')
-                            .map((issue) => (
+                            .map((issue, index) => (
                                 <>
-                                    <div key={issue.id} className={cx('issue-box-info')}>
+                                    <div key={index} className={cx('issue-box-info')}>
                                         <p>Due Date: {issue.dueDate}</p>
                                         <p>Title: {issue.title}</p>
                                         <p>Priority: {issue.priority}</p>
@@ -83,12 +84,12 @@ function Issue({ setOpenIssueDetail, singleTask, setIssueStatusDetail }) {
                     <p className={cx('issue-box-state')}>
                         <b>Done</b>
                     </p>
-                    {singleTask.issues.filter((issue) => issue.status === 'DONE').length > 0 ? (
-                        singleTask.issues
+                    {task.issues.filter((issue) => issue.status === 'DONE').length > 0 ? (
+                        task.issues
                             .filter((issue) => issue.status === 'DONE')
-                            .map((issue) => (
+                            .map((issue, index) => (
                                 <>
-                                    <div key={issue.id} className={cx('issue-box-info')}>
+                                    <div key={index} className={cx('issue-box-info')}>
                                         <p>Due Date: {issue.dueDate}</p>
                                         <p>Title: {issue.title}</p>
                                         <p>Priority: {issue.priority}</p>
