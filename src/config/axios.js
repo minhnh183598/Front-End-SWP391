@@ -42,6 +42,10 @@ const handleBefore = (config) => {
     } else if (config.url.includes('auth/refresh')) {
         return config;
     }
+    // else if (config.url.includes('posts')) {
+    //     return config;
+    // }
+
     const token = localStorage.getItem('token')?.replaceAll('"', '');
     config.headers['Authorization'] = `Bearer ${token}`;
 

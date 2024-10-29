@@ -13,12 +13,7 @@ function ApplicationList() {
     const [currentPage, setCurrentPage] = useState(1);
     const [appliList, setAppliList] = useState([]);
     const [petList, setPet] = useState([]);
-    const [activeSort, setActiveSort] = useState('ALL');
-    const [filter, setFilter] = useState({
-        state: 'ALL',
-        sort: 'DESC',
-        sortBy: 'createdAt',
-    });
+    const [sortStatus, setSortStatus] = useState('ALL');
 
     // Lay application
     const getApplication = async () => {
@@ -26,14 +21,13 @@ function ApplicationList() {
             const token = localStorage.getItem('token');
             const userId = localStorage.getItem('userId');
 
-<<<<<<< HEAD
             const response = await api.get(`applications/sorted-by-user/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
 
-            setAppliList(response.data); // Lưu dữ liệu vào state
+            setAppliList(response.data);
         } catch (error) {
             console.error('Lỗi khi kiểm tra trạng thái:', error);
         }
@@ -51,7 +45,7 @@ function ApplicationList() {
                 },
             });
 
-            setPet(response.data); // Lưu dữ liệu vào state
+            setPet(response.data);
         } catch (error) {
             console.error('Lỗi khi kiểm tra trạng thái:', error);
         }
@@ -106,89 +100,38 @@ function ApplicationList() {
                 return ''; // Không có lớp cho trường hợp không xác định
         }
     };
-=======
-    const handleUserApplication = async () => {};
->>>>>>> 4637a5593457a5f1de394e74b9f6912c23380c23
 
-    const handleFilterChange = (e) => {
-        const { name, value } = e.target;
-        console.log(name, value);
-        const newSort = value == 'createdAt' ? 'DESC' : value == 'finishAt' ? 'DESC' : filter.sort;
-
-        setFilter((prev) => ({
-            ...prev,
-            [name]: value,
-            sort: newSort,
-        }));
-    };
+    // Lọc và sắp xếp dựa trên status được chọn
+    const filteredData = combinedData.filter((app) => {
+        if (sortStatus === 'ALL') return true; // Không lọc nếu chọn ALL
+        return app.status === parseInt(sortStatus, 10);
+    });
 
     useEffect(() => {
-        getApplication(); // Gọi hàm để lấy dữ liệu khi component được mount
+        getApplication();
         getPet();
-    }, []); // Chỉ chạy 1 lần khi component được mount
-
-    // console.log('Day la pet color: ', combinedData.petAge);
+    }, []);
 
     const appliPerPage = 6;
     const indexOfLastPet = currentPage * appliPerPage;
     const indexOfFirstPet = indexOfLastPet - appliPerPage;
-    const appliPage = combinedData.slice(indexOfFirstPet, indexOfLastPet);
+    const appliPage = filteredData.slice(indexOfFirstPet, indexOfLastPet);
+
+    console.log('Day la sort status: ', sortStatus);
     return (
         <div className={cx('wrapper')}>
             <ScrollToTop />
-            <div className={cx('header')}>
-                <ul>
-                    <li
-                        className={cx({ active: activeSort == 'ALL' })}
-                        onClick={() => {
-                            setActiveSort('ALL');
-                            setFilter((prev) => ({ ...prev, role: 'ALL' }));
-                            setCurrentPage(1);
-                        }}
-                    >
-                        View All
-                    </li>
-                    <li
-                        className={cx({ active: activeSort == 'Passed' })}
-                        onClick={() => {
-                            setActiveSort('Passed');
-                            setFilter((prev) => ({ ...prev, role: 'Passed' }));
-                            setCurrentPage(1);
-                        }}
-                    >
-                        Passed
-                    </li>
-                    <li
-                        className={cx({ active: activeSort == 'InProcess' })}
-                        onClick={() => {
-                            setActiveSort('InProcess');
-                            setFilter((prev) => ({ ...prev, role: 'In Process' }));
-                            setCurrentPage(1);
-                        }}
-                    >
-                        In Process
-                    </li>
-                    <li
-                        className={cx({ active: activeSort == 'NotPassed' })}
-                        onClick={() => {
-                            setActiveSort('NotPassed');
-                            setFilter((prev) => ({ ...prev, role: 'Not Passed' }));
-                            setCurrentPage(1);
-                        }}
-                    >
-                        Not Passed
-                    </li>
-                </ul>
-            </div>
-
             <div className={cx('sort')}>
-                <label htmlFor="sort">Sort</label>
-                <select id="sort" name="sort" value={filter.sortBy} onChange={handleFilterChange}>
-                    <option value="createdAt">Create Date</option>
-                    <option value="finishAt">Finish Date</option>
+                <label htmlFor="sortStatus">Sort by Status</label>
+                <select id="sortStatus" value={sortStatus} onChange={(e) => setSortStatus(e.target.value)}>
+                    <option value="ALL">All</option>
+                    <option value="0">Waiting</option>
+                    <option value="1">Approved</option>
+                    <option value="2">Denied</option>
+                    <option value="3">Approved</option> {/* Trạng thái Approved */}
+                    <option value="4">Denied</option> {/* Trạng thái Denied */}
                 </select>
             </div>
-
             <div className={cx('application-list')}>
                 {appliPage.map((appli) => (
                     <div className={cx('application-item')}>
@@ -198,24 +141,8 @@ function ApplicationList() {
                                 <h4>{appli.petName}</h4>
                             </div>
                             <div className={cx('appli-state')}>
-<<<<<<< HEAD
                                 <p className={cx(getStatusLabelClass(appli.status))}>{getStatusLabel(appli.status)}</p>
-                                <button className={cx('feedback')}>View Feedback</button>
-=======
-                                <p
-                                    className={cx(
-                                        'state',
-                                        appli.state === 'In Process'
-                                            ? 'inprocess'
-                                            : appli.state === 'Not Pass'
-                                            ? 'notpass'
-                                            : null,
-                                    )}
-                                >
-                                    {appli.state}
-                                </p>
-                                <button className={cx('feedback')}>View Application</button>
->>>>>>> 4637a5593457a5f1de394e74b9f6912c23380c23
+                                <a href={`/my-application-detail/${appli.applicationId}`}>View Details</a>
                             </div>
                         </div>
                         <p className={cx('appli-date')}>Create Date: {convertDate(appli.createAt)}</p>

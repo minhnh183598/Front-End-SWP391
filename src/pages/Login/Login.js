@@ -248,7 +248,7 @@ function Login() {
                                 </span>
 
                                 <div className={cx('submit-btn')}>
-                                    <Button medium mgRight10 primary type="submit">
+                                    <Button className={cx('test_swt')} medium mgRight10 primary type="submit">
                                         Login
                                     </Button>
                                     <Button outline medium onClick={handleLoginGoogle}>

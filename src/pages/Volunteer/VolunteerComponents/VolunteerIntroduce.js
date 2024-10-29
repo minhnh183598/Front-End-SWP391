@@ -11,13 +11,23 @@ const VolunteerIntroduce = ({ onButtonClick }) => {
 
     const handleRemoveItem = () => {
         const keysToDelete = [
-            'adoptionStep_2a773d0a-3b71-4e8f-a4cf-4c714c5fed01',
-            'adoptionStep_2b9335f7-6b79-44cf-9028-9d84b0605036',
-            'adoptionStep_59e32047-7ebf-44ed-8d2b-18bd1e165ba7',
-            'adoptionStep_5df9e535-a8ba-4bdd-886e-b42ca6afd768',
-            'adoptionStep_8d141d1f-8466-4d0c-a6f1-a165e730dcc2',
-            'adoptionStep_9d229ff3-770f-4b78-87b6-4fbdce79f425',
-            'adoptionStep_a01812d4-d17e-447a-99ab-6ec398c57f13',
+            'adoptionStep_22898c90-5cc0-48a6-8e0e-bda9ac29b72c_0f93a94f-5c58-422c-8f05-9d754617e0b7',
+            'adoptionStep_22898c90-5cc0-48a6-8e0e-bda9ac29b72c_36b4c74b-4c77-4399-8a5d-959c2c0b87ab',
+            'adoptionStep_22898c90-5cc0-48a6-8e0e-bda9ac29b72c_fb2ad5a0-8ebd-45b9-8a17-28ece449b9a3',
+            'adoptionStep_22898c90-5cc0-48a6-8e0e-bda9ac29b72c_null',
+            'adoptionStep_2a773d0a-3b71-4e8f-a4cf-4c714c5fed01_0f93a94f-5c58-422c-8f05-9d754617e0b7',
+            'adoptionStep_2a773d0a-3b71-4e8f-a4cf-4c714c5fed01_36b4c74b-4c77-4399-8a5d-959c2c0b87ab',
+            'adoptionStep_2b9335f7-6b79-44cf-9028-9d84b0605036_0f93a94f-5c58-422c-8f05-9d754617e0b7',
+            'adoptionStep_59e32047-7ebf-44ed-8d2b-18bd1e165ba7_0f93a94f-5c58-422c-8f05-9d754617e0b7',
+            'adoptionStep_59e32047-7ebf-44ed-8d2b-18bd1e165ba7_36b4c74b-4c77-4399-8a5d-959c2c0b87ab',
+            'adoptionStep_59e32047-7ebf-44ed-8d2b-18bd1e165ba7_fb2ad5a0-8ebd-45b9-8a17-28ece449b9a3',
+            'adoptionStep_59e32047-7ebf-44ed-8d2b-18bd1e165ba7_null',
+            'adoptionStep_5df9e535-a8ba-4bdd-886e-b42ca6afd768_0f93a94f-5c58-422c-8f05-9d754617e0b7',
+            'adoptionStep_5df9e535-a8ba-4bdd-886e-b42ca6afd768_36b4c74b-4c77-4399-8a5d-959c2c0b87ab',
+            'adoptionStep_8d141d1f-8466-4d0c-a6f1-a165e730dcc2_0f93a94f-5c58-422c-8f05-9d754617e0b7',
+            'adoptionStep_8d141d1f-8466-4d0c-a6f1-a165e730dcc2_36b4c74b-4c77-4399-8a5d-959c2c0b87ab',
+            'adoptionStep_9d229ff3-770f-4b78-87b6-4fbdce79f425_0f93a94f-5c58-422c-8f05-9d754617e0b7',
+            'adoptionStep_a01812d4-d17e-447a-99ab-6ec398c57f13_0f93a94f-5c58-422c-8f05-9d754617e0b7',
         ];
 
         keysToDelete.forEach((key) => {
@@ -33,6 +43,7 @@ const VolunteerIntroduce = ({ onButtonClick }) => {
                 {/* Header cua container */}
                 <div className="volunteer_container_header">
                     <h3>How It Works For Volunteer</h3>
+                    {/* <img src="anhCut.jpeg" /> */}
                     <p>
                         For most people, rehoming a pet is a really difficult but necessary decision. We know you want
                         the best for them so we’re here to help. To make the rehoming process as straightforward and

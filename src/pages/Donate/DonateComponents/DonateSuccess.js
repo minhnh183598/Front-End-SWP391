@@ -5,41 +5,42 @@ import './DonateSuccess.scss';
 import api from '~/config/axios';
 
 const DonateSuccess = () => {
-    const [paymentInfo, setPaymentInfo] = useState({});
-    const [isSaved, setIsSaved] = useState(false); // Trạng thái lưu thông tin
+    // const [paymentInfo, setPaymentInfo] = useState({});
+    // const [isSaved, setIsSaved] = useState(false); // Trạng thái lưu thông tin
+    // const userId = localStorage.getItem('userId');
+    // useEffect(() => {
+    //     const params = new URLSearchParams(window.location.search);
 
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
+    //     const paymentData = {
+    //         // amount: params.get('vnp_Amount'),
+    //         // bankCode: params.get('vnp_BankCode'),
+    //         // bankTranNo: params.get('vnp_BankTranNo'),
+    //         // cardType: params.get('vnp_CardType'),
+    //         // orderInfo: params.get('vnp_OrderInfo'),
+    //         payDate: params.get('vnp_PayDate'),
+    //         responseCode: params.get('vnp_ResponseCode'),
+    //         transactionNo: params.get('vnp_TransactionNo'),
+    //         transactionStatus: params.get('vnp_TransactionStatus'),
+    //         txnRef: params.get('vnp_TxnRef'),
+    //         userId: userId,
+    //     };
 
-        const paymentData = {
-            amount: params.get('vnp_Amount'),
-            bankCode: params.get('vnp_BankCode'),
-            bankTranNo: params.get('vnp_BankTranNo'),
-            cardType: params.get('vnp_CardType'),
-            orderInfo: params.get('vnp_OrderInfo'),
-            payDate: params.get('vnp_PayDate'),
-            responseCode: params.get('vnp_ResponseCode'),
-            transactionNo: params.get('vnp_TransactionNo'),
-            transactionStatus: params.get('vnp_TransactionStatus'),
-            txnRef: params.get('vnp_TxnRef'),
-        };
+    //     setPaymentInfo(paymentData);
 
-        setPaymentInfo(paymentData);
-
-        // Gửi thông tin về backend để lưu vào cơ sở dữ liệu
-        savePaymentData(paymentData);
-    }, []);
-    console.log(paymentInfo);
-    const savePaymentData = async (data) => {
-        try {
-            const response = await api.post('/thanks', data);
-            if (response.status === 200) {
-                setIsSaved(true); // Đánh dấu thông tin đã được lưu thành công
-            }
-        } catch (error) {
-            console.error('Lỗi khi lưu thông tin thanh toán:', error);
-        }
-    };
+    //     // Gửi thông tin về backend để lưu vào cơ sở dữ liệu
+    //     savePaymentData(paymentData);
+    // }, []);
+    // console.log(paymentInfo);
+    // const savePaymentData = async (data) => {
+    //     try {
+    //         const response = await api.post('/thanks', data);
+    //         if (response.status === 200) {
+    //             setIsSaved(true); // Đánh dấu thông tin đã được lưu thành công
+    //         }
+    //     } catch (error) {
+    //         console.error('Lỗi khi lưu thông tin thanh toán:', error);
+    //     }
+    // };
 
     return (
         <div className="donate_success">

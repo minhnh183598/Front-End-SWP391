@@ -19,6 +19,8 @@ import Adopt from '~/pages/Adopt/Adopt';
 import ShowAllApplication from '~/pages/Application/ApplicationComponents/ShowAllApplication/ShowAllApplication';
 import ShowAllPetAdopted from '~/pages/ShowAllPetAdopted/ShowAllPetAdopted';
 import ShowAllPetDetail from '~/pages/ShowAllPetAdopted/ShowAllPetAdopted/ShowAllPetDetail';
+import ApplicationDetails from '~/pages/Account/components/Application/ApplicationComponents/ApplicationDetails';
+import ApplicationUpdate from '~/pages/Account/components/Application/ApplicationComponents/ApplicationUpdate';
 
 const publicRoutes = [
     {
@@ -30,9 +32,22 @@ const publicRoutes = [
         component: ShowAllApplication,
     },
     {
+        path: '/blog-detail/:id',
+        component: BlogDetail,
+    },
+    {
         path: '/my-pet-detail/:id',
         component: ShowAllPetDetail,
     },
+    {
+        path: '/my-application-detail/:id',
+        component: ApplicationDetails,
+    },
+    {
+        path: '/my-application-update/:id',
+        component: ApplicationUpdate,
+    },
+
     {
         path: '/my-pet',
         component: ShowAllPetAdopted,

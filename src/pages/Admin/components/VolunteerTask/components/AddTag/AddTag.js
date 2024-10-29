@@ -54,6 +54,7 @@ function AddTag({ setAddAll }) {
                             <select id="type" name="type" value={formData.type} onChange={handleChange}>
                                 <option value="task_label">Task Label</option>
                                 <option value="issue_label">Issue Label</option>
+                                <option value="post_label">Post Label</option>
                             </select>
                         </div>
 

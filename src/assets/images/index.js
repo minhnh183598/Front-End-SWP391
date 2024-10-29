@@ -44,6 +44,9 @@ const IMAGES = {
     slide_2: require('./slide_2.webp'),
 
     destination_icon: require('./destinationIcon.png'),
+
+    iconDecorate: require('./iconDecorate.png'),
+    iconDecorate_2: require('./iconDecorate_2.jpg'),
 };
 
 export default IMAGES;

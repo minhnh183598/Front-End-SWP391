@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Button from '~/components/Button';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 import api from '~/config/axios';
+import './AdoptStep4Waiting.scss';
+import IMAGES from '~/assets/images';
 
 const AdoptStep4Waiting = ({ setStep }) => {
     const [statusMessage, setStatusMessage] = useState('Đang chờ admin duyệt...');
@@ -39,8 +41,9 @@ const AdoptStep4Waiting = ({ setStep }) => {
         <div className="adoptStep2_waiting">
             <ScrollToTop />
             <div className="adoptStep2_waiting_container">
-                <div className="adoptStep2_waiting_container_content">
-                    <p>Waiting for admin to approve your Adopt form</p>
+                <div className="adoptStep4_waiting_container_content">
+                    {/* <img src={IMAGES.iconDecorate_2} /> */}
+                    <p>We will schedule a volunteer to your house as soon as possible</p>
                 </div>
             </div>
         </div>

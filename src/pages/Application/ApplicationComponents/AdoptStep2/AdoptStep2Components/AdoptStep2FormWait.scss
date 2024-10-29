@@ -31,3 +31,53 @@
         font-size: 23px;
     }
 }
+
+.adoptstep2wait_box {
+    width: 800px;
+    // height: 700px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    background-color: #eff8eb;
+    border-radius: 10px;
+    // padding-top: 20px;
+    // padding-left: 50px;
+    // padding-bottom: 30px;
+    padding: 40px;
+    // padding-top: 20px;
+}
+
+.adoptstep2wait_box_content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    strong {
+        color: black;
+        font-size: 23px;
+        margin-right: 5px;
+    }
+    p {
+        color: #303030;
+        font-size: 21px;
+        margin-bottom: 20px;
+    }
+    .applicationDetail_box_content_name_phone {
+        display: flex;
+        column-gap: 150px;
+    }
+    .applicationDetail_box_content_yob_gender {
+        display: flex;
+        column-gap: 266px;
+    }
+}
+
+.adoptstep2wait_box_header {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.adoptStep2_box_content_yob_gender {
+    display: flex;
+    .adoptStep2_gender {
+        margin-right: 199px;
+    }
+}

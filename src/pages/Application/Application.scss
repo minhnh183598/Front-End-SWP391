@@ -160,3 +160,27 @@
     transition: 0.1s;
     color: white;
 }
+
+.Application_processBar_name {
+    position: absolute;
+    left: 380px;
+    top: 247px;
+    display: flex;
+    p {
+        color: rgb(102, 102, 102);
+        text-align: left;
+        // border: 1px solid black;
+    }
+    .Application_processBar_name_1 {
+        width: 162px;
+    }
+    .Application_processBar_name_2 {
+        width: 173px;
+    }
+    .Application_processBar_name_3 {
+        width: 187px;
+    }
+    .Application_processBar_name_4 {
+        width: 195px;
+    }
+}

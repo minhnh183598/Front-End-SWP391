@@ -20,16 +20,6 @@ const Application = () => {
         return savedStep ? Math.min(parseInt(savedStep, 10), max_step) : 0;
     });
     console.log(userId);
-    // const [step, setStep] = useState(0);
-
-    // useEffect(() => {
-    //     const savedStep = localStorage.getItem(`adoptionStep_${id}`);
-    //     if (savedStep) {
-    //         setStep(Math.min(parseInt(savedStep, 10), max_step));
-    //     } else {
-    //         setStep(0); // Khởi tạo lại step khi không có dữ liệu
-    //     }
-    // }, [id]); // Chỉ chạy lại khi id thay đổi
 
     useEffect(() => {
         localStorage.setItem(`adoptionStep_${id}_${userId}`, step.toString());
@@ -93,6 +83,13 @@ const Application = () => {
                             <div className={`line_5 ${step >= 7 ? 'selected' : ''}`}></div>
 
                             <div className={`stepCir_5 ${step >= 7 ? 'selected' : ''}`}>5</div>
+                        </div>
+                        <div className="Application_processBar_name">
+                            <p className="Application_processBar_name_1">Start</p>
+                            <p className="Application_processBar_name_2">About You</p>
+                            <p className="Application_processBar_name_3">Meet & Greet</p>
+                            <p className="Application_processBar_name_4">Home Visit</p>
+                            <p className="Application_processBar_name_5">Result</p>
                         </div>
                     </div>
                 </div>

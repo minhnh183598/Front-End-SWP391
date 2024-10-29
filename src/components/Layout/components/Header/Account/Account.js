@@ -51,20 +51,20 @@ function Account() {
             ),
         },
         // moi them
-        {
-            label: (
-                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/my-application">
-                    Application
-                </Link>
-            ),
-        },
-        {
-            label: (
-                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/my-pet">
-                    Pet
-                </Link>
-            ),
-        },
+        // {
+        //     label: (
+        //         <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/my-application">
+        //             Application
+        //         </Link>
+        //     ),
+        // },
+        // {
+        //     label: (
+        //         <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/my-pet">
+        //             Pet
+        //         </Link>
+        //     ),
+        // },
         /////////////////////////////////////////////////////////////////////////
         {
             label: (

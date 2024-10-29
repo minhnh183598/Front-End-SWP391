@@ -4,9 +4,11 @@ import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { convertToRaw, EditorState } from 'draft-js';
+import api from '~/config/axios';
+import CreateBlog from './BlogComponents/CreateBlog';
 
 const cx = classNames.bind(styles);
 
@@ -14,118 +16,45 @@ function Blogs() {
     const [currentPage, setCurrentPage] = useState(1);
     const [addBlog, setAddBlog] = useState(false);
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const data = [
+    const [blogData, setBlogData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const tempData = [
         {
-            id: 23,
-            title: 'Minh alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo alo',
-            role: 'Adopted',
-            noa: 12,
-            enrolled: '23/01/2024',
+            name: 1,
+            age: 2,
         },
         {
-            id: 2,
-            title: 'Donny',
-            role: 'Available',
-            noa: 12,
-            enrolled: '23/01/2024',
+            name: 1,
+            age: 2,
         },
         {
-            id: 3,
-            title: 'Luna',
-            role: 'Adopted',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 12,
-            title: 'Long',
-            role: 'Available',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 978,
-            title: 'Tuan',
-            role: 'Available',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 105,
-            title: 'Jack',
-            role: 'Adopted',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 17,
-            title: 'Long',
-            role: 'Available',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 979,
-            title: 'Tuan',
-            role: 'Available',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 15,
-            title: 'Jack',
-            role: 'Adopted',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 123,
-            title: 'Long',
-            role: 'Available',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 97,
-            title: 'Tuan',
-            role: 'Available',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 10,
-            title: 'Jack',
-            role: 'Adopted',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 11,
-            title: 'Jack',
-            role: 'Adopted',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 19,
-            title: 'Jack',
-            role: 'Adopted',
-            noa: 12,
-            enrolled: '23/01/2024',
-        },
-        {
-            id: 22,
-            title: 'Jack',
-            role: 'Adopted',
-            noa: 12,
-            enrolled: '23/01/2024',
+            name: 1,
+            age: 2,
         },
     ];
-
-    const blogPerPage = 12;
-    const indexOfLastBlog = currentPage * blogPerPage;
-    const indexOfFirstBlog = indexOfLastBlog - blogPerPage;
-    const currentBlog = data.slice(indexOfFirstBlog, indexOfLastBlog);
+    //Lay blog data
+    const handleBlogData = async () => {
+        try {
+            setLoading(true);
+            const token = localStorage.getItem('token');
+            const response = await api.get(`posts`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    // Authorization: `No Auth`,
+                },
+            });
+            setBlogData(response.data.result);
+            // localStorage.setItem('bloguData', JSON.stringify(response.data));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false); // Hoàn tất quá trình tải
+        }
+    };
+    useEffect(() => {
+        handleBlogData();
+    }, []);
+    console.log('Day la blog data: ', blogData);
 
     const onEditorStateChange = (newEditorState) => {
         setEditorState(newEditorState);
@@ -136,6 +65,12 @@ function Blogs() {
         const rawContentState = JSON.stringify(convertToRaw(contentState));
         console.log(rawContentState);
     };
+
+    const blogPerPage = 12;
+    const indexOfLastBlog = currentPage * blogPerPage;
+    const indexOfFirstBlog = indexOfLastBlog - blogPerPage;
+    // const currentBlog = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
+    const currentBlog = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
 
     return (
         <>
@@ -199,6 +134,7 @@ function Blogs() {
                                             <p className={cx('id')}>#{blog.id}</p>
                                             <div className={cx('title')}>
                                                 <p className={cx('blogtitle')}>{blog.title}</p>
+                                                <p className={cx('blogCD')}>{blog.createAt}</p>
                                             </div>
                                             <p className={cx('appli')}>{blog.noa}</p>
                                             <p className={cx('date')}>{blog.enrolled}</p>
@@ -215,7 +151,7 @@ function Blogs() {
                                     style={{ display: 'block' }}
                                     current={currentPage}
                                     defaultCurrent={1}
-                                    total={data.length}
+                                    total={blogData.length}
                                     pageSize={blogPerPage}
                                     onChange={(page) => setCurrentPage(page)}
                                 />
@@ -230,6 +166,7 @@ function Blogs() {
                         <p style={{ cursor: 'pointer', width: '70px' }} onClick={() => setAddBlog(false)}>
                             &larr;Back
                         </p>
+                        <CreateBlog />
                     </div>
                     <Button primary onClick={handleSubmit}>
                         Create

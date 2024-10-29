@@ -40,20 +40,20 @@ function Account() {
             ),
         },
         // moi them
-        {
-            label: (
-                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/account">
-                    My Application
-                </Link>
-            ),
-        },
-        {
-            label: (
-                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/account">
-                    My Pet
-                </Link>
-            ),
-        },
+        // {
+        //     label: (
+        //         <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/account">
+        //             My Application
+        //         </Link>
+        //     ),
+        // },
+        // {
+        //     label: (
+        //         <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/account">
+        //             My Pet
+        //         </Link>
+        //     ),
+        // },
         /////////////////////////////////////////////////////////////////
         {
             label: (

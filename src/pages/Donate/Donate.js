@@ -14,6 +14,8 @@ export const Donate = () => {
     const [customAmount, setCustomAmount] = useState(''); // Biến trạng thái này lưu giá trị số tiền mà người dùng tự nhập vào khi không chọn số tiền có sẵn.
     const amounts = [50000, 100000, 500000, 1000000]; // Các số tiền quy định sẵn
     const { id } = useParams();
+    const userId = localStorage.getItem('userId');
+    console.log('Day la userId:', userId);
     console.log('Day la id: ', id);
     // functions step 1
     // Hàm này xử lý giá tiền chọn của 4 nút bước 1
@@ -42,7 +44,7 @@ export const Donate = () => {
             // console.log(token);
             try {
                 const response = await api.get(
-                    `payment/vn-pay?petId=${id}&amount=${selectedAmount}&bankCode=NCB&returnUrl=http://localhost:3000/thanks`,
+                    `payment/vn-pay?userId=${userId}&petId=${id}&amount=${selectedAmount}&bankCode=NCB`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
