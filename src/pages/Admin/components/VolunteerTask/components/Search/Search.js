@@ -22,6 +22,14 @@ function Search({ setSearchName, handleFinish, filter, handleFilterChange, searc
                     <option value="applicationQuantity">Number of Application</option>
                 </select>
 
+                <label htmlFor="status">Status</label>
+                <select id="status" name="status" value={filter.status} onChange={handleFilterChange}>
+                    <option value="All">All</option>
+                    <option value="NOT_STARTED">Not Start</option>
+                    <option value="IN_PROGRESS">In Process</option>
+                    <option value="DONE">Done</option>
+                </select>
+
                 <div style={{ position: 'relative' }}>
                     <input type="text" placeholder="Search by name" value={searchName} onChange={handleSearchChange} />
 

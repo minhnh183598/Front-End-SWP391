@@ -18,7 +18,17 @@ function TaskContent({ currentTask, setViewTask, setTaskID }) {
                 <div className={cx('content-item')} key={task.id}>
                     <p className={cx('id')}>#{task.id}</p>
                     <p className={cx('name')}>{task.name}</p>
-                    <div className={cx('state')}>{formatStatus(task.status)}</div>
+                    <div className={cx('state')}>
+                        <p
+                            className={cx('task-status', {
+                                'status-notstart': task.status === 'NOT_STARTED',
+                                'status-inprocess': task.status === 'IN_PROGRESS',
+                                'status-done': task.status === 'DONE',
+                            })}
+                        >
+                            {formatStatus(task.status)}
+                        </p>
+                    </div>
                     <p className={cx('date')}>{task.dueDate ? new Date(task.dueDate).toLocaleDateString() : ''}</p>
                     <div className={cx('action')}>
                         <FontAwesomeIcon

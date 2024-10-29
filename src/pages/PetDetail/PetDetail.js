@@ -201,7 +201,11 @@ function PetDetail() {
                 )}
             </div>
 
-            <FeaturePet homepage={true} title="Another Pets" />
+            <FeaturePet homepage={true} title="Another Pets">
+                <Button primary xlarge to="/find-a-pet" className={cx('link-btn')} mgTop20>
+                    View All Adoptable Pets
+                </Button>
+            </FeaturePet>
 
             {user == false ? <RegisBanner /> : null}
         </div>

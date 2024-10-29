@@ -20,7 +20,6 @@ function ApplicationList() {
         try {
             const token = localStorage.getItem('token');
             const userId = localStorage.getItem('userId');
-
             const response = await api.get(`applications/sorted-by-user/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,

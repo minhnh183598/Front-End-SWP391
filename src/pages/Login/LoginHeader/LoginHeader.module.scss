@@ -1,5 +1,6 @@
 .login-choice{
     width: 100%;
+
     button{
         width: 50%;
         border: none;
@@ -9,6 +10,7 @@
         font-weight: 600;
         background-color: rgb(196, 196, 196);
         color: gray;
+        
 
         &:hover{
             border-bottom: 2px solid var(--primary-color);

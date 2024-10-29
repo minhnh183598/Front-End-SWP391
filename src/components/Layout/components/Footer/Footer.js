@@ -14,7 +14,7 @@ function Footer() {
                     <img src={ICONS.insta} />
                     <img src={ICONS.facebook} />
                 </div>
-                <p>Copyright &copy;2020</p>
+                <p>Copyright &copy;2024</p>
             </div>
             <div className={cx('third')}>
                 <h3>Quick Links</h3>

@@ -11,6 +11,7 @@ function LoginHeader() {
     return (
         <div className={cx('login-choice')}>
             <button
+            style={{ borderBottomRightRadius: 10}}
                 className={cx(action === 'Login' ? 'active' : '')}
                 onClick={() => {
                     setAction('Login');
@@ -20,6 +21,7 @@ function LoginHeader() {
                 Login
             </button>
             <button
+            style={{ borderBottomLeftRadius: 10 }}
                 className={cx(action === 'Register' ? 'active' : '')}
                 onClick={() => {
                     setAction('Register');

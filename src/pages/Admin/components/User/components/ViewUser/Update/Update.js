@@ -85,7 +85,7 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handleUserD
                     </div>
 
                     <div className={cx('input-detail')}>
-                        <label htmlFor="roles">Age</label>
+                        <label htmlFor="roles">Role</label>
                         <select id="roles" name="roles" value={formData.roles} onChange={handleChange}>
                             <option value="ADMIN">Admin</option>
                             <option value="VOLUNTEER">Volunteer</option>

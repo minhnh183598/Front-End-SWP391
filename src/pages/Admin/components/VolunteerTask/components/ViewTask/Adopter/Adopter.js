@@ -10,7 +10,11 @@ function Adopter() {
                 <b>Adopter</b>
             </p>
 
-            <h5></h5>
+            <div className={cx('adopter-info')}>
+                <div>
+                    alo alo
+                </div>
+            </div>
         </div>
     );
 }

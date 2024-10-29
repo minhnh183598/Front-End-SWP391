@@ -21,6 +21,7 @@ import Application from './components/Application/Application';
 import VolunteerApplication from './components/VolunteerApplication/VolunteerApplication';
 import VolunteerTask from './components/VolunteerTask/VolunteerTask';
 import { ToastContainer } from 'react-bootstrap';
+import TaskFeedback from './components/TaskFeedback/TaskFeedback';
 
 const cx = classNames.bind(styles);
 
@@ -127,6 +128,16 @@ function Admin() {
                             Volunteer Application
                         </span>
                     </div>
+
+                    <div
+                        className={cx('sidebar-item', { active: content === 'TaskFeedback' })}
+                        onClick={() => handleContentChange('TaskFeedback')}
+                    >
+                        <span>
+                            <FontAwesomeIcon icon={faNewspaper} className={cx('icon')} />
+                            Tasks Feedback
+                        </span>
+                    </div>
                 </div>
                 <div className={cx('content')}>
                     {content == 'Dashboard' ? (
@@ -143,6 +154,8 @@ function Admin() {
                         <VolunteerApplication />
                     ) : content == 'VolunteerTask' ? (
                         <VolunteerTask />
+                    ) : content == 'TaskFeedback' ? (
+                        <TaskFeedback />
                     ) : (
                         <User />
                     )}

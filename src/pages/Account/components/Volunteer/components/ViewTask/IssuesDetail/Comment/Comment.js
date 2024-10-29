@@ -3,11 +3,10 @@ import styles from './Comment.module.scss';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import api from '~/config/axios';
-import React from 'react';
 
 const cx = classNames.bind(styles);
 
-function Comment({ taskID, commentIssue, singleIssueID }) {
+function Comment({ id, commentIssue, singleIssueID }) {
     const [searchName, setSearchName] = useState('');
     const formatDueDate = (dueDate) => {
         const formattedDate = dueDate.slice(0, 16).replace('T', ' ');
@@ -26,7 +25,7 @@ function Comment({ taskID, commentIssue, singleIssueID }) {
 
         try {
             const response = await api.post(
-                `comments/issue/${singleIssueID}/task/${taskID}`,
+                `comments/issue/${singleIssueID}/task/${id}`,
                 { content: searchName },
                 {
                     headers: {
