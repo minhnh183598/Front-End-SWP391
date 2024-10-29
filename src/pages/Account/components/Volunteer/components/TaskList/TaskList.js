@@ -147,15 +147,16 @@ function TaskList({ setUndertakeTask, setTaskID }) {
                                 <h4>
                                     <b>{task.name}</b>
                                 </h4>
-                                <p>
-                                    <b>Category:</b> {task.category}
-                                </p>
                                 <p className={cx('appli-date')}>Due Date: {formatDueDate(task.dueDate)}</p>
-                                <p className={cx('appli-date')}>Create Date: {task.createDate}</p>
-                                <p className={cx('appli-date')}>Finish Date: {task.finishDate}</p>
                             </div>
                             <div className={cx('appli-state')}>
-                                <p className={cx('state', task.status == 'Unavailable' ? 'unavailable' : '')}>
+                                <p
+                                    className={cx('task-status', {
+                                        'status-notstart': task.status === 'NOT_STARTED',
+                                        'status-inprocess': task.status === 'IN_PROGRESS',
+                                        'status-done': task.status === 'DONE',
+                                    })}
+                                >
                                     {formatStatus(task.status)}
                                 </p>
                                 <button

@@ -27,31 +27,39 @@
             }
         }
     }
-    .task-status {
-        position: absolute;
-        right: 33%;
-        top: 18%;
-        background-color: red;
-        color: white;
-        padding: 5px;
-        border-radius: 15px;
-        font-weight: bold;
-    }
+    .task-name {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0 40px;
 
-    .status-notstart {
-        background-color: rgb(176, 176, 176);
-    }
-    .status-inprocess {
-        background-color: var(--inprocess-color);
-    }
+        h5 {
+            margin: 20px auto;
+            text-align: center;
+            background-color: rgb(243, 243, 243);
+            width: 400px;
+            border-radius: 15px;
+            padding: 5px;
+        }
 
-    h5 {
-        margin: 20px auto;
-        text-align: center;
-        background-color: rgb(243, 243, 243);
-        width: 400px;
-        border-radius: 15px;
-        padding: 5px;
+        .task-status {
+            margin: 22px 0;
+            background-color: red;
+            color: white;
+            padding: 5px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+
+        .status-notstart {
+            background-color: rgb(176, 176, 176);
+        }
+        .status-inprocess {
+            background-color: var(--inprocess-color);
+        }
+        .status-done {
+            background-color: green;
+        }
     }
 
     .task-content {
@@ -66,7 +74,7 @@
 
             .task-right-info {
                 width: 48%;
-                height: 290px;
+                height: 312px;
                 background-color: rgb(243, 243, 243);
                 border-radius: 15px;
                 padding: 10px;
@@ -86,7 +94,7 @@
 
             .checklist {
                 width: 48%;
-                height: 290px;
+                height: 312px;
                 background-color: rgb(243, 243, 243);
                 border-radius: 15px;
                 padding: 10px;
@@ -105,19 +113,92 @@
                     }
                 }
 
+                .checklist-range {
+                    .checklist-range-heading {
+                        font-weight: 600;
+                        .icon-checked {
+                            margin-right: 10px;
+                        }
+                    }
+
+                    .range-slide {
+                        background-color: grey;
+                        height: 10px;
+                        border-radius: 10px;
+                        margin-bottom: 15px;
+                        margin-top: 5px;
+                        position: relative;
+                        overflow: hidden;
+
+                        .range-fill {
+                            position: absolute;
+                            content: '';
+                            background-color: var(--primary-color);
+                            height: 10px;
+                            transition: width 0.3s ease;
+                        }
+                    }
+                }
+
                 form {
                     .checklist-item {
                         display: flex;
                         align-items: center;
                         margin-bottom: 10px;
+
                         input {
-                            width: 15px;
-                            margin-right: 10px;
+                            display: none;
+
+                            &:checked + label {
+                                text-decoration: line-through;
+                                color: grey;
+
+                                &::before {
+                                    content: '✓';
+                                    color: black;
+                                    background-color: white;
+                                    width: 15px;
+                                    height: 15px;
+                                    border: 1px solid black;
+                                    border-radius: 5px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    line-height: 14px;
+                                    margin-right: 10px;
+                                }
+                            }
+                        }
+
+                        label {
+                            position: relative;
+                            padding-left: 25px;
+                            cursor: pointer;
+
+                            &::before {
+                                content: '';
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 15px;
+                                height: 15px;
+                                border: 1px solid black;
+                                border-radius: 5px;
+                                background-color: white;
+                                position: absolute;
+                                left: 0;
+                                top: 50%;
+                                transform: translateY(-50%);
+                            }
                         }
 
                         &:last-child {
                             margin-bottom: 0;
                         }
+                    }
+
+                    .save-checklist-btn {
+                        margin-top: 10px;
                     }
                 }
             }

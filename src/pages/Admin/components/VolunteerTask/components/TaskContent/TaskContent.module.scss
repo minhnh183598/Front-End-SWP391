@@ -27,16 +27,24 @@
         }
         .state {
             width: 10%;
-            p {
-                background-color: rgb(110, 191, 220);
-                display: inline;
-                padding: 5px;
-                border-radius: 10px;
+
+            .task-status {
+                background-color: red;
                 color: white;
+                padding: 5px 10px;
+                border-radius: 15px;
                 font-weight: bold;
+                display: inline-block;
             }
+    
             .status-notstart {
                 background-color: rgb(176, 176, 176);
+            }
+            .status-inprocess {
+                background-color: var(--inprocess-color);
+            }
+            .status-done {
+                background-color: green;
             }
         }
 

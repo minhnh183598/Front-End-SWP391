@@ -85,10 +85,9 @@
                 justify-content: right;
                 align-items: end;
 
-                .state {
+                .task-status {
                     width: 130px;
                     height: 30px;
-                    background-color: var(--pass-color);
                     border-radius: 15px;
                     color: white;
                     font-size: 18px;
@@ -98,8 +97,14 @@
                     margin: 0;
                 }
 
-                .unavailable {
-                    background-color: var(--disable-btn);
+                .status-notstart {
+                    background-color: rgb(176, 176, 176);
+                }
+                .status-inprocess {
+                    background-color: var(--inprocess-color);
+                }
+                .status-done {
+                    background-color: green;
                 }
 
                 .feedback {

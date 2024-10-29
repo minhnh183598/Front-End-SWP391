@@ -1,4 +1,4 @@
-import { faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faListCheck, faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
 import styles from './Tasks.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 
 function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
     const [checklistState, setChecklistState] = useState([]);
+    const [completedCheckList, setCompletedCheckList] = useState(0);
 
     useEffect(() => {
         const initialChecklistState = task.checklist.checklistItems.map((item) => ({
@@ -23,10 +24,26 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
     }, [task]);
 
     const handleCheckboxChange = (id) => {
-        setChecklistState((prev) =>
-            prev.map((item) => (item.id === id ? { ...item, completed: !item.completed } : item)),
-        );
+        setChecklistState((prevState) => {
+            return prevState.map((item) => {
+                if (item.id === id) {
+                    return { ...item, completed: !item.completed }; // Đảo trạng thái completed
+                }
+                return item;
+            });
+        });
     };
+
+    useEffect(() => {
+        const completedItems = checklistState.filter((item) => item.completed);
+        const newCompletedCount = completedItems.length;
+
+        // Chỉ cập nhật khi số lượng thực sự thay đổi
+        if (newCompletedCount !== completedCheckList) {
+            setCompletedCheckList(newCompletedCount);
+            console.log('completed', newCompletedCount); // Log ra số lượng hoàn thành
+        }
+    }, [checklistState]);
 
     const getRandomColor = () => {
         const letters = '0123456789ABCDEF';
@@ -97,14 +114,31 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
             </div>
 
             <div className={cx('task-name')}>
+                <span
+                    className={cx('task-status', {
+                        'status-notstart': task.status === 'NOT_STARTED',
+                        'status-inprocess': task.status === 'IN_PROGRESS',
+                        'status-done': task.status === 'DONE',
+                    })}
+                    style={{ visibility: 'hidden' }}
+                >
+                    {formatStatus(task.status)}
+                </span>
+
                 <h5>
                     <b>{task.name}</b>
                 </h5>
-            </div>
 
-            <span className={cx('task-status', { 'status-notstart': task.status === 'NOT_STARTED', 'status-inprocess': task.status === 'IN_PROGRESS' })}>
-                {formatStatus(task.status)}
-            </span>
+                <span
+                    className={cx('task-status', {
+                        'status-notstart': task.status === 'NOT_STARTED',
+                        'status-inprocess': task.status === 'IN_PROGRESS',
+                        'status-done': task.status === 'DONE',
+                    })}
+                >
+                    {formatStatus(task.status)}
+                </span>
+            </div>
 
             <div className={cx('task-content')}>
                 <div className={cx('task-checklist-wrap')}>
@@ -123,6 +157,20 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
                                 <p style={{ marginBottom: 5 }}>{task.checklist.assignee.username}</p>
                             ) : null}
                         </div>
+                        <div className={cx('checklist-range')}>
+                            <div className={cx('checklist-range-heading')}>
+                                <FontAwesomeIcon icon={faListCheck} className={cx('icon-checked')} />
+                                {completedCheckList}/5
+                            </div>
+                            <div className={cx('range-slide')}>
+                                <div
+                                    className={cx('range-fill')}
+                                    style={{
+                                        width: `${(completedCheckList / 5) * 100}%`,
+                                    }}
+                                />
+                            </div>
+                        </div>
                         <form onSubmit={handleUpdateCheckList}>
                             {checklistState.map((checkItem) => (
                                 <div className={cx('checklist-item')} key={checkItem.id}>
@@ -136,7 +184,7 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
                                 </div>
                             ))}
                             {task.checklist.assignee !== null ? (
-                                <Button primary small type="submit">
+                                <Button primary small type="submit" className={cx('save-checklist-btn')}>
                                     Save
                                 </Button>
                             ) : null}
@@ -167,7 +215,9 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
 
                 {task.feedbacks.length > 0 ? <HomeCheckResult task={task} /> : null}
 
-                {task.checklist.assignee !== null && !task.feedbacks.length > 0  ? <HomeCheck task={task} taskID={task.id} setIsSendHomeCheck={setIsSendHomeCheck}/> : null}
+                {task.checklist.assignee !== null && !task.feedbacks.length > 0 ? (
+                    <HomeCheck task={task} taskID={task.id} setIsSendHomeCheck={setIsSendHomeCheck} />
+                ) : null}
 
                 {task.checklist.assignee === null ? (
                     <Button primary className={cx('undertake-btn')} onClick={handleUnderTakeTask}>

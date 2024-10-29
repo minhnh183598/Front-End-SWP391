@@ -266,7 +266,6 @@ function User() {
                                     {userList.length === 0 ? (
                                         <p
                                             style={{ textAlign: 'center', marginTop: 16 }}
-                                            className={cx('null-pet-list')}
                                         >
                                             No users found
                                         </p>

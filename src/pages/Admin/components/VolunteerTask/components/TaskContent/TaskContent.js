@@ -19,7 +19,13 @@ function TaskContent({ currentTask, setViewTask, setTaskID }) {
                     <p className={cx('id')}>#{task.id}</p>
                     <p className={cx('name')}>{task.name}</p>
                     <div className={cx('state')}>
-                        <p className={cx({ 'status-notstart': task.status === 'NOT_STARTED' })}>
+                        <p
+                            className={cx('task-status', {
+                                'status-notstart': task.status === 'NOT_STARTED',
+                                'status-inprocess': task.status === 'IN_PROGRESS',
+                                'status-done': task.status === 'DONE',
+                            })}
+                        >
                             {formatStatus(task.status)}
                         </p>
                     </div>

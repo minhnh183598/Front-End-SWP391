@@ -144,22 +144,13 @@ function HomeCheck({ taskID, task, setIsSendHomeCheck }) {
                 },
             });
             console.log('send homecheck', response.data);
+            await handleUpdateTaskStatusUndertake();
             setOpenHomeCheck(false);
             setIsSendHomeCheck(true);
         } catch (error) {
             console.error(error);
         }
     };
-
-    useEffect(() => {
-        const updateTaskStatus = async () => {
-            if (task.feedbacks.length > 0) {
-                await handleUpdateTaskStatusUndertake();
-            }
-        };
-
-        updateTaskStatus();
-    }, [openHomeCheck]);
 
     const formatLabel = (string) => {
         return string.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
