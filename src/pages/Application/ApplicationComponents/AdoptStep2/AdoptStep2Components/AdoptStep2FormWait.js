@@ -117,6 +117,32 @@ const AdoptStep2FormWait = ({ setStep }) => {
                             <strong>Phone Number #2: </strong>
                             {appliData.secondPhone}
                         </p>
+                        <div className="AdoptStep2_notification">
+                            <h5>
+                                If your application is approved, could you let me know which day you would like the
+                                volunteer to visit your home ?
+                            </h5>
+                            <p>Please choose a date 7-10 days from now. Thank you!</p>
+                        </div>
+                        {/* 3 input */}
+                        <div className="adoptStep2Wait_3input">
+                            <p>
+                                <strong>Date: </strong>
+                                {new Date(appliData.dateIn).toLocaleDateString('vi-VN', {
+                                    day: '2-digit',
+                                    month: '2-digit',
+                                    year: 'numeric',
+                                })}
+                            </p>
+                            <p>
+                                <strong>From: </strong>
+                                {appliData.timeIn}
+                            </p>
+                            <p className="adoptStep2Wait_3input_to">
+                                <strong>To: </strong>
+                                {appliData.timeOut}
+                            </p>
+                        </div>
                     </div>
                     <div className="applicationDetail_box_btn_wrap">
                         {appliData.status === 0 ? (

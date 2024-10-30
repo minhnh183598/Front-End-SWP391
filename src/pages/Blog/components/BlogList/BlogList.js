@@ -12,7 +12,7 @@ function BlogList() {
     const [currentPage, setCurrentPage] = useState(1);
     const [blogData, setBlogData] = useState([]);
     const token = localStorage.getItem('token');
-
+    const reverseBlogData = [...blogData].reverse();
     const getBlogData = async () => {
         try {
             const response = await api.get(`posts`, {
@@ -36,14 +36,14 @@ function BlogList() {
     const blogPerPage = 9;
     const indexOfLastBlog = currentPage * blogPerPage;
     const indexOfFirstBlog = indexOfLastBlog - blogPerPage;
-    const currentBlog = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
+    const currentBlog = reverseBlogData.slice(indexOfFirstBlog, indexOfLastBlog);
 
     return (
         <div className={cx('blog-list')}>
             {currentBlog.map((blog) => (
                 <div className={cx('blog-box')} key={blog.id}>
                     <div className={cx('image')}>
-                        <img src={blog.image} />
+                        <img src={blog.images} />
                     </div>
 
                     <div className={cx('blog-info')}>

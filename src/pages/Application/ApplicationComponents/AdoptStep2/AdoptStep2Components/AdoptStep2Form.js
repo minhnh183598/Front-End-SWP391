@@ -19,7 +19,13 @@ const AdoptStep2Form = ({ id, setStep }) => {
         firstPhone: '',
         secondPerson: '',
         secondPhone: '',
+        date: '',
+        from: '',
+        to: '',
     });
+
+    console.log(formData);
+
     const userID = localStorage.getItem('userId');
     // console.log('userID: ', userID);
     useEffect(() => {
@@ -76,10 +82,11 @@ const AdoptStep2Form = ({ id, setStep }) => {
                 firstPhone: formData.firstPhone,
                 secondPerson: formData.secondPerson,
                 secondPhone: formData.secondPhone,
+                dateIn: formData.date,
+                timeIn: formData.from,
+                timeOut: formData.to,
                 status: 1,
             };
-            // console.log('Pet ID:', id);
-            // console.log('userID: ', userID);
             console.log('Sending data:', newFormData);
 
             // Gửi dữ liệu biểu mẫu đến backend
@@ -90,10 +97,8 @@ const AdoptStep2Form = ({ id, setStep }) => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                // const result = await response.json();
                 const appliId = response.data.applicationId;
-                // console.log('day la json cua form vua tao: ', result);
-                // console.log('day la id cua json do: ', userId);
+
                 localStorage.setItem('applicationId', appliId);
                 console.log(response.data);
             } catch (error) {
@@ -106,9 +111,6 @@ const AdoptStep2Form = ({ id, setStep }) => {
                     console.log('Error message:', error.message);
                 }
             }
-
-            // Nếu yêu cầu thành công, chuyển sang bước tiếp theo
-            // setStep((prevStep) => prevStep + 1);
         } catch (error) {
             console.error('Error submitting form:', error);
             if (error.response) {
@@ -118,87 +120,6 @@ const AdoptStep2Form = ({ id, setStep }) => {
             }
         }
     };
-
-    //moi
-    // const handleNext = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         // Lưu dữ liệu biểu mẫu vào localStorage
-    //         localStorage.setItem('applicationFormData', JSON.stringify(formData));
-    //         const token = localStorage.getItem('token');
-    //         const applicationId = localStorage.getItem('applicationId'); // Lấy applicationId từ localStorage
-    //         const petId = id;
-
-    //         if (!token) {
-    //             throw new Error('Token không tồn tại. Vui lòng đăng nhập lại.');
-    //         }
-
-    //         if (!petId) {
-    //             throw new Error('ID thú cưng không hợp lệ.');
-    //         }
-
-    //         const newFormData = {
-    //             applicationId: applicationId || '', // Rỗng nếu tạo mới
-    //             petId,
-    //             id: userID,
-    //             fullName: formData.fullName,
-    //             yob: parseInt(formData.yob, 10),
-    //             gender: formData.gender,
-    //             address: formData.address,
-    //             city: formData.city,
-    //             job: formData.job,
-    //             phone: formData.phone,
-    //             liveWith: formData.liveWith,
-    //             firstPerson: formData.first_person,
-    //             firstPhone: formData.firstPhone,
-    //             secondPerson: formData.secondPerson,
-    //             secondPhone: formData.secondPhone,
-    //             status: 1,
-    //         };
-
-    //         // Kiểm tra nếu đã có applicationId => gọi API cập nhật
-    //         if (applicationId) {
-    //             const response = await api.get(`applications/${applicationId}`, {
-    //                 headers: { Authorization: `Bearer ${token}` },
-    //             });
-
-    //             if (response.data.status !== 0) {
-    //                 throw new Error('Không thể cập nhật. Ứng dụng đã được xử lý.');
-    //             }
-
-    //             await api.put(`applications/${applicationId}`, newFormData, {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     Authorization: `Bearer ${token}`,
-    //                 },
-    //             });
-    //             console.log('Cập nhật thành công!');
-    //         } else {
-    //             // Nếu chưa có applicationId, tạo mới ứng dụng
-    //             const response = await api.post('applications', newFormData, {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     Authorization: `Bearer ${token}`,
-    //                 },
-    //             });
-    //             const appliId = response.data.applicationId;
-    //             localStorage.setItem('applicationId', appliId); // Lưu applicationId mới
-    //             console.log('Tạo mới thành công!', response.data);
-    //         }
-
-    //         // Chuyển sang bước tiếp theo sau khi thành công
-    //         setStep((prevStep) => prevStep + 1);
-    //     } catch (error) {
-    //         console.error('Lỗi khi gửi biểu mẫu:', error);
-    //         if (error.response) {
-    //             console.log('Lỗi từ server:', error.response.data);
-    //         } else {
-    //             console.log('Thông báo lỗi:', error.message);
-    //         }
-    //     }
-    // };
-
-    // console.log(formData);
 
     return (
         <div className="AdoptStep2">
@@ -374,6 +295,58 @@ const AdoptStep2Form = ({ id, setStep }) => {
                                 onChange={handleChange}
                                 // placeholder="second_phone"
                             />
+                        </div>
+                        <div className="AdoptStep2_notification">
+                            <h5>
+                                If your application is approved, could you let me know which day you would like the
+                                volunteer to visit your home ?
+                            </h5>
+                            <p>Please choose a date 7-10 days from now. Thank you!</p>
+                        </div>
+                        {/* 3 nut o duoi */}
+                        <div className="AdoptStep2_3input">
+                            {/* 3 nut: date */}
+                            <div className="AdoptStep2_3input_date">
+                                <label htmlFor="yob">Date</label>
+                                <input
+                                    className="AdoptStep2-infoInput-bar"
+                                    type="date"
+                                    id="date"
+                                    name="date"
+                                    value={formData.date}
+                                    onChange={handleChange}
+                                    required
+                                    // placeholder="yob"
+                                />
+                            </div>
+                            {/* 3 nut: from */}
+                            <div className="AdoptStep2_3input_from">
+                                <label htmlFor="phone">From</label>
+                                <input
+                                    className="AdoptStep2-infoInput-bar"
+                                    type="text"
+                                    id="from"
+                                    name="from"
+                                    value={formData.from}
+                                    onChange={handleChange}
+                                    required
+                                    // placeholder="phone"
+                                />
+                            </div>
+                            {/* 3 nut to  */}
+                            <div className="AdoptStep2_3input_to">
+                                <label htmlFor="phone">to</label>
+                                <input
+                                    className="AdoptStep2-infoInput-bar"
+                                    type="text"
+                                    id="to"
+                                    name="to"
+                                    value={formData.to}
+                                    onChange={handleChange}
+                                    required
+                                    // placeholder="phone"
+                                />
+                            </div>
                         </div>
                     </form>
                     <div className="AdoptStep2-button">

@@ -47,6 +47,9 @@ const IMAGES = {
 
     iconDecorate: require('./iconDecorate.png'),
     iconDecorate_2: require('./iconDecorate_2.jpg'),
+
+    likeIcon: require('./likeIcon.png'),
+    unlikeIcon: require('./unlikeIcon.png'),
 };
 
 export default IMAGES;

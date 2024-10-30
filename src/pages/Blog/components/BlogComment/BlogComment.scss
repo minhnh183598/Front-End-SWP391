@@ -76,15 +76,16 @@
 
 .blogCommentSection_each_username_createDate {
     display: flex;
-    position: relative;
+    // position: relative;
+
     align-items: end;
 }
 
 .blogCommentSection_each_username {
     display: flex;
     align-items: end;
-    margin-right: 20px;
-    font-size: 20px;
+    margin-right: 10px;
+    font-size: 18px;
     // strong {
     //     display: flex;
     //     align-items: end;
@@ -92,8 +93,10 @@
 }
 
 .blogCommentSection_each_createDate {
-    position: absolute;
-    left: 80px;
-    top: 3.5px;
-    // top: 400px;
+    height: 24px;
+    // position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: grey;
 }

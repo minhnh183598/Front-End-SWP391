@@ -49,7 +49,7 @@ function ApplicationList() {
             console.error('Lỗi khi kiểm tra trạng thái:', error);
         }
     };
-    console.log('Day la pet List', petList);
+    // console.log('Day la pet List', petList);
 
     const convertDate = (isoDateString) => {
         const date = new Date(isoDateString); // Tạo đối tượng Date từ chuỗi ISO
@@ -145,10 +145,9 @@ function ApplicationList() {
                             </div>
                         </div>
                         <p className={cx('appli-date')}>Create Date: {convertDate(appli.createAt)}</p>
-                        {/* <p className={cx('appli-date')}>Finish Date: {appli.finishDate}</p> */}
+                        <p className={cx('appli-date')}>Finish Date: {appli.finishDate}</p>
                     </div>
                 ))}
-
                 <div className={cx('pagination')}>
                     <Pagination
                         style={{ display: 'block' }}

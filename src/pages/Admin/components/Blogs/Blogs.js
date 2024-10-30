@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { convertToRaw, EditorState } from 'draft-js';
 import api from '~/config/axios';
 import CreateBlog from './BlogComponents/CreateBlog';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -18,21 +19,10 @@ function Blogs() {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [blogData, setBlogData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const tempData = [
-        {
-            name: 1,
-            age: 2,
-        },
-        {
-            name: 1,
-            age: 2,
-        },
-        {
-            name: 1,
-            age: 2,
-        },
-    ];
-    //Lay blog data
+    const [totalBlog, setTotalBlog] = useState(0);
+    const navigate = useNavigate();
+
+    //Lay blog data payment/all
     const handleBlogData = async () => {
         try {
             setLoading(true);
@@ -43,6 +33,7 @@ function Blogs() {
                     // Authorization: `No Auth`,
                 },
             });
+            setTotalBlog(response.data.result.length);
             setBlogData(response.data.result);
             // localStorage.setItem('bloguData', JSON.stringify(response.data));
         } catch (error) {
@@ -51,6 +42,7 @@ function Blogs() {
             setLoading(false); // Hoàn tất quá trình tải
         }
     };
+
     useEffect(() => {
         handleBlogData();
     }, []);
@@ -72,6 +64,10 @@ function Blogs() {
     // const currentBlog = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
     const currentBlog = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
 
+    const goToBlogDetail = (id) => {
+        navigate(`/blog-detail/${id}`);
+    };
+
     return (
         <>
             {!addBlog ? (
@@ -80,18 +76,18 @@ function Blogs() {
                     <div className={cx('user-sum')}>
                         <div className={cx('user-sum-item')}>
                             <div>
-                                <p className={cx('item-number')}>231</p>
+                                <p className={cx('item-number')}>{totalBlog}</p>
                                 <p className={cx('item-label')}>Total Blogs</p>
                             </div>
                             <span>+2.15%</span>
                         </div>
-                        <div className={cx('user-sum-item')}>
+                        {/* <div className={cx('user-sum-item')}>
                             <div>
                                 <p className={cx('item-number')}>10</p>
                                 <p className={cx('item-label')}>New Blogs</p>
                             </div>
                             <span>-3.5%</span>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className={cx('user-content')}>
@@ -139,7 +135,11 @@ function Blogs() {
                                             <p className={cx('appli')}>{blog.noa}</p>
                                             <p className={cx('date')}>{blog.enrolled}</p>
                                             <div className={cx('action')}>
-                                                <FontAwesomeIcon icon={faEye} className={cx('view-icon')} />
+                                                <FontAwesomeIcon
+                                                    onClick={() => goToBlogDetail(blog.id)}
+                                                    icon={faEye}
+                                                    className={cx('view-icon')}
+                                                />
                                                 <FontAwesomeIcon icon={faTrash} className={cx('delete-icon')} />
                                             </div>
                                         </div>

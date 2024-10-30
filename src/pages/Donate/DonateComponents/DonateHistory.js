@@ -10,10 +10,7 @@ const DonateHistory = () => {
     const donatePerPage = 10;
     let step = 1;
 
-    const reversedDonateData = [...donateData].reverse(); // Sử dụng spread operator để tạo một bản sao của mảng trước khi đảo ngược
-
-    // Nếu bạn muốn lưu trữ vào state mới
-    const [reversedData, setReversedData] = useState(reversedDonateData);
+    const reversedDonateData = [...donateData].reverse();
 
     const getDonation = async () => {
         try {
