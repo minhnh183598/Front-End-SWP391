@@ -1,4 +1,4 @@
-import { faListCheck, faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faListCheck, faPlus, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import styles from './Tasks.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,12 +7,14 @@ import Button from '~/components/Button';
 import api from '~/config/axios';
 import { useEffect, useState } from 'react';
 import HomeCheckResult from '../HomeCheckResult/HomeCheckResult';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
 function Tasks({ id, task, setIsUndertake }) {
     const [checklistState, setChecklistState] = useState([]);
     const [completedCheckList, setCompletedCheckList] = useState(0);
+    const [description, setDescription] = useState(task.description);
 
     useEffect(() => {
         const initialChecklistState = task.checklist.checklistItems.map((item) => ({
@@ -45,15 +47,6 @@ function Tasks({ id, task, setIsUndertake }) {
         }
     }, [checklistState]);
 
-    const getRandomColor = () => {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    };
-
     const formatStatus = (status) => {
         return status
             .split('_')
@@ -76,9 +69,11 @@ function Tasks({ id, task, setIsUndertake }) {
                             },
                         },
                     );
+
                     console.log('update checklist', response.data);
                 }),
             );
+            toast.success('Updated checklist successfully!');
         } catch (error) {
             console.log(error);
         }
@@ -89,8 +84,120 @@ function Tasks({ id, task, setIsUndertake }) {
         return formattedDate;
     };
 
+    const handleSubmitDescription = async (e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('token');
+
+        try {
+            const res = await api.put(
+                `tasks/${task.id}`,
+                {
+                    description,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+            toast.success('Updated description successfully!');
+            console.log('updateDes', res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleUpdatePetAdopted = async () => {
+        const petId = 123;
+
+        try {
+            const response = await api.put(
+                `pets/status/${petId}`,
+                {
+                    petStatus: 'Adopted',
+                },
+                {
+                    headers: {
+                        Authorization: 'No Auth',
+                    },
+                },
+            );
+            console.log('update pet adopted', response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleUpdateTaskLastStepApprove = async () => {
+        const token = localStorage.getItem('token');
+        const appliId = task.name.split('(')[1].replace(')', '');
+        console.log('appli id', appliId);
+
+        try {
+            const response = await api.put(
+                `applications/status/${appliId}`,
+                {
+                    status: 3,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+            console.log('update last step', response.data);
+            toast.success('Update Application To Approved Successfully');
+            await handleUpdatePetAdopted();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleUpdateTaskLastStepDenied = async () => {
+        const token = localStorage.getItem('token');
+        const appliId = task.name.split('(')[1].replace(')', '');
+        console.log('appli id', appliId);
+
+        try {
+            const response = await api.put(
+                `applications/status/${appliId}`,
+                {
+                    status: 4,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+            console.log('update last step', response.data);
+            toast.success('Update Application To Denied Successfully');
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleDeleteTask = async () => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await api.delete(`tasks/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            console.log('delete task', response.data);
+            toast.success('Delete Task Successfully');
+        } catch (error) {
+            console.log(error);
+            toast.error('Fail To Delete Task');
+        }
+    };
+
     return (
         <div className={cx('task-info')}>
+            <ToastContainer />
             <div className={cx('task-title')}>
                 <p>Task</p>
                 <p>Due date: {formatDueDate(task.dueDate)}</p>
@@ -126,10 +233,20 @@ function Tasks({ id, task, setIsUndertake }) {
             <div className={cx('task-content')}>
                 <div className={cx('task-checklist-wrap')}>
                     <div className={cx('task-right-info')}>
-                        <p style={{ marginBottom: 5 }}>
-                            <b>Description</b>
-                        </p>
-                        <div className={cx('task-des-wrap')}>{task.description}</div>
+                        <form onSubmit={handleSubmitDescription}>
+                            <label htmlFor="description" style={{ marginBottom: 5 }}>
+                                <b>Description</b>
+                            </label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                            <Button primary small className={cx('save-des-btn')} type="submit">
+                                Save
+                            </Button>
+                        </form>
                     </div>
                     <div className={cx('checklist')}>
                         <div className={cx('checklist-heading')}>
@@ -199,11 +316,29 @@ function Tasks({ id, task, setIsUndertake }) {
 
                 {task.checklist.assignee === null ? <HomeCheck taskID={id} /> : null}
 
+                {task.feedbacks.length > 0 ? (
+                    <div className={cx('last-step-btn')}>
+                        <Button primary large mgRight10 onClick={handleUpdateTaskLastStepApprove}>
+                            Approve Adopt
+                        </Button>
+                        <Button large onClick={handleUpdateTaskLastStepDenied}>
+                            Deny Adopt
+                        </Button>
+                    </div>
+                ) : null}
+
                 {/* {task.checklist.assignee === null ? (
                     <Button primary className={cx('undertake-btn')} onClick={handleUnderTakeTask}>
                         Undertake
                     </Button>
                 ) : null} */}
+            </div>
+
+            <div className={cx('delete-task')}>
+                <span onClick={handleDeleteTask}>
+                    <FontAwesomeIcon icon={faTrash} className={cx('icon-trash')} />
+                    Delete
+                </span>
             </div>
         </div>
     );

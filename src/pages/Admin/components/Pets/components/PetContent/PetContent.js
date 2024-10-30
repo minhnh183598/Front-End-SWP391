@@ -29,7 +29,6 @@ function PetContent({ currentPet, setPetID, setViewPet }) {
                             {pet.petStatus}
                         </p>
                     </div>
-                    <p className={cx('appli')}>#{pet.noa}</p>
                     <p className={cx('date')}>
                         {pet.createdPetAt ? new Date(pet.createdPetAt).toLocaleDateString() : ''}
                     </p>

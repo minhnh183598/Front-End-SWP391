@@ -251,7 +251,14 @@ function Login() {
                                     <Button className={cx('test_swt')} medium mgRight10 primary type="submit">
                                         Login
                                     </Button>
-                                    <Button outline medium onClick={handleLoginGoogle}>
+                                    <Button
+                                        outline
+                                        medium
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleLoginGoogle();
+                                        }}
+                                    >
                                         Google
                                     </Button>
                                 </div>

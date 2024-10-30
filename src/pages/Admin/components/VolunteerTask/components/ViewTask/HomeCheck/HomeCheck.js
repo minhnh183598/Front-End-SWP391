@@ -8,6 +8,7 @@ import uploadFile from '~/utils/Upload';
 import Button from '~/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -89,12 +90,6 @@ function HomeCheck({ taskID }) {
         }
     };
 
-    const handleStarClick = (field, star) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            [field]: star,
-        }));
-    };
 
     const handleCreateFeedback = async (e) => {
         e.preventDefault();
@@ -128,8 +123,10 @@ function HomeCheck({ taskID }) {
                 },
             });
             console.log('send homecheck', response.data);
+            toast.success('Submit Home Check Form Successfully');
         } catch (error) {
             console.error(error);
+            toast.error('Fail To Submit Home Check Form');
         }
     };
 
@@ -141,7 +138,6 @@ function HomeCheck({ taskID }) {
         <>
             {!openHomeCheck ? (
                 <Button
-                    mgBottom20
                     primary
                     onClick={(e) => {
                         e.preventDefault();
@@ -151,124 +147,134 @@ function HomeCheck({ taskID }) {
                     Home Check
                 </Button>
             ) : (
-                <div className={cx('wrapper')}>
-                    <p className={cx('title')}>
-                        <b>Home Check</b>
-                    </p>
-                    <form onSubmit={handleCreateFeedback}>
-                        <div className={cx('home-check-input-wrap')}>
-                            <div className={cx('form-rating')}>
-                                {[
-                                    'livingSpace',
-                                    'familyIncome',
-                                    'petExperience',
-                                    'familyStability',
-                                    'timeCommitment',
-                                ].map((field) => (
-                                    <div className={cx('living-item')} key={field}>
-                                        <label htmlFor={field}>
-                                            <b>{formatLabel(field)}</b>
-                                        </label>
-                                        <div className={cx('stars')}>
-                                            {[...Array(5)].map((star, index) => {
-                                                const currentRating = index + 1;
-                                                return (
-                                                    <label key={index}>
-                                                        <input
-                                                            type="radio"
-                                                            name={field}
-                                                            value={currentRating}
-                                                            onChange={() => {
-                                                                setFormData((prevData) => ({
-                                                                    ...prevData,
-                                                                    rating: {
-                                                                        ...prevData.rating,
+                <>
+                    <ToastContainer />
+                    <div className={cx('wrapper')}>
+                        <p className={cx('title')}>
+                            <b>Home Check</b>
+                        </p>
+                        <form onSubmit={handleCreateFeedback}>
+                            <div className={cx('home-check-input-wrap')}>
+                                <div className={cx('form-rating')}>
+                                    {[
+                                        'livingSpace',
+                                        'familyIncome',
+                                        'petExperience',
+                                        'familyStability',
+                                        'timeCommitment',
+                                    ].map((field) => (
+                                        <div className={cx('living-item')} key={field}>
+                                            <label htmlFor={field}>
+                                                <b>{formatLabel(field)}</b>
+                                            </label>
+                                            <div className={cx('stars')}>
+                                                {[...Array(5)].map((star, index) => {
+                                                    const currentRating = index + 1;
+                                                    return (
+                                                        <label key={index}>
+                                                            <input
+                                                                type="radio"
+                                                                name={field}
+                                                                value={currentRating}
+                                                                onChange={() => {
+                                                                    setFormData((prevData) => ({
+                                                                        ...prevData,
+                                                                        rating: {
+                                                                            ...prevData.rating,
+                                                                            [field]: currentRating,
+                                                                        },
+                                                                    }));
+                                                                }}
+                                                                style={{ display: 'none' }}
+                                                            />
+                                                            <FontAwesomeIcon
+                                                                icon={faStar}
+                                                                className={cx('star-icon')}
+                                                                color={
+                                                                    currentRating <=
+                                                                    (starHover[field] || formData.rating[field])
+                                                                        ? 'gold'
+                                                                        : 'grey'
+                                                                }
+                                                                onMouseEnter={() =>
+                                                                    setStarHover((prev) => ({
+                                                                        ...prev,
                                                                         [field]: currentRating,
-                                                                    },
-                                                                }));
-                                                            }}
-                                                            style={{ display: 'none' }}
-                                                        />
-                                                        <FontAwesomeIcon
-                                                            icon={faStar}
-                                                            className={cx('star-icon')}
-                                                            color={
-                                                                currentRating <=
-                                                                (starHover[field] || formData.rating[field])
-                                                                    ? 'gold'
-                                                                    : 'grey'
-                                                            }
-                                                            onMouseEnter={() =>
-                                                                setStarHover((prev) => ({
-                                                                    ...prev,
-                                                                    [field]: currentRating,
-                                                                }))
-                                                            }
-                                                            onMouseLeave={() =>
-                                                                setStarHover((prev) => ({ ...prev, [field]: null }))
-                                                            }
-                                                        />
-                                                    </label>
-                                                );
-                                            })}
+                                                                    }))
+                                                                }
+                                                                onMouseLeave={() =>
+                                                                    setStarHover((prev) => ({ ...prev, [field]: null }))
+                                                                }
+                                                            />
+                                                        </label>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className={cx('home-check-right')}>
+                                    <div className={cx('form-image')}>
+                                        <div className={cx('upload-image')}>
+                                            <label htmlFor="images">
+                                                <b>Images</b>
+                                            </label>
+                                            <Upload
+                                                listType="picture-card"
+                                                fileList={fileList}
+                                                onPreview={handlePreview}
+                                                onChange={handleFileChange}
+                                            >
+                                                {fileList.length >= 8 ? null : uploadButton}
+                                            </Upload>
                                         </div>
                                     </div>
-                                ))}
-                            </div>
 
-                            <div className={cx('home-check-right')}>
-                                <div className={cx('form-image')}>
-                                    <div className={cx('upload-image')}>
-                                        <label htmlFor="images">
-                                            <b>Images</b>
+                                    <div className={cx('form-input')}>
+                                        <label htmlFor="content">
+                                            <b>Content</b>
                                         </label>
-                                        <Upload
-                                            listType="picture-card"
-                                            fileList={fileList}
-                                            onPreview={handlePreview}
-                                            onChange={handleFileChange}
-                                        >
-                                            {fileList.length >= 8 ? null : uploadButton}
-                                        </Upload>
+                                        <textarea
+                                            id="content"
+                                            name="content"
+                                            value={formData.content}
+                                            onChange={handleChange}
+                                        ></textarea>
                                     </div>
                                 </div>
-
-                                <div className={cx('form-input')}>
-                                    <label htmlFor="content">
-                                        <b>Content</b>
-                                    </label>
-                                    <textarea
-                                        id="content"
-                                        name="content"
-                                        value={formData.content}
-                                        onChange={handleChange}
-                                    ></textarea>
-                                </div>
                             </div>
-                        </div>
 
-                        <div style={{ display: 'flex' }}>
-                            <Button mgRight10 primary medium type="submit">
-                                Submit
-                            </Button>
-                            <Button outline medium>
-                                Cancel
-                            </Button>
-                        </div>
-                    </form>
+                            <div style={{ display: 'flex' }}>
+                                <Button mgRight10 primary medium type="submit">
+                                    Submit
+                                </Button>
+                                <Button
+                                    outline
+                                    medium
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setOpenHomeCheck(false);
+                                    }}
+                                >
+                                    Cancel
+                                </Button>
+                            </div>
+                        </form>
 
-                    {previewImage && (
-                        <Image
-                            wrapperStyle={{ display: 'none' }}
-                            preview={{
-                                visible: previewOpen,
-                                onVisibleChange: (visible) => setPreviewOpen(visible),
-                                afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                            }}
-                            src={previewImage}
-                        />
-                    )}
-                </div>
+                        {previewImage && (
+                            <Image
+                                wrapperStyle={{ display: 'none' }}
+                                preview={{
+                                    visible: previewOpen,
+                                    onVisibleChange: (visible) => setPreviewOpen(visible),
+                                    afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                                }}
+                                src={previewImage}
+                            />
+                        )}
+                    </div>
+                </>
             )}
         </>
     );

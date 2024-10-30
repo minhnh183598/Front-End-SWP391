@@ -271,7 +271,14 @@ function Register() {
                                     <Button mgRight10 primary medium type="submit">
                                         Register
                                     </Button>
-                                    <Button outline medium onClick={handleLoginGoogle}>
+                                    <Button
+                                        outline
+                                        medium
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleLoginGoogle();
+                                        }}
+                                    >
                                         Google
                                     </Button>
                                 </div>

@@ -1,16 +1,19 @@
 import Button from '~/components/Button';
 import styles from './Account.module.scss';
 import classNames from 'classnames/bind';
-import { Dropdown } from 'antd';
+import { Dropdown, Menu } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import api from '~/config/axios';
+import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Account() {
     const navigate = useNavigate();
+    const [notiData, setNotiData] = useState([]);
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const role = JSON.parse(localStorage.getItem('userRoles'));
     const isAdmin = role?.includes('ADMIN');
@@ -37,7 +40,10 @@ function Account() {
             ? [
                   {
                       label: (
-                          <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/admin">
+                          <Link
+                              style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }}
+                              to="/admin"
+                          >
                               Admin
                           </Link>
                       ),
@@ -46,68 +52,129 @@ function Account() {
             : []),
         {
             label: (
-                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/account">
+                <Link
+                    style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }}
+                    to="/account"
+                >
                     My Account
                 </Link>
             ),
         },
-        // moi them
-        // {
-        //     label: (
-        //         <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/my-application">
-        //             Application
-        //         </Link>
-        //     ),
-        // },
-        // {
-        //     label: (
-        //         <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/my-pet">
-        //             Pet
-        //         </Link>
-        //     ),
-        // },
-        /////////////////////////////////////////////////////////////////////////
+
         {
             label: (
-                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500 }} to="/" onClick={handleLogout}>
+                <Link
+                    style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }}
+                    to="/my-application"
+                >
+                    Application
+                </Link>
+            ),
+        },
+        {
+            label: (
+                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }} to="/my-pet">
+                    Pet
+                </Link>
+            ),
+        },
+        {
+            label: (
+                <Link
+                    style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }}
+                    to="/"
+                    onClick={handleLogout}
+                >
                     Log Out
                 </Link>
             ),
         },
     ];
 
-    const data = [
-        {
-            id: 5,
-            name: 'John nguyen alo mot hai ba adoption',
-            status: 'Done',
-            finishDate: '20-10-2024',
-        },
-    ];
+    const formatDueDate = (dueDate) => {
+        const formattedDate = dueDate.slice(0, 16).replace('T', ' / ');
+        return formattedDate;
+    };
+
+    const handleNotiData = async () => {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('userId');
+
+        try {
+            const response = await api.get(`applications/sorted-by-user/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log('Noti Data', response.data);
+            const filterApplication = response.data.filter((app) => app.status !== 0);
+            setNotiData(filterApplication);
+            console.log('noti done / fail', filterApplication);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        handleNotiData();
+    }, []);
+
+    const handleViewClick = (e) => {
+        e.stopPropagation();
+        console.log('View clicked');
+    };
+
+    const menu = (
+        <Menu className={cx('custom-menu')}>
+            {notiData.length === 0 ? (
+                <p style={{ marginBottom: 0, padding: 10 }}>No notifications found</p>
+            ) : (
+                <>
+                    {notiData.map((item) => (
+                        <Menu.Item key={item.applicationId}>
+                            <div className={cx('noti-item')} onClick={handleViewClick}>
+                                <div className={cx('noti-text')}>
+                                    <p className={cx('name')}>
+                                        <b>Adopt application for {item.pet.petName}</b>
+                                    </p>
+                                    <p
+                                        className={cx('status', {
+                                            'status-fail': item.status === 2,
+                                        })}
+                                    >
+                                        {item.status === 1 ? 'Done' : 'Fail'}
+                                    </p>
+                                </div>
+                                <div className={cx('noti-text')}>
+                                    <p
+                                        className={cx('finish')}
+                                        onClick={() => {
+                                            console.log('finish');
+                                        }}
+                                    >
+                                        Update at: {formatDueDate(item.updateAt)}
+                                    </p>
+                                    <p className={cx('view')} style={{ cursor: 'pointer' }} onClick={handleViewClick}>
+                                        View
+                                    </p>
+                                </div>
+                            </div>
+                        </Menu.Item>
+                    ))}
+                </>
+            )}
+        </Menu>
+    );
 
     return (
         <div className={cx('account')}>
             {userInfo ? (
                 <>
-                    <div className={cx('noti-wrap')}>
-                        <FontAwesomeIcon icon={faBell} className={cx('icon-header')} />
-                        <div className={cx('noti-menu')}>
-                            {data.map((item) => (
-                                <div className={cx('noti-item')} key={item.id}>
-                                    <div className={cx('noti-text')}>
-                                        <p className={cx('name')}>
-                                            <b>{item.name}</b>
-                                        </p>
-                                        <p className={cx('status')}>{item.status}</p>
-                                    </div>
-                                    <div className={cx('noti-text')}>
-                                        <p className={cx('finish')}>Finish: {item.finishDate}</p>
-                                        <p className={cx('view')}>View</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    <Dropdown overlay={menu} placement="bottomRight">
+                        <span>
+                            <FontAwesomeIcon icon={faBell} className={cx('icon-header')} />
+                        </span>
+                    </Dropdown>
 
                     <Dropdown menu={{ items }}>
                         <span className={cx('username')}>
@@ -123,7 +190,7 @@ function Account() {
                     </Button>
                     <Button medium outline onClick={handleToRegister}>
                         Register
-                    </Button>{' '}
+                    </Button>
                 </>
             )}
         </div>

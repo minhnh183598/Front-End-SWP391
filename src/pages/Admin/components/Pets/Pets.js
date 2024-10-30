@@ -205,7 +205,6 @@ function Pets() {
                                             <p className={cx('id')}>ID</p>
                                             <p className={cx('name')}>Name</p>
                                             <p className={cx('role')}>Status</p>
-                                            <p className={cx('appli')}>Adopter ID</p>
                                             <p className={cx('date')}>Create Date</p>
                                             <p className={cx('action')}>Action</p>
                                         </div>

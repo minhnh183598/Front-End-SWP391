@@ -3,8 +3,11 @@ import { useEffect, useState } from 'react';
 import Button from '~/components/Button';
 import styles from './Account.module.scss';
 import classNames from 'classnames/bind';
-import { Dropdown } from 'antd';
+import { Dropdown, Menu } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell } from '@fortawesome/free-regular-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -77,15 +80,97 @@ function Account() {
         },
     ];
 
+    const data = [
+        {
+            id: 5,
+            name: 'John nguyen alo mot hai ba adoption',
+            status: 'Done',
+            finishDate: '20-10-2024',
+        },
+        {
+            id: 4,
+            name: 'John nguyen alo mot hai ba adoption',
+            status: 'Done',
+            finishDate: '20-10-2024',
+        },
+        {
+            id: 3,
+            name: 'John nguyen alo mot hai ba adoption',
+            status: 'Done',
+            finishDate: '20-10-2024',
+        },
+        {
+            id: 2,
+            name: 'John nguyen alo mot hai ba adoption',
+            status: 'Done',
+            finishDate: '20-10-2024',
+        },
+        {
+            id: 1,
+            name: 'John nguyen alo mot hai ba adoption',
+            status: 'Done',
+            finishDate: '20-10-2024',
+        },
+        {
+            id: 6,
+            name: 'John nguyen alo mot hai ba adoption',
+            status: 'Done',
+            finishDate: '20-10-2024',
+        },
+    ];
+
+    const handleNotiData = async () => {
+        const token = localStorage.getItem('token');
+    };
+
+    const handleViewClick = (e) => {
+        e.stopPropagation();
+        console.log('View clicked');
+    };
+
+    const menu = (
+        <Menu className={cx('custom-menu')}>
+            {data.map((item) => (
+                <Menu.Item key={item.id}>
+                    <div className={cx('noti-item')} onClick={handleViewClick}>
+                        <div className={cx('noti-text')}>
+                            <p className={cx('name')}>
+                                <b>{item.name}</b>
+                            </p>
+                            <p className={cx('status')}>{item.status}</p>
+                        </div>
+                        <div className={cx('noti-text')}>
+                            <p
+                                className={cx('finish')}
+                                onClick={() => {
+                                    console.log('finish');
+                                }}
+                            >
+                                Finish: {item.finishDate}
+                            </p>
+                            <p className={cx('view')} style={{ cursor: 'pointer' }} onClick={handleViewClick}>
+                                View
+                            </p>
+                        </div>
+                    </div>
+                </Menu.Item>
+            ))}
+        </Menu>
+    );
+
     return (
         <div className={cx('account')}>
             {userInfo ? (
                 <>
-                    <NotiIcon />
+                    <Dropdown overlay={menu}>
+                        <span>
+                            <FontAwesomeIcon icon={faBell} className={cx('icon-header')} />
+                        </span>
+                    </Dropdown>
 
                     <Dropdown menu={{ items }}>
                         <span className={cx('username')}>
-                            <p>{userInfo.username}</p> <UserIcon />
+                            <p>{userInfo.username}</p> <FontAwesomeIcon icon={faUser} className={cx('icon-user')} />
                         </span>
                     </Dropdown>
                 </>
