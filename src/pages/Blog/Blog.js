@@ -43,7 +43,7 @@ function Blog() {
             <div className={cx('content')}>
                 <h1>Blogs</h1>
 
-                <div className={cx('short-filter')}>
+                {/* <div className={cx('short-filter')}>
                     <ShortFilter
                         filter={filter}
                         handleFinish={handleFinish}
@@ -51,7 +51,7 @@ function Blog() {
                         searchName={searchName}
                         handleSearchChange={handleSearchChange}
                     />
-                </div>
+                </div> */}
                 <div className={cx('blog-content')}>
                     <BlogList />
                 </div>

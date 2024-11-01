@@ -8,6 +8,8 @@ import AddPet from './components/AddPet/AddPet';
 import ViewPet from './components/ViewPet/ViewPet';
 import Search from './components/Search/Search';
 import PetContent from './components/PetContent/PetContent';
+import { CSVLink } from 'react-csv';
+import Papa from 'papaparse';
 
 const cx = classNames.bind(styles);
 
@@ -35,7 +37,7 @@ function Pets() {
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
-        console.log(name, value);
+        // console.log(name, value);
         setFilter((pre) => ({ ...pre, [name]: value }));
     };
 
@@ -49,7 +51,7 @@ function Pets() {
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
+            // console.log(response.data);
             setDataLength(dataLength);
             localStorage.setItem('totalPets', dataLength);
             setPetList(response.data);
@@ -67,7 +69,7 @@ function Pets() {
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
+            // console.log(response.data);
             setTotalAvailable(dataLength);
         } catch (error) {
             console.log(error);
@@ -83,7 +85,7 @@ function Pets() {
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
+            // console.log(response.data);
             setTotalAdopted(dataLength);
         } catch (error) {
             console.log(error);
@@ -111,6 +113,36 @@ function Pets() {
         setAddPet(false);
         setRefresh((prev) => prev + 1);
     };
+
+    const handleImportExcel = (e) => {
+        let file = e.target.files[0];
+        console.log('file check', file);
+
+        Papa.parse(file, {
+            header: true,
+            skipEmptyLines: true,
+            complete: async function (results) {
+                console.log('Finished:', results.data);
+                setPetList(results.data);
+
+                try {
+                    // Lặp qua từng pet trong petList và gửi từng cái một
+                    for (const pet of results.data) {
+                        const response = await api.post('pets', pet, {
+                            headers: {
+                                Authorization: `No Auth`,
+                            },
+                        });
+                        console.log('API Response for pet:', response.data);
+                    }
+                } catch (error) {
+                    console.error('Error uploading data:', error);
+                }
+            },
+        });
+    };
+
+    console.log(petList);
 
     const petPerPage = 12;
     const indexOfLastPet = currentPage * petPerPage;
@@ -186,8 +218,33 @@ function Pets() {
 
                                     <div className={cx('add-pet')}>
                                         <Button small primary onClick={() => setAddPet(true)}>
-                                            Add Pet
+                                            <i className="fa-solid fa-plus" style={{ marginRight: '8px' }}></i> Add Pet
                                         </Button>
+
+                                        {/* export excel thu cung  */}
+                                        <div className="exportExcel">
+                                            <CSVLink
+                                                filename={'pet-data.csv'}
+                                                className="btn btn-primary"
+                                                data={petList}
+                                            >
+                                                <i class="fa-solid fa-file-export" style={{ marginRight: '8px' }}></i>
+                                                Export
+                                            </CSVLink>
+                                        </div>
+
+                                        <div className={cx('importExcel')}>
+                                            <label className="importExcelLabel" htmlFor="importExcelBtn">
+                                                <i class="fa-solid fa-file-import" style={{ marginRight: '8px' }}></i>
+                                                Import
+                                            </label>
+                                            <input
+                                                onChange={(e) => handleImportExcel(e)}
+                                                id="importExcelBtn"
+                                                type="file"
+                                                hidden
+                                            />
+                                        </div>
                                     </div>
 
                                     <Search

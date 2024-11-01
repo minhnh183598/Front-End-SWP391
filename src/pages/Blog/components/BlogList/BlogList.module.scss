@@ -85,3 +85,19 @@
         width: 100%;
     }
 }
+
+.blog-search {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: right;
+    input {
+        border: 1px solid black;
+    }
+    select {
+        width: 150px;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-right: 230px;
+    }
+}

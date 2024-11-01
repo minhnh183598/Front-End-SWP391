@@ -39,7 +39,7 @@
         width: 220px;
     }
     .donateHis_box_each_card {
-        width: 174px;
+        width: 190px;
     }
     .donateHis_box_each_action {
     }
@@ -58,5 +58,16 @@
     p {
         font-size: 20px;
         margin: 0;
+    }
+}
+
+.sort-options {
+    margin-bottom: 20px;
+    margin-left: 26px;
+    select {
+        width: 200px;
+        margin-left: 10px;
+        border: 1px solid black;
+        border-radius: 8px;
     }
 }

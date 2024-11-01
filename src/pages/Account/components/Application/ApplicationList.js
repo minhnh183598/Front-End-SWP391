@@ -71,29 +71,53 @@ function ApplicationList() {
     console.log(combinedData);
 
     const getStatusLabel = (status) => {
-        switch (status) {
-            case 0:
-                return 'Waiting';
-            case 1:
-            case 3:
-                return 'Approved';
-            case 2:
-            case 4:
-                return 'Denied';
-            default:
-                return 'Unknown'; // Trường hợp không xác định
+        let wordStatus = '';
+        if (status === 0) {
+            wordStatus = 'waiting';
+        } else if (status === 1 || status === 3) {
+            wordStatus = 'approved';
+        } else {
+            wordStatus = 'denied';
         }
+        switch (wordStatus) {
+            case 'waiting':
+                return 'Waiting'; // Trạng thái Waiting
+            case 'approved':
+                return 'Approved'; // Trạng thái Approved
+            case 'denied':
+                return 'Denied'; // Trạng thái Denied
+            default:
+                return ''; // Không có lớp cho trường hợp không xác định
+        }
+        // switch (status) {
+        //     case 0:
+        //         return 'Waiting';
+        //     case 1:
+        //     case 3:
+        //         return 'Approved';
+        //     case 2:
+        //     case 4:
+        //         return 'Denied';
+        //     default:
+        //         return 'Unknown'; // Trường hợp không xác định
+        // }
     };
 
     const getStatusLabelClass = (status) => {
-        switch (status) {
-            case 0:
+        let wordStatus = '';
+        if (status === 0) {
+            wordStatus = 'waiting';
+        } else if (status === 1 || status === 3) {
+            wordStatus = 'approved';
+        } else {
+            wordStatus = 'denied';
+        }
+        switch (wordStatus) {
+            case 'waiting':
                 return 'waiting'; // Trạng thái Waiting
-            case 1:
-            case 3:
+            case 'approved':
                 return 'approved'; // Trạng thái Approved
-            case 2:
-            case 4:
+            case 'denied':
                 return 'denied'; // Trạng thái Denied
             default:
                 return ''; // Không có lớp cho trường hợp không xác định
@@ -103,6 +127,8 @@ function ApplicationList() {
     // Lọc và sắp xếp dựa trên status được chọn
     const filteredData = combinedData.filter((app) => {
         if (sortStatus === 'ALL') return true; // Không lọc nếu chọn ALL
+        if (sortStatus === 'APPROVED') return app.status === 1 || app.status === 3;
+        if (sortStatus === 'DENIED') return app.status === 2 || app.status === 4;
         return app.status === parseInt(sortStatus, 10);
     });
 
@@ -125,12 +151,11 @@ function ApplicationList() {
                 <select id="sortStatus" value={sortStatus} onChange={(e) => setSortStatus(e.target.value)}>
                     <option value="ALL">All</option>
                     <option value="0">Waiting</option>
-                    <option value="1">Approved</option>
-                    <option value="2">Denied</option>
-                    <option value="3">Approved</option> {/* Trạng thái Approved */}
-                    <option value="4">Denied</option> {/* Trạng thái Denied */}
+                    <option value="APPROVED">Approved</option> {/* Gộp status 1 và 3 vào "Approved" */}
+                    <option value="DENIED">Denied</option> {/* Gộp status 2 và 4 vào "Denied" */}
                 </select>
             </div>
+
             <div className={cx('application-list')}>
                 {appliPage.map((appli) => (
                     <div className={cx('application-item')}>

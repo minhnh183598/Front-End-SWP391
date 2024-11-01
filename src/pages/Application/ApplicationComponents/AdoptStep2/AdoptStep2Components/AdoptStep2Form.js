@@ -324,7 +324,7 @@ const AdoptStep2Form = ({ id, setStep }) => {
                                 <label htmlFor="phone">From</label>
                                 <input
                                     className="AdoptStep2-infoInput-bar"
-                                    type="text"
+                                    type="time"
                                     id="from"
                                     name="from"
                                     value={formData.from}
@@ -338,7 +338,7 @@ const AdoptStep2Form = ({ id, setStep }) => {
                                 <label htmlFor="phone">to</label>
                                 <input
                                     className="AdoptStep2-infoInput-bar"
-                                    type="text"
+                                    type="time"
                                     id="to"
                                     name="to"
                                     value={formData.to}

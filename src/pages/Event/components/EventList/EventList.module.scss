@@ -1,4 +1,4 @@
-.event-list {
+.blog-list {
     background-color: transparent;
     display: flex;
     justify-content: flex-start;
@@ -6,32 +6,18 @@
     gap: 20px;
     width: calc(3 * 250px + 2 * 20px);
 
-    .location_icon {
-        display: flex;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        img {
-            height: 16px;
-        }
-    }
-
-    .event_content {
-        margin-bottom: 10px;
-        margin-left: 5px;
-    }
-
-    .event-box {
+    .blog-box {
         background-color: var(--background-color-grey);
         padding: 15px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
         margin: 0;
         box-sizing: border-box;
         width: 250px;
-        height: 390px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        border-radius: 20px;
         transition: transform 0.2s ease;
 
         .image {
@@ -39,34 +25,19 @@
             height: 200px;
             width: 100%;
             position: relative;
-            border-radius: 10px;
 
             img {
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
-                border-radius: 10px;
-            }
-
-            .date {
-                position: absolute;
-                bottom: -17px;
-                background-image: linear-gradient(var(--primary-color) 50%, rgb(98, 134, 79) 50%);
-                color: white;
-                width: 30px;
-                text-align: center;
-                height: 35px;
-                font-size: 12px;
-                font-weight: 600;
             }
         }
 
-        .event-info {
+        .blog-info {
             margin-top: 10px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            flex-grow: 1;
 
             .info {
                 display: flex;
@@ -88,7 +59,6 @@
                         font-size: 18px;
                         font-weight: 600;
                         margin-bottom: 5px;
-                        margin-top: 10px;
                         text-align: left;
                     }
 
@@ -99,13 +69,16 @@
                     }
                 }
             }
+
+            .blog-btn {
+                margin-top: 20px;
+                display: flex;
+            }
         }
     }
-
-    .event-box:hover {
-        transform: scale(1.03);
+    .blog-box:hover {
+        transform: scale(1.04);
     }
-
     .pagination {
         margin-top: 10px;
         display: block;
@@ -113,17 +86,18 @@
     }
 }
 
-.event-btn {
-    background-color: rgb(98, 134, 79);
-    width: 60px;
-    margin-top: auto;
+.blog-search {
+    margin-top: 20px;
+    margin-bottom: 30px;
     display: flex;
-    border-radius: 10px;
+    justify-content: right;
+    input {
+        border: 1px solid black;
+    }
+    select {
+        width: 150px;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-right: 230px;
+    }
 }
-
-// .btn {
-//     margin: 0;
-//     p {
-//         margin: 0;
-//     }
-// }

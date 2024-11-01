@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import ShortFilter from './components/ShortFilter';
 import BlogList from './components/EventList';
 import api from '~/config/axios';
+import EventList from './components/EventList';
 
 const cx = classNames.bind(styles);
 
@@ -67,7 +68,7 @@ function Event() {
             <div className={cx('content')}>
                 <h1>Events</h1>
 
-                <div className={cx('short-filter')}>
+                {/* <div className={cx('short-filter')}>
                     <ShortFilter
                         filter={filter}
                         handleFinish={handleFinish}
@@ -75,9 +76,9 @@ function Event() {
                         searchName={searchName}
                         handleSearchChange={handleSearchChange}
                     />
-                </div>
+                </div> */}
                 <div className={cx('blog-content')}>
-                    <BlogList data={eventData} dataLength={eventData.length} />
+                    <EventList data={eventData} dataLength={eventData.length} />
                 </div>
             </div>
         </div>

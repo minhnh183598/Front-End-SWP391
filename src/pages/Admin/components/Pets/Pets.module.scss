@@ -3,7 +3,7 @@
     margin: 40px 0;
     margin-top: 0;
 
-    h1{
+    h1 {
         margin-bottom: 40px;
         color: var(--primary-color);
     }
@@ -29,7 +29,7 @@
                 &:first-child {
                     font-weight: bold;
                 }
-                &:last-child{
+                &:last-child {
                     font-weight: 400;
                     font-size: 16px;
                 }
@@ -45,7 +45,7 @@
                 border-radius: 10px;
             }
 
-            &:nth-child(2){
+            &:nth-child(2) {
                 margin: 0 60px;
             }
         }
@@ -89,12 +89,26 @@
                 }
             }
 
-            .add-pet{
+            .add-pet {
                 margin-right: auto;
                 margin-left: 10px;
+                width: 400px;
+                display: flex;
+                gap: 10px;
+                Button {
+                    width: 100px;
+                }
+                .importExcel {
+                    // padding: 10px;
+                    height: 37px;
+                    width: 100px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 7px;
+                    background-color: #f8c851;
+                }
             }
-
-            
         }
 
         .main-content {
@@ -138,13 +152,13 @@
                     .date {
                         width: 10%;
                     }
-                    .action{
+                    .action {
                         width: 5%;
                     }
                 }
             }
 
-            .pagination{
+            .pagination {
                 margin-top: 20px;
                 width: 100%;
                 text-align: center;

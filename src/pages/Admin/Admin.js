@@ -83,7 +83,7 @@ function Admin() {
                             Users
                         </span>
                     </div>
-                    <div
+                    {/* <div
                         className={cx('sidebar-item', { active: content === 'Blogs' })}
                         onClick={() => handleContentChange('Blogs')}
                     >
@@ -91,7 +91,7 @@ function Admin() {
                             <FontAwesomeIcon icon={faBlog} className={cx('icon')} />
                             Blogs
                         </span>
-                    </div>
+                    </div> */}
                     <div
                         className={cx('sidebar-item', { active: content === 'Events' })}
                         onClick={() => handleContentChange('Events')}

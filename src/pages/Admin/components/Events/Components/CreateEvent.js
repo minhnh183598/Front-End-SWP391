@@ -5,9 +5,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import api from '~/config/axios';
 import { storage } from '~/config/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import './CreateBlog.scss';
+import './CreateEvent.scss';
 
-const CreateBlog = () => {
+const CreateEvent = () => {
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -110,7 +110,7 @@ const CreateBlog = () => {
     return (
         <div className="create-blog-container">
             <ToastContainer />
-            <h2>Create a New Blog Post</h2>
+            <h2>Create a New Event Post</h2>
             <form onSubmit={handleSubmit}>
                 <div className="createBlog_form_input_title">
                     <label>Title</label>
@@ -168,4 +168,4 @@ const CreateBlog = () => {
     );
 };
 
-export default CreateBlog;
+export default CreateEvent;

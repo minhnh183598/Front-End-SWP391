@@ -73,23 +73,6 @@ function Blogs() {
             {!addBlog ? (
                 <div className={cx('wrapper')}>
                     <h1>Blogs</h1>
-                    <div className={cx('user-sum')}>
-                        <div className={cx('user-sum-item')}>
-                            <div>
-                                <p className={cx('item-number')}>{totalBlog}</p>
-                                <p className={cx('item-label')}>Total Blogs</p>
-                            </div>
-                            <span>+2.15%</span>
-                        </div>
-                        {/* <div className={cx('user-sum-item')}>
-                            <div>
-                                <p className={cx('item-number')}>10</p>
-                                <p className={cx('item-label')}>New Blogs</p>
-                            </div>
-                            <span>-3.5%</span>
-                        </div> */}
-                    </div>
-
                     <div className={cx('user-content')}>
                         <div className={cx('header')}>
                             <div className={cx('add-pet')}>
@@ -168,9 +151,6 @@ function Blogs() {
                         </p>
                         <CreateBlog />
                     </div>
-                    <Button primary onClick={handleSubmit}>
-                        Create
-                    </Button>
                 </div>
             )}
         </>

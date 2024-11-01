@@ -3,18 +3,20 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { ICONS_ADMIN } from '~/assets/icons/adminicon';
 import api from '~/config/axios';
+import LineChart from './DashboardComponent/Linechart';
 
 const cx = classNames.bind(styles);
 
 function Dashboard() {
-    const [totals, setTotals] = useState({
-        totalUser: 0,
-        totalPet: 0,
-    });
-
     const [totalAppli, setTotalAppli] = useState(0);
-    const [donateData, setDonateData] = useState([]);
-    console.log(totalAppli);
+    const [donateData, setDonateData] = useState(0);
+    const [userData, setUserData] = useState(0);
+    const [petData, setPetData] = useState(0);
+    const [chartData, setChartData] = useState({
+        donateData: [],
+        totalPets: [],
+        totalUsers: [],
+    });
 
     const getDonateData = async () => {
         try {
@@ -22,50 +24,156 @@ function Dashboard() {
             const response = await api.get(`payment/all`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    // Authorization: `No Auth`,
                 },
             });
-            setDonateData(response);
-            // localStorage.setItem('bloguData', JSON.stringify(response.data));
+            return response.data.totalAmount; // Trả về giá trị
         } catch (error) {
             console.log(error);
+            return 0; // Trả về 0 nếu có lỗi
         }
     };
 
-    console.log('Day la donate data: ', donateData);
-
-    // Lay application
     const getApplication = async () => {
         try {
             const token = localStorage.getItem('token');
-
             const response = await api.get(`applications/status/all`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            setTotalAppli(response.data.length);
-            console.log('day la appli:  ', response.data);
+            return response.data.length; // Trả về giá trị
         } catch (error) {
             console.error('Lỗi khi kiểm tra trạng thái:', error);
+            return 0; // Trả về 0 nếu có lỗi
+        }
+    };
+
+    const getPet = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await api.get(`pets`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data.length; // Trả về giá trị
+        } catch (error) {
+            console.error('Lỗi khi kiểm tra trạng thái:', error);
+            return 0; // Trả về 0 nếu có lỗi
+        }
+    };
+
+    const getUser = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await api.get(`users`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data.result.length; // Trả về giá trị
+        } catch (error) {
+            console.error('Lỗi khi kiểm tra trạng thái:', error);
+            return 0; // Trả về 0 nếu có lỗi
         }
     };
 
     useEffect(() => {
-        getDonateData();
-        getApplication();
-        const storedTotals = {
-            totalUser: localStorage.getItem('totalUser'),
-            totalPet: localStorage.getItem('totalPets'),
+        const loadChartData = () => {
+            const savedChartData = JSON.parse(localStorage.getItem('chartData'));
+            if (savedChartData) {
+                setChartData(savedChartData);
+            }
         };
 
-        setTotals((prev) => ({
-            ...prev,
-            ...Object.fromEntries(
-                Object.entries(storedTotals).map(([key, value]) => [key, value ? JSON.parse(value) : prev[key]]),
-            ),
-        }));
-    }, []);
+        loadChartData(); // Load saved chart data on component mount
+
+        const fetchData = async () => {
+            const [fetchedUserData, fetchedPetData, fetchedDonateData, fetchedApplicationData] = await Promise.all([
+                getUser(),
+                getPet(),
+                getDonateData(),
+                getApplication(),
+            ]);
+
+            setUserData(fetchedUserData);
+            setPetData(fetchedPetData);
+            setDonateData(fetchedDonateData);
+            setTotalAppli(fetchedApplicationData);
+
+            // Cập nhật chartData sau khi nhận dữ liệu mới
+            setChartData((prev) => {
+                let newDonateData = [...prev.donateData, fetchedDonateData];
+                let newTotalUsers = [...prev.totalUsers, fetchedUserData];
+                let newTotalPets = [...prev.totalPets, fetchedPetData];
+
+                // Kiểm tra nếu đã đến tháng 12, nếu đúng thì quay lại tháng 1
+                if (newDonateData.length > 12) {
+                    newDonateData = [fetchedDonateData]; // Reset lại về tháng 1
+                }
+                if (newTotalUsers.length > 12) {
+                    newTotalUsers = [fetchedUserData]; // Reset lại về tháng 1
+                }
+                if (newTotalPets.length > 12) {
+                    newTotalPets = [fetchedPetData]; // Reset lại về tháng 1
+                }
+
+                const newChartData = {
+                    donateData: newDonateData,
+                    totalUsers: newTotalUsers,
+                    totalPets: newTotalPets,
+                };
+
+                // Lưu dữ liệu mới vào localStorage
+                localStorage.setItem('chartData', JSON.stringify(newChartData));
+                return newChartData;
+            });
+        };
+
+        fetchData(); // Fetch data on component mount
+
+        const interval = setInterval(fetchData, 10000);
+        return () => clearInterval(interval); // Clear interval on component unmount
+    }, []); // Chỉ chạy một lần khi component được mount
+
+    const donateChartData = {
+        labels: Array.from({ length: chartData.donateData.length }, (_, i) => `Tháng ${i + 1}`), // Dynamically generate labels
+        datasets: [
+            {
+                label: 'Tiền Donate',
+                data: chartData.donateData,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+            },
+        ],
+    };
+
+    const petChartData = {
+        labels: Array.from({ length: chartData.totalPets.length }, (_, i) => `Tháng ${i + 1}`),
+        datasets: [
+            {
+                label: 'Số Pet',
+                data: chartData.totalPets,
+                borderColor: 'rgba(153, 102, 255, 1)',
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                fill: true,
+            },
+        ],
+    };
+
+    const userChartData = {
+        labels: Array.from({ length: chartData.totalUsers.length }, (_, i) => `Tháng ${i + 1}`),
+        datasets: [
+            {
+                label: 'Số User',
+                data: chartData.totalUsers,
+                borderColor: 'rgba(255, 159, 64, 1)',
+                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                fill: true,
+            },
+        ],
+    };
 
     return (
         <div>
@@ -74,7 +182,9 @@ function Dashboard() {
                 <div className={cx('dashboard-sum')}>
                     <div className={cx('dashboard-sum-item')}>
                         <div>
-                            <p className={cx('item-number')}>150.000.000 VND</p>
+                            <p className={cx('item-number')}>
+                                <i className="fa-solid fa-dollar-sign"></i> {donateData} VND
+                            </p>
                             <p className={cx('item-label')}>Total Donation</p>
                         </div>
                         <span>
@@ -83,7 +193,9 @@ function Dashboard() {
                     </div>
                     <div className={cx('dashboard-sum-item')}>
                         <div>
-                            <p className={cx('item-number')}>{totals.totalPet}</p>
+                            <p className={cx('item-number')}>
+                                <i className="fa-solid fa-paw"></i> {petData}
+                            </p>
                             <p className={cx('item-label')}>Total Pets</p>
                         </div>
                         <span>
@@ -92,7 +204,9 @@ function Dashboard() {
                     </div>
                     <div className={cx('dashboard-sum-item')}>
                         <div>
-                            <p className={cx('item-number')}>{totals.totalUser}</p>
+                            <p className={cx('item-number')}>
+                                <i className="fa-solid fa-user"></i> {userData}
+                            </p>
                             <p className={cx('item-label')}>Total Users</p>
                         </div>
                         <span>
@@ -101,7 +215,9 @@ function Dashboard() {
                     </div>
                     <div className={cx('dashboard-sum-item')}>
                         <div>
-                            <p className={cx('item-number')}>{totalAppli}</p>
+                            <p className={cx('item-number')}>
+                                <i className="fa-solid fa-file"></i> {totalAppli}
+                            </p>
                             <p className={cx('item-label')}>Total Applications</p>
                         </div>
                         <span>
@@ -110,7 +226,17 @@ function Dashboard() {
                     </div>
                 </div>
 
-                <div className={cx('dashboard-main')}></div>
+                <div className={cx('dashboard-main')}>
+                    <div className={cx('chart-container')}>
+                        <LineChart data={donateChartData} title="Donation Line Chart" />
+                    </div>
+                    <div className={cx('chart-container')}>
+                        <LineChart data={petChartData} title="Pet Amount Line Chart" />
+                    </div>
+                    <div className={cx('chart-container')}>
+                        <LineChart data={userChartData} title="User Amount Line Chart" />
+                    </div>
+                </div>
             </div>
         </div>
     );

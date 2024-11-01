@@ -1,18 +1,19 @@
 import Button from '~/components/Button';
-import styles from './Events.module.scss';
+import styles from './Blogs.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from 'antd';
 import { useEffect, useState } from 'react';
+
 import { convertToRaw, EditorState } from 'draft-js';
 import api from '~/config/axios';
+import CreateBlog from '../../../Admin/components/Blogs/BlogComponents/CreateBlog';
 import { useNavigate } from 'react-router-dom';
-import CreateEvent from './Components/CreateEvent';
 
 const cx = classNames.bind(styles);
 
-function Events() {
+function Blogs() {
     const [currentPage, setCurrentPage] = useState(1);
     const [addBlog, setAddBlog] = useState(false);
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -26,7 +27,7 @@ function Events() {
         try {
             setLoading(true);
             const token = localStorage.getItem('token');
-            const response = await api.get(`posts/search?tags=Event&category=ADOPTION`, {
+            const response = await api.get(`posts/search?tags=Post&category=ADOPTION`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     // Authorization: `No Auth`,
@@ -71,12 +72,12 @@ function Events() {
         <>
             {!addBlog ? (
                 <div className={cx('wrapper')}>
-                    <h1>Events</h1>
+                    <h1>My Blogs</h1>
                     <div className={cx('user-content')}>
                         <div className={cx('header')}>
                             <div className={cx('add-pet')}>
                                 <Button primary onClick={() => setAddBlog(true)}>
-                                    Create Event
+                                    Create Blog
                                 </Button>
                             </div>
 
@@ -157,7 +158,7 @@ function Events() {
                         <p style={{ cursor: 'pointer', width: '70px' }} onClick={() => setAddBlog(false)}>
                             &larr;Back
                         </p>
-                        <CreateEvent />
+                        <CreateBlog />
                     </div>
                 </div>
             )}
@@ -165,4 +166,4 @@ function Events() {
     );
 }
 
-export default Events;
+export default Blogs;
