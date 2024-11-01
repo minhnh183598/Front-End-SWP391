@@ -50,6 +50,14 @@
             .notpass {
                 background-color: var(--notpass-color);
             }
+
+            .approved {
+                background-color: var(--approved-color);
+            }
+
+            .denied {
+                background-color: var(--denied-color);
+            }
         }
 
         .date {
@@ -62,12 +70,7 @@
             .view-icon {
                 color: rgb(99, 199, 232);
                 width: 18px;
-            }
-
-            .delete-icon {
-                color: rgb(255, 98, 98);
-                width: 18px;
-                margin-left: 10px;
+                cursor: pointer;
             }
         }
     }

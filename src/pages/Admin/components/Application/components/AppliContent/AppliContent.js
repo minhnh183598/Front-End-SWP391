@@ -31,6 +31,10 @@ function AppliContent({ currentAppli, setAppliID, setViewAppli }) {
                                     ? 'inprocess'
                                     : String(appli.status) === '2'
                                     ? 'notpass'
+                                    : String(appli.status) === '3'
+                                    ? 'approved'
+                                    : String(appli.status) === '4'
+                                    ? 'denied'
                                     : null,
                             )}
                         >
@@ -38,16 +42,16 @@ function AppliContent({ currentAppli, setAppliID, setViewAppli }) {
                                 ? 'In Process'
                                 : String(appli.status) === '1'
                                 ? 'Pass'
-                                : 'Not Pass'}
+                                : String(appli.status) === '2'
+                                ? 'Not Pass'
+                                : String(appli.status) === '4'
+                                ? 'Denied'
+                                : 'Approved'}
                         </p>
                     </div>
+                    <p className={cx('date')}>{appli.createAt ? new Date(appli.createAt).toLocaleDateString() : ''}</p>
                     <p className={cx('date')}>
-                        {appli.createAt ? new Date(appli.createAt).toLocaleDateString() : ''}
-                    </p>
-                    <p className={cx('date')}>
-                        {appli.status !== '0' && appli.updateAt
-                            ? new Date(appli.updateAt).toLocaleDateString()
-                            : ''}
+                        {appli.status !== '0' && appli.updateAt ? new Date(appli.updateAt).toLocaleDateString() : ''}
                     </p>
                     <div className={cx('action')}>
                         <FontAwesomeIcon
@@ -66,4 +70,3 @@ function AppliContent({ currentAppli, setAppliID, setViewAppli }) {
 }
 
 export default AppliContent;
-

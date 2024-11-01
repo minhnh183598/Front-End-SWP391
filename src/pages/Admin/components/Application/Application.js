@@ -165,7 +165,7 @@ function Application() {
                                             handleAppliDataSuccess();
                                         }}
                                     >
-                                        Success
+                                        Pass
                                     </p>
                                     <p
                                         className={cx({ active: activeSort == 'Fail' })}

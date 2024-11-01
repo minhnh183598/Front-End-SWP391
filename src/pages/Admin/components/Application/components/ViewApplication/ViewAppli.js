@@ -6,6 +6,7 @@ import PetImages from '~/assets/images/petImg';
 import Button from '~/components/Button';
 import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -44,7 +45,7 @@ function ViewAppli({ appliID, setViewAppli }) {
             const response = await api.put(
                 `applications/status/${appliID}`,
                 {
-                    status: 1, // Gửi body với status là 1
+                    status: 1,
                 },
                 {
                     headers: {
@@ -52,11 +53,14 @@ function ViewAppli({ appliID, setViewAppli }) {
                     },
                 },
             );
-            alert('Update successfully');
-            setViewAppli(false);
+            toast.success('Update successfully');
+            setTimeout(() => {
+                setViewAppli(false);
+            }, 2000);
             console.log('success appli', response.data);
         } catch (error) {
             console.log(error);
+            toast.error('Update fail');
         }
     };
 
@@ -74,11 +78,14 @@ function ViewAppli({ appliID, setViewAppli }) {
                     },
                 },
             );
-            alert('Update successfully');
-            setViewAppli(false);
+            toast.success('Update successfully');
+            setTimeout(() => {
+                setViewAppli(false);
+            }, 2000);
             console.log('fail appli', response.data);
         } catch (error) {
             console.log(error);
+            toast.error('Update fail');
         }
     };
 
@@ -90,16 +97,20 @@ function ViewAppli({ appliID, setViewAppli }) {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            alert('Delete successfully');
-            setViewAppli(false);
+            toast.success('Delete successfully');
+            setTimeout(() => {
+                setViewAppli(false);
+            }, 2000);
             console.log('Delete appli ', response.data);
         } catch (error) {
             console.log(error);
+            toast.error('Delete fail');
         }
     };
 
     return (
         <>
+            <ToastContainer />
             <div className={cx('wrapper')}>
                 <p style={{ cursor: 'pointer', width: '70px' }} onClick={() => setViewAppli(false)}>
                     &larr;Back

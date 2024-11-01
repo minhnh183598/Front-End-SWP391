@@ -32,7 +32,7 @@ const useAuth = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             refreshToken();
-        }, 100000);
+        }, 180000);
 
         return () => clearInterval(interval);
     }, []);
