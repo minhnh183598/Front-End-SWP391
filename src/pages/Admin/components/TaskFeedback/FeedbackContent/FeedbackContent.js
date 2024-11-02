@@ -16,7 +16,7 @@ function FeedbackContent({ currentFeedback, setTaskID, setViewTask }) {
                 <div className={cx('content-item')} key={feedback.id}>
                     <p className={cx('id')}>#{feedback.id}</p>
                     <p className={cx('reporter')}>
-                        {feedback.reporter.lastname} {feedback.reporter.firstname}
+                        {feedback.reporter.username} 
                     </p>
                     <p className={cx('rating')}>{feedback.rating.averageRating}</p>
                     <p className={cx('petName')}>{feedback.petName}</p>

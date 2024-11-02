@@ -18,6 +18,7 @@ function ViewTask({ id, setViewUser }) {
     const [task, setTask] = useState(null);
     const [update, setUpdate] = useState(false);
     const [formData, setFormData] = useState({});
+    const [petIdInAppli, setPetIdInAppli] = useState('');
     // const [openCreateIssue, setOpenCreateIssue] = useState(false);
     const [isUndertake, setIsUndertake] = useState(false);
 
@@ -32,26 +33,12 @@ function ViewTask({ id, setViewUser }) {
 
             console.log('task data: ', response.data.result);
             setTask(response.data.result);
+            setPetIdInAppli(response.data.result.petId);
+            console.log('set pet id in task',response.data.result.petId);
         } catch (error) {
             console.log(error);
         }
     };
-
-    // const handleTaskIssue = async () => {
-    //     const token = localStorage.getItem('token');
-    //     try {
-    //         const response = await api.get(`issues/tasks/${id}`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`,
-    //             },
-    //         });
-
-    //         console.log('issue: ', response.data.result);
-    //         setIssue(response.data.result);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
 
     useEffect(() => {
         handleTaskData();
@@ -87,7 +74,7 @@ function ViewTask({ id, setViewUser }) {
             <div className={cx('wrapper-bottom')}>
                 <div className={cx('container-left')}>
                     <div className={cx('container-info')}>
-                        <Tasks id={id} task={task} setIsUndertake={setIsUndertake} />
+                        <Tasks petIdInAppli={petIdInAppli} id={id} task={task} setIsUndertake={setIsUndertake} />
                     </div>
                 </div>
             </div>

@@ -94,6 +94,38 @@ function Application() {
         }
     };
 
+    const handleAppliDataApproved = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await api.get(`applications/status/3`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            const dataLength = response.data.length;
+            setDataLength(dataLength);
+            setAppliList(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleAppliDataDenied = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await api.get(`applications/status/4`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            const dataLength = response.data.length;
+            setDataLength(dataLength);
+            setAppliList(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         handleAppliDataCombined();
         handleAppliData();
@@ -165,7 +197,7 @@ function Application() {
                                             handleAppliDataSuccess();
                                         }}
                                     >
-                                        Pass
+                                        Passed
                                     </p>
                                     <p
                                         className={cx({ active: activeSort == 'Fail' })}
@@ -175,7 +207,7 @@ function Application() {
                                             handleAppliDataFail();
                                         }}
                                     >
-                                        Fail
+                                        Failed
                                     </p>
                                     <p
                                         className={cx({ active: activeSort == 'In Process' })}
@@ -186,6 +218,26 @@ function Application() {
                                         }}
                                     >
                                         In Process
+                                    </p>
+                                    <p
+                                        className={cx({ active: activeSort == 'Approved' })}
+                                        onClick={() => {
+                                            setActiveSort('Approved');
+                                            setCurrentPage(1);
+                                            handleAppliDataApproved();
+                                        }}
+                                    >
+                                        Approved
+                                    </p>
+                                    <p
+                                        className={cx({ active: activeSort == 'Denied' })}
+                                        onClick={() => {
+                                            setActiveSort('Denied');
+                                            setCurrentPage(1);
+                                            handleAppliDataDenied();
+                                        }}
+                                    >
+                                        Denied
                                     </p>
                                 </div>
 

@@ -41,9 +41,9 @@ function AppliContent({ currentAppli, setAppliID, setViewAppli }) {
                             {String(appli.status) === '0'
                                 ? 'In Process'
                                 : String(appli.status) === '1'
-                                ? 'Pass'
+                                ? 'Passed'
                                 : String(appli.status) === '2'
-                                ? 'Not Pass'
+                                ? 'Not Passed'
                                 : String(appli.status) === '4'
                                 ? 'Denied'
                                 : 'Approved'}

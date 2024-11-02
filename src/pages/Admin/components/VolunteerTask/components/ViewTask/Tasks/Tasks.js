@@ -11,7 +11,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
-function Tasks({ id, task, setIsUndertake }) {
+function Tasks({ petIdInAppli, id, task, setIsUndertake }) {
     const [checklistState, setChecklistState] = useState([]);
     const [completedCheckList, setCompletedCheckList] = useState(0);
     const [description, setDescription] = useState(task.description);
@@ -76,6 +76,7 @@ function Tasks({ id, task, setIsUndertake }) {
             toast.success('Updated checklist successfully!');
         } catch (error) {
             console.log(error);
+            toast.error('Updated checklist fail!');
         }
     };
 
@@ -108,11 +109,9 @@ function Tasks({ id, task, setIsUndertake }) {
     };
 
     const handleUpdatePetAdopted = async () => {
-        const petId = 123;
-
         try {
             const response = await api.put(
-                `pets/status/${petId}`,
+                `pets/status/${task.pet.petId}`,
                 {
                     petStatus: 'Adopted',
                 },

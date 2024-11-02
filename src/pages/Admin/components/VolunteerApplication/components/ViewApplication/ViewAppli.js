@@ -54,7 +54,7 @@ function ViewAppli({ id, setViewAppli, userAppliId, userInAppli }) {
             );
             alert('Update successfully');
             setViewAppli(false);
-            console.log('update user to volunteer',response.data);
+            console.log('update user to volunteer', response.data);
         } catch (error) {
             console.log(error);
         }
