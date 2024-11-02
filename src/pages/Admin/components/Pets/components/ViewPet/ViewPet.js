@@ -23,6 +23,7 @@ function ViewPet({ id, setViewPet }) {
         petDescription: '',
         petType: '',
         petStatus: '',
+        petImage: '',
     });
     const handlePetData = async () => {
         try {
@@ -55,6 +56,7 @@ function ViewPet({ id, setViewPet }) {
                 petDescription: pet.petDescription || '',
                 petType: pet.petType || '',
                 petStatus: pet.petStatus || '',
+                petImage: pet.petImage || '',
             });
         }
     }, [pet]);

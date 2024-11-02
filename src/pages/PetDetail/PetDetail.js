@@ -75,6 +75,7 @@ function PetDetail() {
                 petDescription: pet.petDescription || '',
                 petType: pet.petType || '',
                 petStatus: pet.petStatus || '',
+                petImage: pet.petImage || '',
             });
         }
     }, [pet]);

@@ -19,8 +19,8 @@ const cx = classNames.bind(styles);
 function VolunteerTask() {
     const [currentPage, setCurrentPage] = useState(1);
     const [taskList, setTaskList] = useState([]);
-    const [tagTaskData, setTagTaskData] = useState([]);
-    const [tagIssueData, setTagIssueData] = useState([]);
+    // const [tagTaskData, setTagTaskData] = useState([]);
+    // const [tagIssueData, setTagIssueData] = useState([]);
     const [dataLength, setDataLength] = useState(0);
     const [viewTask, setViewTask] = useState(false);
     const [taskID, setTaskID] = useState('');
@@ -34,13 +34,13 @@ function VolunteerTask() {
     });
 
     const items = [
-        {
-            label: (
-                <Button width100 primary mgRight10 onClick={() => setAddAll('add-tag')}>
-                    Create Tag
-                </Button>
-            ),
-        },
+        // {
+        //     label: (
+        //         <Button width100 primary mgRight10 onClick={() => setAddAll('add-tag')}>
+        //             Create Tag
+        //         </Button>
+        //     ),
+        // },
         {
             label: (
                 <Button width100 primary mgRight10 onClick={() => setAddAll('add-task')}>
@@ -57,37 +57,37 @@ function VolunteerTask() {
         },
     ];
 
-    const handleTagsTaskData = async () => {
-        const token = localStorage.getItem('token');
+    // const handleTagsTaskData = async () => {
+    //     const token = localStorage.getItem('token');
 
-        try {
-            const response = await api.get(`tags/type/TASK_LABEL`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            console.log('tag task', response.data.result);
-            setTagTaskData(response.data.result);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    //     try {
+    //         const response = await api.get(`tags/type/TASK_LABEL`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //         console.log('tag task', response.data.result);
+    //         setTagTaskData(response.data.result);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
-    const handleTagsIssueData = async () => {
-        const token = localStorage.getItem('token');
+    // const handleTagsIssueData = async () => {
+    //     const token = localStorage.getItem('token');
 
-        try {
-            const response = await api.get(`tags/type/ISSUE_LABEL`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            console.log('tag issue', response.data.result);
-            setTagIssueData(response.data.result);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    //     try {
+    //         const response = await api.get(`tags/type/ISSUE_LABEL`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //         console.log('tag issue', response.data.result);
+    //         setTagIssueData(response.data.result);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
@@ -132,8 +132,8 @@ function VolunteerTask() {
 
     useEffect(() => {
         handleTaskData();
-        handleTagsTaskData();
-        handleTagsIssueData();
+        // handleTagsTaskData();
+        // handleTagsIssueData();
     }, [viewTask, currentPage, addAll, filter]);
 
     const taskPerPage = 12;
@@ -271,13 +271,13 @@ function VolunteerTask() {
                         <ViewTask
                             id={taskID}
                             setViewUser={setViewTask}
-                            tagIssueData={tagIssueData}
+                            // tagIssueData={tagIssueData}
                             setAddAll={setAddAll}
                         />
                     )}
                 </div>
             ) : addAll == 'add-task' ? (
-                <AddTask tagTaskData={tagTaskData} setAddAll={setAddAll} />
+                <AddTask setAddAll={setAddAll} />
             ) : addAll == 'add-tag' ? (
                 <AddTag setAddAll={setAddAll} />
             ) : addAll == 'add-template' ? (

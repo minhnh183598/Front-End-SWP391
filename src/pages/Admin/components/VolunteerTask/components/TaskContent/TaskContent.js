@@ -9,7 +9,7 @@ function TaskContent({ currentTask, setViewTask, setTaskID }) {
     const formatStatus = (status) => {
         return status
             .split('_')
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Uppercase chữ cái đầu và lowercase các chữ cái còn lại
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
             .join(' ');
     };
     return (

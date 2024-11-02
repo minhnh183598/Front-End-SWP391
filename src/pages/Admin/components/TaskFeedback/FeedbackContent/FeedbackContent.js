@@ -1,4 +1,3 @@
-
 import styles from './FeedbackContent.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,8 +5,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function FeedbackContent({currentFeedback}) {
-    
+function FeedbackContent({ currentFeedback, setTaskID, setViewTask }) {
     const formatDueDate = (dueDate) => {
         const formattedDate = dueDate.slice(0, 16).replace('T', ' / ');
         return formattedDate;
@@ -27,11 +25,11 @@ function FeedbackContent({currentFeedback}) {
                         <FontAwesomeIcon
                             icon={faEye}
                             className={cx('view-icon')}
-                            // onClick={() => {
-                            //     setUserID(user.id);
-                            //     setViewUser(true);
-                            //     console.log(user.id);
-                            // }}
+                            onClick={() => {
+                                setTaskID(feedback.taskId);
+                                setViewTask(true);
+                                console.log(feedback.taskId);
+                            }}
                         />
                     </div>
                 </div>
