@@ -23,34 +23,22 @@ function VolunteerApplication() {
     const [viewAppli, setViewAppli] = useState(false);
     const [appliID, setAppliID] = useState('');
     const [activeSort, setActiveSort] = useState('View All');
+    const [userAppliId, setUserAppliId] = useState('');
+    const [userInAppli, setUserInAppli] = useState(null);
 
     const handleAppliDataCombined = async () => {
         const token = localStorage.getItem('token');
         try {
-            const inProcessResponse = await api.get(`applications`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            // Gọi API để lấy dữ liệu thành công
-            const successResponse = await api.get(`applications/status/1`, {
+            const response = await api.get(`volunteer/application/status/all`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
 
-            // Gọi API để lấy dữ liệu thất bại
-            const failResponse = await api.get(`applications/status/2`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            console.log('volunteer appli data all', response.data);
 
-            const combinedData = [...successResponse.data, ...failResponse.data, ...inProcessResponse.data];
-            console.log(combinedData);
-            setDataLength(combinedData.length);
-            setTotalAppli(combinedData.length);
-            setAppliList(combinedData);
+            setDataLength(response.data.length);
+            setAppliList(response.data);
         } catch (error) {
             console.log(error);
         }
@@ -59,15 +47,14 @@ function VolunteerApplication() {
     const handleAppliData = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await api.get(`applications`, {
+            const response = await api.get(`volunteer/application`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
+            console.log('inprocess volun appli', response.data);
             setDataLength(dataLength);
-            setTotalProcess(dataLength);
             setAppliList(response.data);
         } catch (error) {
             console.log(error);
@@ -77,15 +64,14 @@ function VolunteerApplication() {
     const handleAppliDataSuccess = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await api.get(`applications/status/1`, {
+            const response = await api.get(`volunteer/application/status/1`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
+            console.log('pass appli volun', response.data);
             setDataLength(dataLength);
-            setTotalPass(dataLength);
             setAppliList(response.data);
         } catch (error) {
             console.log(error);
@@ -95,15 +81,14 @@ function VolunteerApplication() {
     const handleAppliDataFail = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await api.get(`applications/status/2`, {
+            const response = await api.get(`volunteer/application/status/2`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
             const dataLength = response.data.length;
-            console.log(response.data);
+            console.log('fail volun appli', response.data);
             setDataLength(dataLength);
-            setTotalFail(dataLength);
             setAppliList(response.data);
         } catch (error) {
             console.log(error);
@@ -180,7 +165,7 @@ function VolunteerApplication() {
                                             handleAppliDataSuccess();
                                         }}
                                     >
-                                        Success
+                                        Pass
                                     </p>
                                     <p
                                         className={cx({ active: activeSort == 'Fail' })}
@@ -212,7 +197,6 @@ function VolunteerApplication() {
                                     <div className={cx('header-content')}>
                                         <p className={cx('id')}>ID</p>
                                         <p className={cx('user')}>User</p>
-                                        <p className={cx('pet')}>Pet</p>
                                         <p className={cx('status')}>Status</p>
                                         <p className={cx('date')}>Create Date</p>
                                         <p className={cx('date')}>Approval Date</p>
@@ -231,6 +215,8 @@ function VolunteerApplication() {
                                             currentAppli={currentAppli}
                                             setViewAppli={setViewAppli}
                                             setAppliID={setAppliID}
+                                            setUserAppliId={setUserAppliId}
+                                            setUserInAppli={setUserInAppli}
                                         />
                                     )}
                                 </div>
@@ -248,7 +234,7 @@ function VolunteerApplication() {
                         </div>
                     </>
                 ) : (
-                    <ViewAppli id={appliID} setViewAppli={setViewAppli} />
+                    <ViewAppli userInAppli={userInAppli} userAppliId={userAppliId} id={appliID} setViewAppli={setViewAppli} />
                 )}
             </div>
         </>

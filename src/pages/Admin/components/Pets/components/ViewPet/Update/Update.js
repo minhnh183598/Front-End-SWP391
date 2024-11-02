@@ -15,6 +15,16 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handlePetDa
     const [previewImage, setPreviewImage] = useState('');
     const [fileList, setFileList] = useState([]);
 
+    useEffect(() => {
+        const currentFiles = formData.petImage.split(', ').map((url) => ({
+            uid: url,
+            name: url.split('/').pop(),
+            status: 'done',
+            url,
+        }));
+        setFileList(currentFiles);
+    }, [formData.petImage]);
+
     const getBase64 = (file) =>
         new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -32,7 +42,11 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handlePetDa
     };
 
     const handleFileChange = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
+        if (newFileList.length <= 5) {
+            setFileList(newFileList);
+        } else {
+            alert('You can only upload a maximum of 5 images.');
+        }
     };
 
     const uploadButton = (
@@ -78,7 +92,7 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handlePetDa
                     console.log('Uploaded URL:', url);
                     return url;
                 }
-                return null;
+                return file.url;
             }),
         );
 
@@ -120,6 +134,7 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handlePetDa
                                     name="petName"
                                     value={formData.petName}
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
 

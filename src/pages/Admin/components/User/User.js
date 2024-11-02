@@ -62,6 +62,7 @@ function User() {
 
             if (Array.isArray(response.data.result)) {
                 setUserList(response.data.result);
+                console.log('search username', response.data.result);
                 setDataLength(response.data.result.length);
                 localStorage.setItem('totalUser', response.data.result.length);
             } else {
@@ -264,11 +265,7 @@ function User() {
                                     </div>
 
                                     {userList.length === 0 ? (
-                                        <p
-                                            style={{ textAlign: 'center', marginTop: 16 }}
-                                        >
-                                            No users found
-                                        </p>
+                                        <p style={{ textAlign: 'center', marginTop: 16 }}>No users found</p>
                                     ) : (
                                         <UserContent
                                             currentUser={currentUser}

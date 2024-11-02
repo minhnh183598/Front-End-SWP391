@@ -46,7 +46,11 @@ function AddPet({ setAddPet }) {
     };
 
     const handleFileChange = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
+        if (newFileList.length <= 5) {
+            setFileList(newFileList);
+        } else {
+            alert("You can only upload a maximum of 5 images.");
+        }
     };
 
     const uploadButton = (
@@ -129,6 +133,7 @@ function AddPet({ setAddPet }) {
                                     name="petName"
                                     value={formData.petName}
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
 
@@ -250,7 +255,6 @@ function AddPet({ setAddPet }) {
                         <div className={cx('upload-image')}>
                             <label htmlFor="petImage">Image</label>
                             <Upload
-                                // action="gs://furryfriendshaven-acfd9.appspot.com"
                                 listType="picture-card"
                                 fileList={fileList}
                                 onPreview={handlePreview}
