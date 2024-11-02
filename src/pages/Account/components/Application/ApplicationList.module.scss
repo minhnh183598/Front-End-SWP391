@@ -135,6 +135,16 @@
                         background-color: green; // Màu xanh lá cho trạng thái Approved
                     }
 
+                    .passed {
+                        align-content: center;
+                        text-align: center;
+                        width: 100px;
+                        height: 30px;
+                        border-radius: 15px;
+                        color: white;
+                        background-color: palevioletred; // Màu xanh lá cho trạng thái Approved
+                    }
+
                     .denied {
                         align-content: center;
                         text-align: center;

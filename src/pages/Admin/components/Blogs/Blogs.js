@@ -20,6 +20,8 @@ function Blogs() {
     const [blogData, setBlogData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [totalBlog, setTotalBlog] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortOrder, setSortOrder] = useState('newest'); // Trạng thái cho phương thức sắp xếp
     const navigate = useNavigate();
 
     //Lay blog data payment/all
@@ -27,7 +29,7 @@ function Blogs() {
         try {
             setLoading(true);
             const token = localStorage.getItem('token');
-            const response = await api.get(`posts`, {
+            const response = await api.get(`posts/search?tags=Post&category=ADOPTION`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     // Authorization: `No Auth`,
@@ -48,21 +50,25 @@ function Blogs() {
     }, []);
     console.log('Day la blog data: ', blogData);
 
-    const onEditorStateChange = (newEditorState) => {
-        setEditorState(newEditorState);
-    };
+    // Lọc blogData dựa trên searchTerm
+    const filteredBlogData = blogData.filter((blog) => blog.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    const handleSubmit = () => {
-        const contentState = editorState.getCurrentContent();
-        const rawContentState = JSON.stringify(convertToRaw(contentState));
-        console.log(rawContentState);
-    };
+    // Sắp xếp dữ liệu dựa trên lựa chọn
+    const sortedBlogData = [...filteredBlogData].sort((a, b) => {
+        if (sortOrder === 'newest') {
+            return new Date(b.createAt) - new Date(a.createAt); // Sắp xếp mới nhất
+        } else if (sortOrder === 'likes') {
+            return b.likeCount - a.likeCount; // Sắp xếp theo lượt thích
+        } else if (sortOrder === 'oldest') {
+            return new Date(a.createAt) - new Date(b.createAt); // Sắp xếp cũ nhất
+        }
+        return 0;
+    });
 
     const blogPerPage = 12;
     const indexOfLastBlog = currentPage * blogPerPage;
     const indexOfFirstBlog = indexOfLastBlog - blogPerPage;
-    // const currentBlog = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
-    const currentBlog = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
+    const currentBlog = sortedBlogData.slice(indexOfFirstBlog, indexOfLastBlog);
 
     const goToBlogDetail = (id) => {
         navigate(`/blog-detail/${id}`);
@@ -73,6 +79,9 @@ function Blogs() {
             {!addBlog ? (
                 <div className={cx('wrapper')}>
                     <h1>Blogs</h1>
+                    <div className={cx('totalBlog_wrap')}>
+                        <p>Total Blog: {totalBlog}</p>
+                    </div>
                     <div className={cx('user-content')}>
                         <div className={cx('header')}>
                             <div className={cx('add-pet')}>
@@ -81,20 +90,22 @@ function Blogs() {
                                 </Button>
                             </div>
 
-                            <div className={cx('search')}>
-                                <form>
-                                    <label htmlFor="sort">Sort by</label>
-                                    <select id="sort" name="sort">
-                                        <option value="all">All</option>
-                                        <option value="sortByID">ID</option>
-                                        <option value="sortByDate">Create Date</option>
-                                    </select>
-
-                                    <input type="text" placeholder="Search by name" />
-                                    <Button primary small type="submit">
-                                        Search
-                                    </Button>
-                                </form>
+                            <div className={cx('blog-search')}>
+                                {/* Tùy chọn sắp xếp */}
+                                <select
+                                    value={sortOrder}
+                                    onChange={(e) => setSortOrder(e.target.value)}
+                                    className={cx('sort-select')}
+                                >
+                                    <option value="newest">Newest</option>
+                                    <option value="oldest">Oldest</option>
+                                    <option value="likes">Most Liked</option>
+                                </select>
+                                <input
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    placeholder="Search Blog"
+                                />
                             </div>
                         </div>
 
@@ -103,20 +114,30 @@ function Blogs() {
                                 <div className={cx('header-content')}>
                                     <p className={cx('id')}>ID</p>
                                     <p className={cx('title')}>Title</p>
-                                    <p className={cx('appli')}>Number of views</p>
+                                    <p className={cx('appli')}>Number of likes</p>
                                     <p className={cx('date')}>Create Date</p>
                                     <p className={cx('action')}>Action</p>
                                 </div>
                                 <div className={cx('content')}>
                                     {currentBlog.map((blog) => (
                                         <div className={cx('content-item')} key={blog.id}>
-                                            <p className={cx('id')}>#{blog.id}</p>
+                                            <p className={cx('id')}>{blog.id}</p>
                                             <div className={cx('title')}>
                                                 <p className={cx('blogtitle')}>{blog.title}</p>
-                                                <p className={cx('blogCD')}>{blog.createAt}</p>
                                             </div>
-                                            <p className={cx('appli')}>{blog.noa}</p>
-                                            <p className={cx('date')}>{blog.enrolled}</p>
+                                            <div className={cx('blog_numOfLike_wrap')}>
+                                                <div className={cx('blog_numOfLike')}>
+                                                    <p>{blog.likeCount}</p>
+                                                </div>
+                                            </div>
+
+                                            <p className={cx('date')}>
+                                                {new Date(blog.createAt).toLocaleDateString('vi-VN', {
+                                                    day: '2-digit',
+                                                    month: '2-digit',
+                                                    year: 'numeric',
+                                                })}
+                                            </p>
                                             <div className={cx('action')}>
                                                 <FontAwesomeIcon
                                                     onClick={() => goToBlogDetail(blog.id)}
@@ -144,7 +165,6 @@ function Blogs() {
                 </div>
             ) : (
                 <div className={cx('create-blog')}>
-                    <h1>Create Blog</h1>
                     <div className={cx('form-wrapper')}>
                         <p style={{ cursor: 'pointer', width: '70px' }} onClick={() => setAddBlog(false)}>
                             &larr;Back

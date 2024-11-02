@@ -107,14 +107,14 @@ export const Donate = () => {
                                 ))}
                             </div>
                             {/* thanh input another amount  */}
-                            <div className="input-save">
+                            {/* <div className="input-save">
                                 <Form.Control
                                     type="number"
                                     placeholder="Another Amount"
                                     value={customAmount}
                                     onChange={handleCustomAmountChange}
                                 />
-                            </div>
+                            </div> */}
                             {/* nut save  */}
                             {/* <Button className="save-button" onClick={handleSubmit}>
                                 SAVE

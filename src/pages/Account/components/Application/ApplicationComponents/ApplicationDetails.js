@@ -13,7 +13,7 @@ const ApplicationDetails = () => {
     const appliIdUse = appliId.id;
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-
+    console.log('Day la applidata: ', appliData);
     //lay appli data
     const getApplication = async () => {
         try {
@@ -117,6 +117,49 @@ const ApplicationDetails = () => {
                                 {appliData.secondPhone}
                             </p>
                         </div>
+                        <div className="applicationDetail_box_content_petDetail_wrap">
+                            <h3>Pet Details</h3>
+                            <div className="applicationDetail_box_content_petDetail">
+                                <div>
+                                    <img src={appliData.pet.petImage} />
+                                </div>
+                                <div className="applicationDetail_box_content_petDetail_devideCol">
+                                    <div className="applicationDetail_box_content_petDetail_4left">
+                                        <p>
+                                            <strong>Name: </strong>
+                                            {appliData.pet.petName}
+                                        </p>
+                                        <p>
+                                            <strong>Type: </strong>
+                                            {appliData.pet.petType}
+                                        </p>
+                                        <p>
+                                            <strong>Breed: </strong>
+                                            {appliData.pet.petBreed}
+                                        </p>
+                                        <p>
+                                            <strong>Age: </strong>
+                                            {appliData.pet.petAge}
+                                        </p>
+                                    </div>
+                                    <div className="applicationDetail_box_content_petDetail_3right">
+                                        <p>
+                                            <strong>Gender: </strong>
+                                            {appliData.pet.petGender}
+                                        </p>
+                                        <p>
+                                            <strong>Size: </strong>
+                                            {appliData.pet.petSize}
+                                        </p>
+                                        <p>
+                                            <strong>Weight: </strong>
+                                            {appliData.pet.petWeight}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="applicationDetail_box_btn_wrap">
                             {appliData.status === 0 ? (
                                 <div className="applicationDetail_box_btn">

@@ -68,7 +68,7 @@
     }
     .applicationDetail_box_content_yob_gender {
         display: flex;
-        column-gap: 266px;
+        column-gap: 185px;
     }
 }
 
@@ -91,5 +91,42 @@
 
     Button:hover {
         transform: scale(1.1);
+    }
+}
+
+.applicationDetail_box_content_petDetail {
+    // position: absolute;
+    // top: 200px;
+    // left: 00px;
+    display: flex;
+    // justify-content: center;
+    gap: 20px;
+    background-color: white;
+    width: 700px;
+    border-radius: 10px;
+    padding: 20px;
+    p {
+        font-size: 21px;
+    }
+    img {
+        height: 200px;
+        width: 300px;
+        border-radius: 10px;
+    }
+    // strong {
+    //     color: #6a945b;
+    // }
+}
+
+.applicationDetail_box_content_petDetail_devideCol {
+    display: flex;
+    gap: 40px;
+    margin-left: 30px;
+}
+
+.applicationDetail_box_content_petDetail_wrap {
+    margin-top: 20px;
+    h3 {
+        text-align: center;
     }
 }

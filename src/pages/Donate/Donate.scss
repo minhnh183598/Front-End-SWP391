@@ -26,7 +26,7 @@
     background-color: #eff8eb;
     display: flex;
     width: 710px;
-    height: 650px;
+    height: 550px;
     border-radius: 4%;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
@@ -123,6 +123,7 @@ input[type='number'] {
     height: 80px;
     font-size: 40px;
     transition: 0.3s;
+    margin-top: 30px;
 }
 
 .save-button:hover {

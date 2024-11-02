@@ -19,6 +19,8 @@ function Events() {
     const [blogData, setBlogData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [totalBlog, setTotalBlog] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortOrder, setSortOrder] = useState('newest'); // Trạng thái cho phương thức sắp xếp
     const navigate = useNavigate();
 
     //Lay blog data payment/all
@@ -57,11 +59,25 @@ function Events() {
         console.log(rawContentState);
     };
 
+    // Lọc blogData dựa trên searchTerm
+    const filteredBlogData = blogData.filter((blog) => blog.title.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    // Sắp xếp dữ liệu dựa trên lựa chọn
+    const sortedBlogData = [...filteredBlogData].sort((a, b) => {
+        if (sortOrder === 'newest') {
+            return new Date(b.createAt) - new Date(a.createAt); // Sắp xếp mới nhất
+        } else if (sortOrder === 'likes') {
+            return b.likeCount - a.likeCount; // Sắp xếp theo lượt thích
+        } else if (sortOrder === 'oldest') {
+            return new Date(a.createAt) - new Date(b.createAt); // Sắp xếp cũ nhất
+        }
+        return 0;
+    });
+
     const blogPerPage = 12;
     const indexOfLastBlog = currentPage * blogPerPage;
     const indexOfFirstBlog = indexOfLastBlog - blogPerPage;
-    // const currentBlog = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
-    const currentBlog = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
+    const currentBlog = sortedBlogData.slice(indexOfFirstBlog, indexOfLastBlog);
 
     const goToBlogDetail = (id) => {
         navigate(`/blog-detail/${id}`);
@@ -72,6 +88,9 @@ function Events() {
             {!addBlog ? (
                 <div className={cx('wrapper')}>
                     <h1>Events</h1>
+                    <div className={cx('totalBlog_wrap')}>
+                        <p>Total Event: {totalBlog}</p>
+                    </div>
                     <div className={cx('user-content')}>
                         <div className={cx('header')}>
                             <div className={cx('add-pet')}>
@@ -80,20 +99,22 @@ function Events() {
                                 </Button>
                             </div>
 
-                            <div className={cx('search')}>
-                                <form>
-                                    <label htmlFor="sort">Sort by</label>
-                                    <select id="sort" name="sort">
-                                        <option value="all">All</option>
-                                        <option value="sortByID">ID</option>
-                                        <option value="sortByDate">Create Date</option>
-                                    </select>
-
-                                    <input type="text" placeholder="Search by name" />
-                                    <Button primary small type="submit">
-                                        Search
-                                    </Button>
-                                </form>
+                            <div className={cx('blog-search')}>
+                                {/* Tùy chọn sắp xếp */}
+                                <select
+                                    value={sortOrder}
+                                    onChange={(e) => setSortOrder(e.target.value)}
+                                    className={cx('sort-select')}
+                                >
+                                    <option value="newest">Newest</option>
+                                    <option value="oldest">Oldest</option>
+                                    <option value="likes">Most Liked</option>
+                                </select>
+                                <input
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    placeholder="Search Blog"
+                                />
                             </div>
                         </div>
 

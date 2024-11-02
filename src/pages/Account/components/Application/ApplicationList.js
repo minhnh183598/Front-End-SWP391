@@ -74,7 +74,9 @@ function ApplicationList() {
         let wordStatus = '';
         if (status === 0) {
             wordStatus = 'waiting';
-        } else if (status === 1 || status === 3) {
+        } else if (status === 1) {
+            wordStatus = 'passed';
+        } else if (status === 3) {
             wordStatus = 'approved';
         } else {
             wordStatus = 'denied';
@@ -86,6 +88,8 @@ function ApplicationList() {
                 return 'Approved'; // Trạng thái Approved
             case 'denied':
                 return 'Denied'; // Trạng thái Denied
+            case 'passed':
+                return 'Passed'; // Trạng thái Denied
             default:
                 return ''; // Không có lớp cho trường hợp không xác định
         }
@@ -107,7 +111,9 @@ function ApplicationList() {
         let wordStatus = '';
         if (status === 0) {
             wordStatus = 'waiting';
-        } else if (status === 1 || status === 3) {
+        } else if (status === 1) {
+            wordStatus = 'passed';
+        } else if (status === 3) {
             wordStatus = 'approved';
         } else {
             wordStatus = 'denied';
@@ -119,6 +125,8 @@ function ApplicationList() {
                 return 'approved'; // Trạng thái Approved
             case 'denied':
                 return 'denied'; // Trạng thái Denied
+            case 'passed':
+                return 'passed'; // Trạng thái Denied
             default:
                 return ''; // Không có lớp cho trường hợp không xác định
         }
@@ -127,7 +135,8 @@ function ApplicationList() {
     // Lọc và sắp xếp dựa trên status được chọn
     const filteredData = combinedData.filter((app) => {
         if (sortStatus === 'ALL') return true; // Không lọc nếu chọn ALL
-        if (sortStatus === 'APPROVED') return app.status === 1 || app.status === 3;
+        if (sortStatus === 'APPROVED') return app.status === 3;
+        if (sortStatus === 'PASSED') return app.status === 1;
         if (sortStatus === 'DENIED') return app.status === 2 || app.status === 4;
         return app.status === parseInt(sortStatus, 10);
     });
@@ -151,6 +160,7 @@ function ApplicationList() {
                 <select id="sortStatus" value={sortStatus} onChange={(e) => setSortStatus(e.target.value)}>
                     <option value="ALL">All</option>
                     <option value="0">Waiting</option>
+                    <option value="PASSED">Passed</option>
                     <option value="APPROVED">Approved</option> {/* Gộp status 1 và 3 vào "Approved" */}
                     <option value="DENIED">Denied</option> {/* Gộp status 2 và 4 vào "Denied" */}
                 </select>

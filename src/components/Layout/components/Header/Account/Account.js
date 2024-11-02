@@ -61,23 +61,23 @@ function Account() {
             ),
         },
 
-        {
-            label: (
-                <Link
-                    style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }}
-                    to="/my-application"
-                >
-                    Application
-                </Link>
-            ),
-        },
-        {
-            label: (
-                <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }} to="/my-pet">
-                    Pet
-                </Link>
-            ),
-        },
+        // {
+        //     label: (
+        //         <Link
+        //             style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }}
+        //             to="/my-application"
+        //         >
+        //             Application
+        //         </Link>
+        //     ),
+        // },
+        // {
+        //     label: (
+        //         <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }} to="/my-pet">
+        //             Pet
+        //         </Link>
+        //     ),
+        // },
         {
             label: (
                 <Link
