@@ -3,7 +3,6 @@ import styles from './EventList.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { Pagination } from 'antd';
-import IMAGES from '~/assets/images';
 import api from '~/config/axios';
 
 const cx = classNames.bind(styles);
@@ -11,18 +10,18 @@ const cx = classNames.bind(styles);
 function EventList() {
     const [currentPage, setCurrentPage] = useState(1);
     const [blogData, setBlogData] = useState([]);
+    const [tagData, setTagData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [sortOrder, setSortOrder] = useState('newest'); // Trạng thái cho phương thức sắp xếp
+    const [selectedTag, setSelectedTag] = useState(''); // Trạng thái cho bộ lọc thẻ
+    const token = localStorage.getItem('token');
     const blogPerPage = 9;
 
-    const token = localStorage.getItem('token');
-    const reverseBlogData = [...blogData].reverse();
     const getBlogData = async () => {
         try {
             const response = await api.get(`posts/search?tags=Event&category=ADOPTION`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    // Authorization: `No Auth`,
                 },
             });
             setBlogData(response.data.result);
@@ -31,14 +30,30 @@ function EventList() {
         }
     };
 
-    console.log(blogData);
+    const getTagData = async () => {
+        try {
+            const response = await api.get(`tags`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setTagData(response.data.result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
         getBlogData();
+        getTagData();
     }, []);
 
-    // Lọc blogData dựa trên searchTerm
-    const filteredBlogData = blogData.filter((blog) => blog.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    // Lọc blogData dựa trên searchTerm, selectedTag
+    const filteredBlogData = blogData.filter((blog) => {
+        const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesTag = selectedTag ? blog.tags.includes(selectedTag) : true; // Giả sử mỗi blog có thuộc tính 'tags'
+        return matchesSearch && matchesTag;
+    });
 
     // Sắp xếp dữ liệu dựa trên lựa chọn
     const sortedBlogData = [...filteredBlogData].sort((a, b) => {
@@ -65,15 +80,30 @@ function EventList() {
                     <option value="oldest">Oldest</option>
                     <option value="likes">Most Liked</option>
                 </select>
+
+                {/* Bộ lọc thẻ */}
+                <select
+                    value={selectedTag}
+                    onChange={(e) => setSelectedTag(e.target.value)}
+                    className={cx('tag-select')}
+                >
+                    <option value="">All Tags</option>
+                    {tagData.map((tag) => (
+                        <option key={tag.id} value={tag.name}>
+                            {tag.name}
+                        </option>
+                    ))}
+                </select>
+
                 <input value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search Blog" />
             </div>
+
             <div className={cx('blog-list')}>
                 {currentBlog.map((blog) => (
                     <div className={cx('blog-box')} key={blog.id}>
                         <div className={cx('image')}>
-                            <img src={blog.images} />
+                            <img src={blog.images} alt={blog.title} />
                         </div>
-
                         <div className={cx('blog-info')}>
                             <div className={cx('info')}>
                                 <div className={cx('main-info')}>
@@ -82,7 +112,6 @@ function EventList() {
                                     <p>{blog.likeCount} likes</p>
                                 </div>
                             </div>
-
                             <div className={cx('blog-btn')}>
                                 <Button
                                     to={`/blog-detail/${blog.id}`}
@@ -104,7 +133,7 @@ function EventList() {
                         style={{ display: 'block' }}
                         current={currentPage}
                         defaultCurrent={1}
-                        total={blogData.length}
+                        total={sortedBlogData.length} // Cập nhật tổng số lượng blog đã sắp xếp
                         pageSize={blogPerPage}
                         onChange={(page) => setCurrentPage(page)}
                     />

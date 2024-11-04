@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -6,6 +6,8 @@ import api from '~/config/axios';
 import { storage } from '~/config/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import './CreateBlog.scss';
+import AddTag from '../../VolunteerTask/components/AddTag/AddTag';
+import Select from 'react-select';
 
 const CreateBlog = () => {
     const [formData, setFormData] = useState({
@@ -14,11 +16,14 @@ const CreateBlog = () => {
         content: '',
         nickname: '', // Add nickname to formData
         category: 'ADOPTION',
-        tags: [],
+        tags: [{ name: 'Post' }], // Mặc định có tag "post"
         images: [],
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const token = localStorage.getItem('token');
+    const userRole = localStorage.getItem('userRoles');
+    const [tagData, setTagData] = useState([]);
+    const [showAddTag, setShowAddTag] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,6 +33,25 @@ const CreateBlog = () => {
         }));
     };
 
+    // Lấy tag từ API
+    const getAllTags = async () => {
+        try {
+            const response = await api.get('tags', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            const tags = response.data.result.map((tag) => ({
+                value: tag.name,
+                label: tag.name,
+            }));
+            setTagData(tags);
+        } catch (error) {
+            toast.error('Failed to load tags');
+        }
+    };
+
     const handleEditorChange = (content) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -35,11 +59,12 @@ const CreateBlog = () => {
         }));
     };
 
-    const handleTagsChange = (e) => {
-        const tagsArray = e.target.value.split(',').map((tag) => ({ name: tag.trim() }));
+    const handleTagsChange = (selectedOptions) => {
         setFormData((prevData) => ({
             ...prevData,
-            tags: tagsArray,
+            tags: selectedOptions.map((option) => ({
+                name: option.value,
+            })),
         }));
     };
 
@@ -107,11 +132,51 @@ const CreateBlog = () => {
         }
     };
 
+    const handleToggleAddTag = () => {
+        setShowAddTag((prev) => !prev); // Chuyển đổi trạng thái hiển thị popup
+    };
+
+    const handleClosePopup = () => {
+        setShowAddTag(false); // Đóng popup
+    };
+
+    useEffect(() => {
+        getAllTags();
+    }, []);
+
     return (
         <div className="create-blog-container">
-            <ToastContainer />
             <h2>Create a New Blog Post</h2>
             <form onSubmit={handleSubmit}>
+                <div className="createBlog_form_input_tag">
+                    <label htmlFor="tags">Tags</label>
+                    <Select
+                        id="tags"
+                        name="tags"
+                        isMulti
+                        onChange={handleTagsChange}
+                        value={formData.tags.map((tag) => ({
+                            value: tag.name,
+                            label: tag.name,
+                        }))}
+                        options={tagData}
+                        styles={{
+                            control: (provided) => ({
+                                ...provided,
+                                width: '100%', // Thiết lập chiều dài cho select
+                                minWidth: '300px', // Chiều dài tối thiểu nếu cần
+                            }),
+                            menu: (provided) => ({
+                                ...provided,
+                                zIndex: 9999,
+                            }),
+                            multiValue: (provided) => ({
+                                ...provided,
+                                backgroundColor: '#e0e0e0', // Thay đổi màu nền của các giá trị đã chọn (tùy chọn)
+                            }),
+                        }}
+                    />
+                </div>
                 <div className="createBlog_form_input_title">
                     <label>Title</label>
                     <input type="text" name="title" value={formData.title} onChange={handleChange} required />
@@ -126,6 +191,7 @@ const CreateBlog = () => {
                         required
                     />
                 </div>
+
                 <div className="createBlog_form_input_nickname">
                     <label>Nickname</label>
                     <input
@@ -136,7 +202,7 @@ const CreateBlog = () => {
                         placeholder="Enter your nickname"
                     />
                 </div>
-                <div className="createBlog_form_input_tag">
+                {/* <div className="createBlog_form_input_tag">
                     <label>Tags</label>
                     <input
                         type="text"
@@ -144,7 +210,8 @@ const CreateBlog = () => {
                         value={formData.tags.map((tag) => tag.name).join(', ')}
                         onChange={handleTagsChange}
                     />
-                </div>
+                </div> */}
+
                 <div className="createBlog_form_input_images">
                     <label>Images</label>
                     <input type="file" multiple accept="image/*" onChange={handleImageUpload} />
@@ -160,10 +227,12 @@ const CreateBlog = () => {
                         }}
                     />
                 </div>
+
                 <button className="blogCreate_btn" type="submit" disabled={isSubmitting}>
                     {isSubmitting ? 'Submitting...' : 'Create Post'}
                 </button>
             </form>
+            <ToastContainer />
         </div>
     );
 };

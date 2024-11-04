@@ -10,6 +10,7 @@ import { convertToRaw, EditorState } from 'draft-js';
 import api from '~/config/axios';
 import CreateBlog from './BlogComponents/CreateBlog';
 import { useNavigate } from 'react-router-dom';
+import AddTag from '../VolunteerTask/components/AddTag/AddTag';
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +23,8 @@ function Blogs() {
     const [totalBlog, setTotalBlog] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
     const [sortOrder, setSortOrder] = useState('newest'); // Trạng thái cho phương thức sắp xếp
+    const userRole = localStorage.getItem('userRoles');
+    const [showAddTag, setShowAddTag] = useState(false);
     const navigate = useNavigate();
 
     //Lay blog data payment/all
@@ -65,6 +68,14 @@ function Blogs() {
         return 0;
     });
 
+    const handleToggleAddTag = () => {
+        setShowAddTag((prev) => !prev); // Chuyển đổi trạng thái hiển thị popup
+    };
+
+    const handleClosePopup = () => {
+        setShowAddTag(false); // Đóng popup
+    };
+
     const blogPerPage = 12;
     const indexOfLastBlog = currentPage * blogPerPage;
     const indexOfFirstBlog = indexOfLastBlog - blogPerPage;
@@ -88,6 +99,24 @@ function Blogs() {
                                 <Button primary onClick={() => setAddBlog(true)}>
                                     Create Blog
                                 </Button>
+                                <div className="nut-add-tag">
+                                    {userRole.includes('ADMIN') && (
+                                        <>
+                                            <button onClick={handleToggleAddTag}>Create Tag</button>{' '}
+                                            {/* Nút Create Tag */}
+                                            {showAddTag && (
+                                                <div className="popup">
+                                                    <button onClick={handleClosePopup} className="close-button">
+                                                        Close
+                                                    </button>{' '}
+                                                    {/* Nút Close */}
+                                                    <AddTag closePopup={handleClosePopup} />{' '}
+                                                    {/* Hiển thị AddTag với hàm đóng popup */}
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+                                </div>
                             </div>
 
                             <div className={cx('blog-search')}>

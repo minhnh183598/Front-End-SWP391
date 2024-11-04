@@ -10,8 +10,10 @@ const cx = classNames.bind(styles);
 function BlogList() {
     const [currentPage, setCurrentPage] = useState(1);
     const [blogData, setBlogData] = useState([]);
+    const [tagData, setTagData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [sortOrder, setSortOrder] = useState('newest'); // Trạng thái cho phương thức sắp xếp
+    const [selectedTag, setSelectedTag] = useState(''); // Trạng thái cho bộ lọc thẻ
     const token = localStorage.getItem('token');
     const blogPerPage = 9;
 
@@ -28,12 +30,30 @@ function BlogList() {
         }
     };
 
+    const getTagData = async () => {
+        try {
+            const response = await api.get(`tags`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setTagData(response.data.result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         getBlogData();
+        getTagData();
     }, []);
 
-    // Lọc blogData dựa trên searchTerm
-    const filteredBlogData = blogData.filter((blog) => blog.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    // Lọc blogData dựa trên searchTerm, selectedTag
+    const filteredBlogData = blogData.filter((blog) => {
+        const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesTag = selectedTag ? blog.tags.includes(selectedTag) : true; // Giả sử mỗi blog có thuộc tính 'tags'
+        return matchesSearch && matchesTag;
+    });
 
     // Sắp xếp dữ liệu dựa trên lựa chọn
     const sortedBlogData = [...filteredBlogData].sort((a, b) => {
@@ -60,6 +80,21 @@ function BlogList() {
                     <option value="oldest">Oldest</option>
                     <option value="likes">Most Liked</option>
                 </select>
+
+                {/* Bộ lọc thẻ */}
+                <select
+                    value={selectedTag}
+                    onChange={(e) => setSelectedTag(e.target.value)}
+                    className={cx('tag-select')}
+                >
+                    <option value="">All Tags</option>
+                    {tagData.map((tag) => (
+                        <option key={tag.id} value={tag.name}>
+                            {tag.name}
+                        </option>
+                    ))}
+                </select>
+
                 <input value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search Blog" />
             </div>
 

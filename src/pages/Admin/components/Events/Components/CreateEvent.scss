@@ -73,3 +73,17 @@
 .createBlog_form_input_content {
     width: 1110px;
 }
+
+.nut-add-tag {
+    button {
+        margin-left: 20px;
+        margin-bottom: 20px;
+        height: 100%;
+        width: 100px;
+        border-radius: 8px;
+        background-color: #7aa366;
+        border: 0px;
+        color: white;
+        font-weight: 800;
+    }
+}
