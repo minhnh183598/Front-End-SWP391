@@ -7,6 +7,9 @@ import Events from './HomeComponents/Events';
 import FeaturePet from '../FindPet/components/FeaturePet';
 import { useInView } from 'react-intersection-observer';
 import HomeCarousel from './HomeComponents/HomeCarousel/HomeCarousel';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +18,14 @@ function Home() {
         threshold: 0.1,
         triggerOnce: true,
     });
+    const location = useLocation();
+
+    useEffect(() => {
+        // Kiểm tra xem có thông báo nào từ trạng thái không
+        if (location.state?.message) {
+            toast.success(location.state.message);
+        }
+    }, [location.state]);
 
     console.log('In View:', inView);
 
@@ -81,6 +92,7 @@ function Home() {
                     </Button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }

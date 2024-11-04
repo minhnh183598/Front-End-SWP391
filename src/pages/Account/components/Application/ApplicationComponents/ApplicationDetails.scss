@@ -120,13 +120,22 @@
 
 .applicationDetail_box_content_petDetail_devideCol {
     display: flex;
-    gap: 40px;
+    gap: 0px;
     margin-left: 30px;
+}
+
+.applicationDetail_box_content_petDetail_4left {
+    width: 210px;
+}
+
+.applicationDetail_box_content_petDetail_3right {
+    width: 250px;
 }
 
 .applicationDetail_box_content_petDetail_wrap {
     margin-top: 20px;
-    h3 {
+    h2 {
+        font-weight: 700;
         text-align: center;
     }
 }

@@ -3,10 +3,15 @@ import './AdoptStep4.scss';
 import Button from '~/components/Button';
 import api from '~/config/axios';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
+import { useNavigate } from 'react-router-dom';
 
 const AdoptStep4 = ({ id, setStep }) => {
     const [pet, setPet] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [showPopup, setShowPopup] = useState(false); // State cho pop-up
+    const userId = localStorage.getItem('userId');
+    const applicationId = localStorage.getItem(`applicationId_${id}_${userId}`);
+    const navigate = useNavigate();
 
     const handlePetData = async () => {
         try {
@@ -24,7 +29,28 @@ const AdoptStep4 = ({ id, setStep }) => {
             setLoading(false); // Hoàn tất quá trình tải
         }
     };
-    // console.log(pet);
+
+    const handleAdoptionCancel = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            // Cập nhật trạng thái đơn đăng ký thành 2
+            const response = await api.put(
+                `applications/status/${applicationId}`,
+                {
+                    status: 4,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+            // Điều hướng về trang chính với thông báo
+            navigate('/', { state: { message: `You have cancelled your application for ${pet.petName}` } });
+        } catch (error) {
+            console.log('Error updating application status:', error);
+        }
+    };
 
     useEffect(() => {
         handlePetData();
@@ -41,21 +67,42 @@ const AdoptStep4 = ({ id, setStep }) => {
                             <div className="AdoptStep4-first2">
                                 <div className="meet_greet">Home Visit</div>
                                 <div className="your-profile">
-                                    Our team will schedule a home visit (if needed) to ensure a suitable environment for{' '}
+                                    Our team will schedule a home visit to ensure a suitable environment for{' '}
                                     {pet.petName}. We will arrange a time with you soon.
                                 </div>
                             </div>
                         </div>
 
                         <div className="AdoptStep4-button">
-                            <Button onClick={() => setStep((prevStep) => prevStep + 1)} className="btn-2">
-                                Deny
+                            <Button onClick={() => setShowPopup(true)} className="btn-2">
+                                No
                             </Button>
                             <Button className="btn-1" onClick={() => setStep((prevStep) => prevStep + 1)}>
-                                Agree
+                                Yes
                             </Button>
                         </div>
                     </div>
+                    {showPopup && (
+                        <div className="popup">
+                            <div className="popup-content">
+                                <h2>
+                                    This action will cancelled your application for {pet.petName}. Are you sure to do
+                                    this ?
+                                </h2>
+                                <div className="popup-buttons">
+                                    <Button
+                                        onClick={() => {
+                                            handleAdoptionCancel();
+                                            setShowPopup(false);
+                                        }}
+                                    >
+                                        Yes
+                                    </Button>
+                                    <Button onClick={() => setShowPopup(false)}>No</Button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </>
             ) : (
                 <p>Pet data not available</p> // Hiển thị nếu không có dữ liệu

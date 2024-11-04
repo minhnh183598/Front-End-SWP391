@@ -176,7 +176,7 @@ function ApplicationList() {
                             </div>
                             <div className={cx('appli-state')}>
                                 <p className={cx(getStatusLabelClass(appli.status))}>{getStatusLabel(appli.status)}</p>
-                                <a href={`/my-application-detail/${appli.applicationId}`}>View Details</a>
+                                <a href={`/adopt-application/${appli.pet.petId}`}>View Details</a>
                             </div>
                         </div>
                         <p className={cx('appli-date')}>Create Date: {convertDate(appli.createAt)}</p>

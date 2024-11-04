@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import IMAGES from '~/assets/images';
 import api from '~/config/axios';
 import './VolunteerApplication.scss';
@@ -22,6 +22,7 @@ const VolunteerApplication = ({ setStep }) => {
         reason: '',
     });
     const userID = localStorage.getItem('userId');
+    const navigate = useNavigate();
     // console.log('userID: ', userID);
     useEffect(() => {
         const savedFormData = localStorage.getItem('applicationVolunteerFormData');
@@ -88,7 +89,7 @@ const VolunteerApplication = ({ setStep }) => {
                     console.log('Error message:', error.message);
                 }
             }
-
+            navigate('/', { state: { message: `Submitted  successfully!` } });
             // Nếu yêu cầu thành công, chuyển sang bước tiếp theo
             // setStep((prevStep) => prevStep + 1);
         } catch (error) {

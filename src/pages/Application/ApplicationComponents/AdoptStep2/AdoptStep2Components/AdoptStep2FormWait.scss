@@ -33,7 +33,7 @@
 }
 
 .adoptstep2wait_box {
-    width: 800px;
+    width: 920px;
     // height: 700px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
     background-color: #eff8eb;
@@ -61,11 +61,13 @@
     }
     .applicationDetail_box_content_name_phone {
         display: flex;
-        column-gap: 150px;
+        .applicationDetail_box_content_name {
+            width: 400px;
+        }
     }
     .applicationDetail_box_content_yob_gender {
         display: flex;
-        column-gap: 266px;
+        column-gap: 350px;
     }
 }
 
@@ -78,7 +80,7 @@
 .adoptStep2_box_content_yob_gender {
     display: flex;
     .adoptStep2_gender {
-        margin-right: 199px;
+        width: 400px;
     }
 }
 
@@ -92,4 +94,10 @@
 
 .adoptStep2Wait_3input_to {
     margin: 0;
+}
+
+.AdoptStep2Wait_line {
+    width: 600px;
+    border-bottom: 2px solid black;
+    margin-left: 90px;
 }

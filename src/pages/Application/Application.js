@@ -7,7 +7,6 @@ import AdoptStep2 from './ApplicationComponents/AdoptStep2/AdoptStep2';
 import AdoptStep3 from './ApplicationComponents/AdoptStep3/AdoptStep3';
 import AdoptStep4 from './ApplicationComponents/AdoptStep4/AdoptStep4';
 import AdoptStep5 from './ApplicationComponents/AdoptStep5/AdoptStep5';
-import { Step, Stepper } from 'react-form-stepper';
 import AdoptStep2FormWait from './ApplicationComponents/AdoptStep2/AdoptStep2Components/AdoptStep2FormWait';
 import AdoptStep4Waiting from './ApplicationComponents/AdoptStep4/AdoptStep4Components/AdoptStep4Waiting';
 
@@ -19,6 +18,7 @@ const Application = () => {
         const savedStep = localStorage.getItem(`adoptionStep_${id}_${userId}`);
         return savedStep ? Math.min(parseInt(savedStep, 10), max_step) : 0;
     });
+    // const [step, setStep] = useState(0);
     console.log(userId);
 
     useEffect(() => {

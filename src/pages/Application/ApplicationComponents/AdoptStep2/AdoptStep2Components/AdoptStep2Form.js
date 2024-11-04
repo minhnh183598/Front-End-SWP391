@@ -4,6 +4,7 @@ import './AdoptStep2Form.scss';
 import Button from '~/components/Button';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 import IMAGES from '~/assets/images';
+import { useParams } from 'react-router-dom';
 
 const AdoptStep2Form = ({ id, setStep }) => {
     const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ const AdoptStep2Form = ({ id, setStep }) => {
         from: '',
         to: '',
     });
-
+    // const petId = useParams();
     console.log(formData);
 
     const userID = localStorage.getItem('userId');
@@ -99,7 +100,7 @@ const AdoptStep2Form = ({ id, setStep }) => {
                 });
                 const appliId = response.data.applicationId;
 
-                localStorage.setItem('applicationId', appliId);
+                localStorage.setItem(`applicationId_${id}_${userID}`, appliId);
                 console.log(response.data);
             } catch (error) {
                 console.log('Loi nhu cc: ', error);
