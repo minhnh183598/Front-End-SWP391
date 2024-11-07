@@ -28,7 +28,7 @@ function Account() {
                 },
                 {
                     headers: {
-                        Authorization: 'No Auth',
+                        Authorization: `No Auth`,
                     },
                 },
             );

@@ -164,7 +164,7 @@ const IntroducePage = ({ onButtonClick }) => {
                 {/* Doan 4 */}
                 <div ref={targetRef_4} className="adopt-container-fourthPara">
                     <div className="adopt-container-fourthPara-content">
-                        <h3>4. Home Visit (optional)</h3>
+                        <h3>4. Home Visit</h3>
                         <ul class="adopt-container-fourthPara-content-list">
                             <li>
                                 Some shelters or rescue groups may conduct a home visit to ensure the environment is

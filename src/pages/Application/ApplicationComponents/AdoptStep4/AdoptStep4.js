@@ -4,6 +4,7 @@ import Button from '~/components/Button';
 import api from '~/config/axios';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 import { useNavigate } from 'react-router-dom';
+import IMAGES from '~/assets/images';
 
 const AdoptStep4 = ({ id, setStep }) => {
     const [pet, setPet] = useState(null);
@@ -83,22 +84,25 @@ const AdoptStep4 = ({ id, setStep }) => {
                         </div>
                     </div>
                     {showPopup && (
-                        <div className="popup">
-                            <div className="popup-content">
-                                <h2>
-                                    This action will cancelled your application for {pet.petName}. Are you sure to do
-                                    this ?
-                                </h2>
-                                <div className="popup-buttons">
-                                    <Button
-                                        onClick={() => {
-                                            handleAdoptionCancel();
-                                            setShowPopup(false);
-                                        }}
-                                    >
-                                        Yes
-                                    </Button>
-                                    <Button onClick={() => setShowPopup(false)}>No</Button>
+                        <div className="popupStep3">
+                            <div className="popupStep3-content">
+                                <div className="popupStep3-content-wrap">
+                                    <img src={IMAGES.warningIcon} />
+                                    <h2>
+                                        This action will cancell your application for {pet.petName}. Are you sure to do
+                                        this ?
+                                    </h2>
+                                    <div className="popupStep3-buttons">
+                                        <Button
+                                            onClick={() => {
+                                                handleAdoptionCancel();
+                                                setShowPopup(false);
+                                            }}
+                                        >
+                                            Yes
+                                        </Button>
+                                        <Button onClick={() => setShowPopup(false)}>No</Button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

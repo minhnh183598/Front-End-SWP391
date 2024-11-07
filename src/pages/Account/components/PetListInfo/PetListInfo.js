@@ -95,61 +95,8 @@ function PetListInfo() {
     return (
         <div className={cx('wrapper')}>
             <ScrollToTop />
-            <div className={cx('header')}>
-                <ul>
-                    <li
-                        className={cx({ active: activeSort == 'ALL' })}
-                        onClick={() => {
-                            setActiveSort('ALL');
-                            setFilter((prev) => ({ ...prev, role: 'ALL' }));
-                            setCurrentPage(1);
-                        }}
-                    >
-                        View All
-                    </li>
-                    <li
-                        className={cx({ active: activeSort == 'Passed' })}
-                        onClick={() => {
-                            setActiveSort('Passed');
-                            setFilter((prev) => ({ ...prev, role: 'Passed' }));
-                            setCurrentPage(1);
-                        }}
-                    >
-                        Passed
-                    </li>
-                    <li
-                        className={cx({ active: activeSort == 'InProcess' })}
-                        onClick={() => {
-                            setActiveSort('InProcess');
-                            setFilter((prev) => ({ ...prev, role: 'In Process' }));
-                            setCurrentPage(1);
-                        }}
-                    >
-                        In Process
-                    </li>
-                    <li
-                        className={cx({ active: activeSort == 'NotPassed' })}
-                        onClick={() => {
-                            setActiveSort('NotPassed');
-                            setFilter((prev) => ({ ...prev, role: 'Not Passed' }));
-                            setCurrentPage(1);
-                        }}
-                    >
-                        Not Passed
-                    </li>
-                </ul>
-            </div>
-
-            <div className={cx('sort')}>
-                <label htmlFor="sort">Sort</label>
-                <select id="sort" name="sort" value={filter.sortBy} onChange={handleFilterChange}>
-                    <option value="all">All</option>
-                    <option value="createdAt">Create Date</option>
-                    <option value="finishAt">Finish Date</option>
-                </select>
-            </div>
-
             <div className={cx('application-list')}>
+                <h3>Adopted Pet List</h3>
                 {appliPage.map((appli) => (
                     <div className={cx('application-item')}>
                         <div className={cx('pet-info')}>

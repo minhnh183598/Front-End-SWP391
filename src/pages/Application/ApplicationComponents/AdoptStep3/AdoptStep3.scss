@@ -100,7 +100,7 @@
     background-color: #e14343;
 }
 
-.popup {
+.popupStep3 {
     position: fixed;
     top: 0;
     left: 0;
@@ -113,7 +113,7 @@
     z-index: 1000; // Đặt cao để hiển thị trên các thành phần khác
 }
 
-.popup-content {
+.popupStep3-content {
     background: white;
     padding: 20px;
     border-radius: 5px;
@@ -121,12 +121,20 @@
     width: 500px;
 }
 
-.popup-buttons {
+.popupStep3-buttons {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     gap: 40px;
     Button {
         width: 100px;
+    }
+}
+
+.popupStep3-content-wrap {
+    img {
+        height: 100px;
+        width: 100px;
+        margin-bottom: 10px;
     }
 }

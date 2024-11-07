@@ -20,14 +20,18 @@ function Blogs() {
     const [blogData, setBlogData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [totalBlog, setTotalBlog] = useState(0);
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+    console.log(token);
+    console.log('Day la userid: ', userId);
     const navigate = useNavigate();
 
     //Lay blog data payment/all
     const handleBlogData = async () => {
         try {
             setLoading(true);
-            const token = localStorage.getItem('token');
-            const response = await api.get(`posts/search?tags=Post&category=ADOPTION`, {
+
+            const response = await api.get(`posts/search?tags=Post&category=ADOPTION&userId=${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     // Authorization: `No Auth`,
