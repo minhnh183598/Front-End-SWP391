@@ -27,7 +27,7 @@ function HomeCheckResult({ task }) {
                     <div className={cx('content-wrap-des')}>
                         <div className={cx('content-wrap-des-assignee')}>
                             <p>
-                                {task.checklist.assignee.lastname} {task.checklist.assignee.firstname}
+                                {task.team[1].lastname} {task.team[1].firstname}
                             </p>
                             <p>{formatDate(task.feedbacks[0].createdAt)}</p>
                         </div>
@@ -64,18 +64,20 @@ function HomeCheckResult({ task }) {
                         </div>
                     </div>
 
-                    <div className={cx('image-wrap')}>
-                        {task.feedbacks[0].images.map((image, index) => (
-                            <img
-                                src={image}
-                                key={index}
-                                onClick={() => {
-                                    setImgPopup(image);
-                                    setOpenImgPopup(true);
-                                }}
-                            />
-                        ))}
-                    </div>
+                    {task.feedbacks[0].images.length !== 0 ? (
+                        <div className={cx('image-wrap')}>
+                            {task.feedbacks[0].images.map((image, index) => (
+                                <img
+                                    src={image}
+                                    key={index}
+                                    onClick={() => {
+                                        setImgPopup(image);
+                                        setOpenImgPopup(true);
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    ) : null}
                 </div>
             </div>
 

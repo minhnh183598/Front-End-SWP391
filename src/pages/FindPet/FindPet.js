@@ -31,6 +31,7 @@ function FindPet() {
         const { type, gender, age, color, vaccine, sort, state } = filter;
         const query = `petType=${type}&petAge=${age}&petGender=${gender}&petColor=${color}&petVaccin=${vaccine}&petStatus=${state}&keyword=${searchName}&sort=${sort}`;
         console.log(`Query: ${query}`);
+
         try {
             const response = await api.get(`pets/SearchPets?${query}`, {
                 headers: {
@@ -49,11 +50,10 @@ function FindPet() {
         if (e) e.preventDefault();
         await handlePetsData();
 
-        const searchParams = {
-            searchName,
-            filter,
-        };
-        // console.log(searchParams);
+        // const searchParams = {
+        //     searchName,
+        //     filter,
+        // };
     };
 
     useEffect(() => {

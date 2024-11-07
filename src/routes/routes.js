@@ -21,6 +21,7 @@ import ShowAllPetAdopted from '~/pages/ShowAllPetAdopted/ShowAllPetAdopted';
 import ShowAllPetDetail from '~/pages/ShowAllPetAdopted/ShowAllPetAdopted/ShowAllPetDetail';
 import ApplicationDetails from '~/pages/Account/components/Application/ApplicationComponents/ApplicationDetails';
 import ApplicationUpdate from '~/pages/Account/components/Application/ApplicationComponents/ApplicationUpdate';
+import AdopterFeedback from '~/pages/AdopterFeedback/AdopterFeedback';
 
 const publicRoutes = [
     {
@@ -121,6 +122,10 @@ const publicRoutes = [
     {
         path: '/account',
         component: Account,
+    },
+    {
+        path: '/adopter-feedback',
+        component: AdopterFeedback,
     },
 ];
 

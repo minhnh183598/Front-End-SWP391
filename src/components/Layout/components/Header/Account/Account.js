@@ -18,13 +18,30 @@ function Account() {
     const role = JSON.parse(localStorage.getItem('userRoles'));
     const isAdmin = role?.includes('ADMIN');
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('userInfo');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('userRoles');
-        navigate('/');
+    const handleLogout = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await api.post(
+                'auth/logout',
+                {
+                    token: token,
+                },
+                {
+                    headers: {
+                        Authorization: 'No Auth',
+                    },
+                },
+            );
+            console.log('logout success', response.data);
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('userInfo');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userRoles');
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const hanndleToLogin = () => {

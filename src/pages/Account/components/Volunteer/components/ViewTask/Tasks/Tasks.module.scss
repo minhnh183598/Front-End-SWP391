@@ -68,13 +68,9 @@
         padding-bottom: 20px;
 
         .task-checklist-wrap {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
 
             .task-right-info {
-                width: 48%;
-                height: 312px;
+                width: 100%;
                 background-color: rgb(243, 243, 243);
                 border-radius: 15px;
                 padding: 10px;
@@ -85,7 +81,7 @@
                 .task-des-wrap {
                     background-color: white;
                     width: 100%;
-                    height: 225px;
+                    height: 130px;
                     border-radius: 15px;
                     padding: 5px;
                     overflow-y: auto;
@@ -218,6 +214,7 @@
                     .adopter-detail-info-top-left {
                         display: flex;
                         flex-direction: column;
+                        width: 50%;
 
                         span {
                             background-color: white;

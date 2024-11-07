@@ -68,13 +68,8 @@
         padding-bottom: 20px;
 
         .task-checklist-wrap {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-
             .task-right-info {
-                width: 48%;
-                height: 312px;
+                width: 100%;
                 background-color: rgb(243, 243, 243);
                 border-radius: 15px;
                 padding: 10px;
@@ -82,7 +77,7 @@
                 form {
                     textarea {
                         width: 100%;
-                        height: 216px;
+                        height: 130px;
                         border-radius: 15px;
                         padding: 10px 5px;
                         overflow-y: auto;
@@ -228,6 +223,7 @@
                     .adopter-detail-info-top-left {
                         display: flex;
                         flex-direction: column;
+                        width: 50%;
 
                         span {
                             background-color: white;
@@ -264,20 +260,20 @@
         }
     }
 
-    .delete-task{
+    .delete-task {
         text-align: right;
         margin-bottom: 20px;
         margin-right: 20px;
         color: red;
-        
-        span{
+
+        span {
             cursor: pointer;
 
-            .icon-trash{
+            .icon-trash {
                 margin-right: 5px;
             }
 
-            &:hover{
+            &:hover {
                 color: rgb(201, 0, 0);
             }
         }

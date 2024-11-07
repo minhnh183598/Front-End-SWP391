@@ -11,10 +11,11 @@ api.defaults.baseURL = baseUrl;
 
 // handle before call API
 const handleBefore = (config) => {
-    //config.headers['Authorization'] = 'No Auth';
     if (config.url.includes('auth/register')) {
         return config;
     } else if (config.url.includes('auth/login')) {
+        return config;
+    } else if (config.url.includes('auth/logout')) {
         return config;
     } else if (config.url.includes('SearchPets?')) {
         return config;
@@ -42,9 +43,6 @@ const handleBefore = (config) => {
     } else if (config.url.includes('auth/refresh')) {
         return config;
     }
-    // else if (config.url.includes('posts')) {
-    //     return config;
-    // }
 
     const token = localStorage.getItem('token')?.replaceAll('"', '');
     config.headers['Authorization'] = `Bearer ${token}`;

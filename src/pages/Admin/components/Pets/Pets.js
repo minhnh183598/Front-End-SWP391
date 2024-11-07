@@ -260,6 +260,7 @@ function Pets() {
                                     <div className={cx('content-wrapper')}>
                                         <div className={cx('header-content')}>
                                             <p className={cx('id')}>ID</p>
+                                            <p className={cx('image')}>Image</p>
                                             <p className={cx('name')}>Name</p>
                                             <p className={cx('role')}>Status</p>
                                             <p className={cx('date')}>Create Date</p>

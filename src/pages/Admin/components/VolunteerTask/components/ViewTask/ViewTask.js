@@ -78,7 +78,7 @@ function ViewTask({ id, setViewUser }) {
                     </div>
                 </div>
             </div>
-
+{/* 
             {update && (
                 <Update
                     setUpdate={setUpdate}
@@ -88,7 +88,7 @@ function ViewTask({ id, setViewUser }) {
                     handleTaskData={handleTaskData}
                     id={id}
                 />
-            )}
+            )} */}
         </div>
     );
 }

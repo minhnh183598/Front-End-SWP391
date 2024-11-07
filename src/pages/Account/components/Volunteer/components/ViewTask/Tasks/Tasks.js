@@ -15,36 +15,36 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
     const [checklistState, setChecklistState] = useState([]);
     const [completedCheckList, setCompletedCheckList] = useState(0);
 
-    useEffect(() => {
-        const initialChecklistState = task.checklist.checklistItems.map((item) => ({
-            id: item.id,
-            entry: item.entry,
-            completed: item.completed,
-        }));
-        setChecklistState(initialChecklistState);
-    }, [task]);
+    // useEffect(() => {
+    //     const initialChecklistState = task.checklist.checklistItems.map((item) => ({
+    //         id: item.id,
+    //         entry: item.entry,
+    //         completed: item.completed,
+    //     }));
+    //     setChecklistState(initialChecklistState);
+    // }, [task]);
 
-    const handleCheckboxChange = (id) => {
-        setChecklistState((prevState) => {
-            return prevState.map((item) => {
-                if (item.id === id) {
-                    return { ...item, completed: !item.completed }; // Đảo trạng thái completed
-                }
-                return item;
-            });
-        });
-    };
+    // const handleCheckboxChange = (id) => {
+    //     setChecklistState((prevState) => {
+    //         return prevState.map((item) => {
+    //             if (item.id === id) {
+    //                 return { ...item, completed: !item.completed }; 
+    //             }
+    //             return item;
+    //         });
+    //     });
+    // };
 
-    useEffect(() => {
-        const completedItems = checklistState.filter((item) => item.completed);
-        const newCompletedCount = completedItems.length;
+    // useEffect(() => {
+    //     const completedItems = checklistState.filter((item) => item.completed);
+    //     const newCompletedCount = completedItems.length;
 
-        // Chỉ cập nhật khi số lượng thực sự thay đổi
-        if (newCompletedCount !== completedCheckList) {
-            setCompletedCheckList(newCompletedCount);
-            console.log('completed', newCompletedCount); // Log ra số lượng hoàn thành
-        }
-    }, [checklistState]);
+    //     // Chỉ cập nhật khi số lượng thực sự thay đổi
+    //     if (newCompletedCount !== completedCheckList) {
+    //         setCompletedCheckList(newCompletedCount);
+    //         console.log('completed', newCompletedCount); 
+    //     }
+    // }, [checklistState]);
 
     const getRandomColor = () => {
         const letters = '0123456789ABCDEF';
@@ -62,29 +62,29 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
             .join(' ');
     };
 
-    const handleUpdateCheckList = async (e) => {
-        e.preventDefault();
-        const token = localStorage.getItem('token');
+    // const handleUpdateCheckList = async (e) => {
+    //     e.preventDefault();
+    //     const token = localStorage.getItem('token');
 
-        try {
-            await Promise.all(
-                checklistState.map(async (checkItem) => {
-                    const response = await api.put(
-                        `checklists/${task.checklist.id}/entry?entryId=${checkItem.id}&completed=${checkItem.completed}`,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
-                        },
-                    );
-                    console.log('update checklist', response.data);
-                }),
-            );
-            toast.success('Updated Checklist Successfully');
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    //     try {
+    //         await Promise.all(
+    //             checklistState.map(async (checkItem) => {
+    //                 const response = await api.put(
+    //                     `checklists/${task.checklist.id}/entry?entryId=${checkItem.id}&completed=${checkItem.completed}`,
+    //                     {
+    //                         headers: {
+    //                             Authorization: `Bearer ${token}`,
+    //                         },
+    //                     },
+    //                 );
+    //                 console.log('update checklist', response.data);
+    //             }),
+    //         );
+    //         toast.success('Updated Checklist Successfully');
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     const formatDueDate = (dueDate) => {
         const formattedDate = dueDate.slice(0, 16).replace('T', ' / ');
@@ -152,7 +152,7 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
                             </p>
                             <div className={cx('task-des-wrap')}>{task.description}</div>
                         </div>
-                        <div className={cx('checklist')}>
+                        {/* <div className={cx('checklist')}>
                             <div className={cx('checklist-heading')}>
                                 <p style={{ marginBottom: 5 }}>
                                     <b>Checklist</b>
@@ -193,7 +193,7 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
                                     </Button>
                                 ) : null}
                             </form>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={cx('adopter-info')}>
                         <p style={{ marginBottom: 5 }}>
@@ -219,11 +219,13 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
 
                     {task.feedbacks.length > 0 ? <HomeCheckResult task={task} /> : null}
 
-                    {task.checklist.assignee !== null && !task.feedbacks.length > 0 ? (
+                    {/* task.checklist.assignee !== null &&  */}
+
+                    {task.team.length > 1 && !task.feedbacks.length > 0 ? (
                         <HomeCheck task={task} taskID={task.id} setIsSendHomeCheck={setIsSendHomeCheck} />
                     ) : null}
 
-                    {task.checklist.assignee === null ? (
+                    {task.team.length === 1 ? (
                         <Button primary className={cx('undertake-btn')} onClick={handleUnderTakeTask}>
                             Undertake
                         </Button>

@@ -16,36 +16,36 @@ function Tasks({ petIdInAppli, id, task, setIsUndertake }) {
     const [completedCheckList, setCompletedCheckList] = useState(0);
     const [description, setDescription] = useState(task.description);
 
-    useEffect(() => {
-        const initialChecklistState = task.checklist.checklistItems.map((item) => ({
-            id: item.id,
-            entry: item.entry,
-            completed: item.completed,
-        }));
-        setChecklistState(initialChecklistState);
-    }, [task]);
+    // useEffect(() => {
+    //     const initialChecklistState = task.checklist.checklistItems.map((item) => ({
+    //         id: item.id,
+    //         entry: item.entry,
+    //         completed: item.completed,
+    //     }));
+    //     setChecklistState(initialChecklistState);
+    // }, [task]);
 
-    const handleCheckboxChange = (id) => {
-        setChecklistState((prevState) => {
-            return prevState.map((item) => {
-                if (item.id === id) {
-                    return { ...item, completed: !item.completed }; // Đảo trạng thái completed
-                }
-                return item;
-            });
-        });
-    };
+    // const handleCheckboxChange = (id) => {
+    //     setChecklistState((prevState) => {
+    //         return prevState.map((item) => {
+    //             if (item.id === id) {
+    //                 return { ...item, completed: !item.completed }; // Đảo trạng thái completed
+    //             }
+    //             return item;
+    //         });
+    //     });
+    // };
 
-    useEffect(() => {
-        const completedItems = checklistState.filter((item) => item.completed);
-        const newCompletedCount = completedItems.length;
+    // useEffect(() => {
+    //     const completedItems = checklistState.filter((item) => item.completed);
+    //     const newCompletedCount = completedItems.length;
 
-        // Chỉ cập nhật khi số lượng thực sự thay đổi
-        if (newCompletedCount !== completedCheckList) {
-            setCompletedCheckList(newCompletedCount);
-            console.log('completed', newCompletedCount); // Log ra số lượng hoàn thành
-        }
-    }, [checklistState]);
+    //     // Chỉ cập nhật khi số lượng thực sự thay đổi
+    //     if (newCompletedCount !== completedCheckList) {
+    //         setCompletedCheckList(newCompletedCount);
+    //         console.log('completed', newCompletedCount); // Log ra số lượng hoàn thành
+    //     }
+    // }, [checklistState]);
 
     const formatStatus = (status) => {
         return status
@@ -54,31 +54,31 @@ function Tasks({ petIdInAppli, id, task, setIsUndertake }) {
             .join(' ');
     };
 
-    const handleUpdateCheckList = async (e) => {
-        e.preventDefault();
-        const token = localStorage.getItem('token');
+    // const handleUpdateCheckList = async (e) => {
+    //     e.preventDefault();
+    //     const token = localStorage.getItem('token');
 
-        try {
-            await Promise.all(
-                checklistState.map(async (checkItem) => {
-                    const response = await api.put(
-                        `checklists/${task.checklist.id}/entry?entryId=${checkItem.id}&completed=${checkItem.completed}`,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
-                        },
-                    );
+    //     try {
+    //         await Promise.all(
+    //             checklistState.map(async (checkItem) => {
+    //                 const response = await api.put(
+    //                     `checklists/${task.checklist.id}/entry?entryId=${checkItem.id}&completed=${checkItem.completed}`,
+    //                     {
+    //                         headers: {
+    //                             Authorization: `Bearer ${token}`,
+    //                         },
+    //                     },
+    //                 );
 
-                    console.log('update checklist', response.data);
-                }),
-            );
-            toast.success('Updated checklist successfully!');
-        } catch (error) {
-            console.log(error);
-            toast.error('Updated checklist fail!');
-        }
-    };
+    //                 console.log('update checklist', response.data);
+    //             }),
+    //         );
+    //         toast.success('Updated checklist successfully!');
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error('Updated checklist fail!');
+    //     }
+    // };
 
     const formatDueDate = (dueDate) => {
         const formattedDate = dueDate.slice(0, 16).replace('T', ' / ');
@@ -108,73 +108,73 @@ function Tasks({ petIdInAppli, id, task, setIsUndertake }) {
         }
     };
 
-    const handleUpdatePetAdopted = async () => {
-        try {
-            const response = await api.put(
-                `pets/status/${task.pet.petId}`,
-                {
-                    petStatus: 'Adopted',
-                },
-                {
-                    headers: {
-                        Authorization: 'No Auth',
-                    },
-                },
-            );
-            console.log('update pet adopted', response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // const handleUpdatePetAdopted = async () => {
+    //     try {
+    //         const response = await api.put(
+    //             `pets/status/${task.pet.petId}`,
+    //             {
+    //                 petStatus: 'Adopted',
+    //             },
+    //             {
+    //                 headers: {
+    //                     Authorization: 'No Auth',
+    //                 },
+    //             },
+    //         );
+    //         console.log('update pet adopted', response.data);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
-    const handleUpdateTaskLastStepApprove = async () => {
-        const token = localStorage.getItem('token');
-        const appliId = task.name.split('(')[1].replace(')', '');
-        console.log('appli id', appliId);
+    // const handleUpdateTaskLastStepApprove = async () => {
+    //     const token = localStorage.getItem('token');
+    //     const appliId = task.name.split('(')[1].replace(')', '');
+    //     console.log('appli id', appliId);
 
-        try {
-            const response = await api.put(
-                `applications/status/${appliId}`,
-                {
-                    status: 3,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                },
-            );
-            console.log('update last step', response.data);
-            toast.success('Update Application To Approved Successfully');
-            await handleUpdatePetAdopted();
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    //     try {
+    //         const response = await api.put(
+    //             `applications/status/${appliId}`,
+    //             {
+    //                 status: 3,
+    //             },
+    //             {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             },
+    //         );
+    //         console.log('update last step', response.data);
+    //         toast.success('Update Application To Approved Successfully');
+    //         await handleUpdatePetAdopted();
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
-    const handleUpdateTaskLastStepDenied = async () => {
-        const token = localStorage.getItem('token');
-        const appliId = task.name.split('(')[1].replace(')', '');
-        console.log('appli id', appliId);
+    // const handleUpdateTaskLastStepDenied = async () => {
+    //     const token = localStorage.getItem('token');
+    //     const appliId = task.name.split('(')[1].replace(')', '');
+    //     console.log('appli id', appliId);
 
-        try {
-            const response = await api.put(
-                `applications/status/${appliId}`,
-                {
-                    status: 4,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                },
-            );
-            console.log('update last step', response.data);
-            toast.success('Update Application To Denied Successfully');
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    //     try {
+    //         const response = await api.put(
+    //             `applications/status/${appliId}`,
+    //             {
+    //                 status: 4,
+    //             },
+    //             {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             },
+    //         );
+    //         console.log('update last step', response.data);
+    //         toast.success('Update Application To Denied Successfully');
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     const handleDeleteTask = async () => {
         const token = localStorage.getItem('token');
@@ -247,7 +247,7 @@ function Tasks({ petIdInAppli, id, task, setIsUndertake }) {
                             </Button>
                         </form>
                     </div>
-                    <div className={cx('checklist')}>
+                    {/* <div className={cx('checklist')}>
                         <div className={cx('checklist-heading')}>
                             <p style={{ marginBottom: 5 }}>
                                 <b>Checklist</b>
@@ -287,7 +287,7 @@ function Tasks({ petIdInAppli, id, task, setIsUndertake }) {
                                 Save
                             </Button>
                         </form>
-                    </div>
+                    </div> */}
                 </div>
                 <div className={cx('adopter-info')}>
                     <p style={{ marginBottom: 5 }}>
@@ -313,9 +313,9 @@ function Tasks({ petIdInAppli, id, task, setIsUndertake }) {
 
                 {task.feedbacks.length > 0 ? <HomeCheckResult task={task} /> : null}
 
-                {task.checklist.assignee === null ? <HomeCheck taskID={id} /> : null}
+                {task.team.length === 1 ? <HomeCheck taskID={id} /> : null}
 
-                {task.feedbacks.length > 0 ? (
+                {/* {task.feedbacks.length > 0 ? (
                     <div className={cx('last-step-btn')}>
                         <Button primary large mgRight10 onClick={handleUpdateTaskLastStepApprove}>
                             Approve Adopt
@@ -324,7 +324,7 @@ function Tasks({ petIdInAppli, id, task, setIsUndertake }) {
                             Deny Adopt
                         </Button>
                     </div>
-                ) : null}
+                ) : null} */}
 
                 {/* {task.checklist.assignee === null ? (
                     <Button primary className={cx('undertake-btn')} onClick={handleUnderTakeTask}>
