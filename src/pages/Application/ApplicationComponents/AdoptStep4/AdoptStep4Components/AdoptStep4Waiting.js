@@ -5,9 +5,9 @@ import api from '~/config/axios';
 import './AdoptStep4Waiting.scss';
 import IMAGES from '~/assets/images';
 
-const AdoptStep4Waiting = ({ setStep }) => {
+const AdoptStep4Waiting = ({ id, setStep }) => {
     const [statusMessage, setStatusMessage] = useState('Đang chờ admin duyệt...');
-
+    const userID = localStorage.getItem('userId');
     useEffect(() => {
         const interval = setInterval(() => {
             checkApprovalStatus();
@@ -19,7 +19,7 @@ const AdoptStep4Waiting = ({ setStep }) => {
     const checkApprovalStatus = async () => {
         try {
             const token = localStorage.getItem('token');
-            const applicationId = localStorage.getItem('applicationId');
+            const applicationId = localStorage.getItem(`applicationId_${id}_${userID}`);
             const response = await api.get(`applications/${applicationId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
