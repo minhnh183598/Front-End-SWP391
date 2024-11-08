@@ -19,7 +19,7 @@ function Account() {
     const isAdmin = role?.includes('ADMIN');
 
     const handleLogout = async () => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('refreshToken');
         try {
             const response = await api.post(
                 'auth/logout',
@@ -29,6 +29,7 @@ function Account() {
                 {
                     headers: {
                         Authorization: `No Auth`,
+                        // Authorization: `Bearer ${token}`,
                     },
                 },
             );

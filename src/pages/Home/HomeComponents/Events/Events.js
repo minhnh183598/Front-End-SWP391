@@ -12,9 +12,14 @@ function Events() {
     const [eventData, setEventData] = useState([]);
     const [isLoading, setIsLoading] = useState(true); // Trạng thái load
     const token = localStorage.getItem('token');
+    const [loading, setLoading] = useState(true);
+
+    console.log('Index: ', index);
+    console.log('Event Data: ', eventData);
 
     const getEventData = async () => {
         try {
+            setLoading(true);
             const response = await api.get(`posts/search?tags=Event&category=ADOPTION`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -25,6 +30,8 @@ function Events() {
         } catch (error) {
             console.log(error);
             setIsLoading(false); // Nếu có lỗi, cũng đổi trạng thái loading
+        } finally {
+            setLoading(false); // Hoàn tất quá trình tải
         }
     };
 
@@ -50,13 +57,18 @@ function Events() {
         eventData[(index + 1) % eventData.length],
         eventData[(index + 2) % eventData.length],
     ];
+    console.log('Show Data: ', eventShow);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setIndex((prevIndex) => (prevIndex + 1) % eventData.length);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, [eventData.length]); // Đảm bảo interval chỉ chạy lại khi eventData thay đổi
+        if (eventData.length > 0) {
+            // Kiểm tra nếu eventData có dữ liệu
+            const interval = setInterval(() => {
+                setIndex((prevIndex) => (prevIndex + 1) % eventData.length);
+            }, 3000);
+
+            return () => clearInterval(interval); // Dọn dẹp interval khi component unmount hoặc khi eventData thay đổi
+        }
+    }, [eventData.length]); // Chỉ chạy lại khi eventData.length thay đổi
 
     // Nếu trang đang load, hiển thị loading
     if (isLoading) {
@@ -65,41 +77,51 @@ function Events() {
     return (
         <>
             <div className={cx('events')}>
-                <h1 className={cx('main-heading')}>Events</h1>
-                <p className={cx('main-slogan')}>Love, Care, Companionship</p>
+                {loading ? (
+                    <p>Loading event information...</p> // Hiển thị khi đang tải
+                ) : eventData ? (
+                    <>
+                        <h1 className={cx('main-heading')}>Events</h1>
+                        <p className={cx('main-slogan')}>Love, Care, Companionship</p>
 
-                <div className={cx('content')}>
-                    <button onClick={preSlide} className={cx('pre-btn')}>
-                        &lt;
-                    </button>
-                    <div className={cx('event-container')}>
-                        {eventShow.map((event, index) => {
-                            return (
-                                <div className={cx('event-box')} key={index}>
-                                    <div className={cx('image')}>
-                                        <img src={event.images} />
-                                    </div>
+                        <div className={cx('content')}>
+                            <button onClick={preSlide} className={cx('pre-btn')}>
+                                &lt;
+                            </button>
+                            <div className={cx('event-container')}>
+                                {eventShow.map((event, index) => {
+                                    if (!event) return 'khong co data';
+                                    return (
+                                        <div className={cx('event-box')} key={index}>
+                                            <div className={cx('image')}>
+                                                <img src={event.images} />
+                                            </div>
 
-                                    <div className={cx('event-info')}>
-                                        <h3>{event.title}</h3>
-                                        <p>{event.location}</p>
-                                    </div>
+                                            <div className={cx('event-info')}>
+                                                <h3>{event.title}</h3>
+                                                <p>{event.location}</p>
+                                            </div>
 
-                                    <Button small outline className={cx('event-btn')} to="/blog">
-                                        View
-                                    </Button>
-                                </div>
-                            );
-                        })}
-                    </div>
-                    <button onClick={nextSlide} className={cx('next-btn')}>
-                        &gt;
-                    </button>
-                </div>
+                                            <Button small outline className={cx('event-btn')} to="/blog">
+                                                View
+                                            </Button>
+                                        </div>
+                                        // <div></div>
+                                    );
+                                })}
+                            </div>
+                            <button onClick={nextSlide} className={cx('next-btn')}>
+                                &gt;
+                            </button>
+                        </div>
 
-                <Button primary xlarge to="/events" className={cx('link-btn')}>
-                    View More Event
-                </Button>
+                        <Button primary xlarge to="/events" className={cx('link-btn')}>
+                            View More Event
+                        </Button>
+                    </>
+                ) : (
+                    <p>Pet data not available</p> // Hiển thị nếu không có dữ liệu
+                )}
             </div>
         </>
     );
