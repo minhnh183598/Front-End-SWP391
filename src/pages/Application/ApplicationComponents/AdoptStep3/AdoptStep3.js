@@ -5,6 +5,7 @@ import api from '~/config/axios';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import IMAGES from '~/assets/images';
 
 const AdoptStep3 = ({ id, setStep }) => {
     const [pet, setPet] = useState(null);
@@ -89,19 +90,22 @@ const AdoptStep3 = ({ id, setStep }) => {
                         </div>
                     </div>
                     {showPopup && (
-                        <div className={`popup ${showPopup ? 'show' : ''}`}>
-                            <div className="popup-content">
-                                <h2>Are you sure you don't want to adopt {pet.petName}?</h2>
-                                <div className="popup-buttons">
-                                    <Button
-                                        onClick={() => {
-                                            handleAdoptionCancel(); // Gọi hàm hủy đơn đăng ký
-                                            setShowPopup(false); // Ẩn pop-up
-                                        }}
-                                    >
-                                        Yes
-                                    </Button>
-                                    <Button onClick={() => setShowPopup(false)}>No</Button>
+                        <div className={`popupStep3 ${showPopup ? 'show' : ''}`}>
+                            <div className="popupStep3-content">
+                                <div className="popupStep3-content-wrap">
+                                    <img src={IMAGES.warningIcon} />
+                                    <h2>Are you sure you don't want to adopt {pet.petName}?</h2>
+                                    <div className="popupStep3-buttons">
+                                        <Button
+                                            onClick={() => {
+                                                handleAdoptionCancel(); // Gọi hàm hủy đơn đăng ký
+                                                setShowPopup(false); // Ẩn pop-up
+                                            }}
+                                        >
+                                            Yes
+                                        </Button>
+                                        <Button onClick={() => setShowPopup(false)}>No</Button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

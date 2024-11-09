@@ -50,6 +50,7 @@ const IMAGES = {
 
     likeIcon: require('./likeIcon.png'),
     unlikeIcon: require('./unlikeIcon.png'),
+    warningIcon: require('./warning.png'),
 };
 
 export default IMAGES;

@@ -147,22 +147,7 @@ const CreateEvent = () => {
     return (
         <div className="create-blog-container">
             <h2>Create a New Event Post</h2>
-            <div className="nut-add-tag">
-                {userRole.includes('ADMIN') && (
-                    <>
-                        <button onClick={handleToggleAddTag}>Create Tag</button> {/* Nút Create Tag */}
-                        {showAddTag && (
-                            <div className="popup">
-                                <button onClick={handleClosePopup} className="close-button">
-                                    Close
-                                </button>{' '}
-                                {/* Nút Close */}
-                                <AddTag closePopup={handleClosePopup} /> {/* Hiển thị AddTag với hàm đóng popup */}
-                            </div>
-                        )}
-                    </>
-                )}
-            </div>
+            <div className="nut-add-tag"></div>
             <form onSubmit={handleSubmit}>
                 <div className="createBlog_form_input_tag">
                     <label htmlFor="tags">Tags</label>

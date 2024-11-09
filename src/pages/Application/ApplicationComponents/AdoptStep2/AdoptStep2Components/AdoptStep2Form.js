@@ -24,7 +24,14 @@ const AdoptStep2Form = ({ id, setStep }) => {
         from: '',
         to: '',
     });
-    // const petId = useParams();
+
+    const [errors, setErrors] = useState({
+        phone: '',
+        yob: '',
+        firstPhone: '',
+        secondPhone: '',
+    });
+
     console.log(formData);
 
     const userID = localStorage.getItem('userId');
@@ -36,16 +43,53 @@ const AdoptStep2Form = ({ id, setStep }) => {
         }
     }, []);
 
+    // const validatePhone = (phone) => {
+    //     const phoneRegex = /^\d{10}$/;
+    //     return phoneRegex.test(phone) ? '' : 'Phone number is not valid';
+    // };
+
+    // const validateYob = (yob) => {
+    //     const year = parseInt(yob, 10);
+    //     const currentYear = new Date().getFullYear();
+    //     const minYear = 1900;
+    //     const maxYear = currentYear - 18;
+    //     return year >= minYear && year <= maxYear ? '' : `You must be 18 years old or older to adopt a pet`;
+    // };
+
     const handleChange = (e) => {
+        const { name, value } = e.target;
+        let errorMessage = '';
+
+        // Validate Phone and Year of Birth
+        if (name === 'phone' || name === 'firstPhone' || name === 'secondPhone') {
+            if (!/^\d{10}$/.test(value)) {
+                errorMessage = 'Phone number is invalid.';
+            }
+        } else if (name === 'yob') {
+            const year = parseInt(value, 10);
+            const currentYear = new Date().getFullYear();
+            if (isNaN(year) || year < 1900 || year > currentYear - 18) {
+                errorMessage = `You have to be 18 years old or older to adopt a pet.`;
+            }
+        }
+
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value,
+            [name]: value,
+        });
+        setErrors({
+            ...errors,
+            [name]: errorMessage,
         });
     };
 
-    // cu
     const handleNext = async (e) => {
         e.preventDefault();
+        // Kiểm tra nếu có lỗi trước khi tiếp tục
+        if (Object.values(errors).some((error) => error)) {
+            alert('Please check your information again and make sure everything is correct.');
+            return;
+        }
         try {
             // Lưu dữ liệu biểu mẫu vào localStorage (tùy chọn)
             localStorage.setItem('applicationFormData', JSON.stringify(formData));
@@ -162,6 +206,7 @@ const AdoptStep2Form = ({ id, setStep }) => {
                                 required
                                 // placeholder="phone"
                             />
+                            {errors.phone && <p className="error-text">{errors.phone}</p>}
                         </div>
                         {/* Gender  */}
                         <div className="AdoptStep2-infoInputbar-wrap-gender">
@@ -186,6 +231,7 @@ const AdoptStep2Form = ({ id, setStep }) => {
                                 required
                                 // placeholder="yob"
                             />
+                            {errors.yob && <p className="error-text">{errors.yob}</p>}
                         </div>
                         {/* Address */}
                         <div className="AdoptStep2-infoInputbar-wrap-address">
@@ -270,6 +316,7 @@ const AdoptStep2Form = ({ id, setStep }) => {
                                 onChange={handleChange}
                                 // placeholder="first_phone"
                             />
+                            {errors.firstPhone && <p className="error-text2">{errors.firstPhone}</p>}
                         </div>
                         {/* second_person */}
                         <div className="AdoptStep2-infoInputbar-wrap-RE2">
@@ -296,6 +343,7 @@ const AdoptStep2Form = ({ id, setStep }) => {
                                 onChange={handleChange}
                                 // placeholder="second_phone"
                             />
+                            {errors.secondPhone && <p className="error-text2">{errors.secondPhone}</p>}
                         </div>
                         <div className="AdoptStep2_notification">
                             <h5>

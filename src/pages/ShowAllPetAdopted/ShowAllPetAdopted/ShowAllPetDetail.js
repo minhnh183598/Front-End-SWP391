@@ -44,7 +44,7 @@ const ShowAllPetDetail = () => {
                     <div className="myPetDetail_box_wrap">
                         <div className="myPetDetail_box">
                             <div className="myPetDetail_box_left">
-                                <img className="myPetDetail_box_left_imgPet" src={IMAGES.adoptStep1_1} alt="img" />
+                                <img className="myPetDetail_box_left_imgPet" src={pet.petImage} alt="img" />
                                 <div className="myPetDetail_box_left_vaccine">
                                     <img className="myPetDetail_box_left_imgVac" src={IMAGES.adoptStep1_3} />
                                     <p>

@@ -20,6 +20,7 @@ function Account() {
 
     const handleLogout = async () => {
         const rfToken = localStorage.getItem('refreshToken');
+
         try {
             const response = await api.post(
                 'auth/logout',
@@ -28,7 +29,7 @@ function Account() {
                 },
                 {
                     headers: {
-                        Authorization: 'No Auth',
+                        Authorization: `No Auth`,
                     },
                 },
             );
@@ -77,24 +78,6 @@ function Account() {
                 </Link>
             ),
         },
-
-        // {
-        //     label: (
-        //         <Link
-        //             style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }}
-        //             to="/my-application"
-        //         >
-        //             Application
-        //         </Link>
-        //     ),
-        // },
-        // {
-        //     label: (
-        //         <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }} to="/my-pet">
-        //             Pet
-        //         </Link>
-        //     ),
-        // },
         {
             label: (
                 <Link

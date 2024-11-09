@@ -114,7 +114,7 @@ select {
 .AdoptStep2-infoInputbar-wrap-name {
     margin-bottom: 20px;
     label {
-        margin-right: 20px;
+        margin-right: 51px;
         font-weight: 800;
         font-size: 23px;
     }
@@ -142,7 +142,7 @@ select {
 .AdoptStep2-infoInputbar-wrap-address {
     margin-bottom: 20px;
     label {
-        margin-right: 20px;
+        margin-right: 63px;
         font-weight: 800;
         font-size: 23px;
     }
@@ -151,7 +151,7 @@ select {
         padding-left: 10px;
     }
     input {
-        width: 700px;
+        width: 600px;
     }
 }
 
@@ -177,11 +177,12 @@ select {
 .AdoptStep2-infoInputbar-wrap-gender {
     margin-bottom: 20px;
     label {
-        margin-right: 20px;
+        margin-right: 75px;
         font-weight: 800;
         font-size: 23px;
     }
     select {
+        width: 400px;
         border-radius: 50px;
         padding-left: 10px;
     }
@@ -191,7 +192,7 @@ select {
 .AdoptStep2-infoInputbar-wrap-phone {
     margin-bottom: 20px;
     label {
-        margin-right: 20px;
+        margin-right: 85px;
         font-weight: 800;
         font-size: 23px;
     }
@@ -236,9 +237,6 @@ select {
     margin-bottom: 20px;
     label {
         margin-right: 34px;
-    }
-    label {
-        margin-right: 20px;
         font-weight: 800;
         font-size: 23px;
     }
@@ -250,11 +248,9 @@ select {
 
 .AdoptStep2-infoInputbar-wrap_RE1Phone {
     margin-bottom: 20px;
+    gap: 20px;
     label {
         margin-right: 67px;
-    }
-    label {
-        margin-right: 20px;
         font-weight: 800;
         font-size: 23px;
     }
@@ -267,10 +263,7 @@ select {
 .AdoptStep2-infoInputbar-wrap-RE2 {
     margin-bottom: 20px;
     label {
-        margin-right: 36px;
-    }
-    label {
-        margin-right: 20px;
+        margin-right: 34px;
         font-weight: 800;
         font-size: 23px;
     }
@@ -283,10 +276,7 @@ select {
 .AdoptStep2-infoInputbar-wrap-RE2Phone {
     margin-bottom: 20px;
     label {
-        margin-right: 67px;
-    }
-    label {
-        margin-right: 20px;
+        margin-right: 64px;
         font-weight: 800;
         font-size: 23px;
     }
@@ -319,4 +309,22 @@ select {
         margin-top: 20px;
         margin-bottom: 20px;
     }
+}
+
+.error-text {
+    margin-top: 5px;
+    margin-left: 160px;
+    margin-bottom: 0px;
+    color: red;
+    font-style: italic;
+    font-weight: 350;
+}
+
+.error-text2 {
+    margin-top: 5px;
+    margin-left: 260px;
+    margin-bottom: 0px;
+    color: red;
+    font-style: italic;
+    font-weight: 350;
 }
