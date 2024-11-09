@@ -70,6 +70,8 @@ function Login() {
             if (response.data && response.data.result) {
                 const token = response.data.result.token;
                 localStorage.setItem('token', token);
+                const rfToken = response.data.result.refreshToken;
+                localStorage.setItem('refreshToken', rfToken);
 
                 const userInfo = await api.get('users/info', {
                     headers: {

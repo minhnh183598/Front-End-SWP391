@@ -19,12 +19,12 @@ function Account() {
     const isAdmin = role?.includes('ADMIN');
 
     const handleLogout = async () => {
-        const token = localStorage.getItem('token');
+        const rfToken = localStorage.getItem('refreshToken');
         try {
             const response = await api.post(
                 'auth/logout',
                 {
-                    token: token,
+                    token: rfToken,
                 },
                 {
                     headers: {
