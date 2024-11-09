@@ -21,7 +21,7 @@ function BlogList() {
         try {
             const response = await api.get(`posts/search?tags=Post&category=ADOPTION`, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `No Auth`,
                 },
             });
             setBlogData(response.data.result);
@@ -29,6 +29,8 @@ function BlogList() {
             console.log(error);
         }
     };
+
+    console.log('Day la blog data: ', blogData);
 
     const getTagData = async () => {
         try {

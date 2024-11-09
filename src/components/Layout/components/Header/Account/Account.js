@@ -20,7 +20,6 @@ function Account() {
 
     const handleLogout = async () => {
         const rfToken = localStorage.getItem('refreshToken');
-
         try {
             const response = await api.post(
                 'auth/logout',
@@ -41,7 +40,7 @@ function Account() {
             localStorage.removeItem('userRoles');
             navigate('/');
         } catch (error) {
-            console.log(error);
+            console.log(error.response?.data || error.message);
         }
     };
 

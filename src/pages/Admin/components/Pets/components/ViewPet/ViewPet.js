@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import Update from './Update';
 import Button from '~/components/Button';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -92,6 +93,7 @@ function ViewPet({ id, setViewPet }) {
             setViewPet(false);
         } catch (error) {
             console.log(error);
+            toast.error('This pet is currently being adopted by the user.');
         }
     };
 
@@ -166,6 +168,7 @@ function ViewPet({ id, setViewPet }) {
                     />
                 )}
             </div>
+            <ToastContainer />
         </>
     );
 }

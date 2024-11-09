@@ -3,6 +3,7 @@ import styles from './AddTag.module.scss';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import api from '~/config/axios';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -32,6 +33,7 @@ function AddTag({ setAddAll }) {
                 },
             });
             console.log(response.data);
+            toast.success('Create tag successfully');
             setAddAll('');
         } catch (error) {
             console.log(error);
@@ -79,6 +81,7 @@ function AddTag({ setAddAll }) {
                     </div>
                 </form>
             </div>
+            <ToastContainer />
         </div>
     );
 }

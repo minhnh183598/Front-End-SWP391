@@ -41,7 +41,7 @@ const AdoptStep2FormWait = ({ id, setStep }) => {
         setTimeout(() => {
             checkApprovalStatus();
             setLoading(false);
-        }, 3000); // Chờ 1 giây trước khi kết thúc loading
+        }, 5000); // Chờ 1 giây trước khi kết thúc loading
 
         const interval = setInterval(() => {
             checkApprovalStatus();
