@@ -124,7 +124,7 @@ function ViewAppli({ appliID, setViewAppli }) {
                     <div className={cx('container')}>
                         <div className={cx('pet')}>
                             <div className={cx('pet-image')}>
-                                <img src={petInAppli.petImage} />
+                                <img src={petInAppli.petImage} alt='pet image'/>
                             </div>
                             <div className={cx('pet-info')}>
                                 <p style={{ fontSize: '12px', marginTop: '2px' }}>

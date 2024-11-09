@@ -69,12 +69,12 @@ function FeaturePet({ children, homepage, title }) {
                             <div className={cx('pet-box')} key={pet.petId}>
                                 <div className={cx('image')}>
                                     <img src={pet.petImage} alt={pet.petName} />
-                                    <img
+                                    {/* <img
                                         src={lovePet[pet.petId] ? ICONS.heartRed : ICONS.heartWhi}
                                         className={cx('heart-icon')}
                                         onClick={() => handleWishlist(pet)}
                                         alt=""
-                                    />
+                                    /> */}
                                     <p
                                         className={cx(
                                             'pet-state',
