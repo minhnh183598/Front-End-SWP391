@@ -13,12 +13,14 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
     const [appliForPet, setAppliForPet] = useState([]);
     const [singlePetId, setSinglePetId] = useState('');
     const [appliIdForPet, setAppliIdForPet] = useState('');
-    
 
     const formatDueDate = (dueDate) => {
         const formattedDate = dueDate.slice(0, 16).replace('T', ' / ');
         return formattedDate;
     };
+
+    console.log('Day la appliforpet', appliForPet);
+    console.log('Day la appli ID forpet', appliIdForPet);
 
     const handleUpdatePetAdopted = async () => {
         try {
@@ -193,7 +195,7 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
                                                         small
                                                         mgRight10
                                                         onClick={() => {
-                                                            console.log('id ne dcmmm', item.applicationId);
+                                                            console.log('id ne dcmmm haha', item.applicationId);
                                                             setAppliIdForPet(item.applicationId);
                                                             setSinglePetId(feedback.petId);
                                                             handleUpdateTaskLastStepApprove();
@@ -206,7 +208,7 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
                                                         small
                                                         className={cx('denied-btn')}
                                                         onClick={() => {
-                                                            console.log('id ne dcmmm', item.applicationId);
+                                                            console.log('id ne dcmmm huhu', item.applicationId);
                                                             setAppliIdForPet(item.applicationId);
                                                             setSinglePetId(feedback.petId);
                                                             handleUpdateTaskLastStepDenied();

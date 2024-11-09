@@ -21,7 +21,7 @@ function EventList() {
         try {
             const response = await api.get(`posts/search?tags=Event&category=ADOPTION`, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `No Auth`,
                 },
             });
             setBlogData(response.data.result);

@@ -132,7 +132,7 @@ function Dashboard() {
 
         fetchData(); // Fetch data on component mount
 
-        const interval = setInterval(fetchData, 10000);
+        const interval = setInterval(fetchData, 15000);
         return () => clearInterval(interval); // Clear interval on component unmount
     }, []); // Chỉ chạy một lần khi component được mount
 

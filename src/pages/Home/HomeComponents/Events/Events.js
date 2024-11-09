@@ -14,8 +14,8 @@ function Events() {
     const token = localStorage.getItem('token');
     const [loading, setLoading] = useState(true);
 
-    console.log('Index: ', index);
-    console.log('Event Data: ', eventData);
+    // console.log('Index: ', index);
+    // console.log('Event Data: ', eventData);
 
     const getEventData = async () => {
         try {
@@ -57,7 +57,7 @@ function Events() {
         eventData[(index + 1) % eventData.length],
         eventData[(index + 2) % eventData.length],
     ];
-    console.log('Show Data: ', eventShow);
+    // console.log('Show Data: ', eventShow);
 
     useEffect(() => {
         if (eventData.length > 0) {

@@ -19,7 +19,7 @@ function Account() {
     const isAdmin = role?.includes('ADMIN');
 
     const handleLogout = async () => {
-        const token = localStorage.getItem('refreshToken');
+        const token = localStorage.getItem('token');
         try {
             const response = await api.post(
                 'auth/logout',
@@ -41,7 +41,7 @@ function Account() {
             localStorage.removeItem('userRoles');
             navigate('/');
         } catch (error) {
-            console.log(error);
+            console.log(error.response?.data || error.message);
         }
     };
 
