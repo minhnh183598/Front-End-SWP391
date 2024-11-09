@@ -19,17 +19,16 @@ function Account() {
     const isAdmin = role?.includes('ADMIN');
 
     const handleLogout = async () => {
-        const token = localStorage.getItem('token');
+        const rfToken = localStorage.getItem('refreshToken');
         try {
             const response = await api.post(
                 'auth/logout',
                 {
-                    token: token,
+                    token: rfToken,
                 },
                 {
                     headers: {
                         Authorization: `No Auth`,
-                        // Authorization: `Bearer ${token}`,
                     },
                 },
             );
@@ -78,24 +77,6 @@ function Account() {
                 </Link>
             ),
         },
-
-        // {
-        //     label: (
-        //         <Link
-        //             style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }}
-        //             to="/my-application"
-        //         >
-        //             Application
-        //         </Link>
-        //     ),
-        // },
-        // {
-        //     label: (
-        //         <Link style={{ textDecoration: 'none', fontSize: 16, fontWeight: 500, cursor: 'pointer' }} to="/my-pet">
-        //             Pet
-        //         </Link>
-        //     ),
-        // },
         {
             label: (
                 <Link
