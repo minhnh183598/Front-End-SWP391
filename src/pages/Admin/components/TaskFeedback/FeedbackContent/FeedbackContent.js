@@ -200,7 +200,9 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
                                                                     console.log('id ne dcmmm', item.applicationId);
                                                                     setAppliIdForPet(item.applicationId);
                                                                     setSinglePetId(feedback.petId);
-                                                                    handleUpdateTaskLastStepApprove();
+                                                                    setTimeout(() => {
+                                                                        handleUpdateTaskLastStepApprove();
+                                                                    }, 1000);
                                                                 }}
                                                             >
                                                                 Approve

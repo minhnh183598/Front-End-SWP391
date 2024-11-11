@@ -44,6 +44,8 @@ const handleBefore = (config) => {
         return config;
     } else if (config.url.includes('posts/search')) {
         return config;
+    } else if (config.url.includes('posts/detail/')) {
+        return config;
     }
 
     const token = localStorage.getItem('token')?.replaceAll('"', '');

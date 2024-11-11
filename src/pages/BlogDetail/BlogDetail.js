@@ -24,9 +24,9 @@ function BlogDetail() {
     const getBlogData = async () => {
         try {
             setLoading(true);
-            const response = await api.get(`posts/${useId}`, {
+            const response = await api.get(`posts/detail/${useId}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `No Auth`,
                 },
             });
             setBlogData(response.data.result);
