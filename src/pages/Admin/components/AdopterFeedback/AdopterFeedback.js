@@ -53,18 +53,18 @@ function AdopterFeedback() {
             <div className={cx('user-sum')}>
                 <div className={cx('user-sum-item')}>
                     <div>
-                        <p className={cx('item-number')}>231</p>
-                        <p className={cx('item-label')}>Total Blogs</p>
+                        <p className={cx('item-number')}>{dataLength}</p>
+                        <p className={cx('item-label')}>Total Feedbacks</p>
                     </div>
                     <span>+2.15%</span>
                 </div>
-                <div className={cx('user-sum-item')}>
+                {/* <div className={cx('user-sum-item')}>
                     <div>
                         <p className={cx('item-number')}>10</p>
                         <p className={cx('item-label')}>New Blogs</p>
                     </div>
                     <span>-3.5%</span>
-                </div>
+                </div> */}
             </div>
 
             <div className={cx('user-content')}>

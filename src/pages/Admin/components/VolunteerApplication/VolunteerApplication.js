@@ -15,6 +15,7 @@ const cx = classNames.bind(styles);
 function VolunteerApplication() {
     const [appliList, setAppliList] = useState([]);
     const [dataLength, setDataLength] = useState(0);
+    const [dataLengthTotal, setDataLengthTotal] = useState(0);
     const [totalAppli, setTotalAppli] = useState(0);
     const [totalPass, setTotalPass] = useState(0);
     const [totalFail, setTotalFail] = useState(0);
@@ -38,6 +39,7 @@ function VolunteerApplication() {
             console.log('volunteer appli data all', response.data);
 
             setDataLength(response.data.length);
+            setDataLengthTotal(response.data.length)
             setAppliList(response.data);
         } catch (error) {
             console.log(error);
@@ -234,7 +236,12 @@ function VolunteerApplication() {
                         </div>
                     </>
                 ) : (
-                    <ViewAppli userInAppli={userInAppli} userAppliId={userAppliId} id={appliID} setViewAppli={setViewAppli} />
+                    <ViewAppli
+                        userInAppli={userInAppli}
+                        userAppliId={userAppliId}
+                        id={appliID}
+                        setViewAppli={setViewAppli}
+                    />
                 )}
             </div>
         </>
