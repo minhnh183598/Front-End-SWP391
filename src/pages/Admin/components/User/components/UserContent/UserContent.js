@@ -22,12 +22,12 @@ function UserContent({ currentUser, setViewUser, setUserID }) {
                             <p className={cx('user')}>User</p>
                         ) : user.roles.some((role) => role.name === 'VOLUNTEER') ? (
                             <p className={cx('volunteer')}>Volunteer</p>
+                        ) : user.roles.some((role) => role.name === 'SHELTER') ? (
+                            <p className={cx('shelter')}>Shelter</p>
                         ) : null}
                     </div>
                     <p className={cx('appli')}>{user.applicationQuantity || 0}</p>
-                    <p className={cx('date')}>
-                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : ''}
-                    </p>
+                    <p className={cx('date')}>{user.createdAt ? new Date(user.createdAt).toLocaleDateString() : ''}</p>
                     <div className={cx('action')}>
                         <FontAwesomeIcon
                             icon={faEye}

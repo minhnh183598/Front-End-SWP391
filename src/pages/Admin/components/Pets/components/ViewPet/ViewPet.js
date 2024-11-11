@@ -97,6 +97,22 @@ function ViewPet({ id, setViewPet }) {
         }
     };
 
+    const handleSendEmailFeedback = async (petId) => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await api.get(`adoptionFeedbacks/pet/${petId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            toast.success('Send successfully');
+            console.log('send email', response.data);
+        } catch (error) {
+            console.log(error);
+            toast.error('Fail to send email');
+        }
+    };
+
     return (
         <>
             <div className={cx('wrapper')}>
@@ -148,6 +164,17 @@ function ViewPet({ id, setViewPet }) {
                                     Delete
                                 </Button>
                             </div>
+                            <Button
+                                className={cx('email-btn')}
+                                outline
+                                onClick={() => {
+                                    console.log('1', pet.petId);
+                                    handleSendEmailFeedback(pet.petId);
+                                    console.log('2', pet.petId);
+                                }}
+                            >
+                                Request Feedback
+                            </Button>
                         </div>
                         <div className={cx('story')}>
                             <h2>Story</h2>

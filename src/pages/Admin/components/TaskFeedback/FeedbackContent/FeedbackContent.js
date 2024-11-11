@@ -58,8 +58,8 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
                 },
             );
             console.log('update last step', response.data);
-            toast.success('Update Application To Approved Successfully');
             await handleUpdatePetAdopted();
+            toast.success('Update Application To Approved Successfully');
             setUpdateSuccess(true);
         } catch (error) {
             console.log(error);
@@ -197,7 +197,10 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
                                                                 small
                                                                 mgRight10
                                                                 onClick={() => {
-                                                                    console.log('id ne dcmmm', item.applicationId);
+                                                                    console.log(
+                                                                        'id appli ne dcmmm',
+                                                                        item.applicationId,
+                                                                    );
                                                                     setAppliIdForPet(item.applicationId);
                                                                     setSinglePetId(feedback.petId);
                                                                     handleUpdateTaskLastStepApprove();
