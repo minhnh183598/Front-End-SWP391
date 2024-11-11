@@ -90,7 +90,7 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handleUserD
                             <option value="ADMIN">Admin</option>
                             <option value="VOLUNTEER">Volunteer</option>
                             <option value="USER">User</option>
-                            <option value="SHELTER">Shelter</option>
+                            <option value="SHELTER_STAFF">Shelter staff</option>
                         </select>
                     </div>
                 </div>

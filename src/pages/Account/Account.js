@@ -12,6 +12,7 @@ import api from '~/config/axios';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 import DonateHistory from '../Donate/DonateComponents/DonateHistory';
 import MyBlog from './components/MyBlog/MyBlog';
+import MyEvent from './components/MyEvent/MyEvent';
 
 const cx = classNames.bind(styles);
 
@@ -91,6 +92,18 @@ function Account() {
                             >
                                 My Blog
                             </p>
+
+                            {userRole.includes('SHELTER_STAFF') ? (
+                                <p
+                                    className={cx(content === 'myEvent' ? 'active' : '')}
+                                    onClick={() => setContent('myEvent')}
+                                >
+                                    My Event
+                                </p>
+                            ) : (
+                                ''
+                            )}
+
                             {userRole.includes('VOLUNTEER') ? (
                                 <p
                                     className={cx(content === 'tasks' ? 'active' : '')}
@@ -120,8 +133,10 @@ function Account() {
                             <PetListInfor />
                         ) : content === 'donateHistory' ? (
                             <DonateHistory />
-                        ) : (
+                        ) : content === 'myBlog' ? (
                             <MyBlog />
+                        ) : (
+                            <MyEvent />
                         )}
                     </div>
                 </>

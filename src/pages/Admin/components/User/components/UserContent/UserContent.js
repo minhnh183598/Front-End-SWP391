@@ -22,7 +22,7 @@ function UserContent({ currentUser, setViewUser, setUserID }) {
                             <p className={cx('user')}>User</p>
                         ) : user.roles.some((role) => role.name === 'VOLUNTEER') ? (
                             <p className={cx('volunteer')}>Volunteer</p>
-                        ) : user.roles.some((role) => role.name === 'SHELTER') ? (
+                        ) : user.roles.some((role) => role.name === 'SHELTER_STAFF') ? (
                             <p className={cx('shelter')}>Shelter</p>
                         ) : null}
                     </div>
