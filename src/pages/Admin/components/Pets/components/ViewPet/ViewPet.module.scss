@@ -23,6 +23,15 @@
         .detail-info {
             position: relative;
             width: 50%;
+
+            h2{
+                display: inline-block;
+                background-color: var(--primary-color);
+                padding: 0 8px;
+                border-radius: 15px;
+                margin-bottom: 20px;
+                
+            }
             .detail-item {
                 display: flex;
 
@@ -50,6 +59,10 @@
                 Button:first-child {
                     margin-right: 10px;
                 }
+            }
+
+            .email-btn{
+                margin-top: 15px;
             }
 
             &::after {

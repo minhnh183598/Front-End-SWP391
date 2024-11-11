@@ -124,7 +124,7 @@ const publicRoutes = [
         component: Account,
     },
     {
-        path: '/adopter-feedback',
+        path: '/adopter-feedback/:id',
         component: AdopterFeedback,
     },
 ];

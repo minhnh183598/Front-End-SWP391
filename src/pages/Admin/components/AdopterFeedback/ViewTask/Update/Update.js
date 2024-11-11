@@ -3,11 +3,10 @@ import styles from './Update.module.scss';
 import classNames from 'classnames/bind';
 import api from '~/config/axios';
 import { useEffect } from 'react';
-import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
-function Update({ setUpdate, formData, setFormData, closeUpdate, id, handleUserData }) {
+function Update({ setUpdate, formData, setFormData, closeUpdate, id, handleTaskData }) {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -34,13 +33,12 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handleUserD
                 },
             );
             console.log(response.data);
-            toast.success('Update successfully!');
         } catch (error) {
             console.log(error);
         }
 
         setUpdate(false);
-        handleUserData();
+        handleTaskData();
         console.log(formData);
     };
 
@@ -85,12 +83,11 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handleUserD
                     </div>
 
                     <div className={cx('input-detail')}>
-                        <label htmlFor="roles">Role</label>
+                        <label htmlFor="roles">Age</label>
                         <select id="roles" name="roles" value={formData.roles} onChange={handleChange}>
                             <option value="ADMIN">Admin</option>
                             <option value="VOLUNTEER">Volunteer</option>
                             <option value="USER">User</option>
-                            <option value="SHELTER">Shelter</option>
                         </select>
                     </div>
                 </div>
