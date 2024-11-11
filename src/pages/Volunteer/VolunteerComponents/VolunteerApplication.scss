@@ -51,7 +51,7 @@ select {
 }
 
 .volunteerAppli_infoInput {
-    height: 800px;
+    padding-bottom: 20px;
     margin-top: 30px;
     margin-bottom: 100px;
     border-radius: 20px;
@@ -90,10 +90,6 @@ select {
     display: flex;
 }
 
-.volunteer_yob {
-    display: flex;
-}
-
 // name
 .volunteer_name {
     display: flex;
@@ -113,9 +109,11 @@ select {
 
 //yob
 .volunteer_yob {
-    display: flex;
-    column-gap: 20px;
-    padding-bottom: 15px;
+    .volunteer_yob_wrap {
+        display: flex;
+        column-gap: 20px;
+        padding-bottom: 15px;
+    }
     input {
         border: 2px solid #88b179;
         height: 30px;
@@ -144,9 +142,6 @@ select {
 
 //phone
 .volunteer_phone {
-    display: flex;
-    column-gap: 65px;
-    padding-bottom: 15px;
     input {
         border: 2px solid #88b179;
         height: 30px;
@@ -154,6 +149,12 @@ select {
         border-radius: 5px;
         outline: none;
     }
+}
+
+.volunteer_phone_wrap {
+    display: flex;
+    column-gap: 65px;
+    padding-bottom: 15px;
 }
 
 // address
@@ -280,4 +281,13 @@ select {
     margin-right: 30px;
     margin-top: 30px;
     column-gap: 10px;
+}
+
+.error-text-3 {
+    margin-top: 0px;
+    margin-left: 110px;
+    margin-bottom: 0px;
+    color: red;
+    font-style: italic;
+    font-weight: 350;
 }

@@ -5,6 +5,7 @@ import Button from '~/components/Button';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
 import IMAGES from '~/assets/images';
 import { useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 const AdoptStep2Form = ({ id, setStep }) => {
     const [formData, setFormData] = useState({
@@ -43,19 +44,6 @@ const AdoptStep2Form = ({ id, setStep }) => {
         }
     }, []);
 
-    // const validatePhone = (phone) => {
-    //     const phoneRegex = /^\d{10}$/;
-    //     return phoneRegex.test(phone) ? '' : 'Phone number is not valid';
-    // };
-
-    // const validateYob = (yob) => {
-    //     const year = parseInt(yob, 10);
-    //     const currentYear = new Date().getFullYear();
-    //     const minYear = 1900;
-    //     const maxYear = currentYear - 18;
-    //     return year >= minYear && year <= maxYear ? '' : `You must be 18 years old or older to adopt a pet`;
-    // };
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         let errorMessage = '';
@@ -87,7 +75,7 @@ const AdoptStep2Form = ({ id, setStep }) => {
         e.preventDefault();
         // Kiểm tra nếu có lỗi trước khi tiếp tục
         if (Object.values(errors).some((error) => error)) {
-            alert('Please check your information again and make sure everything is correct.');
+            toast.error('Please check your information again and make sure everything is correct.');
             return;
         }
         try {
@@ -408,6 +396,7 @@ const AdoptStep2Form = ({ id, setStep }) => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

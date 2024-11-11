@@ -20,6 +20,7 @@ function PetDetail() {
     const [update, setUpdate] = useState(false);
     const { id } = useParams();
     const [pet, setPet] = useState(null);
+    const token = localStorage.getItem('token');
     const [formData, setFormData] = useState({
         petName: '',
         petBreed: '',
@@ -45,6 +46,14 @@ function PetDetail() {
             setPet(response.data);
         } catch (error) {
             console.log(error);
+        }
+    };
+
+    const handleAdoptClick = (petId) => {
+        if (token) {
+            navigate(`/adopt-application/${petId}`);
+        } else {
+            navigate('/login');
         }
     };
 
@@ -157,7 +166,12 @@ function PetDetail() {
                                 ) : (
                                     <>
                                         <div className={styles.petDetail_adopt_btn}>
-                                            <Button to={`/adopt-application/${pet.petId}`} mgRight10 medium primary>
+                                            <Button
+                                                onClick={() => handleAdoptClick(pet.petId)}
+                                                mgRight10
+                                                medium
+                                                primary
+                                            >
                                                 Adopt
                                             </Button>
                                         </div>

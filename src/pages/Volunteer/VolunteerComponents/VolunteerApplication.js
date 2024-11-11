@@ -7,6 +7,7 @@ import Button from '~/components/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
+import { toast, ToastContainer } from 'react-toastify';
 
 const VolunteerApplication = ({ setStep }) => {
     const [formData, setFormData] = useState({
@@ -21,6 +22,10 @@ const VolunteerApplication = ({ setStep }) => {
         afternoon: '',
         reason: '',
     });
+    const [errors, setErrors] = useState({
+        phone: '',
+        yob: '',
+    });
     const userID = localStorage.getItem('userId');
     const navigate = useNavigate();
     // console.log('userID: ', userID);
@@ -31,21 +36,47 @@ const VolunteerApplication = ({ setStep }) => {
         }
     }, []);
 
+    // const handleChange = (e) => {
+    //     setFormData({
+    //         ...formData,
+    //         [e.target.name]: e.target.value,
+    //     });
+    // };
+
     const handleChange = (e) => {
+        const { name, value } = e.target;
+        let errorMessage = '';
+
+        // Validate Phone and Year of Birth
+        if (name === 'phone') {
+            if (!/^\d{10}$/.test(value)) {
+                errorMessage = 'Phone number is invalid.';
+            }
+        } else if (name === 'yob') {
+            const year = parseInt(value, 10);
+            const currentYear = new Date().getFullYear();
+            if (isNaN(year) || year < 1900 || year > currentYear - 18) {
+                errorMessage = `You have to be 18 years old or older to be a volunteer.`;
+            }
+        }
+
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value,
+            [name]: value,
+        });
+        setErrors({
+            ...errors,
+            [name]: errorMessage,
         });
     };
     console.log(formData);
     const handleNext = async (e) => {
         e.preventDefault();
+        if (Object.values(errors).some((error) => error)) {
+            toast.error('Please check your information again and make sure everything is correct.');
+            return;
+        }
         try {
-            // Lưu dữ liệu biểu mẫu vào localStorage (tùy chọn)
-            // localStorage.setItem('applicationFormData', JSON.stringify(formData));
-            // setStep((prevStep) => prevStep + 1);
-
-            // Lấy token từ localStorage
             const token = localStorage.getItem('token');
             console.log('Token:', token); // Kiểm tra giá trị token
 
@@ -132,16 +163,20 @@ const VolunteerApplication = ({ setStep }) => {
                                 </div>
                                 {/* yob  */}
                                 <div className="volunteer_yob">
-                                    <label htmlFor="yob">Year of birth</label>
-                                    <input
-                                        className="volunteer_input_bar"
-                                        type="date"
-                                        id="yob"
-                                        name="yob"
-                                        value={formData.yob}
-                                        onChange={handleChange}
-                                        required
-                                    />
+                                    <div className="volunteer_yob_wrap">
+                                        <label htmlFor="yob">Year of birth</label>
+                                        <input
+                                            className="volunteer_input_bar"
+                                            type="date"
+                                            id="yob"
+                                            name="yob"
+                                            value={formData.yob}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+
+                                    {errors.yob && <p className="error-text-3">{errors.yob}</p>}
                                 </div>
                             </div>
                             {/* gender, phone */}
@@ -164,16 +199,20 @@ const VolunteerApplication = ({ setStep }) => {
                                 </div>
                                 {/* phone  */}
                                 <div className="volunteer_phone">
-                                    <label htmlFor="phone">Phone</label>
-                                    <input
-                                        className="volunteer_input_bar"
-                                        type="text"
-                                        id="phone"
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        required
-                                    />
+                                    <div className="volunteer_phone_wrap">
+                                        <label htmlFor="phone">Phone</label>
+                                        <input
+                                            className="volunteer_input_bar"
+                                            type="text"
+                                            id="phone"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+
+                                    {errors.phone && <p className="error-text-3">{errors.phone}</p>}
                                 </div>
                             </div>
                             {/* address */}
@@ -263,14 +302,15 @@ const VolunteerApplication = ({ setStep }) => {
                     </form>
                     <div className="volunteer_button">
                         <Button className="btn-1" to="/" onClick={handleNext}>
-                            Next
+                            Submit
                         </Button>
-                        <Button className="btn-2" onClick={() => setStep((prevStep) => prevStep - 1)}>
+                        {/* <Button className="btn-2" onClick={() => setStep((prevStep) => prevStep - 1)}>
                             Cancel
-                        </Button>
+                        </Button> */}
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

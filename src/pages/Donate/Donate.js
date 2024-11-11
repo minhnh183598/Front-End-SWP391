@@ -7,73 +7,76 @@ import { DefaultLayout } from '~/components/Layout';
 import axios from 'axios';
 import api from '~/config/axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 export const Donate = () => {
     const navigate = useNavigate();
-    const [selectedAmount, setSelectedAmount] = useState(''); // Biến trạng thái này lưu giá trị số tiền quy định mà người dùng chọn
-    const [customAmount, setCustomAmount] = useState(''); // Biến trạng thái này lưu giá trị số tiền mà người dùng tự nhập vào khi không chọn số tiền có sẵn.
-    const amounts = [50000, 100000, 500000, 1000000]; // Các số tiền quy định sẵn
+    const [selectedAmount, setSelectedAmount] = useState('');
+    const [customAmount, setCustomAmount] = useState('');
+    const amounts = [50000, 100000, 500000, 1000000];
     const { id } = useParams();
     const userId = localStorage.getItem('userId');
     console.log('Day la userId:', userId);
     console.log('Day la id: ', id);
-    // functions step 1
-    // Hàm này xử lý giá tiền chọn của 4 nút bước 1
+
     const handleAmountSelect = (amount) => {
-        setSelectedAmount(amount); // Đặt số tiền quy định đã chọn
-        setCustomAmount(''); // Xóa số tiền tự nhập khi chọn số tiền quy định
+        setSelectedAmount(amount);
+        setCustomAmount('');
     };
 
-    // Hàm này xử lý giá tiền tự nhập
     const handleCustomAmountChange = (e) => {
-        setSelectedAmount(null); // Bỏ chọn số tiền quy định khi người dùng nhập số tiền khác
-        setCustomAmount(e.target.value); // Cập nhật số tiền tự nhập
+        setSelectedAmount(null);
+        setCustomAmount(e.target.value);
     };
 
     console.log(selectedAmount);
     console.log(customAmount);
     // Function của các thể loại nút
     const handleSubmit = async () => {
-        if (!id && !selectedAmount) {
-            alert('Vui lòng chọn hoặc nhập số tiền hợp lệ và xác định Pet ID.');
-            return;
-        }
-        try {
-            const token = localStorage.getItem('token');
-            const callbackUrl = `${window.location.origin}/payment/vn-pay/callback`;
-            // console.log(token);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+        } else {
+            if (!selectedAmount) {
+                toast.error('Please choose a value to donate');
+                return;
+            }
             try {
-                const response = await api.get(
-                    `payment/vn-pay?userId=${userId}&petId=${id}&amount=${selectedAmount}&bankCode=NCB`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
+                const callbackUrl = `${window.location.origin}/payment/vn-pay/callback`;
+                // console.log(token);
+                try {
+                    const response = await api.get(
+                        `payment/vn-pay?userId=${userId}&petId=${id}&amount=${selectedAmount}&bankCode=NCB`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
                         },
-                    },
-                );
-                console.log('Data cua payment ', response.data);
-                const paymentUrl = response.data.data.paymentUrl;
-                console.log('day la url:', response.data.paymentUrl);
-                if (paymentUrl) {
-                    window.location.href = paymentUrl; // Điều hướng đến cổng thanh toán
-                } else {
-                    alert('Cannot find payment URL.');
+                    );
+                    console.log('Data cua payment ', response.data);
+                    const paymentUrl = response.data.data.paymentUrl;
+                    console.log('day la url:', response.data.paymentUrl);
+                    if (paymentUrl) {
+                        window.location.href = paymentUrl; // Điều hướng đến cổng thanh toán
+                    } else {
+                        alert('Cannot find payment URL.');
+                    }
+                } catch (error) {
+                    console.log(error);
+                    console.error('Error submitting form:', error);
+                    if (error.response) {
+                        console.log('Error Data:', error.response.data);
+                    } else {
+                        console.log('Error Message:', error.message);
+                    }
                 }
             } catch (error) {
-                console.log(error);
                 console.error('Error submitting form:', error);
                 if (error.response) {
                     console.log('Error Data:', error.response.data);
                 } else {
                     console.log('Error Message:', error.message);
                 }
-            }
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            if (error.response) {
-                console.log('Error Data:', error.response.data);
-            } else {
-                console.log('Error Message:', error.message);
             }
         }
     };
@@ -168,6 +171,7 @@ export const Donate = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import ICONS from '~/assets/icons';
 import PetImages from '~/assets/images/petImg';
 import api from '~/config/axios';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -12,6 +13,16 @@ function FeaturePet({ children, homepage, title }) {
     const [index, setIndex] = useState(0);
     const [lovePet, setLovePet] = useState({});
     const [petList, setPetList] = useState([]);
+    const token = localStorage.getItem('token');
+    const navigate = useNavigate();
+
+    const handleAdoptClick = (petId) => {
+        if (token) {
+            navigate(`/adopt-application/${petId}`);
+        } else {
+            navigate('/login');
+        }
+    };
 
     const handlePetData = async () => {
         try {
@@ -114,7 +125,7 @@ function FeaturePet({ children, homepage, title }) {
                                         <Button
                                             primary
                                             small
-                                            to={`/adopt-application/${pet.petId}`}
+                                            onClick={() => handleAdoptClick(pet.petId)}
                                             className={cx(
                                                 // 'btn',
                                                 pet.petStatus === 'Adopted' ? 'unavailable-state' : null,
