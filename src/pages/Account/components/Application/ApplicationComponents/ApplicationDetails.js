@@ -121,7 +121,7 @@ const ApplicationDetails = () => {
                             <h3>Pet Details</h3>
                             <div className="applicationDetail_box_content_petDetail">
                                 <div>
-                                    <img src={appliData.pet.petImage} />
+                                    <img src={appliData.pet.petImage} alt='pet image'/>
                                 </div>
                                 <div className="applicationDetail_box_content_petDetail_devideCol">
                                     <div className="applicationDetail_box_content_petDetail_4left">

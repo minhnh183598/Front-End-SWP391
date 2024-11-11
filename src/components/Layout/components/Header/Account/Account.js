@@ -169,11 +169,11 @@ function Account() {
         <div className={cx('account')}>
             {userInfo ? (
                 <>
-                    <Dropdown overlay={menu} placement="bottomRight">
+                    {/* <Dropdown overlay={menu} placement="bottomRight">
                         <span>
                             <FontAwesomeIcon icon={faBell} className={cx('icon-header')} />
                         </span>
-                    </Dropdown>
+                    </Dropdown> */}
 
                     <Dropdown menu={{ items }}>
                         <span className={cx('username')}>

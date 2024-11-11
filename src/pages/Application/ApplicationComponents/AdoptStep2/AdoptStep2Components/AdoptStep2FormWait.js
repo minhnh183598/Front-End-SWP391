@@ -153,7 +153,7 @@ const AdoptStep2FormWait = ({ id, setStep }) => {
                             <h2>Pet Details</h2>
                             <div className="applicationDetail_box_content_petDetail">
                                 <div>
-                                    <img src={appliData.pet.petImage} />
+                                    <img src={appliData.pet.petImage} alt='pet image'/>
                                 </div>
                                 <div className="applicationDetail_box_content_petDetail_devideCol">
                                     <div className="applicationDetail_box_content_petDetail_4left">

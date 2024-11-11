@@ -170,7 +170,7 @@ function ApplicationList() {
                 {appliPage.map((appli) => (
                     <div className={cx('application-item')}>
                         <div className={cx('pet-info')}>
-                            <img src={appli.pet.petImage} />
+                            <img src={appli.pet.petImage} alt='pet image'/>
                             <div className={cx('detail-info')}>
                                 <h4>{appli.petName}</h4>
                             </div>

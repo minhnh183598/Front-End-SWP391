@@ -190,32 +190,36 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
                                                 </p>
 
                                                 <div style={{ width: '15%', display: 'flex' }}>
-                                                    <Button
-                                                        primary
-                                                        small
-                                                        mgRight10
-                                                        onClick={() => {
-                                                            console.log('id ne dcmmm haha', item.applicationId);
-                                                            setAppliIdForPet(item.applicationId);
-                                                            setSinglePetId(feedback.petId);
-                                                            handleUpdateTaskLastStepApprove();
-                                                        }}
-                                                    >
-                                                        Approve
-                                                    </Button>
-                                                    <Button
-                                                        primary
-                                                        small
-                                                        className={cx('denied-btn')}
-                                                        onClick={() => {
-                                                            console.log('id ne dcmmm huhu', item.applicationId);
-                                                            setAppliIdForPet(item.applicationId);
-                                                            setSinglePetId(feedback.petId);
-                                                            handleUpdateTaskLastStepDenied();
-                                                        }}
-                                                    >
-                                                        Denied
-                                                    </Button>
+                                                    {feedback.petStatus === 'Available' ? (
+                                                        <>
+                                                            <Button
+                                                                primary
+                                                                small
+                                                                mgRight10
+                                                                onClick={() => {
+                                                                    console.log('id ne dcmmm', item.applicationId);
+                                                                    setAppliIdForPet(item.applicationId);
+                                                                    setSinglePetId(feedback.petId);
+                                                                    handleUpdateTaskLastStepApprove();
+                                                                }}
+                                                            >
+                                                                Approve
+                                                            </Button>
+                                                            <Button
+                                                                primary
+                                                                small
+                                                                className={cx('denied-btn')}
+                                                                onClick={() => {
+                                                                    console.log('id ne dcmmm', item.applicationId);
+                                                                    setAppliIdForPet(item.applicationId);
+                                                                    setSinglePetId(feedback.petId);
+                                                                    handleUpdateTaskLastStepDenied();
+                                                                }}
+                                                            >
+                                                                Denied
+                                                            </Button>
+                                                        </>
+                                                    ) : null}
                                                 </div>
                                             </div>
                                         ))}
