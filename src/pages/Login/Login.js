@@ -209,7 +209,11 @@ function Login() {
                                         },
                                     ]}
                                 >
-                                    <Input className={cx('input')} type="text" placeholder="Username" />
+                                    <Input
+                                        className={cx('input')}
+                                        type="text"
+                                        placeholder="Username"
+                                    />
                                 </Form.Item>
 
                                 <Form.Item

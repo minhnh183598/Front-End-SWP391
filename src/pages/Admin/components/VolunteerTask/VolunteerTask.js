@@ -153,30 +153,9 @@ function VolunteerTask() {
                                 <div className={cx('user-sum-item')}>
                                     <div>
                                         <p className={cx('item-number')}>{dataLength}</p>
-                                        <p className={cx('item-label')}>Total Account</p>
+                                        <p className={cx('item-label')}>Total Tasks</p>
                                     </div>
                                     <span>+2.15%</span>
-                                </div>
-                                <div className={cx('user-sum-item')}>
-                                    <div>
-                                        <p className={cx('item-number')}></p>
-                                        <p className={cx('item-label')}>Total User</p>
-                                    </div>
-                                    <span>-3.5%</span>
-                                </div>
-                                <div className={cx('user-sum-item')}>
-                                    <div>
-                                        <p className={cx('item-number')}></p>
-                                        <p className={cx('item-label')}>Total Volunteer</p>
-                                    </div>
-                                    <span>-3.5%</span>
-                                </div>
-                                <div className={cx('user-sum-item')}>
-                                    <div>
-                                        <p className={cx('item-number')}></p>
-                                        <p className={cx('item-label')}>Total Admin</p>
-                                    </div>
-                                    <span>0%</span>
                                 </div>
                             </div>
 
