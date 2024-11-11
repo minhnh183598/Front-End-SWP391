@@ -9,6 +9,7 @@ const AdoptStep4Waiting = ({ id, setStep }) => {
     const [statusMessage, setStatusMessage] = useState('Đang chờ admin duyệt...');
     const userID = localStorage.getItem('userId');
     useEffect(() => {
+        getPetData();
         const interval = setInterval(() => {
             checkApprovalStatus();
         }, 1000); // Kiểm tra mỗi 5 giây
@@ -24,8 +25,6 @@ const AdoptStep4Waiting = ({ id, setStep }) => {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const { status } = response.data;
-            // console.log('Day la response', response);
-            // console.log('Day la Status', status);
             if (status === 3) {
                 setStatusMessage('Đơn của bạn đã được duyệt!');
                 setStep(7); // Chuyển sang bước tiếp theo
@@ -37,6 +36,22 @@ const AdoptStep4Waiting = ({ id, setStep }) => {
             console.error('Lỗi khi kiểm tra trạng thái:', error);
         }
     };
+
+    const getPetData = async () => {
+        try {
+            const response = await api.get(`pets/${id}`, {
+                headers: {
+                    Authorization: 'No Auth',
+                },
+            });
+            const petStatus = response.data.petStatus;
+            console.log(petStatus);
+            if (petStatus === 'Adopted') {
+                setStep(0);
+            }
+        } catch (error) {}
+    };
+
     return (
         <div className="adoptStep2_waiting">
             <ScrollToTop />

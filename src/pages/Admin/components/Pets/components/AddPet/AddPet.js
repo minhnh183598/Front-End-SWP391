@@ -49,7 +49,7 @@ function AddPet({ setAddPet }) {
         if (newFileList.length <= 5) {
             setFileList(newFileList);
         } else {
-            alert("You can only upload a maximum of 5 images.");
+            alert('You can only upload a maximum of 5 images.');
         }
     };
 
@@ -152,7 +152,7 @@ function AddPet({ setAddPet }) {
                                 <label htmlFor="petAge">Age</label>
                                 <select id="petAge" name="petAge" value={formData.petAge} onChange={handleChange}>
                                     <option value="Young">Young</option>
-                                    <option value="Grown">Full Grown</option>
+                                    <option value="Full Grown">Full Grown</option>
                                     <option value="Old">Old</option>
                                 </select>
                             </div>
