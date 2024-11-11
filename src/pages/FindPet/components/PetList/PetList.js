@@ -5,11 +5,22 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import ICONS from '~/assets/icons';
 import { Pagination } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function PetList({ data, dataLength, currentPage, setCurrentPage }) {
     const [lovePet, setLovePet] = useState({});
+    const token = localStorage.getItem('token');
+    const navigate = useNavigate();
+
+    const handleAdoptClick = (petId) => {
+        if (token) {
+            navigate(`/adopt-application/${petId}`);
+        } else {
+            navigate('/login');
+        }
+    };
 
     const handleWishlist = (pet) => {
         console.log(pet.petId);
@@ -73,9 +84,9 @@ function PetList({ data, dataLength, currentPage, setCurrentPage }) {
                             <Button
                                 primary
                                 small
-                                to={`/adopt-application/${pet.petId}`}
+                                // to={`/adopt-application/${pet.petId}`}
+                                onClick={() => handleAdoptClick(pet.petId)}
                                 className={cx(pet.petStatus === 'Adopted' ? 'unavailable-state' : null)}
-                                onClick={() => console.log(pet.petId)}
                             >
                                 Adopt
                             </Button>
