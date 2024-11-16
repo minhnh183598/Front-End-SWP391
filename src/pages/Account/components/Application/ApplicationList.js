@@ -170,7 +170,7 @@ function ApplicationList() {
                 {appliPage.map((appli) => (
                     <div className={cx('application-item')}>
                         <div className={cx('pet-info')}>
-                            <img src={appli.pet.petImage} alt='pet image'/>
+                            <img src={appli.pet.petImage} alt="pet image" />
                             <div className={cx('detail-info')}>
                                 <h4>{appli.petName}</h4>
                             </div>
@@ -180,7 +180,7 @@ function ApplicationList() {
                             </div>
                         </div>
                         <p className={cx('appli-date')}>Create Date: {convertDate(appli.createAt)}</p>
-                        <p className={cx('appli-date')}>Finish Date: {appli.finishDate}</p>
+                        <p className={cx('appli-date')}>Finish Date: {convertDate(appli.updateAt)}</p>
                     </div>
                 ))}
                 <div className={cx('pagination')}>
