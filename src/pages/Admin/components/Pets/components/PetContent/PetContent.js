@@ -10,6 +10,9 @@ function PetContent({ currentPet, setPetID, setViewPet }) {
     const [imgPopup, setImgPopup] = useState(null);
     const [openImgPopup, setOpenImgPopup] = useState(false);
 
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     return (
         <>
             <div className={cx('content')}>
@@ -33,7 +36,7 @@ function PetContent({ currentPet, setPetID, setViewPet }) {
                             <p
                                 className={cx(
                                     `${
-                                        pet.petStatus == 'Adopted'
+                                        pet.petStatus == 'Adopted' || pet.petStatus == 'adopted'
                                             ? 'adopted'
                                             : pet.petStatus == 'Available'
                                             ? 'available'
@@ -41,7 +44,7 @@ function PetContent({ currentPet, setPetID, setViewPet }) {
                                     }`,
                                 )}
                             >
-                                {pet.petStatus}
+                                {capitalizeFirstLetter(pet.petStatus)}
                             </p>
                         </div>
                         <p className={cx('date')}>

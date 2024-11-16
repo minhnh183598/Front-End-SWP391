@@ -107,6 +107,10 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
         }
     };
 
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     useEffect(() => {
         handleGetAllAppliForPet();
     }, []);
@@ -126,7 +130,7 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
                                     <p
                                         className={cx(
                                             `${
-                                                feedback.petStatus == 'Adopted'
+                                                feedback.petStatus == 'Adopted' || feedback.petStatus == 'adopted'
                                                     ? 'adopted'
                                                     : feedback.petStatus == 'Available'
                                                     ? 'available'
@@ -134,7 +138,7 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
                                             }`,
                                         )}
                                     >
-                                        {feedback.petStatus}
+                                        {capitalizeFirstLetter(feedback.petStatus)}
                                     </p>
                                 </div>
                                 <div className={cx('action')}>
@@ -197,10 +201,7 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
                                                                 small
                                                                 mgRight10
                                                                 onClick={() => {
-                                                                    console.log(
-                                                                        'id appli ne dcmmm',
-                                                                        item.applicationId,
-                                                                    );
+                                                                    console.log('id appli ne', item.applicationId);
                                                                     setAppliIdForPet(item.applicationId);
                                                                     setSinglePetId(feedback.petId);
                                                                     setTimeout(() => {
@@ -215,7 +216,7 @@ function FeedbackContent({ currentFeedback, setUpdateSuccess }) {
                                                                 small
                                                                 className={cx('denied-btn')}
                                                                 onClick={() => {
-                                                                    console.log('id ne dcmmm', item.applicationId);
+                                                                    console.log('id ne: ', item.applicationId);
                                                                     setAppliIdForPet(item.applicationId);
                                                                     setSinglePetId(feedback.petId);
                                                                     handleUpdateTaskLastStepDenied();
