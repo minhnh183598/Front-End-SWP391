@@ -38,11 +38,14 @@ function AddPet({ setAddPet }) {
         });
 
     const handlePreview = async (file) => {
+        console.log('file up len', file);
         if (!file.url && !file.preview) {
             file.preview = await getBase64(file.originFileObj);
         }
         setPreviewImage(file.url || file.preview);
         setPreviewOpen(true);
+        console.log('set image upload url', file.url);
+        console.log('set image upload preview', file.preview);
     };
 
     const handleFileChange = ({ fileList: newFileList }) => {
@@ -96,13 +99,14 @@ function AddPet({ setAddPet }) {
             }),
         );
 
+        console.log('uploadedURLS', uploadedUrls);
         const validUrls = uploadedUrls.filter(Boolean).join(', ');
 
         const updatedData = {
             ...formData,
             petImage: validUrls,
         };
-        console.log(updatedData);
+        console.log('form de submit ', updatedData);
 
         try {
             const response = await api.post('pets', updatedData, {
@@ -110,7 +114,7 @@ function AddPet({ setAddPet }) {
                     Authorization: 'No Auth',
                 },
             });
-            console.log(response.data);
+            console.log('submit form add pet', response.data);
             setAddPet(false);
         } catch (error) {
             console.log(error);
@@ -260,7 +264,7 @@ function AddPet({ setAddPet }) {
                                 onPreview={handlePreview}
                                 onChange={handleFileChange}
                             >
-                                {fileList.length >= 8 ? null : uploadButton}
+                                {fileList.length >= 5 ? null : uploadButton}
                             </Upload>
                         </div>
                     </div>
