@@ -226,7 +226,7 @@ function HomeCheck({ taskID }) {
                                                 onPreview={handlePreview}
                                                 onChange={handleFileChange}
                                             >
-                                                {fileList.length >= 8 ? null : uploadButton}
+                                                {fileList.length >= 5 ? null : uploadButton}
                                             </Upload>
                                         </div>
                                     </div>

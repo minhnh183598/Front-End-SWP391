@@ -261,7 +261,7 @@ function Update({ setUpdate, formData, setFormData, closeUpdate, id, handlePetDa
                                 onPreview={handlePreview}
                                 onChange={handleFileChange}
                             >
-                                {fileList.length >= 8 ? null : uploadButton}
+                                {fileList.length >= 5 ? null : uploadButton}
                             </Upload>
                         </div>
                     </div>
