@@ -21,6 +21,7 @@ function User() {
     const [searchName, setSearchName] = useState('');
     const [totalUsers, setTotalUsers] = useState(0);
     const [totalAdmin, setTotalAdmin] = useState(0);
+    const [totalShelter, setTotalShelter] = useState(0);
     const [totalVolunteer, setTotalVolunteer] = useState(0);
     const [filter, setFilter] = useState({
         role: 'ALL',
@@ -96,6 +97,27 @@ function User() {
         }
     };
 
+    const handleTotalShelter = async () => {
+        const query = `role=SHELTER_STAFF&sort=&sortBy=&keyword=`;
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await api.get(`users/search?${query}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (Array.isArray(response.data.result)) {
+                setTotalShelter(response.data.result.length);
+            } else {
+                console.error('Error', response.data.result);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleTotalUser = async () => {
         const query = `role=USER&sort=&sortBy=&keyword=`;
         const token = localStorage.getItem('token');
@@ -154,6 +176,7 @@ function User() {
         handleTotalAdmin();
         handleTotalUser();
         handleTotalVolunteer();
+        handleTotalShelter();
     }, [viewUser, filter, currentPage]);
 
     const userPerPage = 12;
@@ -171,7 +194,9 @@ function User() {
                         <div className={cx('user-sum')}>
                             <div className={cx('user-sum-item')}>
                                 <div>
-                                    <p className={cx('item-number')}>{totalUsers + totalVolunteer + totalAdmin}</p>
+                                    <p className={cx('item-number')}>
+                                        {totalUsers + totalVolunteer + totalAdmin + totalShelter}
+                                    </p>
                                     <p className={cx('item-label')}>Total Account</p>
                                 </div>
                                 <span>+2.15%</span>

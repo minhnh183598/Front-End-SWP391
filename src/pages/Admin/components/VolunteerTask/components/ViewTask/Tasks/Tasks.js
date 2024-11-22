@@ -304,7 +304,6 @@ function Tasks({ petIdInAppli, id, task, setIsUndertake }) {
                             </div>
                             <div className={cx('adopter-detail-info-top-right')}>
                                 <span className={cx('adopter-detail-info')}>{task.adopter.phone}</span>
-                                <span className={cx('adopter-detail-info')}>{task.adopter.phone}</span>
                                 <span className={cx('adopter-detail-info')}>{task.adopter.gender}</span>
                             </div>
                         </div>

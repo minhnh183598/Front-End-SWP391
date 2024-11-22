@@ -28,7 +28,7 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
     //     setChecklistState((prevState) => {
     //         return prevState.map((item) => {
     //             if (item.id === id) {
-    //                 return { ...item, completed: !item.completed }; 
+    //                 return { ...item, completed: !item.completed };
     //             }
     //             return item;
     //         });
@@ -42,7 +42,7 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
     //     // Chỉ cập nhật khi số lượng thực sự thay đổi
     //     if (newCompletedCount !== completedCheckList) {
     //         setCompletedCheckList(newCompletedCount);
-    //         console.log('completed', newCompletedCount); 
+    //         console.log('completed', newCompletedCount);
     //     }
     // }, [checklistState]);
 
@@ -209,7 +209,6 @@ function Tasks({ taskID, task, setIsUndertake, setIsSendHomeCheck }) {
                                     <span className={cx('adopter-detail-info')}>{task.adopter.address}</span>
                                 </div>
                                 <div className={cx('adopter-detail-info-top-right')}>
-                                    <span className={cx('adopter-detail-info')}>{task.adopter.phone}</span>
                                     <span className={cx('adopter-detail-info')}>{task.adopter.phone}</span>
                                     <span className={cx('adopter-detail-info')}>{task.adopter.gender}</span>
                                 </div>

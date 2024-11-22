@@ -23,7 +23,7 @@ function TaskList({ setUndertakeTask, setTaskID }) {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await api.get('tasks', {
+            const response = await api.get('tasks/sort?status=NOT_STARTED', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -97,36 +97,6 @@ function TaskList({ setUndertakeTask, setTaskID }) {
                         }}
                     >
                         View All
-                    </li>
-                    <li
-                        className={cx({ active: activeSort == 'Available' })}
-                        onClick={() => {
-                            setActiveSort('Available');
-                            setFilter((prev) => ({ ...prev, role: 'Available' }));
-                            setCurrentPage(1);
-                        }}
-                    >
-                        Available
-                    </li>
-                    <li
-                        className={cx({ active: activeSort == 'Unavailable' })}
-                        onClick={() => {
-                            setActiveSort('Unavailable');
-                            setFilter((prev) => ({ ...prev, role: 'Unavailable' }));
-                            setCurrentPage(1);
-                        }}
-                    >
-                        Unavailable
-                    </li>
-                    <li
-                        className={cx({ active: activeSort == 'Undertook' })}
-                        onClick={() => {
-                            setActiveSort('Undertook');
-                            handleTaskByTeamUndertook();
-                            setCurrentPage(1);
-                        }}
-                    >
-                        Undertook
                     </li>
                 </ul>
             </div>
